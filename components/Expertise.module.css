@@ -1,0 +1,78 @@
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.subtitle {
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.cardTitle {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.iconWrapper {
+  background-color: rgba(121, 160, 129, 0.1); /* Based on new Primary Green */
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.icon {
+  stroke-width: 1.5px;
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--beige);
+  color: var(--text-main);
+}
+
+.contactCard h3 {
+  color: var(--primary-color);
+}
+
+.contactText {
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
+.contactBtn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

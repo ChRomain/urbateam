@@ -1,0 +1,130 @@
+.section {
+  padding: 8rem 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.subtitle {
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+/* Slider Infinite Track */
+.sliderContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 5rem;
+  padding: 2rem 0;
+}
+
+.sliderContainer::before,
+.sliderContainer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sliderContainer::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-color), transparent);
+}
+
+.sliderContainer::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-color), transparent);
+}
+
+.sliderTrack {
+  display: flex;
+  width: fit-content;
+  gap: 2rem;
+}
+
+.logoItem {
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.logoCard {
+  height: 120px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.logoCard:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.clientLogo {
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: all 0.4s ease;
+}
+
+.logoCard:hover .clientLogo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* Reference List Layout */
+.refListCard {
+  background: white;
+  padding: 3rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.refTitle {
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.refListGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.refItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.refIcon {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.refText {
+  color: var(--text-main);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .logoItem {
+    width: 180px;
+  }
+  
+  .logoCard {
+    height: 100px;
+  }
+}
