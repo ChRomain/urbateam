@@ -25,7 +25,22 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 3rem;
+  align-items: stretch; /* Default, but explicit for clarity */
+}
+
+.bubbleCard {
+  border-radius: 40px 40px 40px 0 !important; /* Organic "speech bubble" shape */
+  padding: 2.5rem !important;
+  border-width: 1px !important;
+  position: relative;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.bubbleCard:nth-child(even) {
+  border-radius: 40px 40px 0 40px !important;
 }
 
 .stars {
@@ -38,8 +53,25 @@
 .reviewText {
   color: var(--text-main);
   font-style: italic;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-size: 0.95rem;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+}
+
+.readMore {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  display: block;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .author {
@@ -51,6 +83,8 @@
 .source {
   font-size: 0.8rem;
   color: var(--text-light);
+  margin-top: auto; /* Pushes the author/source to the bottom of the card */
+  padding-top: 1rem;
 }
 
 .footer {

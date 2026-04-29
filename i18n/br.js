@@ -408,7 +408,8 @@ export const br = {
     back: "Distro",
     error_404: "Pajenn n'eus ket anezhi",
     error_404_desc: "Désolé, ne c'heller ket kavet ar bajenn-mañ.",
-    back_home: "Distro d'an degemer"
+    back_home: "Distro d'an degemer",
+    learn_more: "Gouzout muioc'h"
   },
   cookies_banner: {
     title: "Doujañ d'ho puhez prevez 🍪",

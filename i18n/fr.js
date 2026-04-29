@@ -24,11 +24,61 @@ export const fr = {
     title: "Nos Domaines d'Expertise",
     subtitle: "Une approche globale et pluridisciplinaire pour répondre aux exigences de vos projets d'aménagement urbain, foncier et d'infrastructures.",
     items: {
-      urbanisme: { title: "Urbanisme & Paysage", desc: "Bureau d'études en aménagement : ZAC, éco-quartiers, morceaux de ville, parcs d'activités, entrées de ville, et réaménagement urbain." },
-      geometre: { title: "Géomètre-Expert Foncier", desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés." },
-      vrd: { title: "Ingénierie VRD", desc: "Bureau d'études en infrastructures : voirie, réseaux divers, assainissement, traitement des eaux pluviales, parkings, giratoires." },
-      sport: { title: "Ingénierie Sportive", desc: "Aménagement de complexes sportifs : stades d'athlétisme, terrains de sports, installations de gazon synthétique." },
-      topographie: { title: "Topographie", desc: "Bureau d'études topographiques : plans topographiques de précision, relevés de terrain et d'architecture, implantations." }
+      urbanisme: { 
+        title: "Urbanisme & Paysage", 
+        desc: "Bureau d'études en aménagement : ZAC, éco-quartiers, morceaux de ville, parcs d'activités, entrées de ville, et réaménagement urbain.",
+        longDesc: "URBATEAM accompagne les collectivités et les aménageurs privés dans la conception de cadres de vie durables et harmonieux. Notre approche mêle vision stratégique urbaine et sensibilité paysagère pour créer des espaces qui font sens.",
+        missions: [
+          { title: "Études de faisabilité urbaine", desc: "Analyse du potentiel de mutation de sites et définition de scenarii d'aménagement." },
+          { title: "Conception d'Éco-quartiers & ZAC", desc: "Maîtrise d'œuvre complète pour la création de nouveaux quartiers de ville durables." },
+          { title: "Aménagement d'espaces publics", desc: "Conception de places, rues, parcs et cheminements doux favorisant le vivre-ensemble." },
+          { title: "Planification réglementaire", desc: "Accompagnement dans l'élaboration de documents d'urbanisme et de dossiers de permis d'aménager." }
+        ]
+      },
+      geometre: { 
+        title: "Géomètre-Expert Foncier", 
+        desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés.",
+        longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Nous intervenons sur toutes les problématiques liées au droit du sol.",
+        missions: [
+          { title: "Bornage contradictoire", desc: "Définition juridique et matérialisation physique des limites séparatives de propriété." },
+          { title: "Division parcellaire", desc: "Accompagnement complet pour le détachement de terrains à bâtir et mises à jour cadastrales." },
+          { title: "Copropriété & Division en volumes", desc: "Établissement des plans d'intérieurs et des états descriptifs de division pour vos immeubles." },
+          { title: "Expertise foncière & juridique", desc: "Conseil sur les servitudes, les mitoyennetés et les règlements d'urbanisme complexes." }
+        ]
+      },
+      vrd: { 
+        title: "Ingénierie VRD", 
+        desc: "Bureau d'études en infrastructures : voirie, réseaux divers, assainissement, traitement des eaux pluviales, parkings, giratoires.",
+        longDesc: "Nos ingénieurs et techniciens conçoivent les infrastructures techniques indispensables à la viabilisation des projets. Nous privilégions des solutions innovantes pour la gestion des eaux et la durabilité des réseaux.",
+        missions: [
+          { title: "Maîtrise d'œuvre d'infrastructures", desc: "Conception technique et suivi de travaux pour la voirie et les réseaux divers." },
+          { title: "Gestion alternative des eaux pluviales", desc: "Dimensionnement de bassins de rétention, noues paysagères et systèmes d'infiltration." },
+          { title: "Études hydrauliques", desc: "Analyse des réseaux d'assainissement et modélisation des flux pour prévenir les inondations." },
+          { title: "Conception de giratoires & parkings", desc: "Optimisation des flux de circulation et aménagement technique des zones de stationnement." }
+        ]
+      },
+      sport: { 
+        title: "Ingénierie Sportive", 
+        desc: "Aménagement de complexes sportifs : stades d'athlétisme, terrains de sports, installations de gazon synthétique.",
+        longDesc: "Spécialiste des équipements sportifs, URBATEAM conçoit des installations performantes répondant aux normes des fédérations. Nous accompagnons les clubs et mairies dans la création de complexes modernes.",
+        missions: [
+          { title: "Terrains de grands jeux", desc: "Conception de terrains de football et rugby en gazon naturel ou synthétique de dernière génération." },
+          { title: "Pistes d'athlétisme", desc: "Réalisation de pistes techniques avec revêtements synthétiques homologués." },
+          { title: "Équipements de proximité", desc: "Aménagement de City-stades, skateparks et parcours de santé." },
+          { title: "Expertise & Mise en conformité", desc: "Audit technique des installations existantes et mise aux normes réglementaires." }
+        ]
+      },
+      topographie: { 
+        title: "Topographie", 
+        desc: "Bureau d'études topographiques : plans topographiques de précision, relevés de terrain et d'architecture, implantations.",
+        longDesc: "La précision est au cœur de notre métier. Grâce à des outils de haute technologie (Scanner 3D, Drone, GPS), nous capturons l'existant avec une fidélité absolue pour servir de base à vos projets.",
+        missions: [
+          { title: "Plans topographiques de précision", desc: "Relevés d'état des lieux détaillés pour servir de base aux études architecturales." },
+          { title: "Scanner 3D & Nuages de points", desc: "Numérisation complète de bâtiments ou sites complexes pour une exploitation BIM." },
+          { title: "Levés par drone", desc: "Orthophotographies et modèles numériques de terrain pour de grandes surfaces ou zones inaccessibles." },
+          { title: "Implantations d'ouvrages", desc: "Report sur le terrain des axes de construction et des limites avec une précision millimétrique." }
+        ]
+      }
     },
     cta_title: "Un projet spécifique ?",
     cta_desc: "Découvrez comment notre équipe peut vous aider.",
@@ -408,7 +458,8 @@ export const fr = {
     back: "Retour",
     error_404: "Parcelle Non Trouvée",
     error_404_desc: "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
-    back_home: "Retour à l'accueil"
+    back_home: "Retour à l'accueil",
+    learn_more: "En savoir plus",
   },
   cookies_banner: {
     title: "Respect de votre vie privée 🍪",

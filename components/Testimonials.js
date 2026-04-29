@@ -40,7 +40,7 @@ function GlassCard({ children, variants, className = "" }) {
           `,
         }}
       />
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
         {children}
       </div>
     </motion.div>
@@ -118,6 +118,7 @@ export default function Testimonials() {
           <GlassCard 
             key={review.name.toLowerCase().replace(/\s+/g, '-')} 
             variants={cardVariants}
+            className={styles.bubbleCard}
           >
             <div className={styles.stars}>
               {[...Array(5)].map((_, j) => (
@@ -127,6 +128,16 @@ export default function Testimonials() {
               ))}
             </div>
             <p className={styles.reviewText}>"{review.text}"</p>
+            {review.text.length > 200 && (
+              <a 
+                href="https://www.google.com/search?q=urbateam+avis+google" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.readMore}
+              >
+                ...
+              </a>
+            )}
             <h4 className={styles.author}>{review.name}</h4>
             <span className={styles.source}>{t('testimonials.source')}</span>
           </GlassCard>

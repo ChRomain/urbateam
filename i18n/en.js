@@ -24,11 +24,61 @@ export const en = {
     title: "Our Areas of Expertise",
     subtitle: "A comprehensive and multidisciplinary approach to meet the requirements of your urban, land and infrastructure development projects.",
     items: {
-      urbanisme: { title: "Urban Planning & Landscape", desc: "Development studies office: housing estates, eco-neighborhoods, city sections, activity parks, town entrances, and urban redevelopment." },
-      geometre: { title: "Chartered Land Surveyor", desc: "Land studies office: boundary marking, parcel divisions, co-ownerships, amicable property delimitations." },
-      vrd: { title: "Civil Engineering (VRD)", desc: "Infrastructure studies office: roads, diverse networks, sanitation, rainwater treatment, parking lots, roundabouts." },
-      sport: { title: "Sports Engineering", desc: "Development of sports complexes: athletics stadiums, sports fields, synthetic grass installations." },
-      topographie: { title: "Topography", desc: "Topographic studies office: precision topographic plans, land and architectural surveys, site layouts." }
+      urbanisme: { 
+        title: "Urban Planning & Landscape", 
+        desc: "Development studies office: ZAC, eco-neighborhoods, city sections, activity parks, town entrances, and urban redevelopment.",
+        longDesc: "URBATEAM supports local authorities and private developers in designing sustainable and harmonious living environments. Our approach combines strategic urban vision and landscape sensitivity to create spaces that make sense.",
+        missions: [
+          { title: "Urban feasibility studies", desc: "Analysis of the potential for site transformation and definition of development scenarios." },
+          { title: "Eco-neighborhood & ZAC design", desc: "Complete project management for the creation of new sustainable city neighborhoods." },
+          { title: "Public space development", desc: "Design of squares, streets, parks, and soft paths promoting living together." },
+          { title: "Regulatory planning", desc: "Support in the development of urban planning documents and development permit files." }
+        ]
+      },
+      geometre: { 
+        title: "Chartered Land Surveyor", 
+        desc: "Land studies office: boundary marking, parcel divisions, co-ownerships, amicable property delimitations.",
+        longDesc: "As the only professional authorized to fix the boundaries of landed property, the URBATEAM Chartered Surveyor guarantees the legal security of your heritage. We intervene on all issues related to land law.",
+        missions: [
+          { title: "Contradictory boundary marking", desc: "Legal definition and physical materialization of property separating limits." },
+          { title: "Parcel division", desc: "Complete support for the detachment of building lots and cadastral updates." },
+          { title: "Co-ownership & Volume division", desc: "Establishment of interior plans and descriptive states of division for your buildings." },
+          { title: "Land & Legal expertise", desc: "Advice on easements, joint ownerships, and complex urban planning regulations." }
+        ]
+      },
+      vrd: { 
+        title: "Civil Engineering (VRD)", 
+        desc: "Infrastructure studies office: roads, diverse networks, sanitation, rainwater treatment, parking lots, roundabouts.",
+        longDesc: "Our engineers and technicians design the technical infrastructures essential for project servicing. We favor innovative solutions for water management and network sustainability.",
+        missions: [
+          { title: "Infrastructure project management", desc: "Technical design and work monitoring for roads and diverse networks." },
+          { title: "Alternative rainwater management", desc: "Sizing of retention basins, landscaped swales, and infiltration systems." },
+          { title: "Hydraulic studies", desc: "Analysis of sanitation networks and flow modeling to prevent flooding." },
+          { title: "Roundabout & Parking design", desc: "Optimization of traffic flows and technical development of parking areas." }
+        ]
+      },
+      sport: { 
+        title: "Sports Engineering", 
+        desc: "Development of sports complexes: athletics stadiums, sports fields, synthetic grass installations.",
+        longDesc: "Specializing in sports equipment, URBATEAM designs high-performance installations meeting federation standards. We support clubs and town halls in creating modern complexes.",
+        missions: [
+          { title: "Large game fields", desc: "Design of football and rugby fields in natural or latest generation synthetic grass." },
+          { title: "Athletics tracks", desc: "Realization of technical tracks with approved synthetic coatings." },
+          { title: "Local equipment", desc: "Development of City-stadiums, skateparks, and fitness trails." },
+          { title: "Expertise & Compliance", desc: "Technical audit of existing installations and regulatory standards updates." }
+        ]
+      },
+      topographie: { 
+        title: "Topography", 
+        desc: "Topographic studies office: precision topographic plans, land and architectural surveys, site layouts.",
+        longDesc: "Precision is at the heart of our business. Thanks to high-tech tools (3D Scanner, Drone, GPS), we capture the existing with absolute fidelity to serve as a basis for your projects.",
+        missions: [
+          { title: "Precision topographic plans", desc: "Detailed status reports to serve as a basis for architectural studies." },
+          { title: "3D Scanner & Point clouds", desc: "Complete digitization of complex buildings or sites for BIM exploitation." },
+          { title: "Drone surveys", desc: "Orthophotographs and digital terrain models for large areas or inaccessible zones." },
+          { title: "Structural layout", desc: "Field reporting of construction axes and boundaries with millimeter precision." }
+        ]
+      }
     },
     cta_title: "A specific project?",
     cta_desc: "Discover how our team can help you.",
@@ -408,7 +458,8 @@ export const en = {
     back: "Back",
     error_404: "Parcel Not Found",
     error_404_desc: "Sorry, the page you are looking for does not exist or has been moved.",
-    back_home: "Back to home"
+    back_home: "Back to home",
+    learn_more: "Read more",
   },
   cookies_banner: {
     title: "Respect for your privacy 🍪",

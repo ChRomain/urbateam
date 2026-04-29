@@ -62,71 +62,76 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com;" />
-        <meta name="permissions-policy" content="geolocation=(), camera=(), microphone=(), payment=()" />
-        <meta httpEquiv="Cross-Origin-Opener-Policy" content="same-origin" />
-        <meta httpEquiv="Cross-Origin-Embedder-Policy" content="require-corp" />
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https://www.google.com;" />
+        <meta name="permissions-policy" content="geolocation=(self), camera=(), microphone=(), payment=()" />
         
         {/* DNS & Connection Optimization */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.google.com" />
-        
-        {/* HTTP/3 Hint */}
-        <meta httpEquiv="alt-svc" content='h3=":443"; ma=86400' />
 
-        {/* JSON-LD: ProfessionalService */}
+        {/* JSON-LD: ProfessionalService & LocalBusiness branches */}
         <script
           key="ld-json-professional"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              "name": "URBATEAM",
-              "image": "https://urbateam.fr/og-image.png",
-              "@id": "https://urbateam.fr",
-              "url": "https://urbateam.fr",
-              "telephone": "+33298842965",
-              "address": [
+              "@graph": [
                 {
-                  "@type": "PostalAddress",
-                  "streetAddress": "10 Rue Joseph le Velly",
-                  "addressLocality": "Saint-Renan",
-                  "postalCode": "29290",
-                  "addressCountry": "FR"
+                  "@type": "ProfessionalService",
+                  "@id": "https://urbateam.fr/#organization",
+                  "name": "URBATEAM",
+                  "url": "https://urbateam.fr",
+                  "logo": "https://urbateam.fr/favicon.jpg",
+                  "image": "https://urbateam.fr/og-image.png",
+                  "description": "Cabinet de Géomètres-Experts et urbanistes à Brest, Saint-Renan et Douarnenez.",
+                  "telephone": "+33298842965",
+                  "priceRange": "$$",
+                  "sameAs": ["https://www.linkedin.com/company/urbateam"]
                 },
                 {
-                  "@type": "PostalAddress",
-                  "streetAddress": "Za Ste Croix, 5 Rue Breizh Izel",
-                  "addressLocality": "Douarnenez",
-                  "postalCode": "29100",
-                  "addressCountry": "FR"
-                }
-              ],
-              "geo": [
-                {
-                  "@type": "GeoCoordinates",
-                  "latitude": 48.4334336,
-                  "longitude": -4.6247953
+                  "@type": "LocalBusiness",
+                  "parentOrganization": { "@id": "https://urbateam.fr/#organization" },
+                  "name": "URBATEAM Saint-Renan",
+                  "image": "https://urbateam.fr/og-image.png",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "10 Rue Joseph le Velly",
+                    "addressLocality": "Saint-Renan",
+                    "postalCode": "29290",
+                    "addressCountry": "FR"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.4334336,
+                    "longitude": -4.6247953
+                  },
+                  "telephone": "+33298842965",
+                  "openingHours": "Mo,Tu,Th,Fr 09:00-12:00, 14:00-18:00"
                 },
                 {
-                  "@type": "GeoCoordinates",
-                  "latitude": 48.0836644,
-                  "longitude": -4.311875
+                  "@type": "LocalBusiness",
+                  "parentOrganization": { "@id": "https://urbateam.fr/#organization" },
+                  "name": "URBATEAM Douarnenez",
+                  "image": "https://urbateam.fr/og-image.png",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Za Ste Croix, 5 Rue Breizh Izel",
+                    "addressLocality": "Douarnenez",
+                    "postalCode": "29100",
+                    "addressCountry": "FR"
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 48.0836644,
+                    "longitude": -4.311875
+                  },
+                  "telephone": "+33298920756",
+                  "openingHours": "Mo,Tu,Th,Fr 09:00-12:00, 14:00-18:00"
                 }
-              ],
-              "openingHoursSpecification": {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday"],
-                "opens": "09:00",
-                "closes": "18:00"
-              },
-              "sameAs": [
-                "https://www.linkedin.com/company/urbateam"
-              ],
-              "description": "Cabinet de Géomètres-Experts et urbanistes à Brest, Saint-Renan et Douarnenez."
+              ]
             })
           }}
         />

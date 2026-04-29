@@ -16,10 +16,18 @@ export default function Header() {
   const [langOpen, setLangOpen] = useState(false);
   const { language, switchLanguage, t } = useLanguage();
 
+  const expertiseLinks = [
+    { name: t('expertise.items.urbanisme.title'), href: '/expertise/urbanisme' },
+    { name: t('expertise.items.geometre.title'), href: '/expertise/geometre' },
+    { name: t('expertise.items.vrd.title'), href: '/expertise/vrd' },
+    { name: t('expertise.items.sport.title'), href: '/expertise/sport' },
+    { name: t('expertise.items.topographie.title'), href: '/expertise/topographie' },
+  ];
+
   const navLinks = [
     { name: t('header.home'), href: '/' },
     { name: t('header.about'), href: '/apropos' },
-    { name: t('header.expertises'), href: '/mon-projet' },
+    { name: t('header.expertises'), href: '/mon-projet', dropdown: expertiseLinks },
     { name: t('header.technical'), href: '/moyens-techniques' },
     { name: t('header.faq'), href: '/faq' },
     { name: t('header.contact'), href: '/contact', primary: true },
@@ -39,6 +47,8 @@ export default function Header() {
     }
   }, [isOpen]);
 
+  const [expertOpen, setExpertOpen] = useState(false);
+
   const menuVariants = {
     closed: { opacity: 0, x: "100%", transition: { type: "spring", stiffness: 400, damping: 40 } },
     open: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 400, damping: 40, staggerChildren: 0.1, delayChildren: 0.2 } }
@@ -56,7 +66,7 @@ export default function Header() {
   };
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} data-lang={language}>
       <div className={`container ${styles.container}`}>
         <Link href="/" className={styles.logo} onClick={() => setIsOpen(false)}>
           <div className={styles.logoText}>
@@ -69,14 +79,43 @@ export default function Header() {
         <nav className={styles.desktopNav}>
           <ul className={styles.navLinks}>
             {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link 
-                  href={link.href} 
-                  className={link.primary ? 'btn btn-primary' : styles.navLink}
-                  onMouseEnter={() => router.prefetch(link.href)}
-                >
-                  {link.name}
-                </Link>
+              <li 
+                key={link.href} 
+                className={link.dropdown ? styles.hasDropdown : ''}
+                onMouseEnter={() => link.dropdown && setExpertOpen(true)}
+                onMouseLeave={() => link.dropdown && setExpertOpen(false)}
+              >
+                {link.dropdown ? (
+                  <div className={styles.dropdownTrigger}>
+                    <Link href={link.href} className={styles.navLink}>
+                      {link.name} <ChevronDown size={14} className={`${styles.chevron} ${expertOpen ? styles.chevronRotated : ''}`} />
+                    </Link>
+                    <AnimatePresence>
+                      {expertOpen && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className={styles.dropdownMenu}
+                        >
+                          {link.dropdown.map(sub => (
+                            <Link key={sub.href} href={sub.href} className={styles.dropdownItem}>
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link 
+                    href={link.href} 
+                    className={link.primary ? 'btn btn-primary' : styles.navLink}
+                    onMouseEnter={() => router.prefetch(link.href)}
+                  >
+                    {link.name}
+                  </Link>
+                )}
               </li>
             ))}
             
@@ -165,8 +204,22 @@ export default function Header() {
                         onClick={() => setIsOpen(false)}
                       >
                         {link.name}
-                        <ArrowRight size={20} className={styles.itemArrow} />
+                        {!link.dropdown && <ArrowRight size={20} className={styles.itemArrow} />}
                       </Link>
+                      {link.dropdown && (
+                        <div className={styles.mobileSubNav}>
+                          {link.dropdown.map(sub => (
+                            <Link 
+                              key={sub.href} 
+                              href={sub.href} 
+                              className={styles.mobileSubNavLink}
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </motion.div>
                   ))}
                 </nav>

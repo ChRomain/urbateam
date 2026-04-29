@@ -17,12 +17,44 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 3rem;
+}
+
+.expertiseCard {
+  border-radius: var(--border-radius-md) !important;
+  border-left: 1px solid var(--glass-border) !important;
+  padding: 2.5rem !important;
 }
 
 .cardTitle {
-  color: var(--secondary-color);
+  color: white;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.cardLink {
+  text-decoration: none;
+  display: block;
+}
+
+.cardLink:hover .cardTitle {
+  color: var(--primary-color) !important;
+}
+
+.learnMore {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.learnMore:hover {
+  transform: translateX(5px);
+  color: white;
 }
 
 .iconWrapper {
@@ -45,14 +77,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: var(--beige);
-  color: var(--text-main);
+  align-items: flex-start;
+  text-align: left;
+  background-color: var(--secondary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+  color: white !important;
 }
 
 .contactCard h3 {
   color: var(--primary-color);
+  font-size: 1.8rem;
 }
 
 .contactText {

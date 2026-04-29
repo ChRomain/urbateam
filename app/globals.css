@@ -15,12 +15,27 @@
   --border-radius-md: 12px;
   --border-radius-lg: 24px;
   
-  --shadow-sm: 0 4px 6px -1px rgb(60 60 60 / 0.1), 0 2px 4px -2px rgb(60 60 60 / 0.1);
-  --shadow-md: 0 10px 15px -3px rgb(60 60 60 / 0.1), 0 4px 6px -4px rgb(60 60 60 / 0.1);
-  --shadow-lg: 0 20px 25px -5px rgb(60 60 60 / 0.1), 0 8px 10px -6px rgb(60 60 60 / 0.1);
+  --shadow-sm: 0 4px 20px -2px rgb(60 60 60 / 0.05);
+  --shadow-md: 0 10px 40px -5px rgb(60 60 60 / 0.08);
+  --shadow-lg: 0 20px 60px -10px rgb(60 60 60 / 0.1);
   
-  --glass-bg: rgba(251, 248, 247, 0.85); /* Based on Warm White */
-  --glass-border: rgba(121, 160, 129, 0.3); /* Based on Primary Vert */
+  --glass-bg: rgba(251, 248, 247, 0.9);
+  --glass-border: rgba(121, 160, 129, 0.2);
+}
+
+.section-dark {
+  background-color: var(--secondary-color);
+  color: var(--warm-white);
+}
+
+.section-dark h2, .section-dark h3, .section-dark p {
+  color: var(--warm-white);
+}
+
+.section-dark .glass-card {
+  background: rgba(60, 60, 60, 0.8);
+  border: 1px solid rgba(121, 160, 129, 0.3);
+  color: var(--warm-white);
 }
 
 /* Custom Selection Color */
@@ -122,13 +137,18 @@ a:hover {
 }
 
 .btn-primary {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   color: white;
   box-shadow: var(--shadow-sm);
+  border-radius: 50px;
+  padding: 0.8rem 2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
   color: white;

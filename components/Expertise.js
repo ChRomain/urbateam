@@ -87,52 +87,61 @@ export default function Expertise() {
   const { t } = useLanguage();
 
   return (
-    <section className={`container ${styles.section}`}>
-      <motion.div 
-        className={styles.header}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2>{t('expertise.title')}</h2>
-        <p className={styles.subtitle}>
-          {t('expertise.subtitle')}
-        </p>
-      </motion.div>
+    <section className={`section-dark ${styles.section}`}>
+      <div className="container">
+        <motion.div 
+          className={styles.header}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          style={{ textAlign: 'center', marginBottom: '5rem' }}
+        >
+          <h2 style={{ fontSize: '3rem', maxWidth: '800px', margin: '0 auto' }}>{t('expertise.title')}</h2>
+          <p className={styles.subtitle} style={{ margin: '1rem auto 0 auto', maxWidth: '700px' }}>
+            {t('expertise.subtitle')}
+          </p>
+        </motion.div>
 
-      <motion.div 
-        className={styles.grid}
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        {expertiseItems.map((item) => (
+        <motion.div 
+          className={styles.grid}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {expertiseItems.map((item) => (
+            <GlassCard 
+              key={item.key} 
+              variants={cardVariants}
+              className={styles.expertiseCard}
+            >
+              <div className={styles.iconWrapper} style={{ color: 'var(--primary-color)', backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                {item.icon}
+              </div>
+              <Link href={`/expertise/${item.key}`} className={styles.cardLink}>
+                <h3 className={styles.cardTitle} style={{ color: 'white' }}>{t(`expertise.items.${item.key}.title`)}</h3>
+              </Link>
+              <p style={{ opacity: 0.8 }}>{t(`expertise.items.${item.key}.desc`)}</p>
+              <Link href={`/expertise/${item.key}`} className={styles.learnMore}>
+                {t('common.learn_more')} →
+              </Link>
+            </GlassCard>
+          ))}
+
           <GlassCard 
-            key={item.key} 
+            key="contact-card"
+            className={styles.contactCard}
             variants={cardVariants}
           >
-            <div className={styles.iconWrapper}>
-              {item.icon}
-            </div>
-            <h3 className={styles.cardTitle}>{t(`expertise.items.${item.key}.title`)}</h3>
-            <p>{t(`expertise.items.${item.key}.desc`)}</p>
+            <h3>{t('expertise.cta_title')}</h3>
+            <p className={styles.contactText}>{t('expertise.cta_desc')}</p>
+            <Link href="/contact" className={`btn btn-primary ${styles.contactBtn}`}>
+              {t('expertise.cta_btn')} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+            </Link>
           </GlassCard>
-        ))}
-
-        <GlassCard 
-          key="contact-card"
-          className={styles.contactCard}
-          variants={cardVariants}
-        >
-          <h3>{t('expertise.cta_title')}</h3>
-          <p className={styles.contactText}>{t('expertise.cta_desc')}</p>
-          <Link href="/contact" className={`btn btn-primary ${styles.contactBtn}`}>
-            {t('expertise.cta_btn')} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
-          </Link>
-        </GlassCard>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

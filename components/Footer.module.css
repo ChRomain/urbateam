@@ -1,8 +1,9 @@
 .footer {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: white;
-  padding: 4rem 0 2rem;
-  margin-top: 4rem;
+  padding: 6rem 0 2rem;
+  margin-top: 0;
+  border-top: 1px solid var(--primary-color);
 }
 
 .grid {
@@ -13,8 +14,11 @@
 }
 
 .title {
-  color: white;
-  margin-bottom: 1rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
 }
 
 .brandText {

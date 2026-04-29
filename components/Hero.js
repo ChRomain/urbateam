@@ -3,10 +3,12 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import styles from './Hero.module.css';
 import { useLanguage } from '../context/LanguageContext';
 
 const TopoBackground = () => {
+// ... (rest of TopoBackground stays same)
   const [points, setPoints] = useState([]);
 
   useEffect(() => {
@@ -72,8 +74,17 @@ export default function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const arrowOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+
+  const scrollToContent = () => {
+    const heroHeight = window.innerHeight * 0.8;
+    window.scrollTo({
+      top: Math.max(heroHeight, 600) - 80,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <section ref={targetRef} className={styles.hero}>
@@ -97,7 +108,6 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          style={{ fontSize: '1.25rem', maxWidth: '850px', margin: '0 auto 3rem auto' }}
         >
           {t('hero.description')}
         </motion.p>
@@ -108,9 +118,20 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
         >
-          <Link href="/contact" className="btn btn-primary" style={{ padding: '1rem 2rem' }}>{t('hero.cta_contact')}</Link>
-          <Link href="/apropos" className={`btn ${styles.btnSecondary}`} style={{ padding: '1rem 2rem' }}>{t('hero.cta_more')}</Link>
+          <Link href="/contact" className="btn btn-primary">{t('hero.cta_contact')}</Link>
+          <Link href="/apropos" className={`btn ${styles.btnSecondary}`}>{t('hero.cta_more')}</Link>
         </motion.div>
+      </motion.div>
+
+      <motion.div 
+        className={styles.scrollIndicator}
+        onClick={scrollToContent}
+        style={{ opacity: arrowOpacity }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
+        <ChevronDown size={32} className={styles.arrow} />
       </motion.div>
     </section>
   );
