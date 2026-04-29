@@ -1,66 +1,67 @@
-'use client';
+import LexiqueClient from './LexiqueClient';
+import { fr } from '../../i18n/fr';
 
-import { useEffect } from 'react';
-import PageHeader from '../../components/PageHeader';
-import MotionSection from '../../components/MotionSection';
-import GlassCard from '../../components/GlassCard';
-import Link from 'next/link';
-import { useLanguage } from '../../context/LanguageContext';
+export const metadata = {
+  title: fr.meta.glossary.title,
+  description: fr.meta.glossary.description,
+  openGraph: {
+    title: fr.meta.glossary.title,
+    description: fr.meta.glossary.description,
+    url: 'https://urbateam.fr/lexique',
+    siteName: 'URBATEAM',
+    images: [{ url: '/og-image.png' }],
+    locale: 'fr_FR',
+    type: 'website',
+  },
+};
 
-export default function Lexique() {
-  const { t } = useLanguage();
-  const glossaryItems = t('glossary.items') || [];
+export default function LexiquePage() {
+  const glossaryItems = fr.glossary.items || [];
+  
+  // JSON-LD: DefinedTermSet
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": fr.glossary.header.title,
+    "description": fr.glossary.header.subtitle,
+    "hasDefinedTerm": glossaryItems.map((item) => ({
+      "@type": "DefinedTerm",
+      "name": item.term,
+      "description": item.definition
+    }))
+  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const topEntry = entries.find(e => e.isIntersecting);
-        if (topEntry) {
-          const term = topEntry.target.getAttribute('data-term');
-          document.title = `${term} | Lexique URBATEAM`;
-        }
+  // JSON-LD: BreadcrumbList
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "https://urbateam.fr"
       },
-      { threshold: 0.5 }
-    );
-
-    const cards = document.querySelectorAll('[data-term]');
-    cards.forEach(card => observer.observe(card));
-
-    return () => {
-      cards.forEach(card => observer.unobserve(card));
-    };
-  }, [glossaryItems]);
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Lexique",
+        "item": "https://urbateam.fr/lexique"
+      }
+    ]
+  };
 
   return (
-    <div className="container py-section">
-      <PageHeader 
-        title={t('glossary.header.title')} 
-        subtitle={t('glossary.header.subtitle')}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-        {[...glossaryItems].sort((a, b) => a.term.localeCompare(b.term)).map((item) => (
-          <GlassCard 
-            key={item.term.toLowerCase().replace(/\s+/g, '-')} 
-            id={item.term.toLowerCase().replace(/\s+/g, '-')}
-            data-term={item.term}
-            style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}
-          >
-            <h3 style={{ fontSize: '1.2rem', color: 'var(--secondary-color)', marginBottom: '1rem', borderBottom: '2px solid var(--accent-color)', paddingBottom: '0.5rem', display: 'inline-block' }}>
-              {item.term}
-            </h3>
-            <p style={{ color: 'var(--text-main)', margin: 0, lineHeight: '1.6', flex: 1 }}>
-              {item.definition}
-            </p>
-          </GlassCard>
-        ))}
-      </div>
-
-      <MotionSection className="text-center" style={{ marginTop: '4rem' }}>
-        <h3 style={{ marginBottom: '1rem' }}>{t('glossary.cta.title')}</h3>
-        <p style={{ color: 'var(--text-light)', marginBottom: '1.5rem' }}>{t('glossary.cta.subtitle')}</p>
-        <Link href="/contact" className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)' }}>{t('glossary.cta.btn')}</Link>
-      </MotionSection>
-    </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <LexiqueClient />
+    </>
   );
 }

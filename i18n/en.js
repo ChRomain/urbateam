@@ -1,4 +1,60 @@
 export const en = {
+  meta: {
+    home: {
+      title: "URBATEAM | Chartered Surveyor & Topographer in Brest, Saint-Renan and Douarnenez",
+      description: "Chartered Surveyors and urban planners in Brest, Saint-Renan and Douarnenez. Land expertise, topography and development in Landerneau, Plouzané and Finistère."
+    },
+    about: {
+      title: "About URBATEAM | Our Chartered Surveyor Firm",
+      description: "Discover URBATEAM, our multidisciplinary team and our quality commitment for your development projects in Western Brittany."
+    },
+    technical: {
+      title: "Technical Means | 3D Scanner & Drone | URBATEAM",
+      description: "Our state-of-the-art equipment: 3D laser scan, drones and robotic total stations for high-precision topographic surveys."
+    },
+    faq: {
+      title: "Surveyor FAQ | Frequently Asked Questions | URBATEAM",
+      description: "Find our expert answers on boundary marking, land division, co-ownership and urban planning regulations."
+    },
+    glossary: {
+      title: "Land Glossary | Surveyor Definitions | URBATEAM",
+      description: "Understand technical and legal vocabulary: Boundary marking, DMPC, Easement, PLU, BIM and more than 50 defined terms."
+    },
+    project: {
+      title: "My Project Step by Step | Development Guide | URBATEAM",
+      description: "Discover the key steps to succeed in your division, boundary marking or subdivision with URBATEAM's support."
+    },
+    contact: {
+      title: "Contact URBATEAM | Our Offices in Saint-Renan and Douarnenez",
+      description: "Need a quote or advice? Contact our experts for your projects in Brest and throughout Finistère."
+    },
+    expertises: {
+      urbanisme: {
+        title: "Urban Planning & Landscape | Sustainable Development | URBATEAM",
+        description: "Feasibility studies, eco-neighborhood design and public space development by our expert urban planners."
+      },
+      geometre: {
+        title: "Chartered Land Surveyor | Boundary & Division | URBATEAM",
+        description: "The only professional authorized to set property boundaries. Boundary marking, land division and legal expertise."
+      },
+      vrd: {
+        title: "Infrastructure Engineering | Networks | URBATEAM",
+        description: "Infrastructure design: sanitation, roads, rainwater management and land servicing."
+      },
+      sport: {
+        title: "Sports Engineering | Stadiums & Fields | URBATEAM",
+        description: "Expertise in sports complex design, athletics tracks and certified synthetic fields."
+      },
+      topographie: {
+        title: "Precision Topography | 2D/3D Plans | URBATEAM",
+        description: "Topographic surveys, structural staking and architectural surveys by 3D scanner and drone."
+      },
+      copropriete: {
+        title: "Co-ownership & BIM | 3D Surveys | URBATEAM",
+        description: "Co-ownership setup, share calculation, volume division and BIM modeling (Scan-to-BIM)."
+      }
+    }
+  },
   header: {
     home: "Home",
     about: "About Us",
@@ -27,7 +83,7 @@ export const en = {
       urbanisme: { 
         title: "Urban Planning & Landscape", 
         desc: "Development studies office: ZAC, eco-neighborhoods, city sections, activity parks, town entrances, and urban redevelopment.",
-        longDesc: "URBATEAM supports local authorities and private developers in designing sustainable and harmonious living environments. Our approach combines strategic urban vision and landscape sensitivity to create spaces that make sense.",
+        longDesc: "URBATEAM supports local authorities and private developers in the design of sustainable and harmonious living environments. Our approach combines strategic urban vision and landscape sensitivity to create meaningful spaces, integrating <a class=\"wiki-link\" href=\"/lexique?search=PLU\">PLU</a> requirements and sustainable development goals.",
         missions: [
           { title: "Urban feasibility studies", desc: "Analysis of the potential for site transformation and definition of development scenarios." },
           { title: "Eco-neighborhood & ZAC design", desc: "Complete project management for the creation of new sustainable city neighborhoods." },
@@ -38,18 +94,18 @@ export const en = {
       geometre: { 
         title: "Chartered Land Surveyor", 
         desc: "Land studies office: boundary marking, parcel divisions, co-ownerships, amicable property delimitations.",
-        longDesc: "As the only professional authorized to fix the boundaries of landed property, the URBATEAM Chartered Surveyor guarantees the legal security of your heritage. We intervene on all issues related to land law.",
+        longDesc: "As the only professional authorized to set property boundaries, the URBATEAM Chartered Surveyor guarantees the legal security of your assets. We intervene on all land-related issues, from <a class=\"wiki-link\" href=\"/lexique?search=Boundary\">boundary marking</a> to <a class=\"wiki-link\" href=\"/lexique?search=Easement\">easement</a> management.",
         missions: [
           { title: "Contradictory boundary marking", desc: "Legal definition and physical materialization of property separating limits." },
-          { title: "Parcel division", desc: "Complete support for the detachment of building lots and cadastral updates." },
-          { title: "Co-ownership & Volume division", desc: "Establishment of interior plans and descriptive states of division for your buildings." },
+          { title: "Land Division", desc: "Complete support for the <a class=\"wiki-link\" href=\"/lexique?search=Detachment\">detachment</a> of building plots and cadastral updates via a <a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>." },
+          { title: "Co-ownership & Volume Division", desc: "Preparation of interior plans and descriptive division statements for <a class=\"wiki-link\" href=\"/lexique?search=Co-ownership\">co-ownership</a> or <a class=\"wiki-link\" href=\"/lexique?search=Volumes\">volumes</a>." },
           { title: "Land & Legal expertise", desc: "Advice on easements, joint ownerships, and complex urban planning regulations." }
         ]
       },
       vrd: { 
         title: "Civil Engineering (VRD)", 
         desc: "Infrastructure studies office: roads, diverse networks, sanitation, rainwater treatment, parking lots, roundabouts.",
-        longDesc: "Our engineers and technicians design the technical infrastructures essential for project servicing. We favor innovative solutions for water management and network sustainability.",
+        longDesc: "Our engineers and technicians design the essential technical infrastructure for project servicing. We favor innovative solutions for <a class=\"wiki-link\" href=\"/lexique?search=VRD\">roads and utilities</a> and sustainable water management.",
         missions: [
           { title: "Infrastructure project management", desc: "Technical design and work monitoring for roads and diverse networks." },
           { title: "Alternative rainwater management", desc: "Sizing of retention basins, landscaped swales, and infiltration systems." },
@@ -71,12 +127,23 @@ export const en = {
       topographie: { 
         title: "Topography", 
         desc: "Topographic studies office: precision topographic plans, land and architectural surveys, site layouts.",
-        longDesc: "Precision is at the heart of our business. Thanks to high-tech tools (3D Scanner, Drone, GPS), we capture the existing with absolute fidelity to serve as a basis for your projects.",
+        longDesc: "Precision is at the heart of our business. Using high-tech tools (<a class=\"wiki-link\" href=\"/lexique?search=Scanner\">3D Scanner</a>, <a class=\"wiki-link\" href=\"/lexique?search=Drone\">Drone</a>, GPS), we capture existing conditions with absolute fidelity to serve as a basis for your projects.",
         missions: [
           { title: "Precision topographic plans", desc: "Detailed status reports to serve as a basis for architectural studies." },
-          { title: "3D Scanner & Point clouds", desc: "Complete digitization of complex buildings or sites for BIM exploitation." },
+          { title: "3D Scanner & Point Clouds", desc: "Complete digitization of complex buildings or sites for <a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a> exploitation via a <a class=\"wiki-link\" href=\"/lexique?search=Point\">point cloud</a>." },
           { title: "Drone surveys", desc: "Orthophotographs and digital terrain models for large areas or inaccessible zones." },
           { title: "Structural layout", desc: "Field reporting of construction axes and boundaries with millimeter precision." }
+        ]
+      },
+      copropriete: {
+        title: "Co-ownership & 3D Department",
+        desc: "Expertise in building surveys, co-ownership setup, and BIM modeling for intelligent building management.",
+        longDesc: "URBATEAM excels in capturing and modeling existing structures. We transform your physical buildings into intelligent digital twins (<a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a>), centralizing all technical data.",
+        missions: [
+          { title: "Co-ownership & Volumetry", desc: "Calculation of <a class=\"wiki-link\" href=\"/lexique?search=Shares\">shares</a>, division plans, and <a class=\"wiki-link\" href=\"/lexique?search=Co-ownership\">co-ownership</a> regulations." },
+          { title: "3D Survey by Laser Scanner", desc: "Millimeter capture of complex structures to obtain exhaustive point clouds." },
+          { title: "BIM Modeling (Scan-to-BIM)", desc: "Creation of digital models containing intelligent data (materials, networks, insulation)." },
+          { title: "Centralized Digital Model", desc: "Implementation of shared servers for real-time updates of project modifications." }
         ]
       }
     },
@@ -209,6 +276,8 @@ export const en = {
         topo: "Topographic Study",
         surveyor: "Chartered Land Surveyor (Boundary, Division)",
         sport: "Sports Engineering",
+        copro: "Co-ownership (Setup, Modifications)",
+        bim: "3D Modeling / BIM (Laser scan)",
         other: "Other request"
       },
       label_message: "Your message *",
@@ -315,6 +384,7 @@ export const en = {
     field: {
       title: "Field Equipment",
       list: [
+        "1 3D Laser Scanner (Millimeter-precise surveys)",
         "4 TRIMBLE robotic total stations",
         "2 TRIMBLE GPS systems",
         "Fleet of 6 service vehicles"
@@ -348,7 +418,8 @@ export const en = {
   faq: {
     header: {
       title: "Frequently Asked Questions",
-      subtitle: "Do you have questions about our missions, land issues or planning legislation? Find our expert answers."
+      subtitle: "Do you have questions about our missions, land issues or planning legislation? Find our expert answers.",
+      search_placeholder: "Search for a question or keyword..."
     },
     items: [
       {
@@ -365,15 +436,87 @@ export const en = {
       },
       {
         question: "Is the cadastral plan proof of my land's boundary?",
-        answer: "No. Contrary to popular belief, the cadastre is a document for purely fiscal purposes (for calculating property taxes) and has no probative value of land ownership. In case of dispute, only a Boundary Marking Minutes (PV) drafted by a Land Surveyor is authoritative."
+        answer: "No. Contrary to popular belief, the <a class=\"wiki-link\" href=\"/lexique?search=Cadastre\">cadastre</a> is a document with a purely fiscal vocation (for calculating property taxes) and has no probative value of land ownership. In case of dispute, only a <a class=\"wiki-link\" href=\"/lexique?search=Boundary\">boundary marking</a> minutes drafted by a Chartered Surveyor is authentic."
       },
       {
         question: "How can I correct an error on the cadastral plan?",
-        answer: "If the public cadastre indicates an incorrect boundary, you must request a Land Surveyor. After searching for old deeds and surveying the field, our team will draft an amicable delimitation plan and update the cadastral documentation (DMPC) transmitted to the tax authorities."
+        answer: "If the public cadastre indicates an incorrect boundary, you must request a Chartered Surveyor. After researching old deeds and surveying the land, our team will draft an amicable delimitation plan and update the cadastral documentation (<a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>) sent to the tax authorities."
       },
       {
         question: "Who pays for boundary marking costs?",
         answer: "According to Article 646 of the Civil Code, boundary marking costs are shared between the two neighboring owners, although the distribution can be negotiated differently during amicable conciliation."
+      },
+      {
+        question: "Why hire a Chartered Surveyor for a co-ownership setup?",
+        answer: "The Chartered Surveyor is the only qualified professional to guarantee the accuracy of interior plans and the calculation of co-ownership shares (tantièmes). Their intervention legally secures the sale deed and prevents future disputes between co-owners regarding charge distribution."
+      },
+      {
+        question: "What is a co-ownership regulation amendment?",
+        answer: "It is an update to the regulations following a change in the building (lot division, change of use, annexation of common areas). The Surveyor creates new plans and calculates the new share distribution for publication in the real estate file."
+      },
+      {
+        question: "What is 3D Laser Scanning?",
+        answer: "It is a technology that captures millions of points in seconds to create a millimeter-accurate '3D image' of the existing structure. This allows for surveying complex structures (monuments, factories, frameworks) with an exhaustiveness impossible to achieve with traditional methods."
+      },
+      {
+        question: "How do you use drones in your missions?",
+        answer: "The drone allows us to produce high-resolution orthophotographs and digital terrain models (DTM) over large surfaces or difficult access areas. It is a valuable tool for site monitoring, <a class=\"wiki-link\" href=\"/lexique?search=Cubature\">cubature calculations</a> (earth volumes), and structure inspections."
+      },
+      {
+        question: "How long is a boundary marking valid?",
+        answer: "A signed and archived contradictory boundary marking is definitive and immutable. It 'follows the land': even if owners change, the set boundary remains the same for future generations. It is the strongest guarantee of peace of mind for your land heritage."
+      },
+      {
+        question: "What documents are required to apply for a development permit?",
+        answer: "The typical file includes a <a class=\"wiki-link\" href=\"/lexique?search=Location\">location plan</a>, a plan of the initial state of the land, a general composition plan, as well as a <a class=\"wiki-link\" href=\"/lexique?search=Descriptive\">descriptive notice</a> explaining the project's insertion into its environment. URBATEAM takes care of the complete technical and administrative constitution of this file."
+      },
+      {
+        question: "What is an easement and how can it be verified?",
+        answer: "An easement is a constraint imposed on land (servient estate) for the benefit of another (dominant estate), such as a <a class=\"wiki-link\" href=\"/lexique?search=Passage\">right of way</a> or the passage of networks (<a class=\"wiki-link\" href=\"/lexique?search=Underground\">underground easement</a>). They are mentioned in your property title. The Chartered Surveyor can identify them precisely on the ground and verify their compliance."
+      },
+      {
+        question: "Do you intervene for the creation of sports fields?",
+        answer: "Yes, URBATEAM has specific expertise in sports engineering. We design sports complexes (stadiums, athletics tracks, synthetic fields) respecting federal standards and high-precision drainage and leveling requirements."
+      },
+      {
+        question: "How are a Land Surveyor's fees calculated?",
+        answer: "Each case is unique. Our fees depend on the technical complexity of the mission, search time in archives, the number of neighbors to be summoned for boundary marking, and the land area. We systematically provide a free, detailed quote before any intervention."
+      },
+      {
+        question: "What is the difference between amicable and judicial boundary marking?",
+        answer: "Amicable boundary marking results from an agreement between neighbors with the help of a Land Surveyor. If agreement is impossible, a judge can order judicial boundary marking. In this case, a Land Surveyor is appointed as a judicial expert to propose a boundary that the judge will validate by a ruling."
+      },
+      {
+        question: "Why have a Land Surveyor perform your Carrez Law measurement?",
+        answer: "While not mandatory, a Land Surveyor's intervention offers a professional civil liability guarantee. In case of a measurement error greater than 5%, the buyer can request a price reduction. Our precision and legal expertise secure your real estate transaction."
+      },
+      {
+        question: "What is the difference between co-ownership and volume division?",
+        answer: "Co-ownership usually applies to simple buildings with shared common areas. Volume division is used for complex real estate complexes (e.g., shops on the ground floor and housing above) to legally dissociate elements without common areas, often managed by a homeowner association (AFUL or ASL)."
+      },
+      {
+        question: "What is the Scan-to-BIM process?",
+        answer: "It is the transformation of a point cloud from a 3D scanner into an intelligent digital model (BIM). This model contains not only the building's geometry but also data on materials, networks, and equipment, facilitating subsequent building management."
+      },
+      {
+        question: "Do you offer structural monitoring services?",
+        answer: "Yes, we perform high-precision measurements to monitor the stability of buildings, bridges, or retaining walls via <a class=\"wiki-link\" href=\"/lexique?search=Monitoring\">structural monitoring</a>. Using sensors and periodic surveys, we detect the slightest movements or millimeter settlements to guarantee infrastructure security."
+      },
+      {
+        question: "Do you produce interior plans and sections of existing buildings?",
+        answer: "Absolutely. We intervene to survey entire buildings to produce <a class=\"wiki-link\" href=\"/lexique?search=Interior\">interior plans</a>, transversal <a class=\"wiki-link\" href=\"/lexique?search=Section\">sections</a>, and facade plans. These documents are essential for architects in renovation or rehabilitation projects."
+      },
+      {
+        question: "How can I know if a Land Surveyor has already intervened on my land?",
+        answer: "All land interventions by Chartered Surveyors are recorded on the GéoFoncier portal. We can consult this history to find old boundary marking minutes or division plans, securing your project by relying on certified data."
+      },
+      {
+        question: "How does a land division work?",
+        answer: "Division involves detaching one or more parcels from an original plot. URBATEAM supports you from the feasibility study to the preliminary declaration at the town hall (as in Plouzané or Landerneau), up to the surveying document and the boundary marking of new lots."
+      },
+      {
+        question: "What is the guarantee offered by a Chartered Surveyor?",
+        answer: "The Chartered Surveyor is a professional whose title is protected by law. We have a professional indemnity insurance and continuous training obligations. In case of errors in our boundary or design missions, our civil liability protects you, offering security far superior to that of a simple unregulated service provider."
       }
     ],
     cta: {
@@ -385,12 +528,14 @@ export const en = {
   glossary: {
     header: {
       title: "Land Glossary",
-      subtitle: "Better understand the technical, legal and professional vocabulary used by our experts."
+      subtitle: "Better understand the technical, legal and professional vocabulary used by our experts.",
+      search_placeholder: "Search for a term or definition..."
     },
     items: [
       {
         term: "Contradictory Boundary Marking",
-        definition: "Operation consisting in legally defining and materializing on the ground (by means of markers) the physical boundaries separating contiguous private properties."
+        definition: "Operation consisting of legally defining and materializing on the ground (using boundary markers) the physical limits separating contiguous private properties.",
+        relatedExpertise: "geometre"
       },
       {
         term: "Cadastre",
@@ -398,23 +543,26 @@ export const en = {
       },
       {
         term: "DMPC (Surveying Document)",
-        definition: "Document for Modifying the Cadastral Parcel. It must be drawn up by a Land Surveyor to update the cadastral plan following a change in boundaries."
+        definition: "Document for Modification of the Cadastral Parcel. It must be prepared by a Land Surveyor to update the cadastral map following a change in boundaries.",
+        relatedExpertise: "geometre"
       },
       {
         term: "Parcel detachment",
         definition: "Land action aimed at dividing a land unit into several distinct entities, very often with a view to creating a new building lot."
       },
       {
-        term: "PLU / PLUi (Local Urban Plan)",
-        definition: "Inter-municipal Local Urban Plan. Planning document that sets general rules for land use on the territory of one or more municipalities."
+        term: "PLU / PLUi",
+        definition: "Local Urban Planning Map (Inter-municipal). Planning document that sets the general rules for land use in the territory of one or more municipalities.",
+        relatedExpertise: "urbanisme"
       },
       {
         term: "Easement",
         definition: "Charge weighing on a land property for the benefit of another land property (right of way, networks...)."
       },
       {
-        term: "VRD (Roads and Miscellaneous Networks)",
-        definition: "Set of works and infrastructure developments allowing a terrain to be serviced (roads, water drainage, electricity...)."
+        term: "VRD (Roads and Utilities)",
+        definition: "Set of works and infrastructure developments for site servicing (roads, water evacuation, electricity, etc.).",
+        relatedExpertise: "vrd"
       },
       {
         term: "ZAC (Concerted Development Zone)",
@@ -435,6 +583,237 @@ export const en = {
       {
         term: "Order of Chartered Surveyors (OGE)",
         definition: "The national institution that guarantees the competence, independence and ethics of the Land Surveyor."
+      },
+      {
+        term: "AFUL (Urban Land Association)",
+        definition: "A group of landowners allowing for the joint management of works or the completion of urban restructuring projects."
+      },
+      {
+        term: "Individual Alignment",
+        definition: "An act by which the administration sets the boundary of the public highway along a riparian property."
+      },
+      {
+        term: "ASL (Free Syndicate Association)",
+        definition: "A legal structure grouping owners within a subdivision or horizontal co-ownership to manage common spaces and equipment."
+      },
+      {
+        term: "BIM (Building Information Modeling)",
+        definition: "Intelligent digital model grouping all the technical data of a building throughout its life cycle.",
+        relatedExpertise: "copropriete"
+      },
+      {
+        term: "Judicial Boundary Marking",
+        definition: "A procedure initiated before the court when owners fail to reach an amicable agreement on the boundary of their land."
+      },
+      {
+        term: "Planning Certificate (CU)",
+        definition: "A document providing information on the urban planning rules applicable to a land and the feasibility of a specific project."
+      },
+      {
+        term: "Horizontal Co-ownership",
+        definition: "A form of co-ownership applying to detached houses built on common land, as opposed to vertical co-ownership (buildings)."
+      },
+      {
+        term: "Earthwork Volume (Cubature)",
+        definition: "Calculation of the volume of materials (soil, rubble) to be moved during earthworks, based on precise topographic surveys."
+      },
+      {
+        term: "Prior Declaration (DP)",
+        definition: "A mandatory urban planning authorization for minor works or land divisions without the creation of common spaces."
+      },
+      {
+        term: "Volume Division",
+        definition: "A complex legal technique allowing for the splitting of a real estate complex into ownership lots without any common areas."
+      },
+      {
+        term: "Footprint (Emprise au sol)",
+        definition: "The vertical projection on the ground of the building's volume, including overhangs and projections."
+      },
+      {
+        term: "GéoFoncier",
+        definition: "The official portal of the Order of Chartered Surveyors centralizing all land interventions carried out in the territory."
+      },
+      {
+        term: "Layout / Staking (Implantation)",
+        definition: "The operation of materializing on the ground the exact position of a future construction according to the architect's plans."
+      },
+      {
+        term: "DTM (Digital Terrain Model)",
+        definition: "A 3D representation of the ground surface allowing for hydraulic, visibility studies, or volume calculations."
+      },
+      {
+        term: "Leveling (Nivellement)",
+        definition: "Measurement of the altitudes of different points on the ground relative to a reference system (often NGF in France)."
+      },
+      {
+        term: "Point Cloud",
+        definition: "Set of millions of 3D coordinates captured by a laser scanner, forming a faithful digital image of the existing condition.",
+        relatedExpertise: "topographie"
+      },
+      {
+        term: "Orthophotograph",
+        definition: "An aerial image geometrically rectified to obtain a uniform scale, combining the richness of a photo and the precision of a plan."
+      },
+      {
+        term: "Site Plan (Plan de masse)",
+        definition: "A plan showing the entire construction project, indicating the footprint, access, and network connections."
+      },
+      {
+        term: "As-built Survey (Récolement)",
+        definition: "A topographic survey carried out after works to verify the compliance of structures (networks, roads) with the initial project."
+      },
+      {
+        term: "Shares (Tantièmes / Millièmes)",
+        definition: "Ownership share of the common areas attributed to each co-ownership lot, used as the basis for calculating charges.",
+        relatedExpertise: "copropriete"
+      },
+      {
+        term: "Land Consolidation",
+        definition: "A set of operations aimed at improving the structure of agricultural holdings or the development of rural territories."
+      },
+      {
+        term: "Land Surveying (Arpentage)",
+        definition: "Historical technique for measuring land area, today integrated into the global missions of the Chartered Surveyor."
+      },
+      {
+        term: "Survey Control Network (Canevas)",
+        definition: "A network of reference points with known coordinates, serving as the backbone for all topographic surveys of a project."
+      },
+      {
+        term: "Footprint Coefficient (CES)",
+        definition: "A ratio used to measure the maximum surface area a building can occupy on a land."
+      },
+      {
+        term: "Condition Precedent",
+        definition: "A clause in a contract (e.g., land sale) on which the execution of the act depends, such as obtaining a development permit."
+      },
+      {
+        term: "Right of Way",
+        definition: "A type of easement allowing a owner whose land is landlocked to cross their neighbor's property to access the public highway."
+      },
+      {
+        term: "Expropriation",
+        definition: "A procedure allowing a public entity to acquire private property for public utility purposes, often involving surveyor expertise for valuation."
+      },
+      {
+        term: "Geodesy",
+        definition: "The science that studies the Earth's shape and allows for the definition of coordinate systems used by GPS and measuring tools."
+      },
+      {
+        term: "Georeferencing",
+        definition: "The operation of assigning precise geographical coordinates (X, Y, Z) to an object or plan in a national reference system."
+      },
+      {
+        term: "Lot",
+        definition: "A land unit resulting from a division (subdivision) or an ownership unit in a co-ownership building."
+      },
+      {
+        term: "NGF (General Leveling of France)",
+        definition: "The official altimetric reference system used to express altitudes relative to mean sea level."
+      },
+      {
+        term: "Parcel",
+        definition: "The basic unit of the cadastral plan, identified by a section and number, representing a continuous stretch of land."
+      },
+      {
+        term: "Boundary Plan",
+        definition: "A graphic document drawn up by the Chartered Surveyor following a boundary marking mission, identifying boundaries and reference points (markers)."
+      },
+      {
+        term: "Boundary Marking Minutes (PV)",
+        definition: "A legal act signed by neighboring owners that formalizes their final agreement on the boundary of their properties."
+      },
+      {
+        term: "Lambert 93 Reference",
+        definition: "The official projection system used in metropolitan France for all maps and topographic surveys."
+      },
+      {
+        term: "Total Station",
+        definition: "A measuring instrument combining an electronic theodolite and a laser rangefinder to measure angles and distances with extreme precision."
+      },
+      {
+        term: "Batters / Sloping (Talutage)",
+        definition: "The action of giving an inclined slope (batter) to soil during earthworks to ensure land stability."
+      },
+      {
+        term: "Topometry",
+        definition: "The art of measuring dimensions of the Earth on a limited area, allowing the creation of large-scale plans.",
+        relatedExpertise: "topographie"
+      },
+      {
+        term: "Development Permit",
+        definition: "Urban planning authorization allowing the administration to control developments affecting land use (housing estates, camping, etc.).",
+        relatedExpertise: "urbanisme"
+      },
+      {
+        term: "Descriptive Notice",
+        definition: "Technical document detailing the characteristics of a development project and its integration into the landscape.",
+        relatedExpertise: "urbanisme"
+      },
+      {
+        term: "Cubature Calculation",
+        definition: "Precise evaluation of earthwork volumes (excavation and embankment) based on comparative topographic surveys.",
+        relatedExpertise: "vrd"
+      },
+      {
+        term: "Structural Monitoring",
+        definition: "Repeated precision measurements over time to monitor the stability and any potential deformations of a building or infrastructure.",
+        relatedExpertise: "topographie"
+      },
+      {
+        term: "Interior Plans",
+        definition: "Detailed graphic representation of each level of a building, including walls, partitions, openings, and equipment.",
+        relatedExpertise: "copropriete"
+      },
+      {
+        term: "Building Section",
+        definition: "Representation of a vertical section of a building to understand its heights and internal structure.",
+        relatedExpertise: "copropriete"
+      },
+      {
+        term: "Joint Ownership",
+        definition: "Shared property right on a fence, wall, or hedge separating two contiguous properties.",
+        relatedExpertise: "geometre"
+      },
+      {
+        term: "Underground Easement",
+        definition: "Right allowing the passage of pipes or underground networks beneath another person's property.",
+        relatedExpertise: "geometre"
+      },
+      {
+        term: "Housing Estate",
+        definition: "Division of a land unit into several lots intended for building, often involving the creation of common spaces.",
+        relatedExpertise: "urbanisme"
+      },
+      {
+        term: "Altimetry",
+        definition: "Part of topography dealing with the measurement of altitudes and the representation of relief.",
+        relatedExpertise: "topographie"
+      },
+      {
+        term: "Planimetry",
+        definition: "Representation on a horizontal plane of natural and artificial details of the Earth's surface, without regard to relief.",
+        relatedExpertise: "topographie"
+      },
+      {
+        term: "Theodolite",
+        definition: "Precision instrument used by the surveyor to measure horizontal and vertical angles.",
+        relatedExpertise: "topographie"
+      },
+      {
+        term: "Co-ownership Regulations",
+        definition: "Contractual document defining the operating rules of a building and the rights and duties of co-owners.",
+        relatedExpertise: "copropriete"
+      },
+      {
+        term: "Location Plan",
+        definition: "Plan used to precisely locate a piece of land within its municipality and its global environment.",
+        relatedExpertise: "urbanisme"
+      },
+      {
+        term: "Overhang Right",
+        definition: "Right to pass external thermal insulation over the neighbor's property, under certain legal conditions.",
+        relatedExpertise: "geometre"
       }
     ],
     cta: {
@@ -444,7 +823,7 @@ export const en = {
     }
   },
   footer: {
-    brand_text: "Your partner for development in Western Brittany. Land Surveyors, urban planners and infrastructure engineering.",
+    brand_text: "Your partner for development in Western Brittany. Our teams operate across the Pays d'Iroise and Cornouaille, including Brest, Saint-Renan, Plouzané, Douarnenez, and Quimper.",
     agencies: "Offices",
     resources: "Resources & Legal",
     glossary: "Land Glossary",

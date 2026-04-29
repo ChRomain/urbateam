@@ -6,6 +6,12 @@ export default function sitemap() {
   const routes = [
     '',
     '/apropos',
+    '/expertise/urbanisme',
+    '/expertise/geometre',
+    '/expertise/vrd',
+    '/expertise/sport',
+    '/expertise/topographie',
+    '/expertise/copropriete',
     '/moyens-techniques',
     '/faq',
     '/lexique',

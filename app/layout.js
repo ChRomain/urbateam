@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https://www.google.com;" />
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https://www.google.com; media-src 'self' https://assets.mixkit.co https://player.vimeo.com https://vimeo.com https://*.pexels.com https://*.vimeocdn.com;" />
         <meta name="permissions-policy" content="geolocation=(self), camera=(), microphone=(), payment=()" />
         
         {/* DNS & Connection Optimization */}
@@ -109,7 +109,18 @@ export default function RootLayout({ children }) {
                     "longitude": -4.6247953
                   },
                   "telephone": "+33298842965",
-                  "openingHours": "Mo,Tu,Th,Fr 09:00-12:00, 14:00-18:00"
+                  "openingHours": "Mo,Tu,Th,Fr 09:00-12:00, 14:00-18:00",
+                  "areaServed": [
+                    { "@type": "City", "name": "Brest" },
+                    { "@type": "City", "name": "Saint-Renan" },
+                    { "@type": "City", "name": "Plouzané" },
+                    { "@type": "City", "name": "Guilers" },
+                    { "@type": "City", "name": "Gouesnou" },
+                    { "@type": "City", "name": "Landerneau" },
+                    { "@type": "City", "name": "Milizac" },
+                    { "@type": "City", "name": "Locmaria-Plouzané" },
+                    { "@type": "City", "name": "Plougastel-Daoulas" }
+                  ]
                 },
                 {
                   "@type": "LocalBusiness",
@@ -129,7 +140,15 @@ export default function RootLayout({ children }) {
                     "longitude": -4.311875
                   },
                   "telephone": "+33298920756",
-                  "openingHours": "Mo,Tu,Th,Fr 09:00-12:00, 14:00-18:00"
+                  "openingHours": "Mo,Tu,Th,Fr 09:00-12:00, 14:00-18:00",
+                  "areaServed": [
+                    { "@type": "City", "name": "Douarnenez" },
+                    { "@type": "City", "name": "Quimper" },
+                    { "@type": "City", "name": "Pont-Croix" },
+                    { "@type": "City", "name": "Audierne" },
+                    { "@type": "City", "name": "Plogonnec" },
+                    { "@type": "City", "name": "Beuzec-Cap-Sizun" }
+                  ]
                 }
               ]
             })

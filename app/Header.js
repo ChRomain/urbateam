@@ -22,6 +22,7 @@ export default function Header() {
     { name: t('expertise.items.vrd.title'), href: '/expertise/vrd' },
     { name: t('expertise.items.sport.title'), href: '/expertise/sport' },
     { name: t('expertise.items.topographie.title'), href: '/expertise/topographie' },
+    { name: t('expertise.items.copropriete.title'), href: '/expertise/copropriete' },
   ];
 
   const navLinks = [

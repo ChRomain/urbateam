@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
-import { Map, Ruler, Droplets, Trophy, Compass, ArrowRight } from 'lucide-react';
+import { Map, Ruler, Droplets, Trophy, Compass, ArrowRight, Layers } from 'lucide-react';
 import styles from './Expertise.module.css';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -56,11 +56,11 @@ const expertiseItems = [
   { key: 'geometre', icon: <Ruler className={styles.icon} size={32} /> },
   { key: 'vrd', icon: <Droplets className={styles.icon} size={32} /> },
   { key: 'sport', icon: <Trophy className={styles.icon} size={32} /> },
-  { key: 'topographie', icon: <Compass className={styles.icon} size={32} /> }
+  { key: 'topographie', icon: <Compass className={styles.icon} size={32} /> },
+  { key: 'copropriete', icon: <Layers className={styles.icon} size={32} /> }
 ];
 
 const containerVariants = {
-// ...
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -129,18 +129,26 @@ export default function Expertise() {
             </GlassCard>
           ))}
 
-          <GlassCard 
-            key="contact-card"
-            className={styles.contactCard}
-            variants={cardVariants}
-          >
-            <h3>{t('expertise.cta_title')}</h3>
-            <p className={styles.contactText}>{t('expertise.cta_desc')}</p>
+        </motion.div>
+        
+        <GlassCard 
+          key="contact-card"
+          className={styles.contactBanner}
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <div className={styles.contactContent}>
+            <div className={styles.contactInfo}>
+              <h3 style={{ margin: 0 }}>{t('expertise.cta_title')}</h3>
+              <p className={styles.contactText} style={{ margin: 0 }}>{t('expertise.cta_desc')}</p>
+            </div>
             <Link href="/contact" className={`btn btn-primary ${styles.contactBtn}`}>
               {t('expertise.cta_btn')} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
             </Link>
-          </GlassCard>
-        </motion.div>
+          </div>
+        </GlassCard>
       </div>
     </section>
   );

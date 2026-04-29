@@ -28,7 +28,8 @@ export const br = {
       geometre: { title: "Douaroner-Barnour", desc: "Burev studial douar : bonnañ, rannañ lodennoù, kenperc'henniezh ha lakaat harzoù d'an douaroù." },
       vrd: { title: "Dornouriezh VRD", desc: "Burev studial frammoù : hentoù, rouedadoù liesseurt, dour-lous ha dour-glav, parkingoù." },
       sport: { title: "Dornouriezh Sport", desc: "Aozañ takadoù sport : stadioù atleterezh, tachennoù sport ha paviadurioù teuzet." },
-      topographie: { title: "Topografiezh", desc: "Burev studial topografiezh : tresoù topografek resis, kempenn an douar hag ar savouriezh." }
+      topographie: { title: "Topografiezh", desc: "Burev studial topografiezh : tresoù topografek resis, kempenn an douar hag ar savouriezh." },
+      copropriete: { title: "Pôle Kenperc'henniezh & 3D", desc: "Varregezh war muzuliañ savadurioù, lakaat e kenperc'henniezh ha diskouez e 3D." }
     },
     cta_title: "Ur raktres ispisial ?",
     cta_desc: "Sellit penaos e c'hell hor skipailh sikour ac'hanoc'h.",
@@ -159,6 +160,8 @@ export const br = {
         topo: "Studi Topografek",
         surveyor: "Douaroner-Barnour (Bonnañ, Rannañ)",
         sport: "Dornouriezh Sport",
+        copro: "Kenperc'henniezh",
+        bim: "Diskouez e 3D / BIM",
         other: "Goulenn all"
       },
       label_message: "Ho kemennadenn *",
@@ -265,6 +268,7 @@ export const br = {
     field: {
       title: "Ostilhoù tachenn",
       list: [
+        "1 Scanner 3D laser (Muzul-resisted milimetrek)",
         "4 lakaer-tachenn TRIMBLE robotekaet",
         "2 reizhiad GPS TRIMBLE",
         "6 karr-tan evit al labour"

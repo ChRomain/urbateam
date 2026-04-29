@@ -73,30 +73,47 @@
   stroke-width: 1.5px;
 }
 
-.contactCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  text-align: left;
+.contactBanner {
+  margin-top: 4rem;
   background-color: var(--secondary-color) !important;
-  border: 1px solid var(--primary-color) !important;
-  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 1.5rem 4rem !important;
+  border-radius: var(--border-radius-md) !important;
 }
 
-.contactCard h3 {
+.contactContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.contactInfo h3 {
   color: var(--primary-color);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem !important;
 }
 
 .contactText {
-  color: var(--text-main);
-  margin-bottom: 1.5rem;
+  color: white;
+  opacity: 0.9;
 }
 
 .contactBtn {
-  background-color: var(--primary-color);
-  color: white;
+  flex-shrink: 0;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 992px) {
+  .contactContent {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .contactBanner {
+    padding: 3rem 2rem !important;
+  }
 }
 
 @media (max-width: 1024px) {
