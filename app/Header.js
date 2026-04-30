@@ -25,12 +25,25 @@ export default function Header() {
     { name: t('expertise.items.copropriete.title'), href: '/expertise/copropriete' },
   ];
 
-  const navLinks = [
-    { name: t('header.home'), href: '/' },
-    { name: t('header.about'), href: '/apropos' },
-    { name: t('header.expertises'), href: '/mon-projet', dropdown: expertiseLinks },
-    { name: t('header.technical'), href: '/moyens-techniques' },
+  const portfolioLinks = [
+    { name: t('header.projects'), href: '/projets' },
+    { name: t('header.clients'), href: '/clients' },
+  ];
+
+  const resourceLinks = [
+    { name: t('header.my_project'), href: '/mon-projet' },
+    { name: t('header.follow_us'), href: '/nous-suivre' },
     { name: t('header.faq'), href: '/faq' },
+    { name: t('header.glossary'), href: '/lexique' },
+    { name: t('header.blog'), href: '/blog' },
+  ];
+
+  const navLinks = [
+    { name: t('header.about'), href: '/apropos' },
+    { name: t('header.expertises'), href: '#', dropdown: expertiseLinks },
+    { name: t('header.portfolio'), href: '#', dropdown: portfolioLinks },
+    { name: t('header.technical'), href: '/moyens-techniques' },
+    { name: t('header.resources_dropdown'), href: '#', dropdown: resourceLinks },
     { name: t('header.contact'), href: '/contact', primary: true },
   ];
 
@@ -48,7 +61,7 @@ export default function Header() {
     }
   }, [isOpen]);
 
-  const [expertOpen, setExpertOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   const menuVariants = {
     closed: { opacity: 0, x: "100%", transition: { type: "spring", stiffness: 400, damping: 40 } },
@@ -81,18 +94,18 @@ export default function Header() {
           <ul className={styles.navLinks}>
             {navLinks.map((link) => (
               <li 
-                key={link.href} 
+                key={link.name} 
                 className={link.dropdown ? styles.hasDropdown : ''}
-                onMouseEnter={() => link.dropdown && setExpertOpen(true)}
-                onMouseLeave={() => link.dropdown && setExpertOpen(false)}
+                onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
+                onMouseLeave={() => link.dropdown && setActiveDropdown(null)}
               >
                 {link.dropdown ? (
                   <div className={styles.dropdownTrigger}>
                     <Link href={link.href} className={styles.navLink}>
-                      {link.name} <ChevronDown size={14} className={`${styles.chevron} ${expertOpen ? styles.chevronRotated : ''}`} />
+                      {link.name} <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === link.name ? styles.chevronRotated : ''}`} />
                     </Link>
                     <AnimatePresence>
-                      {expertOpen && (
+                      {activeDropdown === link.name && (
                         <motion.div 
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -198,7 +211,7 @@ export default function Header() {
               <div className={styles.mobileMenuInner}>
                 <nav className={styles.mobileNav}>
                   {navLinks.map((link) => (
-                    <motion.div key={link.href} variants={linkVariants}>
+                    <motion.div key={link.name} variants={linkVariants}>
                       <Link 
                         href={link.href} 
                         className={styles.mobileNavLink}

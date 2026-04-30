@@ -35,11 +35,26 @@ export default function MoyensClient() {
              <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.242-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
           </div>
           <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('technical.field.title')}</h2>
-          <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-light)', listStyleType: 'disc' }}>
+          <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-light)', listStyleType: 'disc', marginBottom: '2rem' }}>
             {t('technical.field.list').map((item, i) => (
               <li key={`field-${i}`} style={{ marginBottom: '0.5rem' }}>{item}</li>
             ))}
           </ul>
+          
+          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-end', justifyContent: 'space-around', padding: '1rem 0' }}>
+            <div style={{ textAlign: 'center' }}>
+              <img src="/pictures/scanner-3d-final.png" alt="Scanner 3D" style={{ height: '100px', width: 'auto', objectFit: 'contain' }} />
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Scanner 3D</p>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <img src="/pictures/station-trimble-final.png" alt="Station Trimble" style={{ height: '110px', width: 'auto', objectFit: 'contain' }} />
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Station Trimble</p>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <img src="/pictures/gps-trimble-final.png" alt="GPS Trimble" style={{ height: '120px', width: 'auto', objectFit: 'contain' }} />
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>GPS Trimble</p>
+            </div>
+          </div>
         </GlassCard>
 
         {/* Informatique / DAO */}
@@ -61,12 +76,17 @@ export default function MoyensClient() {
             <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
           </div>
           <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('technical.software.title')}</h2>
-          <p style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>
+          <p style={{ color: 'var(--text-light)', marginBottom: '1.5rem' }}>
             {t('technical.software.desc')}
           </p>
-          <p style={{ color: 'var(--text-main)', fontWeight: 'bold', fontSize: '0.9rem', lineHeight: '1.6' }}>
-            AUTOCAD, COVADIS, SKETCHUP PRO, PHOTOSHOP, ILLUSTRATOR, SPACE EYES.
-          </p>
+          
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', justifyContent: 'center', padding: '1rem 0' }}>
+            <img src="/pictures/autocad.png" alt="AutoCAD" style={{ height: '35px', width: 'auto' }} title="AutoCAD" />
+            <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '35px', width: 'auto' }} title="Covadis" />
+            <img src="/pictures/sketchup.png" alt="SketchUp" style={{ height: '35px', width: 'auto' }} title="SketchUp" />
+            <img src="/pictures/photoshop.png" alt="Photoshop" style={{ height: '35px', width: 'auto' }} title="Photoshop" />
+            <img src="/pictures/illustrator.png" alt="Illustrator" style={{ height: '35px', width: 'auto' }} title="Illustrator" />
+          </div>
         </GlassCard>
       </div>
 

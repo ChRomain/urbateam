@@ -47,11 +47,11 @@ export default function AproposClient() {
         <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
           {/* Frank Le Gall */}
           <GlassCard key="member-frank" className="text-center" style={{ padding: '2rem 1rem' }}>
-            <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', border: '3px solid var(--secondary-color)' }}>
+            <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', border: '3px solid var(--accent-color)' }}>
               <img src="/pictures/FrankLeGall.jpg" alt={t('about.team.members.frank.name')} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <h4 style={{ color: 'var(--primary-color)', marginBottom: '0.2rem', fontSize: '1.1rem' }}>{t('about.team.members.frank.name')}</h4>
-            <div style={{ color: 'var(--secondary-color)', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{t('about.team.members.frank.role')}</div>
+            <div style={{ color: 'var(--accent-color)', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{t('about.team.members.frank.role')}</div>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: '0.5rem' }}>{t('about.team.members.frank.desc')}</p>
             <div style={{ fontSize: '0.85rem', color: 'var(--secondary-color)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <a href={`mailto:${t('about.team.members.frank.email')}`} style={{ textDecoration: 'underline' }}>{t('about.team.members.frank.email')}</a>
@@ -97,7 +97,7 @@ export default function AproposClient() {
              { key: 'assistants', generic: true }
           ].map((member) => (
             <GlassCard key={`member-${member.key}`} className="text-center" style={{ padding: '2rem 1rem' }}>
-              <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#f1f5f9', margin: '0 auto 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
+              <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#f1f5f9', margin: '0 auto 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', border: '3px solid var(--accent-color)' }}>
                 <svg width="40" height="40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
               </div>
               <h4 style={{ marginBottom: '0.2rem', color: 'var(--primary-color)', fontSize: '1.1rem' }}>

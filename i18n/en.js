@@ -57,8 +57,16 @@ export const en = {
   },
   header: {
     home: "Home",
-    about: "About Us",
-    expertises: "Expertises",
+    about: "The Agency",
+    expertises: "Expertise",
+    portfolio: "Portfolio",
+    projects: "Our Projects",
+    clients: "Our Clients",
+    resources_dropdown: "Resources",
+    my_project: "My Project",
+    blog: "News & Blog",
+    follow_us: "Follow us",
+    glossary: "Glossary",
     technical: "Technical Means",
     faq: "FAQ",
     contact: "Contact",
@@ -823,10 +831,13 @@ export const en = {
     }
   },
   footer: {
-    brand_text: "Your partner for development in Western Brittany. Our teams operate across the Pays d'Iroise and Cornouaille, including Brest, Saint-Renan, Plouzané, Douarnenez, and Quimper.",
+    brand_text: "Your planning partner in Western Brittany. Our teams operate across Pays d'Iroise and Cornouaille, specifically in Brest, Saint-Renan, Plouzané, Douarnenez, and Quimper...",
     agencies: "Offices",
     resources: "Resources & Legal",
+    projects: "Our Projects",
+    clients: "Our Clients",
     glossary: "Land Glossary",
+    follow_us: "Follow us",
     legal: "Legal Mentions",
     privacy: "Privacy Policy",
     cookies: "Cookie Policy",
@@ -886,6 +897,36 @@ export const en = {
       usage_desc: "This website is designed to be as respectful as possible of its visitors' privacy. It does not place any advertising tracking or behavioral analysis cookies.",
       control: "Block cookies from your browser",
       control_desc: "You can configure your browser software so that cookies are totally rejected or accepted."
+    }
+  },
+  projects: {
+    title: "Our Projects",
+    subtitle: "From high-precision topography to urban planning, discover how we support the projects shaping Western Brittany.",
+    categories: {
+      all: "All",
+      foncier: "Land",
+      topographie: "Topography",
+      vrd: "Roads & Utilities",
+      copropriete: "Co-ownership",
+      urbanisme: "Urban Planning"
+    },
+    placeholder: "Coming soon...",
+    back: "Back to home"
+  },
+  clients: {
+    title: "Our Clients",
+    subtitle: "They trust us for their development projects",
+    placeholder: "Client list being updated...",
+    cta: "Want to entrust us with a project?"
+  },
+  social: {
+    title: "Join the URBATEAM Community",
+    subtitle: "Follow our news from the field and discover our latest projects in images.",
+    instagram_title: "Latest Instagram posts",
+    google_review: {
+      title: "Your opinion matters to us",
+      desc: "Have you worked with URBATEAM? Share your experience on Google to help us improve.",
+      cta: "Leave a review on Google"
     }
   }
 };

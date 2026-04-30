@@ -57,8 +57,16 @@ export const fr = {
   },
   header: {
     home: "Accueil",
-    about: "À propos",
+    about: "L'Agence",
     expertises: "Expertises",
+    portfolio: "Portfolio",
+    projects: "Nos Réalisations",
+    clients: "Nos Clients",
+    resources_dropdown: "Ressources",
+    my_project: "Mon Projet",
+    blog: "Actualités & Blog",
+    follow_us: "Nous suivre",
+    glossary: "Glossaire",
     technical: "Moyens Techniques",
     faq: "FAQ",
     contact: "Contact",
@@ -455,7 +463,7 @@ export const fr = {
         answer: "Il s'agit d'une mise à jour du règlement suite à un changement dans l'immeuble (division d'un lot, changement d'usage, annexion de parties communes). Le Géomètre-Expert réalise les nouveaux plans et calcule la nouvelle répartition des tantièmes pour publication au fichier immobilier."
       },
       {
-        question: "Qu'est-ce que le relevé par Scanner Laser 3D ?",
+        question: "Qu'est-ce qu'un relevé par Scanner Laser 3D ?",
         answer: "C'est une technologie qui permet de capturer des millions de points en quelques secondes pour créer une 'image 3D' millimétrée de l'existant. Cela permet de relever des structures complexes (monuments, usines, charpentes) avec une exhaustivité impossible à atteindre avec des méthodes classiques."
       },
       {
@@ -823,9 +831,12 @@ export const fr = {
     }
   },
   footer: {
-    brand_text: "Votre partenaire pour l'aménagement en Bretagne-Ouest. Nos équipes interviennent sur tout le Pays d'Iroise et la Cornouaille, notamment à Brest, Saint-Renan, Plouzané, Douarnenez et Quimper.",
+    brand_text: "Votre partenaire pour l'aménagement en Bretagne-Ouest. Nos équipes interviennent sur tout le Pays d'Iroise et la Cornouaille, notamment à Brest, Saint-Renan, Plouzané, Douarnenez et Quimper...",
     agencies: "Agences",
     resources: "Ressources & Légal",
+    projects: "Nos Réalisations",
+    clients: "Nos Clients",
+    follow_us: "Nous suivre",
     glossary: "Glossaire du Foncier",
     legal: "Mentions légales",
     privacy: "Vie privée",
@@ -886,6 +897,36 @@ export const fr = {
       usage_desc: "Ce site est conçu pour être le plus respectueux possible de la vie privée de ses visiteurs. Il ne dépose aucun cookie de traçage publicitaire ou d'analyse comportementale.",
       control: "Bloquer les cookies depuis votre navigateur",
       control_desc: "Vous pouvez configurer votre logiciel de navigation de manière à ce que les cookies soient totalement rejetés ou acceptés."
+    }
+  },
+  projects: {
+    title: "Nos Réalisations",
+    subtitle: "De la topographie de précision à l'aménagement urbain, découvrez comment nous accompagnons les projets qui façonnent la Bretagne-Ouest.",
+    categories: {
+      all: "Tous",
+      foncier: "Foncier",
+      topographie: "Topographie",
+      vrd: "VRD & Aménagement",
+      copropriete: "Copropriété",
+      urbanisme: "Urbanisme"
+    },
+    placeholder: "Projets à venir...",
+    back: "Retour à l'accueil"
+  },
+  clients: {
+    title: "Nos Clients",
+    subtitle: "Ils nous font confiance pour leurs projets d'aménagement",
+    placeholder: "Liste des clients en cours d'actualisation...",
+    cta: "Vous souhaitez nous confier un projet ?"
+  },
+  social: {
+    title: "Rejoignez la communauté URBATEAM",
+    subtitle: "Suivez nos actualités sur le terrain et découvrez nos derniers projets en images.",
+    instagram_title: "Dernières publications Instagram",
+    google_review: {
+      title: "Votre avis compte pour nous",
+      desc: "Vous avez travaillé avec URBATEAM ? Partagez votre expérience sur Google pour nous aider à nous améliorer.",
+      cta: "Laisser un avis sur Google"
     }
   }
 };
