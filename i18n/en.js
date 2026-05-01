@@ -8,6 +8,10 @@ export const en = {
       title: "About URBATEAM | Our Chartered Surveyor Firm",
       description: "Discover URBATEAM, our multidisciplinary team and our quality commitment for your development projects in Western Brittany."
     },
+    rse: {
+      title: "CSR Commitments | Positive & Sustainable Impact | URBATEAM",
+      description: "Discover our Corporate Social Responsibility strategy: environmental protection, employee well-being, and local anchoring in Finistère."
+    },
     technical: {
       title: "Technical Means | 3D Scanner & Drone | URBATEAM",
       description: "Our state-of-the-art equipment: 3D laser scan, drones and robotic total stations for high-precision topographic surveys."
@@ -52,6 +56,10 @@ export const en = {
       copropriete: {
         title: "Co-ownership & BIM | 3D Surveys | URBATEAM",
         description: "Co-ownership setup, share calculation, volume division and BIM modeling (Scan-to-BIM)."
+      },
+      partners: {
+        title: "Expert Partners | URBATEAM",
+        description: "Discover our ecosystem of partners: notaries, lawyers and architects to secure your projects."
       }
     }
   },
@@ -66,11 +74,19 @@ export const en = {
     my_project: "My Project",
     blog: "News & Blog",
     follow_us: "Follow us",
+    social: "Follow us",
+    view_profile: "View Profile",
+    loading_references: "Loading references...",
+    loading_posts: "Loading posts...",
+    partners: "Partners",
+
     glossary: "Glossary",
     technical: "Technical Means",
     faq: "FAQ",
     contact: "Contact",
-    sitemap: "Sitemap"
+    sitemap: "Sitemap",
+    sitemap_subtitle: "Quickly access all sections of our website."
+
   },
   hero: {
     title_part1: "Materialize your development projects",
@@ -163,6 +179,13 @@ export const en = {
     title: "They trust us",
     subtitle: "Local authorities, developers and institutional clients entrust us with their development projects.",
     list_title: "Key project management missions:",
+    categories: {
+      collectivite: "Local Authorities",
+      amenageur: "Developers & Promoters",
+      architecte: "Architects",
+      particulier: "Individuals",
+      entreprise: "Companies"
+    },
     items: [
       "PLOUEZEC Eco-neighborhood (22) - Sketch competition",
       "SQUIFFIEC (22): New sustainable district 'Le Hameau de la Vallée'",
@@ -241,7 +264,39 @@ export const en = {
         ]
       }
     },
+    rse: {
+      title: "Our CSR Approach",
+      subtitle: "Because our profession as chartered surveyors and urban planners places us at the heart of sustainable land development.",
+      environmental: {
+        title: "Environmental Commitment",
+        desc: "We integrate biodiversity preservation and sustainable resource management into every project.",
+        items: [
+          "Alternative rainwater management",
+          "Preservation of ecological continuities",
+          "Land optimization against urban sprawl"
+        ]
+      },
+      social: {
+        title: "Social Commitment",
+        desc: "Human capital is our strength. We ensure the well-being of our employees through a stimulating environment.",
+        items: [
+          "Continuous training and skill development",
+          "Health and safety at work",
+          "Professional ethics and deontology"
+        ]
+      },
+      territorial: {
+        title: "Territorial Commitment",
+        desc: "As a local player in Western Brittany, we actively participate in local economic dynamism.",
+        items: [
+          "Strong local anchoring (2 local offices)",
+          "Support for local sectors",
+          "Participation in public debate on development"
+        ]
+      }
+    },
     video: {
+
       title: "The company in video",
       subtitle: "Follow our daily life, our projects and our team of experts directly on the field.",
       fallback: "Your browser does not support the video tag."
@@ -307,7 +362,13 @@ export const en = {
   project: {
     header: {
       title: "My Project: Step by Step",
-      subtitle: "From the initial idea to the final signature, discover the typical path of a secure development project."
+      subtitle: "From initial idea to final signature, discover the typical path of a secured development project."
+    },
+    slider: {
+      title: "Before / After Comparison",
+      before: "BEFORE",
+      after: "AFTER",
+      help: "Drag the slider to compare the initial state and the final realization."
     },
     tabs: {
       division: "🏷️ Divide",
@@ -928,5 +989,51 @@ export const en = {
       desc: "Have you worked with URBATEAM? Share your experience on Google to help us improve.",
       cta: "Leave a review on Google"
     }
+  },
+  partners: {
+    title: "Our Partner Ecosystem",
+    subtitle: "Because every project is unique, we surround ourselves with the best experts (notaries, lawyers, architects) to secure your operations.",
+    cta_title: "Are you a professional?",
+    cta_desc: "We are always looking for new collaborations to offer the best service to our clients.",
+    cta_btn: "Become a partner"
+  },
+  rse_page: {
+    title: "Our CSR Commitment",
+    subtitle: "Corporate Social Responsibility is at the heart of our vision. We act for respectful, human, and sustainable land development.",
+    pillars: {
+      environmental: {
+        title: "Environmental Pillars",
+        desc: "We minimize the impact of our activities and advise our clients on sustainable solutions.",
+        items: [
+          "Promotion of urban densification to limit land sprawl.",
+          "Design of rainwater management systems at the plot level (sustainable infrastructure).",
+          "Digitalization of processes (Zero paper) and use of low-consumption equipment.",
+          "Optimized travel management and awareness of eco-driving."
+        ]
+      },
+      social: {
+        title: "Social Pillars",
+        desc: "Our employees are our wealth. We foster a fulfilling and inclusive work environment.",
+        items: [
+          "Work-life balance and flexible scheduling.",
+          "Ambitious training plan for each employee (BIM, new regulations).",
+          "Maximum field safety with state-of-the-art protective equipment.",
+          "Managerial transparency and sharing of the agency's successes."
+        ]
+      },
+      territorial: {
+        title: "Territorial Pillars",
+        desc: "An engaged actor in Finistère, we support the local economy and community life.",
+        items: [
+          "Local recruitment and regular hosting of interns from Breton schools.",
+          "Privileged partnerships with local service providers and artisans.",
+          "Support for the local associative fabric and participation in regional events.",
+          "Engagement in professional orders to evolve the profession."
+        ]
+      }
+    },
+    cta_title: "A shared vision?",
+    cta_desc: "Would you like to know more about our commitments or collaborate on a sustainable project?",
+    cta_btn: "Discuss it with us"
   }
 };

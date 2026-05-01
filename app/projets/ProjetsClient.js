@@ -1,15 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
 import { useLanguage } from '../../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 export default function ProjetsClient() {
   const { t } = useLanguage();
   const [filter, setFilter] = useState('all');
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/data/projets.json');
+        const data = await res.json();
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   const categories = [
     { id: 'all', label: t('projects.categories.all') },
@@ -20,8 +38,9 @@ export default function ProjetsClient() {
     { id: 'urbanisme', label: t('projects.categories.urbanisme') },
   ];
 
-  // Placeholder for future projects
-  const projects = [];
+  const filteredProjects = filter === 'all' 
+    ? projects 
+    : projects.filter(p => p.category === filter);
 
   return (
     <div className="container py-section">
@@ -52,15 +71,19 @@ export default function ProjetsClient() {
         ))}
       </div>
 
-      <MotionSection style={{ marginTop: '4rem', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <MotionSection style={{ marginTop: '4rem', minHeight: '400px' }}>
         <AnimatePresence mode="wait">
-          {projects.length === 0 ? (
+          {loading ? (
+            <motion.div key="loading" style={{ textAlign: 'center', width: '100%' }}>
+              <p>{t('common.loading')}</p>
+            </motion.div>
+          ) : filteredProjects.length === 0 ? (
             <motion.div
               key="empty"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: 'center', width: '100%' }}
             >
               <div style={{ 
                 width: '100px', 
@@ -79,28 +102,79 @@ export default function ProjetsClient() {
               </div>
               <h3 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>{t('projects.placeholder')}</h3>
               <p style={{ color: 'var(--text-light)', maxWidth: '500px', margin: '0 auto' }}>
-                Nous préparons actuellement la présentation de nos derniers dossiers. Revenez bientôt pour découvrir notre travail sur le terrain.
+                {filter === 'all' 
+                  ? "Nous préparons actuellement la présentation de nos derniers dossiers. Revenez bientôt pour découvrir notre travail sur le terrain."
+                  : `Aucune réalisation dans la catégorie "${categories.find(c => c.id === filter)?.label}" pour le moment.`}
               </p>
             </motion.div>
           ) : (
-            <div className="grid" style={{ width: '100%', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
-              {/* Projects will be mapped here */}
-            </div>
+            <motion.div 
+              key="list"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="grid" 
+              style={{ width: '100%', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '2.5rem' }}
+            >
+              {filteredProjects.map((project) => (
+                <GlassCard key={project.id} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ position: 'relative', height: '240px', overflow: 'hidden', borderRadius: 'var(--border-radius-md) var(--border-radius-md) 0 0' }}>
+                    <img 
+                      src={project.images.after || project.images.gallery[0] || '/og-image.png'} 
+                      alt={project.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{ position: 'absolute', top: '1rem', left: '1rem', backgroundColor: 'var(--primary-color)', color: 'white', padding: '0.4rem 1rem', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '700' }}>
+                      {categories.find(c => c.id === project.category)?.label || project.category}
+                    </div>
+                  </div>
+                  
+                  <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <p style={{ color: 'var(--primary-color)', fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                        📍 {project.location}
+                      </p>
+                      <h3 style={{ fontSize: '1.5rem', color: 'var(--secondary-color)', marginBottom: '1rem' }}>{project.title}</h3>
+                      <p style={{ fontSize: '0.95rem', color: 'var(--text-light)', lineClamp: 3, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <div style={{ marginTop: 'auto' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                        {project.missions.slice(0, 3).map((mission, idx) => (
+                          <span key={idx} style={{ fontSize: '0.7rem', padding: '0.3rem 0.6rem', backgroundColor: '#f1f5f9', borderRadius: '4px', color: '#64748b' }}>
+                            {mission}
+                          </span>
+                        ))}
+                      </div>
+                      <Link 
+                        href={`/projets/${project.slug || project.id}`}
+                        className="btn btn-outline" 
+                        style={{ width: '100%', textDecoration: 'none', display: 'block', textAlign: 'center' }}
+                      >
+                        Voir les détails
+                      </Link>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))}
+            </motion.div>
           )}
         </AnimatePresence>
       </MotionSection>
 
       <div style={{ marginTop: '6rem', textAlign: 'center' }}>
         <GlassCard style={{ padding: '3rem', backgroundColor: 'var(--secondary-color)', color: 'white' }}>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>Vous avez un projet similaire ?</h2>
+          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('expertise.cta_title')}</h2>
           <p style={{ marginBottom: '2rem', opacity: 0.9 }}>
-            Nos experts sont à votre disposition pour étudier votre dossier et vous proposer un accompagnement sur-mesure.
+            {t('expertise.cta_desc')}
           </p>
           <button className="btn btn-primary" onClick={() => window.location.href='/contact'}>
-            Demander une étude gratuite
+            {t('expertise.cta_btn')}
           </button>
         </GlassCard>
       </div>
     </div>
   );
 }
+

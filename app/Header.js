@@ -8,44 +8,16 @@ import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import styles from './Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
+import { usePathname } from 'next/navigation';
+import Magnetic from '../components/Magnetic';
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { language, switchLanguage, t } = useLanguage();
-
-  const expertiseLinks = [
-    { name: t('expertise.items.urbanisme.title'), href: '/expertise/urbanisme' },
-    { name: t('expertise.items.geometre.title'), href: '/expertise/geometre' },
-    { name: t('expertise.items.vrd.title'), href: '/expertise/vrd' },
-    { name: t('expertise.items.sport.title'), href: '/expertise/sport' },
-    { name: t('expertise.items.topographie.title'), href: '/expertise/topographie' },
-    { name: t('expertise.items.copropriete.title'), href: '/expertise/copropriete' },
-  ];
-
-  const portfolioLinks = [
-    { name: t('header.projects'), href: '/projets' },
-    { name: t('header.clients'), href: '/clients' },
-  ];
-
-  const resourceLinks = [
-    { name: t('header.my_project'), href: '/mon-projet' },
-    { name: t('header.follow_us'), href: '/nous-suivre' },
-    { name: t('header.faq'), href: '/faq' },
-    { name: t('header.glossary'), href: '/lexique' },
-    { name: t('header.blog'), href: '/blog' },
-  ];
-
-  const navLinks = [
-    { name: t('header.about'), href: '/apropos' },
-    { name: t('header.expertises'), href: '#', dropdown: expertiseLinks },
-    { name: t('header.portfolio'), href: '#', dropdown: portfolioLinks },
-    { name: t('header.technical'), href: '/moyens-techniques' },
-    { name: t('header.resources_dropdown'), href: '#', dropdown: resourceLinks },
-    { name: t('header.contact'), href: '/contact', primary: true },
-  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -62,6 +34,43 @@ export default function Header() {
   }, [isOpen]);
 
   const [activeDropdown, setActiveDropdown] = useState(null);
+
+  if (pathname?.includes('/interface-admin-urbateam-inc')) {
+    return null;
+  }
+
+  const expertiseLinks = [
+    { name: t('expertise.items.urbanisme.title'), href: '/expertise/urbanisme' },
+    { name: t('expertise.items.geometre.title'), href: '/expertise/geometre' },
+    { name: t('expertise.items.vrd.title'), href: '/expertise/vrd' },
+    { name: t('expertise.items.sport.title'), href: '/expertise/sport' },
+    { name: t('expertise.items.topographie.title'), href: '/expertise/topographie' },
+    { name: t('expertise.items.copropriete.title'), href: '/expertise/copropriete' },
+  ];
+
+  const portfolioLinks = [
+    { name: t('header.projects'), href: '/projets' },
+    { name: t('header.clients'), href: '/clients' },
+    { name: t('header.partners'), href: '/partenaires' },
+  ];
+
+  const resourceLinks = [
+    { name: t('header.my_project'), href: '/mon-projet' },
+    { name: t('header.follow_us'), href: '/nous-suivre' },
+    { name: t('header.faq'), href: '/faq' },
+    { name: t('meta.rse.title').split('|')[0].trim(), href: '/rse' },
+    { name: t('header.glossary'), href: '/lexique' },
+    { name: t('header.blog'), href: '/blog' },
+  ];
+
+  const navLinks = [
+    { name: t('header.about'), href: '/apropos' },
+    { name: t('header.expertises'), href: '#', dropdown: expertiseLinks },
+    { name: t('header.portfolio'), href: '#', dropdown: portfolioLinks },
+    { name: t('header.technical'), href: '/moyens-techniques' },
+    { name: t('header.resources_dropdown'), href: '#', dropdown: resourceLinks },
+    { name: t('header.contact'), href: '/contact', primary: true },
+  ];
 
   const menuVariants = {
     closed: { opacity: 0, x: "100%", transition: { type: "spring", stiffness: 400, damping: 40 } },
@@ -83,13 +92,45 @@ export default function Header() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} data-lang={language}>
       <div className={`container ${styles.container}`}>
         <Link href="/" className={styles.logo} onClick={() => setIsOpen(false)}>
-          <div className={styles.logoText}>
-            <span className={styles.urba}>URBA</span>
-            <span className={styles.team}>team</span>
-          </div>
+          <Magnetic strength={0.15}>
+            <motion.div 
+              className={styles.logoText}
+              style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
+              whileHover="hover"
+            >
+              <motion.span 
+                className={styles.urba}
+                variants={{
+                  hover: { 
+                    rotateY: 15, 
+                    rotateX: -10,
+                    translateZ: 50,
+                    textShadow: "0 10px 20px rgba(0,0,0,0.1)"
+                  }
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                URBA
+              </motion.span>
+              <motion.span 
+                className={styles.team}
+                variants={{
+                  hover: { 
+                    rotateY: 25, 
+                    rotateX: -15,
+                    translateZ: 20,
+                    translateX: 5,
+                    textShadow: "0 5px 15px rgba(0,0,0,0.1)"
+                  }
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              >
+                team
+              </motion.span>
+            </motion.div>
+          </Magnetic>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className={styles.desktopNav}>
           <ul className={styles.navLinks}>
             {navLinks.map((link) => (
@@ -101,9 +142,11 @@ export default function Header() {
               >
                 {link.dropdown ? (
                   <div className={styles.dropdownTrigger}>
-                    <Link href={link.href} className={styles.navLink}>
-                      {link.name} <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === link.name ? styles.chevronRotated : ''}`} />
-                    </Link>
+                    <Magnetic strength={0.2}>
+                      <Link href={link.href} className={styles.navLink}>
+                        {link.name} <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === link.name ? styles.chevronRotated : ''}`} />
+                      </Link>
+                    </Magnetic>
                     <AnimatePresence>
                       {activeDropdown === link.name && (
                         <motion.div 
@@ -122,29 +165,32 @@ export default function Header() {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <Link 
-                    href={link.href} 
-                    className={link.primary ? 'btn btn-primary' : styles.navLink}
-                    onMouseEnter={() => router.prefetch(link.href)}
-                  >
-                    {link.name}
-                  </Link>
+                  <Magnetic strength={0.25}>
+                    <Link 
+                      href={link.href} 
+                      className={link.primary ? 'btn btn-primary' : styles.navLink}
+                      onMouseEnter={() => router.prefetch(link.href)}
+                    >
+                      {link.name}
+                    </Link>
+                  </Magnetic>
                 )}
               </li>
             ))}
             
-            {/* Language Switcher */}
             <li 
               key="language-switcher"
               className={styles.langWrapper}
               onMouseEnter={() => setLangOpen(true)}
               onMouseLeave={() => setLangOpen(false)}
             >
-              <button className={styles.langTrigger}>
-                <span className={styles.flagIcon}>{flags[language].icon}</span>
-                <span className={styles.langLabel}>{flags[language].label}</span>
-                <ChevronDown size={14} className={`${styles.chevron} ${langOpen ? styles.chevronRotated : ''}`} />
-              </button>
+              <Magnetic strength={0.15}>
+                <button className={styles.langTrigger}>
+                  <span className={styles.flagIcon}>{flags[language].icon}</span>
+                  <span className={styles.langLabel}>{flags[language].label}</span>
+                  <ChevronDown size={14} className={`${styles.chevron} ${langOpen ? styles.chevronRotated : ''}`} />
+                </button>
+              </Magnetic>
               
               <AnimatePresence>
                 {langOpen && (
@@ -174,9 +220,7 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* Mobile Toggle */}
         <div className={styles.mobileControls}>
-          {/* Mobile Lang Button - cycles through lang */}
           <button 
             className={styles.mobileLangBtn}
             onClick={() => {
@@ -198,7 +242,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isOpen && (
             <motion.div 

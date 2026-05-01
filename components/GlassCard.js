@@ -2,7 +2,7 @@
 
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 
-export default function GlassCard({ children, variants, className = "", style = {} }) {
+export default function GlassCard({ children, variants, className = "", style = {}, innerStyle = {} }) {
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
 
@@ -41,9 +41,10 @@ export default function GlassCard({ children, variants, className = "", style = 
           `,
         }}
       />
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 1, ...innerStyle }}>
         {children}
       </div>
+
     </motion.div>
   );
 }

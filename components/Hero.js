@@ -6,9 +6,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import styles from './Hero.module.css';
 import { useLanguage } from '../context/LanguageContext';
+import Magnetic from './Magnetic';
 
 const TopoBackground = () => {
-// ... (rest of TopoBackground stays same)
   const [points, setPoints] = useState([]);
 
   useEffect(() => {
@@ -118,8 +118,12 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
         >
-          <Link href="/contact" className="btn btn-primary">{t('hero.cta_contact')}</Link>
-          <Link href="/apropos" className={`btn ${styles.btnSecondary}`}>{t('hero.cta_more')}</Link>
+          <Magnetic strength={0.3}>
+            <Link href="/contact" className="btn btn-primary">{t('hero.cta_contact')}</Link>
+          </Magnetic>
+          <Magnetic strength={0.3}>
+            <Link href="/apropos" className={`btn ${styles.btnSecondary}`}>{t('hero.cta_more')}</Link>
+          </Magnetic>
         </motion.div>
       </motion.div>
 

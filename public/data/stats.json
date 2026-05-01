@@ -1,0 +1,27 @@
+{
+  "totalVisits": 12,
+  "pages": {
+    "/": 3,
+    "/rse": 1,
+    "/apropos": 1,
+    "/faq": 1,
+    "/blog": 1,
+    "/partenaires": 1,
+    "/clients": 1,
+    "/projets": 2
+  },
+  "articles": {
+    "/blog/division-parcellaire-valorisez-patrimoine-foncier": 1
+  },
+  "daily": {
+    "2026-05-01": 12
+  },
+  "devices": {
+    "Desktop": 12,
+    "Mobile": 0,
+    "Tablet": 0
+  },
+  "browsers": {
+    "Autre": 12
+  }
+}

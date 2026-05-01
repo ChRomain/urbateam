@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
@@ -8,19 +9,43 @@ import Link from 'next/link';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function FAQClient() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
-  const faqItems = t('faq.items') || [];
+  const [items, setItems] = useState([]);
+  const staticFaqItems = t('faq.items') || [];
+
+  useEffect(() => {
+    const loadFaq = async () => {
+      try {
+        const res = await fetch('/data/faq.json');
+        const data = await res.json();
+        if (data && data.length > 0) {
+          // On mappe les données JSON selon la langue active
+          const mappedItems = data.map(item => ({
+            question: item[language]?.question || item.fr?.question || '',
+            answer: item[language]?.answer || item.fr?.answer || ''
+          }));
+          setItems(mappedItems);
+        } else {
+          setItems(staticFaqItems);
+        }
+      } catch (err) {
+        setItems(staticFaqItems);
+      }
+    };
+    loadFaq();
+  }, [language, staticFaqItems]);
 
   const filteredItems = useMemo(() => {
-    if (!searchTerm.trim()) return faqItems;
+    if (!searchTerm.trim()) return items;
     
     const searchLower = searchTerm.toLowerCase();
-    return faqItems.filter(item => 
+    return items.filter(item => 
       item.question.toLowerCase().includes(searchLower) || 
       item.answer.toLowerCase().includes(searchLower)
     );
-  }, [faqItems, searchTerm]);
+  }, [items, searchTerm]);
+
 
   return (
     <div className="container py-section">
@@ -76,8 +101,9 @@ export default function FAQClient() {
         </div>
 
         {filteredItems.length > 0 ? (
-          filteredItems.map((faq) => (
-            <GlassCard key={faq.question.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-')} style={{ marginBottom: '1.5rem', padding: '2.5rem' }}>
+          filteredItems.map((faq, idx) => (
+            <GlassCard key={`faq-${idx}`} style={{ marginBottom: '1.5rem', padding: '2.5rem' }}>
+
               <h3 style={{ fontSize: '1.25rem', color: 'var(--secondary-color)', marginBottom: '1rem', display: 'flex', gap: '10px' }}>
                 <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>Q.</span>
                 {faq.question}

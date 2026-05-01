@@ -1,0 +1,326 @@
+{
+  "header": {
+    "fr": {
+      "title": "Notre Équipe",
+      "subtitle": "Une équipe conviviale, dynamique et pluridisciplinaire d'environ 10 collaborateurs réunissant Géomètres-Experts, urbanistes, ingénieurs et techniciens topographes au service de la réussite de vos projets."
+    },
+    "en": {
+      "title": "Our Team",
+      "subtitle": "A friendly, dynamic and multidisciplinary team of about 10 collaborators bringing together Land Surveyors, urban planners, engineers and surveying technicians at the service of your projects' success."
+    },
+    "br": {
+      "title": "Hor Skipailh",
+      "subtitle": "Ur skipailh plijus, oberiant ha liesplegek gant war-dro 10 kenlabourer (Douaronerien, kêraourien, dornourien) evit sevel ho raktresoù."
+    }
+  },
+  "members": [
+    {
+      "id": "frank",
+      "order": 0,
+      "generic": false,
+      "image": "/pictures/FrankLeGall.jpg",
+      "linkedin": null,
+      "fr": {
+        "name": "Frank Le Gall",
+        "role": "Co-Gérant",
+        "desc": "Maîtrise d'œuvre, urbanisme & infrastructures.",
+        "email": "franck.legall@urbateam.fr",
+        "phone": "02 98 84 29 65"
+      },
+      "en": {
+        "name": "Frank Le Gall",
+        "role": "Co-Manager",
+        "desc": "Project management, urban planning & infrastructure.",
+        "email": "franck.legall@urbateam.fr",
+        "phone": "02 98 84 29 65"
+      },
+      "br": {
+        "name": "Frank Le Gall",
+        "role": "Kenrener",
+        "desc": "Mestroniezh-ober, kêraaozerezh ha frammoù.",
+        "email": "franck.legall@urbateam.fr",
+        "phone": "02 98 84 29 65"
+      }
+    },
+    {
+      "id": "laura",
+      "order": 1,
+      "generic": false,
+      "image": "/pictures/LauraCharretteur.jpg",
+      "linkedin": "https://www.linkedin.com/in/laura-charretteur/",
+      "fr": {
+        "name": "Laura Charretteur",
+        "role": "Co-Gérante",
+        "desc": "Problématiques foncières, topographie & direction.",
+        "email": "laura.charretteur@urbateam.fr",
+        "phone": "02 98 84 29 65"
+      },
+      "en": {
+        "name": "Laura Charretteur",
+        "role": "Co-Manager",
+        "desc": "Land issues, topography & management.",
+        "email": "laura.charretteur@urbateam.fr",
+        "phone": "02 98 84 29 65"
+      },
+      "br": {
+        "name": "Laura Charretteur",
+        "role": "Kenrenerez",
+        "desc": "Kudennoù douar, topografiezh ha renerezh.",
+        "email": "laura.charretteur@urbateam.fr",
+        "phone": "02 98 84 29 65"
+      }
+    },
+    {
+      "id": "yves",
+      "order": 2,
+      "generic": false,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "Yves Jégot",
+        "role": "Maître d'Œuvre VRD",
+        "desc": "Expert en conception routière et réseaux divers.",
+        "email": "yves.jegot@urbateam.fr",
+        "phone": "06 84 90 62 20"
+      },
+      "en": {
+        "name": "Yves Jégot",
+        "role": "Infrastructure Project Manager",
+        "desc": "Expert in road design and diverse networks.",
+        "email": "yves.jegot@urbateam.fr",
+        "phone": "06 84 90 62 20"
+      },
+      "br": {
+        "name": "Yves Jégot",
+        "role": "Mestroniezh-ober VRD",
+        "desc": "Arberigour war an hentoù hag ar roudadoù.",
+        "email": "yves.jegot@urbateam.fr",
+        "phone": "06 84 90 62 20"
+      }
+    },
+    {
+      "id": "trang",
+      "order": 3,
+      "generic": false,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "Trang Stephan",
+        "role": "Maître d'Œuvre VRD",
+        "desc": "Spécialiste de la conception technique et suivi d'infrastructures.",
+        "email": "trang.stephan@urbateam.fr",
+        "phone": "06 77 97 93 96"
+      },
+      "en": {
+        "name": "Trang Stephan",
+        "role": "Infrastructure Project Manager",
+        "desc": "Specialist in technical design and infrastructure monitoring.",
+        "email": "trang.stephan@urbateam.fr",
+        "phone": "06 77 97 93 96"
+      },
+      "br": {
+        "name": "Trang Stephan",
+        "role": "Mestroniezh-ober VRD",
+        "desc": "Ispisialour war ar meizañ teknikel hag an heuliañ frammoù.",
+        "email": "trang.stephan@urbateam.fr",
+        "phone": "06 77 97 93 96"
+      }
+    },
+    {
+      "id": "camille",
+      "order": 4,
+      "generic": false,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "Camille Lormeteau",
+        "role": "Paysagiste-Conceptrice",
+        "desc": "Conception paysagère et intégration environnementale.",
+        "email": "camille.lormeteau@urbateam.fr",
+        "phone": "06 78 73 03 26"
+      },
+      "en": {
+        "name": "Camille Lormeteau",
+        "role": "Landscape Designer",
+        "desc": "Landscape design and environmental integration.",
+        "email": "camille.lormeteau@urbateam.fr",
+        "phone": "06 78 73 03 26"
+      },
+      "br": {
+        "name": "Camille Lormeteau",
+        "role": "Gweledvaourez-Meizerez",
+        "desc": "Meizañ gweledvaoù hag enframmañ en natur.",
+        "email": "camille.lormeteau@urbateam.fr",
+        "phone": "06 78 73 03 26"
+      }
+    },
+    {
+      "id": "urbanistes",
+      "order": 5,
+      "generic": true,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "",
+        "role": "Urbanistes & Paysagistes",
+        "desc": "Conception et aménagement des espaces urbains.",
+        "email": "",
+        "phone": ""
+      },
+      "en": {
+        "name": "",
+        "role": "Urban Planners & Landscape Architects",
+        "desc": "Design and development of urban spaces.",
+        "email": "",
+        "phone": ""
+      },
+      "br": {
+        "name": "",
+        "role": "Kêraourien & Gweledvaourien",
+        "desc": "Meizañ hag aozañ an takadoù kêr.",
+        "email": "",
+        "phone": ""
+      }
+    },
+    {
+      "id": "engineers",
+      "order": 6,
+      "generic": true,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "",
+        "role": "Ingénieurs d'Infrastructures",
+        "desc": "Conception technique de la voirie et des réseaux.",
+        "email": "",
+        "phone": ""
+      },
+      "en": {
+        "name": "",
+        "role": "Infrastructure Engineers",
+        "desc": "Technical design of roads and networks.",
+        "email": "",
+        "phone": ""
+      },
+      "br": {
+        "name": "",
+        "role": "Dornourien Frammoù",
+        "desc": "Meizañ teknikel an hentoù hag ar rouedadoù.",
+        "email": "",
+        "phone": ""
+      }
+    },
+    {
+      "id": "topographers",
+      "order": 7,
+      "generic": true,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "",
+        "role": "Techniciens Topographes",
+        "desc": "Relevés terrains et implantations de grande précision.",
+        "email": "",
+        "phone": ""
+      },
+      "en": {
+        "name": "",
+        "role": "Surveying Technicians",
+        "desc": "High-precision field surveys and layouts.",
+        "email": "",
+        "phone": ""
+      },
+      "br": {
+        "name": "",
+        "role": "Teknikourien Topografourien",
+        "desc": "Lakaat an douar e tresoù resis-kenañ.",
+        "email": "",
+        "phone": ""
+      }
+    },
+    {
+      "id": "drafters",
+      "order": 8,
+      "generic": true,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "",
+        "role": "Dessinateurs Projeteurs",
+        "desc": "Modélisation 3D et réalisation des plans d'aménagement.",
+        "email": "",
+        "phone": ""
+      },
+      "en": {
+        "name": "",
+        "role": "Draftspeople",
+        "desc": "3D modeling and production of development plans.",
+        "email": "",
+        "phone": ""
+      },
+      "br": {
+        "name": "",
+        "role": "Tresourien-Raktresourien",
+        "desc": "Sevel tresoù 3D hag aozañ an tresoù kêr.",
+        "email": "",
+        "phone": ""
+      }
+    },
+    {
+      "id": "lawyers",
+      "order": 9,
+      "generic": true,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "",
+        "role": "Experts Juristes",
+        "desc": "Accompagnement juridique sur le droit foncier et la copropriété.",
+        "email": "",
+        "phone": ""
+      },
+      "en": {
+        "name": "",
+        "role": "Legal Experts",
+        "desc": "Legal support on land law and co-ownership.",
+        "email": "",
+        "phone": ""
+      },
+      "br": {
+        "name": "",
+        "role": "Varnourien-Gwir",
+        "desc": "Sikour war gwir an douar hag ar c'henperc'henniezh.",
+        "email": "",
+        "phone": ""
+      }
+    },
+    {
+      "id": "assistants",
+      "order": 10,
+      "generic": true,
+      "image": null,
+      "linkedin": null,
+      "fr": {
+        "name": "",
+        "role": "Assistantes de Direction",
+        "desc": "Gestion administrative, financière et relation clientèle.",
+        "email": "",
+        "phone": ""
+      },
+      "en": {
+        "name": "",
+        "role": "Executive Assistants",
+        "desc": "Administrative, financial management and client relations.",
+        "email": "",
+        "phone": ""
+      },
+      "br": {
+        "name": "",
+        "role": "Sikourezed Renerezh",
+        "desc": "Melestradurezh, arc'hant ha darempred gant an aratourien.",
+        "email": "",
+        "phone": ""
+      }
+    }
+  ]
+}

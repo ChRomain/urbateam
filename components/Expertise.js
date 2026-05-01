@@ -6,9 +6,9 @@ import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { Map, Ruler, Droplets, Trophy, Compass, ArrowRight, Layers } from 'lucide-react';
 import styles from './Expertise.module.css';
 import { useLanguage } from '../context/LanguageContext';
+import Magnetic from './Magnetic';
 
 function GlassCard({ children, variants, className = "" }) {
-// ... (Logic stays the same) ...
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
 
@@ -123,9 +123,11 @@ export default function Expertise() {
                 <h3 className={styles.cardTitle} style={{ color: 'white' }}>{t(`expertise.items.${item.key}.title`)}</h3>
               </Link>
               <p style={{ opacity: 0.8 }}>{t(`expertise.items.${item.key}.desc`)}</p>
-              <Link href={`/expertise/${item.key}`} className={styles.learnMore}>
-                {t('common.learn_more')} →
-              </Link>
+              <Magnetic strength={0.1}>
+                <Link href={`/expertise/${item.key}`} className={styles.learnMore}>
+                  {t('common.learn_more')} →
+                </Link>
+              </Magnetic>
             </GlassCard>
           ))}
 
@@ -144,9 +146,11 @@ export default function Expertise() {
               <h3 style={{ margin: 0 }}>{t('expertise.cta_title')}</h3>
               <p className={styles.contactText} style={{ margin: 0 }}>{t('expertise.cta_desc')}</p>
             </div>
-            <Link href="/contact" className={`btn btn-primary ${styles.contactBtn}`}>
-              {t('expertise.cta_btn')} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
-            </Link>
+            <Magnetic strength={0.2}>
+              <Link href="/contact" className={`btn btn-primary ${styles.contactBtn}`}>
+                {t('expertise.cta_btn')} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+              </Link>
+            </Magnetic>
           </div>
         </GlassCard>
       </div>

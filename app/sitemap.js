@@ -6,19 +6,19 @@ export default function sitemap() {
   const routes = [
     '',
     '/apropos',
-    '/expertise/urbanisme',
-    '/expertise/geometre',
-    '/expertise/vrd',
-    '/expertise/sport',
-    '/expertise/topographie',
-    '/expertise/copropriete',
+    '/expertise',
+    '/projets',
+    '/clients',
+    '/mon-projet',
+    '/blog',
+    '/nous-suivre',
+    '/lexique',
     '/moyens-techniques',
     '/faq',
-    '/lexique',
-    '/mon-projet',
     '/contact',
     '/mentions-legales',
     '/vieprivee'
+
   ];
 
   return routes.map((route) => ({

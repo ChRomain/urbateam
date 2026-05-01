@@ -12,7 +12,13 @@ export default function SitemapHTML() {
   const links = [
     { href: '/', label: t('header.home') },
     { href: '/apropos', label: t('header.about') },
-    { href: '/mon-projet', label: t('header.expertises') },
+    { href: '/expertise', label: t('header.expertises') },
+    { href: '/projets', label: t('header.projects') },
+    { href: '/clients', label: t('header.clients') },
+    { href: '/mon-projet', label: t('header.my_project') },
+    { href: '/blog', label: t('header.blog') },
+    { href: '/nous-suivre', label: t('header.follow_us') },
+    { href: '/lexique', label: t('header.glossary') },
     { href: '/moyens-techniques', label: t('header.technical') },
     { href: '/faq', label: t('header.faq') },
     { href: '/contact', label: t('header.contact') },
@@ -21,11 +27,12 @@ export default function SitemapHTML() {
     { href: '/privacy', label: t('legal_pages.cookies.title') },
   ];
 
+
   return (
     <div className="container py-section">
       <PageHeader 
         title={t('header.sitemap')} 
-        subtitle={t('legal_pages.privacy.intro')}
+        subtitle={t('header.sitemap_subtitle')}
       />
 
       <MotionSection style={{ marginTop: '3rem' }}>

@@ -8,6 +8,10 @@ export const fr = {
       title: "À Propos d'URBATEAM | Notre Cabinet de Géomètres-Experts",
       description: "Découvrez URBATEAM, notre équipe pluridisciplinaire et notre engagement qualité pour vos projets d'aménagement en Bretagne-Ouest."
     },
+    rse: {
+      title: "Engagements RSE | Impact Positif & Durable | URBATEAM",
+      description: "Découvrez notre stratégie de Responsabilité Sociétale : protection de l'environnement, bien-être des collaborateurs et ancrage territorial en Finistère."
+    },
     technical: {
       title: "Moyens Techniques | Scanner 3D & Drone | URBATEAM",
       description: "Nos équipements de pointe : Scan laser 3D, drones et stations totales robotisées pour des levés topographiques de haute précision."
@@ -52,6 +56,10 @@ export const fr = {
       copropriete: {
         title: "Copropriété & BIM | Relevés 3D | URBATEAM",
         description: "Mise en copropriété, calcul de tantièmes, division en volumes et modélisation BIM (Scan-to-BIM)."
+      },
+      partners: {
+        title: "Partenaires Experts | URBATEAM",
+        description: "Découvrez notre écosystème de partenaires : notaires, avocats et architectes pour sécuriser vos projets."
       }
     }
   },
@@ -66,11 +74,19 @@ export const fr = {
     my_project: "Mon Projet",
     blog: "Actualités & Blog",
     follow_us: "Nous suivre",
+    social: "Nous suivre",
+    view_profile: "Voir le profil",
+    loading_references: "Chargement des références...",
+    loading_posts: "Chargement des actualités...",
+    partners: "Partenaires",
+
     glossary: "Glossaire",
     technical: "Moyens Techniques",
     faq: "FAQ",
     contact: "Contact",
-    sitemap: "Plan du site"
+    sitemap: "Plan du site",
+    sitemap_subtitle: "Accédez rapidement à toutes les sections de notre site."
+
   },
   hero: {
     title_part1: "Concrétisez vos projets d'aménagement",
@@ -163,6 +179,13 @@ export const fr = {
     title: "Ils nous font confiance",
     subtitle: "Collectivités, promoteurs et donneurs d'ordres institutionnels nous confient leurs projets d'aménagement.",
     list_title: "Missions de maîtrise d'œuvre marquantes :",
+    categories: {
+      collectivite: "Collectivités",
+      amenageur: "Aménageurs & Promoteurs",
+      architecte: "Architectes",
+      particulier: "Particuliers",
+      entreprise: "Entreprises"
+    },
     items: [
       "Écoquartier de PLOUEZEC (22) - Concours sur esquisse",
       "SQUIFFIEC (22) : Nouveau quartier durable 'Le Hameau de la Vallée'",
@@ -241,11 +264,88 @@ export const fr = {
         ]
       }
     },
+    rse: {
+      title: "Notre Démarche RSE",
+      subtitle: "Parce que notre métier de géomètre-expert et d'urbaniste nous place au cœur de l'aménagement durable des territoires.",
+      environmental: {
+        title: "Engagement Environnemental",
+        desc: "Nous intégrons la préservation de la biodiversité et la gestion durable des ressources dans chaque projet.",
+        items: [
+          "Gestion alternative des eaux pluviales",
+          "Préservation des continuités écologiques",
+          "Optimisation foncière contre l'étalement urbain"
+        ]
+      },
+      social: {
+        title: "Engagement Social",
+        desc: "Le capital humain est notre force. Nous veillons au bien-être de nos collaborateurs par un environnement stimulant.",
+        items: [
+          "Formation continue et montée en compétences",
+          "Sécurité et santé au travail",
+          "Éthique professionnelle et déontologie"
+        ]
+      },
+      territorial: {
+        title: "Engagement Territorial",
+        desc: "Acteur de proximité en Bretagne-Ouest, nous participons au dynamisme économique local.",
+        items: [
+          "Ancrage local fort (2 agences de proximité)",
+          "Soutien aux filières locales",
+          "Participation au débat public sur l'aménagement"
+        ]
+      }
+    },
     video: {
       title: "L'entreprise en vidéo",
       subtitle: "Suivez notre quotidien, nos projets et notre équipe d'experts directement sur le terrain.",
       fallback: "Votre navigateur ne prend pas en charge la lecture de vidéos."
     }
+  },
+  partners: {
+    title: "Notre Écosystème de Partenaires",
+    subtitle: "Parce que chaque projet est unique, nous nous entourons des meilleurs experts (notaires, avocats, architectes) pour sécuriser vos opérations.",
+    cta_title: "Vous êtes un professionnel ?",
+    cta_desc: "Nous sommes toujours à la recherche de nouvelles collaborations pour offrir le meilleur service à nos clients.",
+    cta_btn: "Devenir partenaire"
+  },
+  rse_page: {
+    title: "Notre Engagement RSE",
+    subtitle: "La Responsabilité Sociétale des Entreprises est au cœur de notre vision. Nous agissons pour un aménagement du territoire respectueux, humain et durable.",
+    pillars: {
+      environmental: {
+        title: "Piliers Environnementaux",
+        desc: "Nous minimisons l'impact de nos activités et conseillons nos clients sur des solutions durables.",
+        items: [
+          "Promotion de la densification urbaine pour limiter l'étalement foncier.",
+          "Conception de systèmes de gestion des eaux pluviales à la parcelle (VRD durable).",
+          "Digitalisation des processus (Zéro papier) et utilisation de matériel basse consommation.",
+          "Gestion optimisée des déplacements et sensibilisation à l'éco-conduite."
+        ]
+      },
+      social: {
+        title: "Piliers Sociaux",
+        desc: "Nos collaborateurs sont notre richesse. Nous favorisons un cadre de travail épanouissant et inclusif.",
+        items: [
+          "Équilibre vie professionnelle / vie privée et flexibilité des horaires.",
+          "Plan de formation ambitieux pour chaque collaborateur (BIM, nouvelles réglementations).",
+          "Sécurité maximale sur le terrain avec des équipements de protection de pointe.",
+          "Transparence managériale et partage des succès de l'agence."
+        ]
+      },
+      territorial: {
+        title: "Piliers Territoriaux",
+        desc: "Acteur engagé du Finistère, nous soutenons l'économie locale et la vie associative.",
+        items: [
+          "Recrutement local et accueil régulier de stagiaires des écoles bretonnes.",
+          "Partenariats privilégiés avec des prestataires et artisans du territoire.",
+          "Soutien au tissu associatif local et participation aux événements régionaux.",
+          "Engagement dans les ordres professionnels pour faire évoluer le métier."
+        ]
+      }
+    },
+    cta_title: "Une vision partagée ?",
+    cta_desc: "Vous souhaitez en savoir plus sur nos engagements ou collaborer sur un projet durable ?",
+    cta_btn: "En discuter avec nous"
   },
   contact: {
     header: {
@@ -308,6 +408,12 @@ export const fr = {
     header: {
       title: "Mon Projet : Étape par Étape",
       subtitle: "De l'idée initiale jusqu'à la signature finale, découvrez le parcours type d'un projet d'aménagement sécurisé."
+    },
+    slider: {
+      title: "Comparaison Avant / Après",
+      before: "AVANT",
+      after: "APRÈS",
+      help: "Glissez le curseur pour comparer l'état initial et la réalisation finale."
     },
     tabs: {
       division: "🏷️ Diviser",

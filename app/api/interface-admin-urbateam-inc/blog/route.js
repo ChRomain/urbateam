@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+
+
+
 import { writeFile, readFile } from 'fs/promises';
 import path from 'path';
+import { optimizeImage } from '../../../../lib/imageOptimizer';
 
-const DATA_PATH = path.join(process.cwd(), 'data', 'blog.json');
+const DATA_PATH = path.join(process.cwd(), 'public', 'data', 'blog.json');
 
 async function getBlogData() {
   try {
@@ -25,6 +30,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const formData = await request.formData();
+    const id = formData.get('id');
     const title = formData.get('title');
     const author = formData.get('author');
     const tags = formData.get('tags');
@@ -36,23 +42,28 @@ export async function POST(request) {
       return NextResponse.json({ success: false, message: 'Titre et contenu requis' }, { status: 400 });
     }
 
-    let imageUrl = '';
-    if (file && typeof file !== 'string') {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
-      const uploadPath = path.join(process.cwd(), 'public', 'uploads', 'blog', filename);
-      await writeFile(uploadPath, buffer);
-      imageUrl = `/uploads/blog/${filename}`;
+    const data = await getBlogData();
+    let post;
+
+    if (id) {
+      const index = data.findIndex(p => p.id.toString() === id.toString());
+      if (index === -1) return NextResponse.json({ success: false, message: 'Article non trouvé' }, { status: 404 });
+      post = data[index];
     }
 
-    const data = await getBlogData();
+    let imageUrl = post ? post.featuredImage : '';
+    if (file && typeof file !== 'string' && file.size > 0) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      imageUrl = await optimizeImage(buffer, 'uploads/blog', file.name);
+    }
+
     const slug = title.toLowerCase()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-');
 
-    const newPost = {
-      id: Date.now(),
+    const updatedPost = {
+      id: id ? parseInt(id) : Date.now(),
       title,
       slug,
       author,
@@ -60,13 +71,19 @@ export async function POST(request) {
       content,
       excerpt,
       featuredImage: imageUrl,
-      date: new Date().toISOString()
+      date: id ? post.date : new Date().toISOString()
     };
 
-    data.unshift(newPost);
+    if (id) {
+      const index = data.findIndex(p => p.id.toString() === id.toString());
+      data[index] = updatedPost;
+    } else {
+      data.unshift(updatedPost);
+    }
+    
     await saveBlogData(data);
 
-    return NextResponse.json({ success: true, post: newPost });
+    return NextResponse.json({ success: true, post: updatedPost });
   } catch (error) {
     console.error('Blog upload error:', error);
     return NextResponse.json({ success: false, message: 'Erreur lors de la création de l\'article' }, { status: 500 });

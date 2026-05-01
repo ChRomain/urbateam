@@ -41,6 +41,7 @@
   display: flex;
   align-items: baseline;
   text-decoration: none;
+  transform-style: preserve-3d;
 }
 
 .urba {
@@ -51,6 +52,8 @@
   letter-spacing: -1px;
   line-height: 1;
   transition: color 0.3s ease;
+  display: inline-block;
+  transform-style: preserve-3d;
 }
 
 .team {
@@ -62,17 +65,8 @@
   letter-spacing: -1px;
   line-height: 1;
   transition: all 0.3s ease;
-}
-
-.logo:hover .urba {
-  color: var(--accent-color);
-  text-shadow: 0 0 15px rgba(214, 185, 159, 0.2);
-}
-
-.logo:hover .team {
-  color: var(--primary-color);
-  transform: translateX(5px);
-  text-shadow: 0 0 10px rgba(121, 160, 129, 0.2);
+  display: inline-block;
+  transform-style: preserve-3d;
 }
 
 @media (max-width: 768px) {

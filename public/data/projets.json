@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1714526000000",
+    "slug": "eco-quartier-de-la-vallee",
+    "title": "Éco-quartier de la Vallée",
+    "category": "urbanisme",
+    "location": "Saint-Renan (29)",
+    "client": "Ville de Saint-Renan",
+    "missions": ["Maîtrise d'œuvre urbaine", "Conception paysagère", "VRD"],
+    "description": "Création d'un nouveau quartier résidentiel durable privilégiant les mobilités douces et la gestion alternative des eaux pluviales. Le projet intègre 45 logements dans un cadre paysager préservé.",
+    "technicalDetails": "45 lots, 3 hectares, 1.5km de pistes cyclables",
+    "images": {
+      "before": "/uploads/projets/vallee-before.webp",
+      "after": "/uploads/projets/vallee-after.webp",
+      "gallery": []
+    },
+    "documents": [
+      {
+        "name": "Plaquette de présentation.pdf",
+        "url": "#"
+      },
+      {
+        "name": "Plan de masse.pdf",
+        "url": "#"
+      }
+    ],
+    "date": "2026-05-01T02:22:44.000Z"
+  }
+]

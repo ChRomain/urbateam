@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1777599675074,
+    "fr": {
+      "question": "Le bornage est-il obligatoire ?",
+      "answer": "Le bornage n'est pas systématiquement obligatoire, mais il devient indispensable dès que vous souhaitez garantir les limites de votre propriété ou si vous envisagez une vente. Que votre terrain soit situé à Saint-Renan, Brest ou Douarnenez, c'est le seul acte qui définit juridiquement votre limite de propriété de manière définitive."
+    },
+    "en": {
+      "question": "What is contradictory boundary marking and is it mandatory?",
+      "answer": "Boundary marking allows for the legal and definitive fixing of your land's property lines. In France (Article 646 of the Civil Code), any owner can compel their neighbor to boundary marking. This is also legally mandatory in the case of land division for building (subdivision). Only a Chartered Land Surveyor registered with the Order is authorized to carry it out and place official markers."
+    },
+    "br": {
+      "question": "Petra eo ar bonnañ ha ret eo ober anezhañ ?",
+      "answer": "Ar bonnañ a sikour da lakaat un harz ofisiel etre ho touar hag hini hoc'h amezeien (Kod sivil gall Art. 646). Ret eo d'ober pa vez krouet ur lodenn douar nevez da sevel un ti. Un Douaroner-Barnour nemetken a c'hell ober an dra-se."
+    }
+  },
+  {
+    "id": 1777599675075,
+    "fr": {
+      "question": "Quelle est la différence entre un plan topographique et un plan de bornage ?",
+      "answer": "Un plan topographique est un relevé précis de l'existant (relief, murs, arbres, voirie). Il est indispensable pour l'architecte ou le maître d'œuvre, mais n'a aucune valeur juridique concernant la limite de propriété. Le plan de bornage, en revanche, détermine la limite juridique foncière garantie après analyse des actes notariés et accord contradictoire des voisins."
+    },
+    "en": {
+      "question": "What is the difference between a topographic plan and a boundary plan?",
+      "answer": "A topographic plan is a precise survey of the existing situation (relief, walls, trees, roads). It is essential for the architect or project manager but has no legal value concerning the property line. The boundary plan, however, determines the guaranteed legal land boundary after analysis of notarized deeds and contradictory agreement from neighbors."
+    },
+    "br": {
+      "question": "Petra eo ar cheñchamant etre un tres topografek hag un tres bonnañ ?",
+      "answer": "Un tres topografek a ziskouez an douar evel m'emañ (mogerioù, gwez, h.a...). N'en deus ket talvoudegezh lezennel evit an harzoù. Un tres bonnañ a laka an harz ofisiel gant asant an amezeien."
+    }
+  },
+  {
+    "id": 1777599675076,
+    "fr": {
+      "question": "Puis-je diviser mon terrain situé dans mon jardin pour le vendre ?",
+      "answer": "Oui, mais cette opération (détachement de parcelle) nécessite de s'assurer que le projet est conforme au PLU/PLUi (Plan Local d'Urbanisme). Le Géomètre-Expert vérifie la constructibilité, réalise le plan de division, borne la nouvelle limite créée et constitue le dossier d'urbanisme obligatoire (Déclaration Préalable de division) en Mairie."
+    },
+    "en": {
+      "question": "Can I divide my garden land to sell it?",
+      "answer": "Yes, but this operation (parcel detachment) requires ensuring the project complies with the local urban plan (PLU/PLUi). The Land Surveyor verifies buildability, creates the division plan, marks the new created boundary and constitutes the mandatory urban planning file (Preliminary Declaration of division) at the City Hall."
+    },
+    "br": {
+      "question": "Gallout a ran rannañ ma liorzh evit gwerzhañ un lodenn ?",
+      "answer": "Ya, met ret eo gwelet ma 'z eo a-du gant reolennoù an ti-kêr (PLU). An Douaroner a sikour ac'hanoc'h gant an deuliad melestradurel (DP)."
+    }
+  },
+  {
+    "id": 1777599675077,
+    "fr": {
+      "question": "Le plan cadastral fait-il foi pour connaître la limite de mon terrain ?",
+      "answer": "Non. Contrairement aux idées reçues, le <a class=\"wiki-link\" href=\"/lexique?search=Cadastre\">cadastre</a> est un document à vocation purement fiscale (pour le calcul des impôts fonciers) et n'a aucune valeur probante de propriété foncière. En cas de litige, seul un Procès-Verbal de <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bornage</a> rédigé par un Géomètre-Expert fait foi."
+    },
+    "en": {
+      "question": "Is the cadastral plan proof of my land's boundary?",
+      "answer": "No. Contrary to popular belief, the <a class=\"wiki-link\" href=\"/lexique?search=Cadastre\">cadastre</a> is a document with a purely fiscal vocation (for calculating property taxes) and has no probative value of land ownership. In case of dispute, only a <a class=\"wiki-link\" href=\"/lexique?search=Boundary\">boundary marking</a> minutes drafted by a Chartered Surveyor is authentic."
+    },
+    "br": {
+      "question": "Ha talvoudegezh ofisiel en deus ar c'hadastr evit an harzoù ?",
+      "answer": "Nann. Ar c'hadastr a zo un teuliad evit an tailhoù (impôts). N'eo ket evit lakaat an harz ofisiel. Ar PV bonnañ nemetken a dalvez evit an harzoù."
+    }
+  },
+  {
+    "id": 1777599675078,
+    "fr": {
+      "question": "Comment faire corriger une erreur sur le plan cadastral ?",
+      "answer": "Si le cadastre public indique une limite erronée, vous devez solliciter un Géomètre-Expert. Après avoir effectué la recherche d'anciens actes et le relevé sur le terrain, notre équipe rédigera un plan de délimitation amiable et mettra à jour la documentation cadastrale (<a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>) transmise aux impôts."
+    },
+    "en": {
+      "question": "How can I correct an error on the cadastral plan?",
+      "answer": "If the public cadastre indicates an incorrect boundary, you must request a Chartered Surveyor. After researching old deeds and surveying the land, our team will draft an amicable delimitation plan and update the cadastral documentation (<a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>) sent to the tax authorities."
+    },
+    "br": {
+      "question": "Penaos reizhañ ur vioù er c'hadastr ?",
+      "answer": "Ret eo goulenn gant un Douaroner-Barnour evit sevel un tres bonnañ hag un teuliad DMPC evit kemmañ ar c'hadastr ofisiel."
+    }
+  },
+  {
+    "id": 1777599675079,
+    "fr": {
+      "question": "Qui paie les frais de bornage ?",
+      "answer": "Selon l'Article 646 du Code civil, les frais de bornage se font à frais communs entre les deux propriétaires voisins, bien que la répartition puisse être négociée différemment lors de la conciliation amiable."
+    },
+    "en": {
+      "question": "Who pays for boundary marking costs?",
+      "answer": "According to Article 646 of the Civil Code, boundary marking costs are shared between the two neighboring owners, although the distribution can be negotiated differently during amicable conciliation."
+    },
+    "br": {
+      "question": "Piv a bae evit ar bonnañ ?",
+      "answer": "Hervez an Art. 646 eus ar C'hod Sivil, ar mizioù a vez rannet etre an daou amezeg, met gallout a reer kemmañ an dra-se ma 'z int a-du."
+    }
+  },
+  {
+    "id": 1777599675080,
+    "fr": {
+      "question": "Pourquoi faire appel à un Géomètre-Expert pour une mise en copropriété ?",
+      "answer": "Le Géomètre-Expert est le seul professionnel qualifié pour garantir la précision des plans d'intérieurs et le calcul des millièmes (tantièmes) de copropriété. Son intervention sécurise juridiquement l'acte de vente et prévient les litiges futurs entre copropriétaires sur la répartition des charges."
+    },
+    "en": {
+      "question": "Why hire a Chartered Surveyor for a co-ownership setup?",
+      "answer": "The Chartered Surveyor is the only qualified professional to guarantee the accuracy of interior plans and the calculation of co-ownership shares (tantièmes). Their intervention legally secures the sale deed and prevents future disputes between co-owners regarding charge distribution."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675081,
+    "fr": {
+      "question": "Qu'est-ce qu'un modificatif de règlement de copropriété ?",
+      "answer": "Il s'agit d'une mise à jour du règlement suite à un changement dans l'immeuble (division d'un lot, changement d'usage, annexion de parties communes). Le Géomètre-Expert réalise les nouveaux plans et calcule la nouvelle répartition des tantièmes pour publication au fichier immobilier."
+    },
+    "en": {
+      "question": "What is a co-ownership regulation amendment?",
+      "answer": "It is an update to the regulations following a change in the building (lot division, change of use, annexation of common areas). The Surveyor creates new plans and calculates the new share distribution for publication in the real estate file."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675082,
+    "fr": {
+      "question": "Qu'est-ce qu'un relevé par Scanner Laser 3D ?",
+      "answer": "C'est une technologie qui permet de capturer des millions de points en quelques secondes pour créer une 'image 3D' millimétrée de l'existant. Cela permet de relever des structures complexes (monuments, usines, charpentes) avec une exhaustivité impossible à atteindre avec des méthodes classiques."
+    },
+    "en": {
+      "question": "What is 3D Laser Scanning?",
+      "answer": "It is a technology that captures millions of points in seconds to create a millimeter-accurate '3D image' of the existing structure. This allows for surveying complex structures (monuments, factories, frameworks) with an exhaustiveness impossible to achieve with traditional methods."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675083,
+    "fr": {
+      "question": "Comment utilisez-vous les drones dans vos missions ?",
+      "answer": "Le drone nous permet de réaliser des orthophotographies haute résolution et des modèles numériques de terrain (MNT) sur de grandes surfaces ou des zones d'accès difficile. C'est un outil précieux pour le suivi de chantier, le <a class=\"wiki-link\" href=\"/lexique?search=Cubature\">calcul de cubatures</a> (volumes de terre) et l'inspection d'ouvrages."
+    },
+    "en": {
+      "question": "How do you use drones in your missions?",
+      "answer": "The drone allows us to produce high-resolution orthophotographs and digital terrain models (DTM) over large surfaces or difficult access areas. It is a valuable tool for site monitoring, <a class=\"wiki-link\" href=\"/lexique?search=Cubature\">cubature calculations</a> (earth volumes), and structure inspections."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675084,
+    "fr": {
+      "question": "Quelle est la durée de validité d'un bornage ?",
+      "answer": "Un bornage contradictoire signé et archivé est définitif et immuable. Il 'suit le terrain' : même si les propriétaires changent, la limite fixée reste la même pour les générations futures. C'est la garantie de sérénité la plus forte pour votre patrimoine foncier."
+    },
+    "en": {
+      "question": "How long is a boundary marking valid?",
+      "answer": "A signed and archived contradictory boundary marking is definitive and immutable. It 'follows the land': even if owners change, the set boundary remains the same for future generations. It is the strongest guarantee of peace of mind for your land heritage."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675085,
+    "fr": {
+      "question": "Quels sont les documents nécessaires pour déposer un permis d'aménager ?",
+      "answer": "Le dossier type comprend un <a class=\"wiki-link\" href=\"/lexique?search=Situation\">plan de situation</a>, un plan de l'état initial du terrain, un plan de composition d'ensemble, ainsi qu'une <a class=\"wiki-link\" href=\"/lexique?search=Notice\">notice descriptive</a> expliquant l'insertion du projet dans son environnement. URBATEAM se charge de la constitution complète de ce dossier technique et administratif."
+    },
+    "en": {
+      "question": "What documents are required to apply for a development permit?",
+      "answer": "The typical file includes a <a class=\"wiki-link\" href=\"/lexique?search=Location\">location plan</a>, a plan of the initial state of the land, a general composition plan, as well as a <a class=\"wiki-link\" href=\"/lexique?search=Descriptive\">descriptive notice</a> explaining the project's insertion into its environment. URBATEAM takes care of the complete technical and administrative constitution of this file."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675086,
+    "fr": {
+      "question": "Qu'est-ce qu'une servitude et comment la vérifier ?",
+      "answer": "Une servitude est une contrainte imposée à un terrain (fonds servant) au profit d'un autre (fonds dominant), comme un <a class=\"wiki-link\" href=\"/lexique?search=Passage\">droit de passage</a> ou le passage de réseaux (<a class=\"wiki-link\" href=\"/lexique?search=Tréfonds\">servitude de tréfonds</a>). Elles sont mentionnées dans votre titre de propriété. Le Géomètre-Expert peut les identifier précisément sur le terrain et vérifier leur conformité."
+    },
+    "en": {
+      "question": "What is an easement and how can it be verified?",
+      "answer": "An easement is a constraint imposed on land (servient estate) for the benefit of another (dominant estate), such as a <a class=\"wiki-link\" href=\"/lexique?search=Passage\">right of way</a> or the passage of networks (<a class=\"wiki-link\" href=\"/lexique?search=Underground\">underground easement</a>). They are mentioned in your property title. The Chartered Surveyor can identify them precisely on the ground and verify their compliance."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675087,
+    "fr": {
+      "question": "Intervenez-vous pour la création de terrains de sport ?",
+      "answer": "Oui, URBATEAM possède une expertise spécifique en ingénierie sportive. Nous concevons des complexes sportifs (stades, pistes d'athlétisme, terrains synthétiques) en respectant les normes fédérales et les exigences de drainage et de nivellement de haute précision."
+    },
+    "en": {
+      "question": "Do you intervene for the creation of sports fields?",
+      "answer": "Yes, URBATEAM has specific expertise in sports engineering. We design sports complexes (stadiums, athletics tracks, synthetic fields) respecting federal standards and high-precision drainage and leveling requirements."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675088,
+    "fr": {
+      "question": "Comment sont calculés les honoraires d'un Géomètre-Expert ?",
+      "answer": "Chaque dossier est unique. Nos honoraires dépendent de la complexité technique de la mission, du temps de recherche en archives, du nombre de voisins à convoquer pour un bornage, et de la superficie du terrain. Nous fournissons systématiquement un devis détaillé et gratuit avant toute intervention."
+    },
+    "en": {
+      "question": "How are a Land Surveyor's fees calculated?",
+      "answer": "Each case is unique. Our fees depend on the technical complexity of the mission, search time in archives, the number of neighbors to be summoned for boundary marking, and the land area. We systematically provide a free, detailed quote before any intervention."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675089,
+    "fr": {
+      "question": "Quelle est la différence entre un bornage amiable et un bornage judiciaire ?",
+      "answer": "Le bornage amiable est le fruit d'un accord entre voisins avec l'aide d'un Géomètre-Expert. Si un accord est impossible, le juge peut ordonner un bornage judiciaire. Dans ce cas, un Géomètre-Expert est désigné comme expert judiciaire pour proposer une limite que le juge validera par un jugement."
+    },
+    "en": {
+      "question": "What is the difference between amicable and judicial boundary marking?",
+      "answer": "Amicable boundary marking results from an agreement between neighbors with the help of a Land Surveyor. If agreement is impossible, a judge can order judicial boundary marking. In this case, a Land Surveyor is appointed as a judicial expert to propose a boundary that the judge will validate by a ruling."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675090,
+    "fr": {
+      "question": "Pourquoi faire réaliser son mesurage Loi Carrez par un Géomètre-Expert ?",
+      "answer": "Bien que non obligatoire, l'intervention d'un Géomètre-Expert offre une garantie de responsabilité civile professionnelle. En cas d'erreur de mesure supérieure à 5%, l'acquéreur peut demander une baisse de prix. Notre précision et notre expertise juridique sécurisent votre transaction immobilière."
+    },
+    "en": {
+      "question": "Why have a Land Surveyor perform your Carrez Law measurement?",
+      "answer": "While not mandatory, a Land Surveyor's intervention offers a professional civil liability guarantee. In case of a measurement error greater than 5%, the buyer can request a price reduction. Our precision and legal expertise secure your real estate transaction."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675091,
+    "fr": {
+      "question": "Quelle est la différence entre une copropriété et une division en volumes ?",
+      "answer": "La copropriété s'applique généralement aux bâtiments simples avec des parties communes partagées. La division en volumes est utilisée pour des ensembles immobiliers complexes (ex: commerces au rez-de-chaussée et habitations au-dessus) afin de dissocier juridiquement des éléments sans parties communes, souvent gérés par une AFUL ou une ASL."
+    },
+    "en": {
+      "question": "What is the difference between co-ownership and volume division?",
+      "answer": "Co-ownership usually applies to simple buildings with shared common areas. Volume division is used for complex real estate complexes (e.g., shops on the ground floor and housing above) to legally dissociate elements without common areas, often managed by a homeowner association (AFUL or ASL)."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675092,
+    "fr": {
+      "question": "Qu'est-ce que le processus Scan-to-BIM ?",
+      "answer": "C'est la transformation d'un nuage de points issu d'un scanner 3D en une maquette numérique intelligente (BIM). Cette maquette contient non seulement la géométrie du bâtiment, mais aussi des données sur les matériaux, les réseaux et les équipements, facilitant la gestion ultérieure du bâti."
+    },
+    "en": {
+      "question": "What is the Scan-to-BIM process?",
+      "answer": "It is the transformation of a point cloud from a 3D scanner into an intelligent digital model (BIM). This model contains not only the building's geometry but also data on materials, networks, and equipment, facilitating subsequent building management."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675093,
+    "fr": {
+      "question": "Proposez-vous des prestations d'auscultation d'ouvrages ?",
+      "answer": "Oui, nous réalisons des mesures de haute précision pour surveiller la stabilité de bâtiments, de ponts ou de soutènements via l'<a class=\"wiki-link\" href=\"/lexique?search=Auscultation\">auscultation d'ouvrages</a>. Grâce à des capteurs et des relevés périodiques, nous détectons les moindres mouvements ou tassements millimétriques pour garantir la sécurité des infrastructures."
+    },
+    "en": {
+      "question": "Do you offer structural monitoring services?",
+      "answer": "Yes, we perform high-precision measurements to monitor the stability of buildings, bridges, or retaining walls via <a class=\"wiki-link\" href=\"/lexique?search=Monitoring\">structural monitoring</a>. Using sensors and periodic surveys, we detect the slightest movements or millimeter settlements to guarantee infrastructure security."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675094,
+    "fr": {
+      "question": "Réalisez-vous des plans d'intérieurs et des coupes de bâtiments existants ?",
+      "answer": "Absolument. Nous intervenons pour relever des immeubles complets afin de produire des <a class=\"wiki-link\" href=\"/lexique?search=Intérieurs\">plans d'intérieurs</a>, des <a class=\"wiki-link\" href=\"/lexique?search=Coupe\">coupes</a> transversales et des plans de façades. Ces documents sont indispensables pour les architectes dans le cadre de projets de rénovation ou de réhabilitation."
+    },
+    "en": {
+      "question": "Do you produce interior plans and sections of existing buildings?",
+      "answer": "Absolutely. We intervene to survey entire buildings to produce <a class=\"wiki-link\" href=\"/lexique?search=Interior\">interior plans</a>, transversal <a class=\"wiki-link\" href=\"/lexique?search=Section\">sections</a>, and facade plans. These documents are essential for architects in renovation or rehabilitation projects."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675095,
+    "fr": {
+      "question": "Comment savoir si un Géomètre-Expert est déjà intervenu sur mon terrain ?",
+      "answer": "Toutes les interventions foncières des Géomètres-Experts sont enregistrées sur le portail GéoFoncier. Nous pouvons consulter cet historique pour retrouver d'anciens procès-verbaux de bornage ou des plans de division, ce qui permet de sécuriser votre projet en vous appuyant sur des données certifiées."
+    },
+    "en": {
+      "question": "How can I know if a Land Surveyor has already intervened on my land?",
+      "answer": "All land interventions by Chartered Surveyors are recorded on the GéoFoncier portal. We can consult this history to find old boundary marking minutes or division plans, securing your project by relying on certified data."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675096,
+    "fr": {
+      "question": "Comment se déroule une division parcellaire ?",
+      "answer": "La division consiste à détacher une ou plusieurs parcelles d'un terrain d'origine. URBATEAM vous accompagne de l'étude de faisabilité à la déclaration préalable en mairie (comme à Plouzané ou Landerneau), jusqu'au document d'arpentage et au bornage des nouveaux lots."
+    },
+    "en": {
+      "question": "How does a land division work?",
+      "answer": "Division involves detaching one or more parcels from an original plot. URBATEAM supports you from the feasibility study to the preliminary declaration at the town hall (as in Plouzané or Landerneau), up to the surveying document and the boundary marking of new lots."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  },
+  {
+    "id": 1777599675097,
+    "fr": {
+      "question": "Quelle est la garantie offerte par un Géomètre-Expert ?",
+      "answer": "Le Géomètre-Expert est un professionnel libéral dont le titre est protégé. Nous avons une obligation d'assurance et de formation continue. En cas d'erreur dans nos missions de bornage ou de conception, notre responsabilité civile professionnelle vous protège, offrant une sécurité bien supérieure à celle d'un simple prestataire non régulé."
+    },
+    "en": {
+      "question": "What is the guarantee offered by a Chartered Surveyor?",
+      "answer": "The Chartered Surveyor is a professional whose title is protected by law. We have a professional indemnity insurance and continuous training obligations. In case of errors in our boundary or design missions, our civil liability protects you, offering security far superior to that of a simple unregulated service provider."
+    },
+    "br": {
+      "question": "",
+      "answer": ""
+    }
+  }
+]

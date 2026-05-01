@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+
+
 import { writeFile } from 'fs/promises';
 import path from 'path';
 

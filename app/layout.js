@@ -5,7 +5,9 @@ import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
 import BackToTop from '../components/BackToTop';
 import CookieBanner from '../components/CookieBanner';
+import StatsTracker from '../components/StatsTracker';
 import { LanguageProvider } from '../context/LanguageContext';
+
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -186,7 +188,9 @@ export default function RootLayout({ children }) {
           <ScrollProgress key="scroll-progress" />
           <BackToTop key="back-to-top" />
           <CookieBanner key="cookie-banner" />
+          <StatsTracker key="stats-tracker" />
           <Header key="header" />
+
           <main key="main-content">
             {children}
           </main>

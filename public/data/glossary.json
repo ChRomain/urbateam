@@ -1,0 +1,977 @@
+[
+  {
+    "id": 1777599793187,
+    "fr": {
+      "term": "Bornage Contradictoire",
+      "definition": "Opération consistant à définir juridiquement et à matérialiser sur le terrain (au moyen de bornes) les limites physiques séparant des propriétés privées contiguës."
+    },
+    "en": {
+      "term": "Contradictory Boundary Marking",
+      "definition": "Operation consisting of legally defining and materializing on the ground (using boundary markers) the physical limits separating contiguous private properties."
+    },
+    "br": {
+      "term": "Bonnañ (Bornage)",
+      "definition": "Lakaat harzoù ofisiel gant bonnoù etre div dachenn douar."
+    }
+  },
+  {
+    "id": 1777599793188,
+    "fr": {
+      "term": "Cadastre",
+      "definition": "Ensemble de documents dressant l'état de la propriété foncière à des fins essentiellement fiscales. Le cadastre ne garantit pas la limite de propriété juridique exacte."
+    },
+    "en": {
+      "term": "Cadastre",
+      "definition": "Set of documents establishing the state of land ownership for essentially fiscal purposes. The cadastre does not guarantee the exact legal property boundary."
+    },
+    "br": {
+      "term": "Cadastre",
+      "definition": "Teuliad evit an tailhoù douar, n'eo ket un teuliad perc'henniezh ofisiel evit an harzoù."
+    }
+  },
+  {
+    "id": 1777599793189,
+    "fr": {
+      "term": "DMPC (Document d'Arpentage)",
+      "definition": "Document de Modification du Parcellaire Cadastral. Il est obligatoirement dressé par un Géomètre-Expert pour mettre à jour le plan cadastral suite à un changement de limites."
+    },
+    "en": {
+      "term": "DMPC (Surveying Document)",
+      "definition": "Document for Modification of the Cadastral Parcel. It must be prepared by a Land Surveyor to update the cadastral map following a change in boundaries."
+    },
+    "br": {
+      "term": "DMPC",
+      "definition": "Teuliad ofisiel evit cheñch ar c'hadastr pa vez rannet un douar."
+    }
+  },
+  {
+    "id": 1777599793190,
+    "fr": {
+      "term": "Détachement de parcelle",
+      "definition": "Action foncière visant à diviser une unité foncière en plusieurs entités distinctes, très souvent en vue de créer un nouveau terrain à bâtir."
+    },
+    "en": {
+      "term": "Parcel detachment",
+      "definition": "Land action aimed at dividing a land unit into several distinct entities, very often with a view to creating a new building lot."
+    },
+    "br": {
+      "term": "Lodennañ (Division)",
+      "definition": "Rannañ un douar e meur a lodenn nevez."
+    }
+  },
+  {
+    "id": 1777599793191,
+    "fr": {
+      "term": "PLU / PLUi",
+      "definition": "Plan Local d'Urbanisme (Intercommunal). Document de planification qui fixe les règles générales d'utilisation des sols sur le territoire d'une ou plusieurs communes."
+    },
+    "en": {
+      "term": "PLU / PLUi",
+      "definition": "Local Urban Planning Map (Inter-municipal). Planning document that sets the general rules for land use in the territory of one or more municipalities."
+    },
+    "br": {
+      "term": "PLU / PLUi",
+      "definition": "Reolennoù an ti-kêr evit implijout an douaroù (lakaat e tres pelec'h e c'heller sevel tiez)."
+    }
+  },
+  {
+    "id": 1777599793192,
+    "fr": {
+      "term": "Servitude",
+      "definition": "Charge pesant sur une propriété foncière au bénéfice d'une autre propriété foncière (droit de passage, réseaux...)."
+    },
+    "en": {
+      "term": "Easement",
+      "definition": "Charge weighing on a land property for the benefit of another land property (right of way, networks...)."
+    },
+    "br": {
+      "term": "Sklent (Servitude)",
+      "definition": "Ur gwir o tremen war un douar evit un douar all (hent tremen, rouedadoù...)."
+    }
+  },
+  {
+    "id": 1777599793193,
+    "fr": {
+      "term": "VRD (Voirie et Réseaux Divers)",
+      "definition": "Ensemble des ouvrages et des aménagements d'infrastructures permettant de viabiliser un terrain (routes, évacuation des eaux, électricité...)."
+    },
+    "en": {
+      "term": "VRD (Roads and Utilities)",
+      "definition": "Set of works and infrastructure developments for site servicing (roads, water evacuation, electricity, etc.)."
+    },
+    "br": {
+      "term": "VRD",
+      "definition": "Al labourioù evit an hentoù hag ar rouedadoù (dour, tredan, h.a...)."
+    }
+  },
+  {
+    "id": 1777599793194,
+    "fr": {
+      "term": "ZAC (Zone d'Aménagement Concerté)",
+      "definition": "Opération d'urbanisme publique d'envergure par laquelle une collectivité aménage des terrains pour les céder à des constructeurs."
+    },
+    "en": {
+      "term": "ZAC (Concerted Development Zone)",
+      "definition": "Large-scale public urban planning operation by which a local authority develops land to sell it to builders."
+    },
+    "br": {
+      "term": "ZAC",
+      "definition": "Ur raktres aozañ bras renet gant ur strollad publik."
+    }
+  },
+  {
+    "id": 1777599793195,
+    "fr": {
+      "term": "Loi Carrez / Loi Boutin",
+      "definition": "Mesurage de la superficie privative (Carrez) pour la vente ou habitable (Boutin) pour la location."
+    },
+    "en": {
+      "term": "Carrez / Boutin Laws",
+      "definition": "Measurement of private area (Carrez) for sale or habitable area (Boutin) for rental."
+    },
+    "br": {
+      "term": "Lezenn Carrez",
+      "definition": "Muzuliañ gorread un ti ofisiel evit ur gwerzh pe ur feurm."
+    }
+  },
+  {
+    "id": 1777599793196,
+    "fr": {
+      "term": "HQE (Haute Qualité Environnementale)",
+      "definition": "Démarche d'aménagement visant à maîtriser les impacts environnementaux d'une opération urbaine ou immobilière."
+    },
+    "en": {
+      "term": "HQE (High Environmental Quality)",
+      "definition": "Development approach aiming to master the environmental impacts of an urban or real estate operation."
+    },
+    "br": {
+      "term": "HQE",
+      "definition": "Kalite uhel evit an natur en ur raktres sevel."
+    }
+  },
+  {
+    "id": 1777599793197,
+    "fr": {
+      "term": "Maîtrise d'œuvre (MOE)",
+      "definition": "Personne ou entité chargée par le maître d'ouvrage de concevoir, d'étudier et de diriger l'exécution des travaux."
+    },
+    "en": {
+      "term": "Project Management (MOE)",
+      "definition": "Person or entity appointed by the project owner to design, study and direct the execution of works."
+    },
+    "br": {
+      "term": "Mestroniezh-ober (MOE)",
+      "definition": "An hini a rener al labourioù hag a sevel an tresoù teknikel."
+    }
+  },
+  {
+    "id": 1777599793198,
+    "fr": {
+      "term": "Ordre des Géomètres-Experts (OGE)",
+      "definition": "L'institution nationale qui garantit la compétence, l'indépendance et la déontologie du Géomètre-Expert."
+    },
+    "en": {
+      "term": "Order of Chartered Surveyors (OGE)",
+      "definition": "The national institution that guarantees the competence, independence and ethics of the Land Surveyor."
+    },
+    "br": {
+      "term": "OGE",
+      "definition": "Urzh an Douaronerien-Varnourien a warant kalite an douaroner."
+    }
+  },
+  {
+    "id": 1777599793199,
+    "fr": {
+      "term": "AFUL (Association Foncière Urbaine Libre)",
+      "definition": "Groupement de propriétaires fonciers permettant la gestion commune d'ouvrages ou la réalisation de travaux de restructuration urbaine."
+    },
+    "en": {
+      "term": "AFUL (Urban Land Association)",
+      "definition": "A group of landowners allowing for the joint management of works or the completion of urban restructuring projects."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793200,
+    "fr": {
+      "term": "Alignement individuel",
+      "definition": "Acte par lequel l'administration fixe la limite de la voie publique au droit d'une propriété riveraine."
+    },
+    "en": {
+      "term": "Individual Alignment",
+      "definition": "An act by which the administration sets the boundary of the public highway along a riparian property."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793201,
+    "fr": {
+      "term": "ASL (Association Syndicale Libre)",
+      "definition": "Structure juridique regroupant des propriétaires au sein d'un lotissement ou d'une copropriété horizontale pour gérer les espaces et équipements communs."
+    },
+    "en": {
+      "term": "ASL (Free Syndicate Association)",
+      "definition": "A legal structure grouping owners within a subdivision or horizontal co-ownership to manage common spaces and equipment."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793202,
+    "fr": {
+      "term": "BIM (Building Information Modeling)",
+      "definition": "Maquette numérique intelligente regroupant l'ensemble des données techniques d'un bâtiment tout au long de son cycle de vie."
+    },
+    "en": {
+      "term": "BIM (Building Information Modeling)",
+      "definition": "Intelligent digital model grouping all the technical data of a building throughout its life cycle."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793203,
+    "fr": {
+      "term": "Bornage judiciaire",
+      "definition": "Procédure engagée devant le tribunal lorsque les propriétaires ne parviennent pas à un accord amiable sur la limite de leurs terrains."
+    },
+    "en": {
+      "term": "Judicial Boundary Marking",
+      "definition": "A procedure initiated before the court when owners fail to reach an amicable agreement on the boundary of their land."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793204,
+    "fr": {
+      "term": "Certificat d'Urbanisme (CU)",
+      "definition": "Document informant sur les règles d'urbanisme applicables à un terrain et sur la faisabilité d'un projet précis."
+    },
+    "en": {
+      "term": "Planning Certificate (CU)",
+      "definition": "A document providing information on the urban planning rules applicable to a land and the feasibility of a specific project."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793205,
+    "fr": {
+      "term": "Copropriété horizontale",
+      "definition": "Forme de copropriété s'appliquant à des maisons individuelles bâties sur un terrain commun, par opposition à la copropriété verticale (immeubles)."
+    },
+    "en": {
+      "term": "Horizontal Co-ownership",
+      "definition": "A form of co-ownership applying to detached houses built on common land, as opposed to vertical co-ownership (buildings)."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793206,
+    "fr": {
+      "term": "Cubature",
+      "definition": "Calcul du volume de matériaux (terre, gravats) à déplacer lors de travaux de terrassement, réalisé à partir de levés topographiques précis."
+    },
+    "en": {
+      "term": "Earthwork Volume (Cubature)",
+      "definition": "Calculation of the volume of materials (soil, rubble) to be moved during earthworks, based on precise topographic surveys."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793207,
+    "fr": {
+      "term": "Déclaration Préalable (DP)",
+      "definition": "Autorisation d'urbanisme obligatoire pour des travaux de faible importance ou des divisions de terrains sans création d'espaces communs."
+    },
+    "en": {
+      "term": "Prior Declaration (DP)",
+      "definition": "A mandatory urban planning authorization for minor works or land divisions without the creation of common spaces."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793208,
+    "fr": {
+      "term": "Division en volumes",
+      "definition": "Technique juridique complexe permettant de découper un ensemble immobilier en lots de propriété sans aucune partie commune."
+    },
+    "en": {
+      "term": "Volume Division",
+      "definition": "A complex legal technique allowing for the splitting of a real estate complex into ownership lots without any common areas."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793209,
+    "fr": {
+      "term": "Emprise au sol",
+      "definition": "Projection verticale au sol du volume de la construction, incluant les débords et surplombs."
+    },
+    "en": {
+      "term": "Footprint (Emprise au sol)",
+      "definition": "The vertical projection on the ground of the building's volume, including overhangs and projections."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793210,
+    "fr": {
+      "term": "GéoFoncier",
+      "definition": "Portail officiel de l'Ordre des Géomètres-Experts centralisant l'ensemble des interventions foncières réalisées sur le territoire."
+    },
+    "en": {
+      "term": "GéoFoncier",
+      "definition": "The official portal of the Order of Chartered Surveyors centralizing all land interventions carried out in the territory."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793211,
+    "fr": {
+      "term": "Implantation",
+      "definition": "Opération consistant à matérialiser sur le terrain la position exacte d'une future construction selon les plans de l'architecte."
+    },
+    "en": {
+      "term": "Layout / Staking (Implantation)",
+      "definition": "The operation of materializing on the ground the exact position of a future construction according to the architect's plans."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793212,
+    "fr": {
+      "term": "MNT (Modèle Numérique de Terrain)",
+      "definition": "Représentation 3D de la surface du sol permettant de réaliser des études hydrauliques, de visibilité ou des calculs de volumes."
+    },
+    "en": {
+      "term": "DTM (Digital Terrain Model)",
+      "definition": "A 3D representation of the ground surface allowing for hydraulic, visibility studies, or volume calculations."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793213,
+    "fr": {
+      "term": "Nivellement",
+      "definition": "Mesure des altitudes de différents points du sol par rapport à un système de référence (souvent le NGF - Nivellement Général de la France)."
+    },
+    "en": {
+      "term": "Leveling (Nivellement)",
+      "definition": "Measurement of the altitudes of different points on the ground relative to a reference system (often NGF in France)."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793214,
+    "fr": {
+      "term": "Nuage de points",
+      "definition": "Ensemble de millions de coordonnées 3D capturées par un scanner laser, formant une image numérique fidèle de l'existant."
+    },
+    "en": {
+      "term": "Point Cloud",
+      "definition": "Set of millions of 3D coordinates captured by a laser scanner, forming a faithful digital image of the existing condition."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793215,
+    "fr": {
+      "term": "Orthophotographie",
+      "definition": "Image aérienne rectifiée géométriquement pour obtenir une échelle uniforme, combinant la richesse d'une photo et la précision d'un plan."
+    },
+    "en": {
+      "term": "Orthophotograph",
+      "definition": "An aerial image geometrically rectified to obtain a uniform scale, combining the richness of a photo and the precision of a plan."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793216,
+    "fr": {
+      "term": "Plan de masse",
+      "definition": "Plan présentant le projet de construction dans sa totalité, indiquant l'emprise au sol, les accès et les raccordements aux réseaux."
+    },
+    "en": {
+      "term": "Site Plan (Plan de masse)",
+      "definition": "A plan showing the entire construction project, indicating the footprint, access, and network connections."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793217,
+    "fr": {
+      "term": "Récolement",
+      "definition": "Levé topographique réalisé après travaux pour vérifier la conformité des ouvrages (réseaux, voirie) par rapport au projet initial."
+    },
+    "en": {
+      "term": "As-built Survey (Récolement)",
+      "definition": "A topographic survey carried out after works to verify the compliance of structures (networks, roads) with the initial project."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793218,
+    "fr": {
+      "term": "Tantièmes / Millièmes",
+      "definition": "Quote-part de propriété des parties communes attribuée à chaque lot de copropriété, servant de base au calcul des charges."
+    },
+    "en": {
+      "term": "Shares (Tantièmes / Millièmes)",
+      "definition": "Ownership share of the common areas attributed to each co-ownership lot, used as the basis for calculating charges."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793219,
+    "fr": {
+      "term": "Aménagement foncier",
+      "definition": "Ensemble des opérations visant à améliorer la structure des exploitations agricoles ou le développement des territoires ruraux."
+    },
+    "en": {
+      "term": "Land Consolidation",
+      "definition": "A set of operations aimed at improving the structure of agricultural holdings or the development of rural territories."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793220,
+    "fr": {
+      "term": "Arpentage",
+      "definition": "Technique historique de mesure de la superficie des terres, aujourd'hui intégrée aux missions globales du Géomètre-Expert."
+    },
+    "en": {
+      "term": "Land Surveying (Arpentage)",
+      "definition": "Historical technique for measuring land area, today integrated into the global missions of the Chartered Surveyor."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793221,
+    "fr": {
+      "term": "Canevas",
+      "definition": "Réseau de points de référence aux coordonnées connues, servant d'ossature pour l'ensemble des levés topographiques d'un projet."
+    },
+    "en": {
+      "term": "Survey Control Network (Canevas)",
+      "definition": "A network of reference points with known coordinates, serving as the backbone for all topographic surveys of a project."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793222,
+    "fr": {
+      "term": "Coefficient d'Emprise au Sol (CES)",
+      "definition": "Rapport permettant de mesurer la surface maximale qu'une construction peut occuper sur un terrain."
+    },
+    "en": {
+      "term": "Footprint Coefficient (CES)",
+      "definition": "A ratio used to measure the maximum surface area a building can occupy on a land."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793223,
+    "fr": {
+      "term": "Condition suspensive",
+      "definition": "Clause d'un contrat (ex: vente de terrain) dont dépend l'exécution de l'acte, comme l'obtention d'un permis d'aménager."
+    },
+    "en": {
+      "term": "Condition Precedent",
+      "definition": "A clause in a contract (e.g., land sale) on which the execution of the act depends, such as obtaining a development permit."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793224,
+    "fr": {
+      "term": "Droit de passage",
+      "definition": "Type de servitude permettant à un propriétaire dont le terrain est enclavé de traverser la propriété de son voisin pour accéder à la voie publique."
+    },
+    "en": {
+      "term": "Right of Way",
+      "definition": "A type of easement allowing a owner whose land is landlocked to cross their neighbor's property to access the public highway."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793225,
+    "fr": {
+      "term": "Expropriation",
+      "definition": "Procédure permettant à une personne publique d'acquérir une propriété privée pour cause d'utilité publique, souvent avec l'expertise du géomètre pour l'évaluation."
+    },
+    "en": {
+      "term": "Expropriation",
+      "definition": "A procedure allowing a public entity to acquire private property for public utility purposes, often involving surveyor expertise for valuation."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793226,
+    "fr": {
+      "term": "Géodésie",
+      "definition": "Science qui étudie la forme de la Terre et permet de définir les systèmes de coordonnées utilisés par les GPS et les outils de mesure."
+    },
+    "en": {
+      "term": "Geodesy",
+      "definition": "The science that studies the Earth's shape and allows for the definition of coordinate systems used by GPS and measuring tools."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793227,
+    "fr": {
+      "term": "Géoréférencement",
+      "definition": "Opération consistant à attribuer des coordonnées géographiques précises (X, Y, Z) à un objet ou à un plan dans un système de référence national."
+    },
+    "en": {
+      "term": "Georeferencing",
+      "definition": "The operation of assigning precise geographical coordinates (X, Y, Z) to an object or plan in a national reference system."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793228,
+    "fr": {
+      "term": "Lot",
+      "definition": "Unité foncière issue d'une division (lotissement) ou unité de propriété dans un immeuble en copropriété."
+    },
+    "en": {
+      "term": "Lot",
+      "definition": "A land unit resulting from a division (subdivision) or an ownership unit in a co-ownership building."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793229,
+    "fr": {
+      "term": "NGF (Nivellement Général de la France)",
+      "definition": "Système de référence altimétrique officiel permettant d'exprimer les altitudes par rapport au niveau moyen de la mer."
+    },
+    "en": {
+      "term": "NGF (General Leveling of France)",
+      "definition": "The official altimetric reference system used to express altitudes relative to mean sea level."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793230,
+    "fr": {
+      "term": "Parcelle",
+      "definition": "Unité de base du plan cadastral, identifiée par une section et un numéro, représentant une étendue de terrain d'un seul tenant."
+    },
+    "en": {
+      "term": "Parcel",
+      "definition": "The basic unit of the cadastral plan, identified by a section and number, representing a continuous stretch of land."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793231,
+    "fr": {
+      "term": "Plan de bornage",
+      "definition": "Document graphique dressé par le Géomètre-Expert à l'issue d'une mission de bornage, identifiant les limites et les points de repère (bornes)."
+    },
+    "en": {
+      "term": "Boundary Plan",
+      "definition": "A graphic document drawn up by the Chartered Surveyor following a boundary marking mission, identifying boundaries and reference points (markers)."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793232,
+    "fr": {
+      "term": "Procès-Verbal (PV) de Bornage",
+      "definition": "Acte juridique signé par les propriétaires voisins qui consacre leur accord définitif sur la limite de leurs propriétés."
+    },
+    "en": {
+      "term": "Boundary Marking Minutes (PV)",
+      "definition": "A legal act signed by neighboring owners that formalizes their final agreement on the boundary of their properties."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793233,
+    "fr": {
+      "term": "Référentiel Lambert 93",
+      "definition": "Système de projection officiel utilisé en France métropolitaine pour l'ensemble des cartes et des levés topographiques."
+    },
+    "en": {
+      "term": "Lambert 93 Reference",
+      "definition": "The official projection system used in metropolitan France for all maps and topographic surveys."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793234,
+    "fr": {
+      "term": "Station totale",
+      "definition": "Instrument de mesure combinant un théodolite électronique et un télémètre laser pour mesurer des angles et des distances avec une extrême précision."
+    },
+    "en": {
+      "term": "Total Station",
+      "definition": "A measuring instrument combining an electronic theodolite and a laser rangefinder to measure angles and distances with extreme precision."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793235,
+    "fr": {
+      "term": "Talutage",
+      "definition": "Action de donner une pente inclinée (talus) aux terres lors d'un terrassement pour assurer la stabilité du terrain."
+    },
+    "en": {
+      "term": "Batters / Sloping (Talutage)",
+      "definition": "The action of giving an inclined slope (batter) to soil during earthworks to ensure land stability."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793236,
+    "fr": {
+      "term": "Topométrie",
+      "definition": "Art de la mesure des dimensions de la Terre sur une zone limitée, permettant la réalisation de plans à grande échelle."
+    },
+    "en": {
+      "term": "Topometry",
+      "definition": "The art of measuring dimensions of the Earth on a limited area, allowing the creation of large-scale plans."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793237,
+    "fr": {
+      "term": "Permis d'aménager",
+      "definition": "Autorisation d'urbanisme permettant à l'administration de contrôler les aménagements affectant l'utilisation du sol (lotissement, camping, etc.)."
+    },
+    "en": {
+      "term": "Development Permit",
+      "definition": "Urban planning authorization allowing the administration to control developments affecting land use (housing estates, camping, etc.)."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793238,
+    "fr": {
+      "term": "Notice descriptive",
+      "definition": "Document technique détaillant les caractéristiques d'un projet d'aménagement et son insertion dans le paysage."
+    },
+    "en": {
+      "term": "Descriptive Notice",
+      "definition": "Technical document detailing the characteristics of a development project and its integration into the landscape."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793239,
+    "fr": {
+      "term": "Calcul de cubatures",
+      "definition": "Évaluation précise des volumes de terrassement (déblais et remblais) à partir de levés topographiques comparatifs."
+    },
+    "en": {
+      "term": "Cubature Calculation",
+      "definition": "Precise evaluation of earthwork volumes (excavation and embankment) based on comparative topographic surveys."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793240,
+    "fr": {
+      "term": "Auscultation d'ouvrages",
+      "definition": "Mesures de précision répétées dans le temps pour surveiller la stabilité et les éventuelles déformations d'un bâtiment ou d'une infrastructure."
+    },
+    "en": {
+      "term": "Structural Monitoring",
+      "definition": "Repeated precision measurements over time to monitor the stability and any potential deformations of a building or infrastructure."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793241,
+    "fr": {
+      "term": "Plans d'intérieurs",
+      "definition": "Représentation graphique détaillée de chaque niveau d'un bâtiment, incluant les murs, cloisons, ouvertures et équipements."
+    },
+    "en": {
+      "term": "Interior Plans",
+      "definition": "Detailed graphic representation of each level of a building, including walls, partitions, openings, and equipment."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793242,
+    "fr": {
+      "term": "Coupe de bâtiment",
+      "definition": "Représentation d'une section verticale d'un édifice permettant d'en comprendre les hauteurs et la structure interne."
+    },
+    "en": {
+      "term": "Building Section",
+      "definition": "Representation of a vertical section of a building to understand its heights and internal structure."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793243,
+    "fr": {
+      "term": "Mitoyenneté",
+      "definition": "Droit de propriété partagé sur une clôture, un mur ou une haie séparant deux propriétés contiguës."
+    },
+    "en": {
+      "term": "Joint Ownership",
+      "definition": "Shared property right on a fence, wall, or hedge separating two contiguous properties."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793244,
+    "fr": {
+      "term": "Servitude de tréfonds",
+      "definition": "Droit permettant le passage de canalisations ou de réseaux souterrains sous la propriété d'autrui."
+    },
+    "en": {
+      "term": "Underground Easement",
+      "definition": "Right allowing the passage of pipes or underground networks beneath another person's property."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793245,
+    "fr": {
+      "term": "Lotissement",
+      "definition": "Division d'une unité foncière en plusieurs lots destinés à être bâtis, impliquant souvent la création d'espaces communs."
+    },
+    "en": {
+      "term": "Housing Estate",
+      "definition": "Division of a land unit into several lots intended for building, often involving the creation of common spaces."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793246,
+    "fr": {
+      "term": "Altidimétrie",
+      "definition": "Partie de la topographie traitant de la mesure des altitudes et de la représentation du relief."
+    },
+    "en": {
+      "term": "Altimetry",
+      "definition": "Part of topography dealing with the measurement of altitudes and the representation of relief."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793247,
+    "fr": {
+      "term": "Planimétrie",
+      "definition": "Représentation sur un plan horizontal des détails naturels et artificiels de la surface de la Terre, sans tenir compte du relief."
+    },
+    "en": {
+      "term": "Planimetry",
+      "definition": "Representation on a horizontal plane of natural and artificial details of the Earth's surface, without regard to relief."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793248,
+    "fr": {
+      "term": "Théodolite",
+      "definition": "Instrument de précision utilisé par le géomètre pour mesurer les angles horizontaux et verticaux."
+    },
+    "en": {
+      "term": "Theodolite",
+      "definition": "Precision instrument used by the surveyor to measure horizontal and vertical angles."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793249,
+    "fr": {
+      "term": "Règlement de copropriété",
+      "definition": "Document contractuel qui définit les règles de fonctionnement d'un immeuble et les droits et devoirs des copropriétaires."
+    },
+    "en": {
+      "term": "Co-ownership Regulations",
+      "definition": "Contractual document defining the operating rules of a building and the rights and duties of co-owners."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793250,
+    "fr": {
+      "term": "Plan de situation",
+      "definition": "Plan permettant de localiser précisément un terrain dans sa commune et son environnement global."
+    },
+    "en": {
+      "term": "Location Plan",
+      "definition": "Plan used to precisely locate a piece of land within its municipality and its global environment."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  },
+  {
+    "id": 1777599793251,
+    "fr": {
+      "term": "Droit de surplomb",
+      "definition": "Droit de faire passer une isolation thermique par l'extérieur au-dessus de la propriété voisine, sous certaines conditions légales."
+    },
+    "en": {
+      "term": "Overhang Right",
+      "definition": "Right to pass external thermal insulation over the neighbor's property, under certain legal conditions."
+    },
+    "br": {
+      "term": "",
+      "definition": ""
+    }
+  }
+]

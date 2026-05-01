@@ -6,7 +6,11 @@ export const br = {
     technical: "Doareoù teknikel",
     faq: "Goulennoù alies",
     contact: "Darempred",
-    sitemap: "Kartenn al lec'hienn"
+    sitemap: "Kartenn al lec'hienn",
+    sitemap_subtitle: "Kavit aes an holl bagezennoù hon lec'hienn."
+,
+    social: "Heuilhit ac'hanomp"
+
   },
   hero: {
     title_part1: "Kasit ho raktresoù d'ober",
@@ -117,7 +121,39 @@ export const br = {
         ]
       }
     },
+    rse: {
+      title: "Hon Hentad RSE",
+      subtitle: "Peogwir eo hor micher douaroner ha kêraour e kreiz aozañ padus an tiriadoù.",
+      environmental: {
+        title: "Gouestl evit an Endro",
+        desc: "Lakaat a reomp an natur hag ar gwareziñ dour e kreiz pep raktres.",
+        items: [
+          "Mestroniañ an dour-glav",
+          "Gwareziñ al liesseurted bev",
+          "Stourm ouzh dispign an douar"
+        ]
+      },
+      social: {
+        title: "Gouestl Sokial",
+        desc: "Nerzh hor stal eo an dud. Plijadur hor c'henlabourerien a zo ur pal deomp.",
+        items: [
+          "Stummadur dibaouez",
+          "Yec'hed ha surentez el labour",
+          "Gwir micherel ha deontologiezh"
+        ]
+      },
+      territorial: {
+        title: "Gouestl an Tiriad",
+        desc: "Labourat a reomp evit diorren an ekonomiezh e Breizh-Izel.",
+        items: [
+          "Div ajañs tost deoc'h",
+          "Sikour ar produerien lec'hel",
+          "Kemer perzh e buhez an diriadoù"
+        ]
+      }
+    },
     video: {
+
       title: "An embregerezh e video",
       subtitle: "Heuilhit hor buhez pemdez, hor raktresoù hag hor skipailh war an dachenn.",
       fallback: "Ho merdeer ne c'hell ket lenn ar video-mañ."
@@ -462,5 +498,16 @@ export const br = {
       control: "Stankañ ar c'hookiennoù",
       control_desc: "Gallout a rit kemmañ reolennoù ho merdeer evit stankañ ar c'hookiennoù."
     }
+  },
+  social: {
+    title: "Heuilhit ac'hanomp",
+    subtitle: "Heuilhit hor buhez pemdez, hor raktresoù hag hor skipailh war an dachenn.",
+    instagram_title: "Instagram",
+    google_review: {
+      title: "Ho meno a gont evidomp",
+      desc: "Labouret ho peus gant URBATEAM ? Skrivit un ali war Google mar plij.",
+      cta: "Skriva un ali war Google"
+    }
   }
 };
+

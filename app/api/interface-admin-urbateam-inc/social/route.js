@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-static';
+
+
 import { writeFile, readFile, mkdir } from 'fs/promises';
 import path from 'path';
+import { optimizeImage } from '../../../../lib/imageOptimizer';
 
-const DATA_PATH = path.join(process.cwd(), 'data', 'social.json');
+const DATA_PATH = path.join(process.cwd(), 'public', 'data', 'social.json');
 
 // Helper pour lire les données
 async function getSocialData() {
@@ -27,36 +31,49 @@ export async function GET() {
 export async function POST(request) {
   try {
     const formData = await request.formData();
+    const id = formData.get('id');
     const file = formData.get('file');
     const caption = formData.get('caption') || '';
+    const category = formData.get('category') || 'terrain';
 
-    if (!file) {
-      return NextResponse.json({ success: false, message: 'Aucun fichier fourni' }, { status: 400 });
+    const data = await getSocialData();
+    let post;
+
+    if (id) {
+      post = data.find(p => p.id.toString() === id.toString());
+      if (!post) return NextResponse.json({ success: false, message: 'Photo non trouvée' }, { status: 404 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    let url = post ? post.url : '';
 
-    // Nom de fichier unique
-    const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
-    const uploadPath = path.join(process.cwd(), 'public', 'uploads', 'social', filename);
+    if (file && typeof file !== 'string' && file.size > 0) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      url = await optimizeImage(buffer, 'uploads/social', file.name);
+    }
 
-    // Sauvegarde physique de l'image
-    await writeFile(uploadPath, buffer);
+    if (!id && !file) {
+      return NextResponse.json({ success: false, message: 'Fichier requis pour une nouvelle photo' }, { status: 400 });
+    }
 
-    // Mise à jour du JSON
-    const data = await getSocialData();
-    const newPost = {
-      id: Date.now(),
-      url: `/uploads/social/${filename}`,
+    const updatedPost = {
+      id: id ? parseInt(id) : Date.now(),
+      url,
       caption,
-      date: new Date().toISOString()
+      category,
+      date: post ? post.date : new Date().toISOString()
     };
     
-    data.unshift(newPost); // Ajouter au début
+    if (id) {
+      const index = data.findIndex(p => p.id.toString() === id.toString());
+      data[index] = updatedPost;
+    } else {
+      data.unshift(updatedPost);
+    }
+    
     await saveSocialData(data);
 
-    return NextResponse.json({ success: true, post: newPost });
+    return NextResponse.json({ success: true, post: updatedPost });
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json({ success: false, message: 'Erreur lors de l\'upload' }, { status: 500 });

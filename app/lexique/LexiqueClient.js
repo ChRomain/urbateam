@@ -8,9 +8,32 @@ import Link from 'next/link';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function LexiqueClient() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
-  const glossaryItems = t('glossary.items') || [];
+  const [items, setItems] = useState([]);
+  const staticGlossaryItems = t('glossary.items') || [];
+
+  useEffect(() => {
+    const loadGlossary = async () => {
+      try {
+        const res = await fetch('/data/glossary.json');
+        const data = await res.json();
+        if (data && data.length > 0) {
+          const mappedItems = data.map(item => ({
+            term: item[language]?.term || item.fr?.term || '',
+            definition: item[language]?.definition || item.fr?.definition || ''
+          }));
+          setItems(mappedItems);
+        } else {
+          setItems(staticGlossaryItems);
+        }
+      } catch (err) {
+        setItems(staticGlossaryItems);
+      }
+    };
+    loadGlossary();
+  }, [language, staticGlossaryItems]);
+
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -21,7 +44,7 @@ export default function LexiqueClient() {
   }, []);
 
   const filteredItems = useMemo(() => {
-    const sorted = [...glossaryItems].sort((a, b) => a.term.localeCompare(b.term));
+    const sorted = [...items].sort((a, b) => a.term.localeCompare(b.term));
     if (!searchTerm.trim()) return sorted;
     
     const searchLower = searchTerm.toLowerCase();
@@ -29,7 +52,8 @@ export default function LexiqueClient() {
       item.term.toLowerCase().includes(searchLower) || 
       item.definition.toLowerCase().includes(searchLower)
     );
-  }, [glossaryItems, searchTerm]);
+  }, [items, searchTerm]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
