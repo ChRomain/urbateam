@@ -1,33 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
 import { useLanguage } from '../../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 
-export default function ProjetsClient() {
+// projects est passé en props depuis le server component (page.js)
+export default function ProjetsClient({ projects = [] }) {
   const { t } = useLanguage();
   const [filter, setFilter] = useState('all');
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await fetch('/data/projets.json');
-        const data = await res.json();
-        setProjects(data);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProjects();
-  }, []);
 
   const categories = [
     { id: 'all', label: t('projects.categories.all') },
@@ -73,11 +58,7 @@ export default function ProjetsClient() {
 
       <MotionSection style={{ marginTop: '4rem', minHeight: '400px' }}>
         <AnimatePresence mode="wait">
-          {loading ? (
-            <motion.div key="loading" style={{ textAlign: 'center', width: '100%' }}>
-              <p>{t('common.loading')}</p>
-            </motion.div>
-          ) : filteredProjects.length === 0 ? (
+          {filteredProjects.length === 0 ? (
             <motion.div
               key="empty"
               initial={{ opacity: 0, y: 20 }}
@@ -118,10 +99,12 @@ export default function ProjetsClient() {
               {filteredProjects.map((project) => (
                 <GlassCard key={project.id} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ position: 'relative', height: '240px', overflow: 'hidden', borderRadius: 'var(--border-radius-md) var(--border-radius-md) 0 0' }}>
-                    <img 
-                      src={project.images.after || project.images.gallery[0] || '/og-image.png'} 
+                    <Image
+                      src={project.image_after || project.images_gallery?.[0] || '/og-image.png'}
                       alt={project.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 350px"
+                      style={{ objectFit: 'cover' }}
                     />
                     <div style={{ position: 'absolute', top: '1rem', left: '1rem', backgroundColor: 'var(--primary-color)', color: 'white', padding: '0.4rem 1rem', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '700' }}>
                       {categories.find(c => c.id === project.category)?.label || project.category}
@@ -169,9 +152,9 @@ export default function ProjetsClient() {
           <p style={{ marginBottom: '2rem', opacity: 0.9 }}>
             {t('expertise.cta_desc')}
           </p>
-          <button className="btn btn-primary" onClick={() => window.location.href='/contact'}>
+          <Link href="/contact" className="btn btn-primary" aria-label="Nous contacter pour un projet">
             {t('expertise.cta_btn')}
-          </button>
+          </Link>
         </GlassCard>
       </div>
     </div>

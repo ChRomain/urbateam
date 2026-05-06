@@ -1,27 +1,42 @@
 {
-  "totalVisits": 12,
+  "totalVisits": 109,
   "pages": {
-    "/": 3,
-    "/rse": 1,
-    "/apropos": 1,
-    "/faq": 1,
-    "/blog": 1,
-    "/partenaires": 1,
-    "/clients": 1,
-    "/projets": 2
+    "/": 32,
+    "/rse": 5,
+    "/apropos": 6,
+    "/faq": 5,
+    "/blog": 8,
+    "/partenaires": 4,
+    "/clients": 3,
+    "/projets": 10,
+    "/expertise/urbanisme": 2,
+    "/expertise/geometre": 2,
+    "/expertise/vrd": 2,
+    "/expertise/sport": 1,
+    "/expertise/topographie": 2,
+    "/expertise/copropriete": 2,
+    "/projets/eco-quartier-de-la-vallee": 7,
+    "/moyens-techniques": 2,
+    "/mon-projet": 2,
+    "/nous-suivre": 3,
+    "/contact": 4,
+    "/lexique": 3
   },
   "articles": {
-    "/blog/division-parcellaire-valorisez-patrimoine-foncier": 1
+    "/blog/division-parcellaire-valorisez-patrimoine-foncier": 3,
+    "/blog/scanner-3d-jumeau-numerique-innovation-connaissance-batiment": 1
   },
   "daily": {
-    "2026-05-01": 12
+    "2026-05-01": 18,
+    "2026-05-03": 31,
+    "2026-05-04": 60
   },
   "devices": {
-    "Desktop": 12,
+    "Desktop": 109,
     "Mobile": 0,
     "Tablet": 0
   },
   "browsers": {
-    "Autre": 12
+    "Autre": 109
   }
 }

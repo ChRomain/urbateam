@@ -195,8 +195,19 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(121, 160, 129, 0.2);
+}
+
+/* Accessibilité : Focus visible pour la navigation au clavier */
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+/* On retire l'outline pour le clic souris mais on le garde pour le clavier */
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 

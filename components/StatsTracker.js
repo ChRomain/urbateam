@@ -8,7 +8,7 @@ export default function StatsTracker() {
 
   useEffect(() => {
     // Éviter de tracker l'admin
-    if (pathname.includes('interface-admin-urbateam-inc')) return;
+    if (pathname.includes('admin')) return;
 
     const trackVisit = async () => {
       try {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
@@ -10,30 +10,15 @@ import { useLanguage } from '../../context/LanguageContext';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-export default function AproposClient() {
+// teamData est passé depuis le server component (page.js) via getTeam()
+export default function AproposClient({ teamData = { header: {}, members: [] } }) {
   const { t, language } = useLanguage();
-  const [teamData, setTeamData] = useState({ header: {}, members: [] });
 
-  useEffect(() => {
-    const loadTeam = async () => {
-      try {
-        const res = await fetch('/data/team.json');
-        const data = await res.json();
-        if (data && data.members) {
-          setTeamData(data);
-        }
-      } catch (err) {
-        console.error('Error loading team data', err);
-      }
-    };
-    loadTeam();
-  }, []);
-
-  const teamHeader = teamData.header[language] || { 
-    title: t('about.team.title'), 
-    subtitle: t('about.team.subtitle') 
+  const teamHeader = teamData.header[language] || {
+    title: t('about.team.title'),
+    subtitle: t('about.team.subtitle')
   };
-  
+
   const teamMembers = teamData.members.length > 0 ? teamData.members : null;
 
 
@@ -152,9 +137,15 @@ export default function AproposClient() {
           {teamMembers ? teamMembers.map((member) => (
             <Tilt key={`member-${member.id}`} strength={10}>
               <GlassCard className="text-center" style={{ padding: '2rem 1rem', height: '100%' }}>
-                <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '3px solid var(--accent-color)', transform: 'translateZ(20px)' }}>
+                <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '3px solid var(--accent-color)', transform: 'translateZ(20px)', position: 'relative' }}>
                   {member.image ? (
-                    <img src={member.image} alt={member[language]?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <Image
+                      src={member.image}
+                      alt={member[language]?.name || 'Membre équipe'}
+                      fill
+                      sizes="80px"
+                      style={{ objectFit: 'cover', borderRadius: '50%' }}
+                    />
                   ) : (
                     <svg width="40" height="40" fill="#94a3b8" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                   )}

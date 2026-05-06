@@ -1,5 +1,9 @@
 import AproposClient from './AproposClient';
+import { getTeam } from '../../lib/directus';
 import { fr } from '../../i18n/fr';
+
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: fr.meta.about.title,
@@ -15,7 +19,10 @@ export const metadata = {
   },
 };
 
-export default function AproposPage() {
+export default async function AproposPage() {
+  const teamData = await getTeam();
+  console.log(`[DEBUG] Membres reçus de Directus : ${teamData.members.length}`);
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -27,11 +34,8 @@ export default function AproposPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <AproposClient />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <AproposClient teamData={teamData} />
     </>
   );
 }

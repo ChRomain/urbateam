@@ -21,7 +21,7 @@ const TopoBackground = () => {
   }, []);
 
   return (
-    <div className={styles.topoWrapper}>
+    <div className={styles.topoWrapper} aria-hidden="true">
       <svg className={styles.svg} viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice">
         <defs>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -32,24 +32,24 @@ const TopoBackground = () => {
         
         {/* Topo lines (simplified) */}
         <motion.path
-          d="M0,250 Q250,150 500,250 T1000,250"
+          d="M 0 250 Q 250 150 500 250 T 1000 250"
           fill="none"
           stroke="rgba(16, 185, 129, 0.3)"
           strokeWidth="1.5"
-          animate={{ d: ["M0,250 Q250,150 500,250 T1000,250", "M0,250 Q250,350 500,250 T1000,250", "M0,250 Q250,150 500,250 T1000,250"] }}
+          animate={{ d: ["M 0 250 Q 250 150 500 250 T 1000 250", "M 0 250 Q 250 350 500 250 T 1000 250", "M 0 250 Q 250 150 500 250 T 1000 250"] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
         <motion.path
-          d="M0,350 Q300,250 600,350 T1000,350"
+          d="M 0 350 Q 300 250 600 350 T 1000 350"
           fill="none"
           stroke="rgba(16, 185, 129, 0.25)"
           strokeWidth="1.5"
-          animate={{ d: ["M0,350 Q300,250 600,350 T1000,350", "M0,350 Q300,450 600,350 T1000,350", "M0,350 Q300,250 600,350 T1000,350"] }}
+          animate={{ d: ["M 0 350 Q 300 250 600 350 T 1000 350", "M 0 350 Q 300 450 600 350 T 1000 350", "M 0 350 Q 300 250 600 350 T 1000 350"] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
 
         {/* Survey Points */}
-        {points.map((pt, i) => (
+        {points.length > 0 && points.map((pt, i) => (
           <motion.circle
             key={`topo-point-${i}`}
             cx={pt.cx}
@@ -127,16 +127,17 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      <motion.div 
+      <motion.button 
         className={styles.scrollIndicator}
         onClick={scrollToContent}
-        style={{ opacity: arrowOpacity }}
+        aria-label={t('common.scroll_down') || 'Défiler vers le bas'}
+        style={{ opacity: arrowOpacity, background: 'none', border: 'none', cursor: 'pointer' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
       >
         <ChevronDown size={32} className={styles.arrow} />
-      </motion.div>
+      </motion.button>
     </section>
   );
 }

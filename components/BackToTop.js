@@ -43,6 +43,8 @@ export default function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           onClick={scrollToTop}
+          aria-label="Retour en haut de page"
+          title="Retour en haut de page"
           style={{
             position: 'fixed',
             bottom: '30px',
@@ -63,11 +65,12 @@ export default function BackToTop() {
           whileHover={{ scale: 1.1, backgroundColor: '#f8fafc' }}
           whileTap={{ scale: 0.9 }}
         >
-          {/* Progress Circle SVG */}
+          {/* Progress Circle SVG - décoratif */}
           <svg
             width="56"
             height="56"
             viewBox="0 0 100 100"
+            aria-hidden="true"
             style={{ 
               position: 'absolute', 
               transform: 'rotate(-90deg)',

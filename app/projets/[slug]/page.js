@@ -1,25 +1,17 @@
-import { readFile } from 'fs/promises';
-import path from 'path';
 import ProjetDetailClient from './ProjetDetailClient';
+import { getProjets, getProjetBySlug } from '../../../lib/directus';
 
-async function getProjetsData() {
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'projets.json');
-    const content = await readFile(filePath, 'utf8');
-    return JSON.parse(content);
-  } catch (error) {
-    return [];
-  }
-}
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const projects = await getProjetsData();
-  return projects.map((p) => ({
-    slug: p.slug || p.id.toString(), // Support both slug and id
-  }));
+  const projects = await getProjets();
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 export default async function ProjetPage({ params }) {
   const { slug } = await params;
-  return <ProjetDetailClient slug={slug} />;
+  const project = await getProjetBySlug(slug);
+  return <ProjetDetailClient project={project} />;
 }
+

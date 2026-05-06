@@ -1,0 +1,90 @@
+services:
+  # ─── PostgreSQL ─────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: urbateam_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-urbateam}
+      POSTGRES_USER: ${DB_USER:-urbateam}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-devpassword}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-urbateam}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Directus CMS ───────────────────────────────────────────
+  directus:
+    image: directus/directus:11
+    container_name: urbateam_directus
+    restart: unless-stopped
+    ports:
+      - "8055:8055"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # DB
+      DB_CLIENT: pg
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_DATABASE: ${DB_DATABASE:-urbateam}
+      DB_USER: ${DB_USER:-urbateam}
+      DB_PASSWORD: ${DB_PASSWORD:-devpassword}
+      # App
+      SECRET: ${DIRECTUS_SECRET:-dev-secret-change-in-prod}
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL:-admin@urbateam.fr}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD:-Admin123!}
+      PUBLIC_URL: ${NEXT_PUBLIC_DIRECTUS_URL:-http://localhost:8055}
+      # Uploads stockés localement
+      STORAGE_LOCATIONS: local
+      STORAGE_LOCAL_ROOT: /directus/uploads
+      # CORS — autoriser tout en local
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "*"
+      CORS_METHODS: "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+      CORS_ALLOWED_HEADERS: "Content-Type,Authorization"
+      CORS_EXPOSED_HEADERS: "Content-Range"
+      CORS_CREDENTIALS: "true"
+      # Cache
+      CACHE_ENABLED: "true"
+      CACHE_TTL: "5m"
+      # Configuration Email (SMTP)
+      EMAIL_FROM: "contact@urbateam.fr"
+      EMAIL_TRANSPORT: "smtp"
+      EMAIL_SMTP_HOST: "smtp.example.com"
+      EMAIL_SMTP_PORT: 587
+      EMAIL_SMTP_USER: "user@example.com"
+      EMAIL_SMTP_PASSWORD: "password"
+      EMAIL_SMTP_SECURE: "false"
+    volumes:
+      - directus_uploads:/directus/uploads
+
+  # ─── Next.js ────────────────────────────────────────────────
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DIRECTUS_URL: http://directus:8055
+        NEXT_PUBLIC_DIRECTUS_URL: ${NEXT_PUBLIC_DIRECTUS_URL:-http://localhost:8055}
+        DIRECTUS_API_TOKEN: ${DIRECTUS_API_TOKEN:-}
+    container_name: urbateam_nextjs
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - directus
+    environment:
+      DIRECTUS_URL: http://directus:8055
+      NEXT_PUBLIC_DIRECTUS_URL: ${NEXT_PUBLIC_DIRECTUS_URL:-http://localhost:8055}
+      DIRECTUS_API_TOKEN: ${DIRECTUS_API_TOKEN:-}
+
+volumes:
+  postgres_data:
+  directus_uploads:

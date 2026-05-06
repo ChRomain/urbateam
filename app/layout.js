@@ -22,6 +22,7 @@ const righteous = Righteous({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://urbateam.fr'),
   title: "URBATEAM | Géomètre-Expert & Topographe à Brest, Saint-Renan et Douarnenez",
   description: "Cabinet de Géomètres-Experts et urbanistes à Brest, Saint-Renan et Douarnenez. Expertise foncière, topographie et aménagement à Landerneau, Saint-Urbain et Finistère-Nord.",
   icons: {
@@ -62,11 +63,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https://www.google.com; media-src 'self' https://assets.mixkit.co https://player.vimeo.com https://vimeo.com https://*.pexels.com https://*.vimeocdn.com;" />
         <meta name="permissions-policy" content="geolocation=(self), camera=(), microphone=(), payment=()" />
         
+        {/* Hreflang - Signaux multilingues pour les moteurs de recherche */}
+        <link rel="canonical" href="https://urbateam.fr" />
+        <link rel="alternate" hrefLang="fr" href="https://urbateam.fr" />
+        <link rel="alternate" hrefLang="en" href="https://urbateam.fr" />
+        <link rel="alternate" hrefLang="br" href="https://urbateam.fr" />
+        <link rel="alternate" hrefLang="x-default" href="https://urbateam.fr" />
+
         {/* DNS & Connection Optimization */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
@@ -191,7 +199,7 @@ export default function RootLayout({ children }) {
           <StatsTracker key="stats-tracker" />
           <Header key="header" />
 
-          <main key="main-content">
+          <main id="main-content" key="main-content">
             {children}
           </main>
           <Footer key="footer" />

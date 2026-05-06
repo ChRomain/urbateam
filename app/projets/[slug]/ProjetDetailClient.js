@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PageHeader from '../../../components/PageHeader';
 import MotionSection from '../../../components/MotionSection';
 import GlassCard from '../../../components/GlassCard';
@@ -9,30 +9,13 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FileText, Download } from 'lucide-react';
 
-export default function ProjetDetailClient({ slug }) {
+// project est passé en props depuis le server component (page.js)
+export default function ProjetDetailClient({ project }) {
   const { t } = useLanguage();
-  const [project, setProject] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [sliderPos, setSliderPos] = useState(50);
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        const res = await fetch('/data/projets.json');
-        const data = await res.json();
-        const found = data.find(p => p.slug === slug || (p.id && p.id.toString() === slug));
-        setProject(found);
-      } catch (error) {
-        console.error('Error fetching project:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProject();
-  }, [slug]);
-
-  if (loading) return <div className="container py-section text-center"><p>{t('common.loading')}</p></div>;
   if (!project) return <div className="container py-section text-center"><h2>Projet non trouvé</h2></div>;
+
 
   return (
     <div className="container py-section">
@@ -60,7 +43,7 @@ export default function ProjetDetailClient({ slug }) {
             </div>
 
             {/* Before/After Slider */}
-            {project.images.before && project.images.after && (
+            {project.image_before && project.image_after && (
               <div style={{ marginBottom: '4rem' }}>
                 <h3 style={{ marginBottom: '1.5rem' }}>{t('project.slider.title')}</h3>
                 <div 
@@ -84,7 +67,7 @@ export default function ProjetDetailClient({ slug }) {
                 >
                   {/* After Image (Background) */}
                   <img 
-                    src={project.images.after} 
+                    src={project.image_after} 
                     alt="Après" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
@@ -100,7 +83,7 @@ export default function ProjetDetailClient({ slug }) {
                     }}
                   >
                     <img 
-                      src={project.images.before} 
+                      src={project.image_before} 
                       alt="Avant" 
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -122,11 +105,11 @@ export default function ProjetDetailClient({ slug }) {
             )}
 
             {/* Gallery */}
-            {project.images.gallery && project.images.gallery.length > 0 && (
+            {project.images_gallery && project.images_gallery.length > 0 && (
               <div>
                 <h3 style={{ marginBottom: '1.5rem' }}>Galerie Photos</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: '1rem' }}>
-                  {project.images.gallery.map((img, idx) => (
+                  {project.images_gallery.map((img, idx) => (
                     <motion.div 
                       key={idx} 
                       whileHover={{ scale: 1.02 }}
@@ -157,10 +140,10 @@ export default function ProjetDetailClient({ slug }) {
                 <p style={{ fontWeight: '600' }}>{project.client || 'Confidentiel'}</p>
               </div>
 
-              {project.technicalDetails && (
+              {project.technical_details && (
                 <div>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', fontWeight: '700' }}>Données Techniques</span>
-                  <p style={{ fontWeight: '600' }}>{project.technicalDetails}</p>
+                  <p style={{ fontWeight: '600' }}>{project.technical_details}</p>
                 </div>
               )}
 
@@ -217,13 +200,14 @@ export default function ProjetDetailClient({ slug }) {
               )}
 
               <div style={{ paddingTop: '1.5rem', borderTop: '1px solid rgba(0,0,0,0.1)' }}>
-                <button 
-                  className="btn btn-primary" 
-                  style={{ width: '100%' }}
-                  onClick={() => window.location.href='/contact'}
+                <Link
+                  href="/contact"
+                  className="btn btn-primary"
+                  aria-label="Étudier mon projet avec URBATEAM"
+                  style={{ width: '100%', display: 'block', textAlign: 'center' }}
                 >
                   Étudier mon projet
-                </button>
+                </Link>
               </div>
             </div>
           </GlassCard>

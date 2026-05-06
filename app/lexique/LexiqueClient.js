@@ -7,32 +7,23 @@ import GlassCard from '../../components/GlassCard';
 import Link from 'next/link';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function LexiqueClient() {
+// dbItems : données brutes Directus {term_fr, definition_fr, term_en, ...}
+export default function LexiqueClient({ dbItems = [] }) {
   const { t, language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
-  const [items, setItems] = useState([]);
   const staticGlossaryItems = t('glossary.items') || [];
 
-  useEffect(() => {
-    const loadGlossary = async () => {
-      try {
-        const res = await fetch('/data/glossary.json');
-        const data = await res.json();
-        if (data && data.length > 0) {
-          const mappedItems = data.map(item => ({
-            term: item[language]?.term || item.fr?.term || '',
-            definition: item[language]?.definition || item.fr?.definition || ''
-          }));
-          setItems(mappedItems);
-        } else {
-          setItems(staticGlossaryItems);
-        }
-      } catch (err) {
-        setItems(staticGlossaryItems);
-      }
-    };
-    loadGlossary();
-  }, [language, staticGlossaryItems]);
+  // Mapper les items Directus selon la langue active
+  const items = useMemo(() => {
+    if (dbItems.length > 0) {
+      return dbItems.map(item => ({
+        term: item[`term_${language}`] || item.term_fr || '',
+        definition: item[`definition_${language}`] || item.definition_fr || '',
+        relatedExpertise: item.related_expertise || null,
+      }));
+    }
+    return staticGlossaryItems;
+  }, [dbItems, language, staticGlossaryItems]);
 
 
   useEffect(() => {
@@ -84,11 +75,20 @@ export default function LexiqueClient() {
 
       <div style={{ maxWidth: '800px', margin: '0 auto 3rem auto' }}>
         <div style={{ position: 'relative', marginBottom: '2rem' }}>
+          <label
+            htmlFor="lexique-search"
+            style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
+          >
+            Rechercher un terme
+          </label>
           <input
-            type="text"
+            id="lexique-search"
+            type="search"
             placeholder={t('glossary.header.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Rechercher un terme dans le lexique"
+            autoComplete="off"
             style={{
               paddingLeft: '3rem',
               height: '56px',
@@ -98,7 +98,7 @@ export default function LexiqueClient() {
               border: '1px solid var(--glass-border)'
             }}
           />
-          <span style={{ 
+          <span aria-hidden="true" style={{ 
             position: 'absolute', 
             left: '1.2rem', 
             top: '50%', 

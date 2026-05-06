@@ -35,7 +35,7 @@ export default function Header() {
 
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-  if (pathname?.includes('/interface-admin-urbateam-inc')) {
+  if (pathname?.includes('/admin')) {
     return null;
   }
 
@@ -85,7 +85,7 @@ export default function Header() {
   const flags = {
     fr: { label: 'FR', icon: '🇫🇷' },
     en: { label: 'EN', icon: '🇬🇧' },
-    br: { label: 'BZH', icon: <img src="/pictures/flag-br.png" alt="BZH" width="20" height="20" style={{ objectFit: 'cover', borderRadius: '2px' }} /> }
+    br: { label: 'BZH', icon: <Image src="/pictures/flag-br.png" alt="BZH" width={20} height={20} style={{ objectFit: 'cover', borderRadius: '2px' }} /> }
   };
 
   return (
@@ -143,7 +143,17 @@ export default function Header() {
                 {link.dropdown ? (
                   <div className={styles.dropdownTrigger}>
                     <Magnetic strength={0.2}>
-                      <Link href={link.href} className={styles.navLink}>
+                      <Link 
+                        href={link.href} 
+                        className={styles.navLink}
+                        onFocus={() => setActiveDropdown(link.name)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setActiveDropdown(activeDropdown === link.name ? null : link.name);
+                          }
+                        }}
+                      >
                         {link.name} <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === link.name ? styles.chevronRotated : ''}`} />
                       </Link>
                     </Magnetic>
@@ -185,7 +195,17 @@ export default function Header() {
               onMouseLeave={() => setLangOpen(false)}
             >
               <Magnetic strength={0.15}>
-                <button className={styles.langTrigger}>
+                <button 
+                  className={styles.langTrigger} 
+                  aria-label={t('header.switch_language')}
+                  onFocus={() => setLangOpen(true)}
+                  onBlur={(e) => {
+                    // Close only if focus moves outside the dropdown
+                    if (!e.currentTarget.parentElement.contains(e.relatedTarget)) {
+                      setLangOpen(false);
+                    }
+                  }}
+                >
                   <span className={styles.flagIcon}>{flags[language].icon}</span>
                   <span className={styles.langLabel}>{flags[language].label}</span>
                   <ChevronDown size={14} className={`${styles.chevron} ${langOpen ? styles.chevronRotated : ''}`} />
@@ -223,6 +243,7 @@ export default function Header() {
         <div className={styles.mobileControls}>
           <button 
             className={styles.mobileLangBtn}
+            aria-label="Changer de langue"
             onClick={() => {
               const nextLang = language === 'fr' ? 'en' : language === 'en' ? 'br' : 'fr';
               switchLanguage(nextLang);

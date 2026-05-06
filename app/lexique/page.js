@@ -1,5 +1,8 @@
 import LexiqueClient from './LexiqueClient';
+import { getGlossaire } from '../../lib/directus';
 import { fr } from '../../i18n/fr';
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: fr.meta.glossary.title,
@@ -15,9 +18,12 @@ export const metadata = {
   },
 };
 
-export default function LexiquePage() {
-  const glossaryItems = fr.glossary.items || [];
-  
+export default async function LexiquePage() {
+  const dbItems = await getGlossaire();
+  const glossaryItems = dbItems.length > 0
+    ? dbItems.map(i => ({ term: i.term_fr, definition: i.definition_fr }))
+    : (fr.glossary.items || []);
+
   // JSON-LD: DefinedTermSet
   const jsonLd = {
     "@context": "https://schema.org",
@@ -31,37 +37,20 @@ export default function LexiquePage() {
     }))
   };
 
-  // JSON-LD: BreadcrumbList
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": "https://urbateam.fr"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Lexique",
-        "item": "https://urbateam.fr/lexique"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://urbateam.fr" },
+      { "@type": "ListItem", "position": 2, "name": "Lexique", "item": "https://urbateam.fr/lexique" }
     ]
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <LexiqueClient />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <LexiqueClient dbItems={dbItems} />
     </>
   );
 }

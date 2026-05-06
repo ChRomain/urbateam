@@ -1,32 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
 import { useLanguage } from '../../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ClientsClient() {
+// clients est passé en props depuis le server component (page.js)
+export default function ClientsClient({ clients = [] }) {
   const { t } = useLanguage();
-  const [clients, setClients] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(false);
   const [filter, setFilter] = useState('all');
-
-  useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        const res = await fetch('/data/clients.json');
-        const data = await res.json();
-        setClients(data);
-      } catch (error) {
-        console.error('Error fetching clients:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchClients();
-  }, []);
 
   const clientTypes = [
     { title: t('references.categories.collectivite'), icon: "🏛️", key: 'Collectivite' },
@@ -136,7 +123,21 @@ export default function ClientsClient() {
                   }}
                 >
                   {client.logo ? (
-                    <img src={client.logo} alt={client.name} style={{ maxWidth: '100%', maxHeight: '100%', filter: 'grayscale(100%) opacity(0.7)', transition: 'all 0.3s' }} onMouseEnter={e => e.currentTarget.style.filter = 'none'} onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(0.7)'} />
+                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                      <Image
+                        src={client.logo}
+                        alt={client.name}
+                        fill
+                        sizes="180px"
+                        style={{
+                          objectFit: 'contain',
+                          filter: 'grayscale(100%) opacity(0.7)',
+                          transition: 'filter 0.3s'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.filter = 'none'}
+                        onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(0.7)'}
+                      />
+                    </div>
                   ) : (
                     <span style={{ fontWeight: '700', color: '#94a3b8', textAlign: 'center', fontSize: '0.9rem' }}>{client.name}</span>
                   )}
@@ -153,9 +154,9 @@ export default function ClientsClient() {
           <p style={{ marginBottom: '2.5rem', opacity: 0.9, maxWidth: '700px', margin: '0 auto 2.5rem' }}>
             {t('expertise.cta_desc')}
           </p>
-          <button className="btn btn-primary" onClick={() => window.location.href='/contact'}>
+          <Link href="/contact" className="btn btn-primary" aria-label="Nous contacter">
             {t('expertise.cta_btn')}
-          </button>
+          </Link>
         </GlassCard>
       </div>
     </div>

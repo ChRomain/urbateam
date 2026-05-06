@@ -1,0 +1,100 @@
+name: 🚀 Deploy to OVH VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # Permet un déclenchement manuel depuis GitHub
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false   # Ne pas annuler un déploiement en cours
+
+jobs:
+  # ─── Job 1 : Tests & Lint ───────────────────────────────────────────────────
+  test:
+    name: ✅ Tests & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm test -- --passWithNoTests
+
+  # ─── Job 2 : Build Docker & Deploy ─────────────────────────────────────────
+  deploy:
+    name: 🐳 Build & Deploy
+    runs-on: ubuntu-latest
+    needs: test   # Attend que les tests passent
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── SSH sur le VPS OVH et déploiement ─────────────────────────────────
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+
+            echo "📂 Accès au répertoire du projet"
+            cd /opt/urbateam
+
+            echo "⬇️  Pull du dernier code"
+            git pull origin main
+
+            echo "🔐 Vérification du fichier .env.production"
+            if [ ! -f .env.production ]; then
+              echo "❌ Fichier .env.production manquant sur le VPS !"
+              exit 1
+            fi
+
+            echo "🐳 Build et redémarrage des conteneurs"
+            docker compose \
+              -f docker-compose.yml \
+              -f docker-compose.prod.yml \
+              --env-file .env.production \
+              up -d --build --remove-orphans
+
+            echo "🧹 Nettoyage des images inutilisées"
+            docker image prune -f
+
+            echo "⏳ Attente que Next.js soit prêt (max 60s)"
+            timeout 60 bash -c 'until curl -sf http://localhost:3000/api/health; do sleep 3; done'
+
+            echo "✅ Déploiement terminé avec succès !"
+
+  # ─── Job 3 : Notification (optionnel) ──────────────────────────────────────
+  notify:
+    name: 📣 Notification
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+    steps:
+      - name: Résumé du déploiement
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "✅ Déploiement réussi sur https://urbateam.fr"
+          else
+            echo "❌ Échec du déploiement — voir les logs ci-dessus"
+            exit 1
+          fi

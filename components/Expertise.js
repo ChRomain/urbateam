@@ -52,12 +52,12 @@ function GlassCard({ children, variants, className = "" }) {
 }
 
 const expertiseItems = [
-  { key: 'urbanisme', icon: <Map className={styles.icon} size={32} /> },
-  { key: 'geometre', icon: <Ruler className={styles.icon} size={32} /> },
-  { key: 'vrd', icon: <Droplets className={styles.icon} size={32} /> },
-  { key: 'sport', icon: <Trophy className={styles.icon} size={32} /> },
-  { key: 'topographie', icon: <Compass className={styles.icon} size={32} /> },
-  { key: 'copropriete', icon: <Layers className={styles.icon} size={32} /> }
+  { key: 'urbanisme', icon: <Map className={styles.icon} size={32} aria-hidden="true" /> },
+  { key: 'geometre', icon: <Ruler className={styles.icon} size={32} aria-hidden="true" /> },
+  { key: 'vrd', icon: <Droplets className={styles.icon} size={32} aria-hidden="true" /> },
+  { key: 'sport', icon: <Trophy className={styles.icon} size={32} aria-hidden="true" /> },
+  { key: 'topographie', icon: <Compass className={styles.icon} size={32} aria-hidden="true" /> },
+  { key: 'copropriete', icon: <Layers className={styles.icon} size={32} aria-hidden="true" /> }
 ];
 
 const containerVariants = {

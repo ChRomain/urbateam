@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
@@ -32,14 +33,23 @@ export default function BlogClient({ posts }) {
 
       {/* Search Bar */}
       <div style={{ maxWidth: '600px', margin: '3rem auto 0', position: 'relative' }}>
-        <div style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
+        <label
+          htmlFor="blog-search"
+          style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
+        >
+          Rechercher un article
+        </label>
+        <div aria-hidden="true" style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}>
           <Search size={20} />
         </div>
-        <input 
-          type="text" 
+        <input
+          id="blog-search"
+          type="search"
           placeholder="Rechercher un article, un mot-clé..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          aria-label="Rechercher un article"
+          autoComplete="off"
           style={{ 
             width: '100%', 
             padding: '1.2rem 1.2rem 1.2rem 3.5rem', 
@@ -81,11 +91,13 @@ export default function BlogClient({ posts }) {
             >
               <a href={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <GlassCard style={{ padding: 0, height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ width: '100%', height: '220px', overflow: 'hidden' }}>
-                    <img 
-                      src={post.featuredImage || '/placeholder-blog.jpg'} 
-                      alt={post.title} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                  <div style={{ width: '100%', height: '220px', overflow: 'hidden', position: 'relative' }}>
+                    <Image
+                      src={post.featuredImage || post.featured_image || '/og-image.png'}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
                       onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                       onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     />

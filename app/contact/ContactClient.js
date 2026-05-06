@@ -219,6 +219,7 @@ export default function ContactClient() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5293.370467000001!2d-4.6247953!3d48.4334336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4816c02eb9255555%3A0xc3cf3337a5f973e2!2s10%20Rue%20Joseph%20le%20Velly%2C%2029290%20Saint-Renan!5e0!3m2!1sfr!2sfr!4v1700000000001" 
                 width="100%" 
                 height="100%" 
+                title={t('contact.map.renan')}
                 style={{ border: 0 }} 
                 allowFullScreen="" 
                 loading="lazy" 
@@ -233,6 +234,7 @@ export default function ContactClient() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10000.0!2d-4.311875!3d48.0836644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4816d12be68d1437%3A0x33f58e0a7273e653!2sUrbateam%20SARL!5e0!3m2!1sfr!2sfr!4v1713931662998!5m2!1sfr!2sfr" 
                 width="100%" 
                 height="100%" 
+                title={t('contact.map.douarnenez')}
                 style={{ border: 0 }} 
                 allowFullScreen="" 
                 loading="lazy" 

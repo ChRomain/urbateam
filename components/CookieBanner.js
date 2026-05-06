@@ -47,7 +47,11 @@ export default function CookieBanner() {
             justifyContent: 'center'
           }}
         >
-          <div style={{
+          <div
+            role="dialog"
+            aria-label="Gestion des cookies"
+            aria-live="polite"
+            style={{
             background: 'white',
             padding: '1.5rem',
             borderRadius: '16px',
@@ -70,7 +74,8 @@ export default function CookieBanner() {
             </div>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
               <button 
-                onClick={declineCookies} 
+                onClick={declineCookies}
+                aria-label="Refuser les cookies non essentiels"
                 style={{ 
                   background: 'transparent', 
                   border: '1px solid #e2e8f0', 
@@ -84,7 +89,8 @@ export default function CookieBanner() {
                 {t('cookies_banner.decline')}
               </button>
               <button 
-                onClick={acceptCookies} 
+                onClick={acceptCookies}
+                aria-label="Accepter tous les cookies"
                 style={{ 
                   background: 'var(--secondary-color)', 
                   color: 'white', 

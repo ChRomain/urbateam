@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import PageHeader from '../../../components/PageHeader';
 import { ArrowLeft, User, Calendar } from 'lucide-react';
@@ -57,18 +58,26 @@ export default function ArticleClient({ post }) {
           </div>
         </div>
 
-        {post.featuredImage && (
+        {post.featuredImage || post.featured_image ? (
           <div style={{ 
             width: '100%', 
             height: '500px', 
             borderRadius: 'var(--border-radius-lg)', 
             overflow: 'hidden', 
             marginBottom: '4rem',
-            boxShadow: 'var(--shadow-lg)'
+            boxShadow: 'var(--shadow-lg)',
+            position: 'relative'
           }}>
-            <img src={post.featuredImage} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <Image
+              src={post.featuredImage || post.featured_image}
+              alt={post.title}
+              fill
+              sizes="(max-width: 900px) 100vw, 900px"
+              priority
+              style={{ objectFit: 'cover' }}
+            />
           </div>
-        )}
+        ) : null}
 
         <div 
           className="blog-content"

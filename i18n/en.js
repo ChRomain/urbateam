@@ -902,7 +902,7 @@ export const en = {
     legal: "Legal Mentions",
     privacy: "Privacy Policy",
     cookies: "Cookie Policy",
-    rights: "All rights reserved."
+    rights: "All rights reserved"
   },
   common: {
     loading: "Loading...",
@@ -911,6 +911,7 @@ export const en = {
     error_404_desc: "Sorry, the page you are looking for does not exist or has been moved.",
     back_home: "Back to home",
     learn_more: "Read more",
+    scroll_down: "Scroll down",
   },
   cookies_banner: {
     title: "Respect for your privacy 🍪",

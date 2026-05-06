@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
@@ -9,25 +10,10 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Handshake, ExternalLink, Globe, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-export default function PartnersClient() {
-  const { t, language } = useLanguage();
-  const [partners, setPartners] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPartners = async () => {
-      try {
-        const res = await fetch('/data/partners.json');
-        const data = await res.json();
-        setPartners(data);
-      } catch (err) {
-        console.error('Error fetching partners', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPartners();
-  }, []);
+// partners est passé en props depuis le server component (page.js)
+export default function PartnersClient({ partners = [] }) {
+  const { t } = useLanguage();
+  const [loading] = useState(false);
 
   return (
     <div className="container py-section">
@@ -82,7 +68,15 @@ export default function PartnersClient() {
                   padding: '1rem'
                 }}>
                   {partner.logo ? (
-                    <img src={partner.logo} alt={partner.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        fill
+                        sizes="100px"
+                        style={{ objectFit: 'contain' }}
+                      />
+                    </div>
                   ) : (
                     <Handshake size={40} color="var(--primary-color)" />
                   )}

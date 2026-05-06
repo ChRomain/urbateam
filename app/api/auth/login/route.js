@@ -1,38 +1,25 @@
 import { NextResponse } from 'next/server';
-import { ADMIN_CONFIG } from '../../../../lib/admin-config';
 
 export async function POST(request) {
   try {
     const { email, password } = await request.json();
+    const baseUrl = process.env.DIRECTUS_URL || 'http://127.0.0.1:8055';
 
-    if (email === ADMIN_CONFIG.email && password === ADMIN_CONFIG.password) {
-      // Authentification réussie
-      const response = NextResponse.json(
-        { success: true, message: 'Connexion réussie' },
-        { status: 200 }
-      );
+    const res = await fetch(`${baseUrl}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
 
-      // Création d'un cookie de session simple (pour l'exemple)
-      // En production, utilisez un vrai JWT ou NextAuth
-      response.cookies.set('admin_session', 'true', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24, // 1 jour
-        path: '/',
-      });
+    const data = await res.json();
 
-      return response;
+    if (!res.ok) {
+      return NextResponse.json(data, { status: res.status });
     }
 
-    return NextResponse.json(
-      { success: false, message: 'Identifiants incorrects' },
-      { status: 401 }
-    );
+    return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json(
-      { success: false, message: 'Erreur serveur' },
-      { status: 500 }
-    );
+    console.error('[API Auth Login Error]:', error);
+    return NextResponse.json({ errors: [{ message: `Erreur technique serveur : ${error.message}` }] }, { status: 500 });
   }
 }

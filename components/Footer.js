@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Footer.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import { usePathname } from 'next/navigation';
@@ -11,7 +12,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   // Masquer le footer sur les pages d'administration
-  if (pathname?.includes('/interface-admin-urbateam-inc')) {
+  if (pathname?.includes('/admin')) {
     return null;
   }
 
@@ -66,12 +67,12 @@ export default function Footer() {
             <div className={styles.partnersColumn}>
               <Magnetic strength={0.15}>
                 <a href="https://www.geometre-expert.fr/" target="_blank" rel="noopener noreferrer" className={styles.partnerLogo}>
-                  <img src="/pictures/ordre_geometre.png" alt="Ordre des Géomètres-Experts" height="28" />
+                  <Image src="/pictures/ordre_geometre.png" alt="Ordre des Géomètres-Experts" width={80} height={28} style={{ objectFit: 'contain' }} />
                 </a>
               </Magnetic>
               <Magnetic strength={0.15}>
                 <a href="https://www.unge.net/" target="_blank" rel="noopener noreferrer" className={styles.partnerLogo}>
-                  <img src="/pictures/ungee.png" alt="UNGE" height="28" />
+                  <Image src="/pictures/ungee.png" alt="UNGE" width={80} height={28} style={{ objectFit: 'contain' }} />
                 </a>
               </Magnetic>
             </div>
@@ -82,14 +83,17 @@ export default function Footer() {
       {/* SEO Intervention Zones */}
       <div className={styles.seoZones}>
         <div className="container">
-          <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', textAlign: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1rem' }}>
-            <strong>Zones d'intervention :</strong> Saint-Renan, Brest, Douarnenez, Saint-Urbain, Landerneau, Plouzané, Guilers, Locmaria-Plouzané, Daoulas, et sur toute la Bretagne-Ouest.
+          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', textAlign: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+            <strong>Zones d'intervention :</strong> Brest, Daoulas, Douarnenez, Fouesnant, Gouesnou, Guilers, La foret Fouesnant, Landerneau, Landivisiau, Lesneven, Locmaria-Plouzané, Pencran, Plabennec, Plouarzel, Ploudaniel, Plouescat, Plougastel, Plouzané, Porspoder, Quimper, Saint Meen, Saint-Renan, Saint-Urbain, et sur toute la Bretagne-Ouest.
           </p>
         </div>
       </div>
       <div className={styles.bottom}>
         <div className="container">
-          &copy; {new Date().getFullYear()} URBATEAM SARL. {t('footer.rights')}
+          &copy; {new Date().getFullYear()} URBATEAM SARL. 
+          <Link href="/admin" rel="nofollow" style={{ color: 'inherit', textDecoration: 'none', cursor: 'default' }}>
+            {t('footer.rights')}.
+          </Link>
         </div>
       </div>
     </footer>

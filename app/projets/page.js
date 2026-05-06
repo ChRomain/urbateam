@@ -1,4 +1,7 @@
 import ProjetsClient from './ProjetsClient';
+import { getProjets } from '../../lib/directus';
+
+export const revalidate = 300;
 
 export const metadata = {
   title: 'Nos Réalisations | Géomètre-Expert & Aménagement | URBATEAM',
@@ -12,6 +15,7 @@ export const metadata = {
   }
 };
 
-export default function ProjetsPage() {
-  return <ProjetsClient />;
+export default async function ProjetsPage() {
+  const projects = await getProjets();
+  return <ProjetsClient projects={projects} />;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
@@ -8,33 +8,23 @@ import GlassCard from '../../components/GlassCard';
 import Link from 'next/link';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function FAQClient() {
+// dbItems : données brutes Directus {question_fr, answer_fr, question_en, ...}
+// Si vide, fallback sur les items i18n statiques
+export default function FAQClient({ dbItems = [] }) {
   const { t, language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
-  const [items, setItems] = useState([]);
   const staticFaqItems = t('faq.items') || [];
 
-  useEffect(() => {
-    const loadFaq = async () => {
-      try {
-        const res = await fetch('/data/faq.json');
-        const data = await res.json();
-        if (data && data.length > 0) {
-          // On mappe les données JSON selon la langue active
-          const mappedItems = data.map(item => ({
-            question: item[language]?.question || item.fr?.question || '',
-            answer: item[language]?.answer || item.fr?.answer || ''
-          }));
-          setItems(mappedItems);
-        } else {
-          setItems(staticFaqItems);
-        }
-      } catch (err) {
-        setItems(staticFaqItems);
-      }
-    };
-    loadFaq();
-  }, [language, staticFaqItems]);
+  // Mapper les items Directus selon la langue active
+  const items = useMemo(() => {
+    if (dbItems.length > 0) {
+      return dbItems.map(item => ({
+        question: item[`question_${language}`] || item.question_fr || '',
+        answer: item[`answer_${language}`] || item.answer_fr || '',
+      }));
+    }
+    return staticFaqItems;
+  }, [dbItems, language, staticFaqItems]);
 
   const filteredItems = useMemo(() => {
     if (!searchTerm.trim()) return items;
@@ -56,11 +46,20 @@ export default function FAQClient() {
 
       <div style={{ maxWidth: '800px', margin: '0 auto 3rem auto' }}>
         <div style={{ position: 'relative', marginBottom: '2rem' }}>
+          <label
+            htmlFor="faq-search"
+            style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}
+          >
+            Rechercher dans la FAQ
+          </label>
           <input
-            type="text"
+            id="faq-search"
+            type="search"
             placeholder={t('faq.header.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Rechercher dans la FAQ"
+            autoComplete="off"
             style={{
               paddingLeft: '3rem',
               height: '56px',

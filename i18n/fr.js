@@ -947,7 +947,7 @@ export const fr = {
     legal: "Mentions légales",
     privacy: "Vie privée",
     cookies: "Politique de cookies",
-    rights: "Tous droits réservés."
+    rights: "Tous droits réservés"
   },
   common: {
     loading: "Chargement...",
@@ -956,6 +956,7 @@ export const fr = {
     error_404_desc: "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
     back_home: "Retour à l'accueil",
     learn_more: "En savoir plus",
+    scroll_down: "Défiler vers le bas"
   },
   cookies_banner: {
     title: "Respect de votre vie privée 🍪",

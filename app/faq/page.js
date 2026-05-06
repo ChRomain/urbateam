@@ -1,5 +1,8 @@
 import FAQClient from './FAQClient';
+import { getFaq } from '../../lib/directus';
 import { fr } from '../../i18n/fr';
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: fr.meta.faq.title,
@@ -15,14 +18,18 @@ export const metadata = {
   },
 };
 
-export default function FAQPage() {
-  const faqItems = fr.faq.items || [];
-  
-  // JSON-LD: FAQPage
+export default async function FAQPage() {
+  // Récupère depuis Directus (multilingue), fallback sur les items statiques si DB vide
+  const dbItems = await getFaq();
+  const faqItemsFr = dbItems.length > 0
+    ? dbItems.map(i => ({ question: i.question_fr, answer: i.answer_fr }))
+    : (fr.faq.items || []);
+
+  // JSON-LD: FAQPage (toujours en fr pour le SEO)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqItems.map((item) => ({
+    "mainEntity": faqItemsFr.map((item) => ({
       "@type": "Question",
       "name": item.question,
       "acceptedAnswer": {
@@ -32,37 +39,20 @@ export default function FAQPage() {
     }))
   };
 
-  // JSON-LD: BreadcrumbList
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": "https://urbateam.fr"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "FAQ",
-        "item": "https://urbateam.fr/faq"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://urbateam.fr" },
+      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://urbateam.fr/faq" }
     ]
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <FAQClient />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <FAQClient dbItems={dbItems} />
     </>
   );
 }

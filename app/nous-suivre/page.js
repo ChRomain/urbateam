@@ -1,18 +1,14 @@
-import { readFile } from 'fs/promises';
-import path from 'path';
 import SocialClient from './SocialClient';
+import { getSocialPosts } from '../../lib/directus';
 
-async function getSocialData() {
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'social.json');
-    const content = await readFile(filePath, 'utf8');
-    return JSON.parse(content);
-  } catch (error) {
-    return [];
-  }
-}
+export const revalidate = 3600;
+
+export const metadata = {
+  title: 'Nous Suivre | URBATEAM',
+  description: 'Suivez URBATEAM sur les réseaux sociaux et découvrez nos dernières publications Instagram, LinkedIn et Facebook.',
+};
 
 export default async function SocialPage() {
-  const posts = await getSocialData();
+  const posts = await getSocialPosts();
   return <SocialClient initialPosts={posts} />;
 }

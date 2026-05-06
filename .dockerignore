@@ -1,0 +1,13 @@
+.next/
+node_modules/
+npm-debug.log*
+.DS_Store
+*.env
+*.env.local
+*.env.production
+out/
+.git/
+.idea/
+scratch/
+__tests__/
+docs/
