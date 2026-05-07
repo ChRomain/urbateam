@@ -6,7 +6,9 @@ import { Users, BookOpen, Image as ImageIcon, TrendingUp, Clock, ChevronRight, M
 import { motion } from 'framer-motion';
 import { useTheme } from './ThemeContext';
 
-export default function SummaryManager() {
+export default function SummaryManager({ user, role }) {
+  const canEdit = role === 'Administrator' || role === 'Editeur';
+  const isAdmin = role === 'Administrator';
   const { colors, darkMode } = useTheme();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -202,74 +204,76 @@ export default function SummaryManager() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', 
           gap: '1.5rem' 
         }}>
-          <QuickActionButton title="Nouvel Article" description="Partagez vos actualités" icon={<BookOpen size={20} />} color="#3b82f6" />
-          <QuickActionButton title="Ajouter une Photo" description="Galerie Nous Suivre" icon={<ImageIcon size={20} />} color="#10b981" />
+          {canEdit && <QuickActionButton title="Nouvel Article" description="Partagez vos actualités" icon={<BookOpen size={20} />} color="#3b82f6" />}
+          {canEdit && <QuickActionButton title="Ajouter une Photo" description="Galerie Nous Suivre" icon={<ImageIcon size={20} />} color="#10b981" />}
           
-          {/* Quick Invite Tool */}
-          <GlassCard style={{ padding: '1.5rem', gridColumn: 'span 1' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-              <div style={{ color: '#8b5cf6', backgroundColor: '#8b5cf615', padding: '0.8rem', borderRadius: '10px' }}>
-                <UserPlus size={20} />
+          {/* Quick Invite Tool - Admin only */}
+          {isAdmin && (
+            <GlassCard style={{ padding: '1.5rem', gridColumn: 'span 1' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ color: '#8b5cf6', backgroundColor: '#8b5cf615', padding: '0.8rem', borderRadius: '10px' }}>
+                  <UserPlus size={20} />
+                </div>
+                <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '700', color: colors.text }}>Inviter un membre</h4>
               </div>
-              <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '700', color: colors.text }}>Inviter un membre</h4>
-            </div>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <input 
-                type="email" 
-                placeholder="Email..." 
-                id="quick-invite-email"
-                style={{ 
-                  flex: 1, 
-                  padding: '0.6rem', 
-                  borderRadius: '8px', 
-                  border: `1px solid ${colors.border}`,
-                  backgroundColor: colors.bg,
-                  color: colors.text,
-                  fontSize: '0.85rem',
-                  outline: 'none'
-                }}
-              />
-              <button 
-                onClick={async () => {
-                  const email = document.getElementById('quick-invite-email').value;
-                  if (!email) return;
-                  const btn = document.activeElement;
-                  const originalText = btn.innerHTML;
-                  btn.innerHTML = '...';
-                  try {
-                    const token = document.cookie.split('; ').find(row => row.startsWith('admin_session='))?.split('=')[1];
-                    const res = await fetch('/api/users', {
-                      method: 'POST',
-                      headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                      },
-                      body: JSON.stringify({ email })
-                    });
-                    if (res.ok) {
-                      btn.innerHTML = 'OK';
-                      btn.style.backgroundColor = '#10b981';
-                      document.getElementById('quick-invite-email').value = '';
-                      setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.backgroundColor = '';
-                      }, 2000);
-                    } else {
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input 
+                  type="email" 
+                  placeholder="Email..." 
+                  id="quick-invite-email"
+                  style={{ 
+                    flex: 1, 
+                    padding: '0.6rem', 
+                    borderRadius: '8px', 
+                    border: `1px solid ${colors.border}`,
+                    backgroundColor: colors.bg,
+                    color: colors.text,
+                    fontSize: '0.85rem',
+                    outline: 'none'
+                  }}
+                />
+                <button 
+                  onClick={async () => {
+                    const email = document.getElementById('quick-invite-email').value;
+                    if (!email) return;
+                    const btn = document.activeElement;
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '...';
+                    try {
+                      const token = document.cookie.split('; ').find(row => row.startsWith('admin_session='))?.split('=')[1];
+                      const res = await fetch('/api/users', {
+                        method: 'POST',
+                        headers: { 
+                          'Content-Type': 'application/json',
+                          'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ email })
+                      });
+                      if (res.ok) {
+                        btn.innerHTML = 'OK';
+                        btn.style.backgroundColor = '#10b981';
+                        document.getElementById('quick-invite-email').value = '';
+                        setTimeout(() => {
+                          btn.innerHTML = originalText;
+                          btn.style.backgroundColor = '';
+                        }, 2000);
+                      } else {
+                        btn.innerHTML = 'Erreur';
+                        setTimeout(() => btn.innerHTML = originalText, 2000);
+                      }
+                    } catch (e) {
                       btn.innerHTML = 'Erreur';
                       setTimeout(() => btn.innerHTML = originalText, 2000);
                     }
-                  } catch (e) {
-                    btn.innerHTML = 'Erreur';
-                    setTimeout(() => btn.innerHTML = originalText, 2000);
-                  }
-                }}
-                className="btn btn-primary"
-                style={{ padding: '0.6rem 1rem', fontSize: '0.8rem' }}
-              >
-                Inviter
-              </button>
-            </div>
-          </GlassCard>
+                  }}
+                  className="btn btn-primary"
+                  style={{ padding: '0.6rem 1rem', fontSize: '0.8rem' }}
+                >
+                  Inviter
+                </button>
+              </div>
+            </GlassCard>
+          )}
         </div>
       </div>
     </div>

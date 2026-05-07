@@ -8,6 +8,12 @@ import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
 import { useLanguage } from '../../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+const ProjectsMap = dynamic(() => import('../../components/ProjectsMap'), { 
+  ssr: false,
+  loading: () => <div style={{ height: '400px', backgroundColor: '#f8fafc', borderRadius: '20px' }}></div>
+});
 
 // projects est passé en props depuis le server component (page.js)
 export default function ProjetsClient({ projects = [] }) {
@@ -33,6 +39,10 @@ export default function ProjetsClient({ projects = [] }) {
         title={t('projects.title')} 
         subtitle={t('projects.subtitle')}
       />
+
+      <div style={{ marginTop: '3rem' }}>
+        <ProjectsMap projects={projects} />
+      </div>
 
       <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.8rem' }}>
         {categories.map((cat) => (

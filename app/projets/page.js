@@ -1,7 +1,7 @@
 import ProjetsClient from './ProjetsClient';
 import { getProjets } from '../../lib/directus';
 
-export const revalidate = 300;
+export const revalidate = 0;
 
 export const metadata = {
   title: 'Nos Réalisations | Géomètre-Expert & Aménagement | URBATEAM',

@@ -12,7 +12,8 @@ import { useTheme } from './ThemeContext';
 
 
 
-export default function BlogManager() {
+export default function BlogManager({ role }) {
+  const canEdit = role === 'Administrator' || role === 'Editeur';
   const { showToast } = useToast();
   const { colors, darkMode } = useTheme();
 
@@ -32,6 +33,7 @@ export default function BlogManager() {
   const [imagePreview, setImagePreview] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterTag, setFilterTag] = useState('Tous');
+  const [status, setStatus] = useState('published');
   const fileInputRef = useRef(null);
 
 
@@ -41,7 +43,7 @@ export default function BlogManager() {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch('/data/blog.json');
+      const res = await fetch('/api/admin/blog');
       const data = await res.json();
       setPosts(data);
     } catch (err) {
@@ -54,6 +56,11 @@ export default function BlogManager() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        showToast("Le fichier est trop volumineux (max 10 Mo).", "error");
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
       setFeaturedImage(file);
       const reader = new FileReader();
       reader.onloadend = () => setImagePreview(reader.result);
@@ -61,17 +68,20 @@ export default function BlogManager() {
     }
   };
 
-  const handleSave = async (e) => {
+  const handleSave = async (e, forcedStatus = null) => {
     e.preventDefault();
-    if (!title || !excerpt || !content || !featuredImage) {
-      showToast("Veuillez remplir le titre, le résumé court, le contenu et l'image de mise en avant.", "error");
+    if (!title || !excerpt || !content) {
+      showToast("Veuillez remplir le titre, le résumé court et le contenu.", "error");
       return;
     }
     setSaving(true);
 
+    const finalStatus = forcedStatus || status;
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('author', author);
+    formData.append('status', finalStatus);
     formData.append('tags', tags);
     formData.append('excerpt', excerpt);
     formData.append('content', content);
@@ -79,7 +89,7 @@ export default function BlogManager() {
     if (featuredImage) formData.append('featuredImage', featuredImage);
 
     try {
-      const res = await fetch('/data/blog.json', {
+      const res = await fetch('/api/admin/blog', {
         method: 'POST',
         body: formData,
       });
@@ -87,10 +97,10 @@ export default function BlogManager() {
       if (data.success) {
         if (editingId) {
           setPosts(posts.map(p => p.id === editingId ? data.post : p));
-          showToast("Article mis à jour !");
+          showToast(finalStatus === 'draft' ? "Article enregistré en brouillon" : "Article mis à jour !");
         } else {
           setPosts([data.post, ...posts]);
-          showToast("Article publié avec succès !");
+          showToast(finalStatus === 'draft' ? "Article enregistré en brouillon" : "Article publié avec succès !");
         }
         setIsEditing(false);
         resetForm();
@@ -106,7 +116,7 @@ export default function BlogManager() {
     // On garde le confirm natif pour la sécurité car c'est une action destructive
     if (!confirm('Supprimer cet article ?')) return;
     try {
-      await fetch('/data/blog.json', {
+      await fetch('/api/admin/blog', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
@@ -122,6 +132,7 @@ export default function BlogManager() {
     setEditingId(post.id);
     setTitle(post.title);
     setAuthor(post.author || 'URBATEAM');
+    setStatus(post.status || 'published');
     setTags(post.tags?.join(', ') || '');
     setExcerpt(post.excerpt || '');
     setContent(post.content || '');
@@ -134,6 +145,7 @@ export default function BlogManager() {
     setEditingId(null);
     setTitle('');
     setAuthor('URBATEAM');
+    setStatus('published');
     setTags('');
     setExcerpt('');
     setContent('');
@@ -146,16 +158,18 @@ export default function BlogManager() {
     <div style={{ minWidth: 0 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <h2 style={{ fontSize: '1.8rem', color: colors.text, fontWeight: '800' }}>{editingId ? 'Modifier l\'article' : 'Gestion du Blog'}</h2>
-        <button 
-          onClick={() => {
-            if (isEditing) resetForm();
-            setIsEditing(!isEditing);
-          }}
-          className="btn btn-primary"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-        >
-          {isEditing ? <><X size={18} /> Annuler</> : <><Plus size={18} /> Nouvel Article</>}
-        </button>
+        {canEdit && (
+          <button 
+            onClick={() => {
+              if (isEditing) resetForm();
+              setIsEditing(!isEditing);
+            }}
+            className="btn btn-primary"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          >
+            {isEditing ? <><X size={18} /> Annuler</> : <><Plus size={18} /> Nouvel Article</>}
+          </button>
+        )}
       </div>
 
       {/* Search and Filters */}
@@ -324,8 +338,36 @@ export default function BlogManager() {
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
                   <button type="button" onClick={() => { setIsEditing(false); resetForm(); }} className="btn" style={{ border: '1px solid #cbd5e1' }}>Annuler</button>
-                  <button type="submit" disabled={saving} className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.8rem 2rem' }}>
-                    <Save size={18} /> {saving ? 'Enregistrement...' : editingId ? 'Mettre à jour' : 'Publier l\'article'}
+                  
+                  {/* Bouton Brouillon - uniquement si nouveau ou déjà en brouillon */}
+                  {(!editingId || status === 'draft') && (
+                    <button 
+                      type="button" 
+                      onClick={(e) => handleSave(e, 'draft')} 
+                      disabled={saving} 
+                      className="btn" 
+                      style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.5rem', 
+                        padding: '0.8rem 1.5rem',
+                        backgroundColor: '#f1f5f9',
+                        color: '#475569',
+                        border: '1px solid #e2e8f0'
+                      }}
+                    >
+                      <Save size={18} /> Enregistrer en brouillon
+                    </button>
+                  )}
+
+                  <button 
+                    type="button" 
+                    onClick={(e) => handleSave(e, 'published')} 
+                    disabled={saving} 
+                    className="btn btn-primary" 
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.8rem 2rem' }}
+                  >
+                    <Save size={18} /> {saving ? 'Enregistrement...' : editingId ? (status === 'draft' ? 'Publier maintenant' : 'Mettre à jour') : 'Publier l\'article'}
                   </button>
                 </div>
               </form>
@@ -357,7 +399,12 @@ export default function BlogManager() {
                   <img src={post.featuredImage || '/placeholder-blog.jpg'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ flexGrow: 1 }}>
-                  <h3 style={{ marginBottom: '0.2rem', fontSize: '1rem', color: '#0f172a' }}>{post.title}</h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.3rem' }}>
+                    <h3 style={{ margin: 0, fontSize: '1rem', color: '#0f172a' }}>{post.title}</h3>
+                    {post.status === 'draft' && (
+                      <span style={{ fontSize: '0.65rem', backgroundColor: '#fee2e2', color: '#991b1b', padding: '0.1rem 0.5rem', borderRadius: '4px', fontWeight: '800', textTransform: 'uppercase' }}>Brouillon</span>
+                    )}
+                  </div>
                   <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                     {post.tags?.map(tag => (
                       <span key={tag} style={{ fontSize: '0.7rem', backgroundColor: 'var(--primary-color)15', color: 'var(--primary-color)', padding: '0.1rem 0.5rem', borderRadius: '4px', fontWeight: '700' }}>
@@ -366,17 +413,19 @@ export default function BlogManager() {
                     ))}
                   </div>
                   <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.3rem' }}>
-                    Par {post.author} le {new Date(post.date).toLocaleDateString()}
+                    Par {post.author} le {new Date(post.date_published || post.date).toLocaleDateString()}
                   </p>
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button onClick={() => handleEdit(post)} style={{ padding: '0.6rem', color: 'var(--primary-color)', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', border: 'none', borderRadius: '6px', cursor: 'pointer', display: 'flex' }}>
-                    <Edit size={16} />
-                  </button>
-                  <button onClick={() => handleDelete(post.id)} style={{ padding: '0.6rem', color: '#ef4444', backgroundColor: '#fee2e2', border: 'none', borderRadius: '6px', cursor: 'pointer', display: 'flex' }}>
-                    <Trash2 size={16} />
-                  </button>
-                </div>
+                {canEdit && (
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button onClick={() => handleEdit(post)} style={{ padding: '0.6rem', color: 'var(--primary-color)', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', border: 'none', borderRadius: '6px', cursor: 'pointer', display: 'flex' }}>
+                      <Edit size={16} />
+                    </button>
+                    <button onClick={() => handleDelete(post.id)} style={{ padding: '0.6rem', color: '#ef4444', backgroundColor: '#fee2e2', border: 'none', borderRadius: '6px', cursor: 'pointer', display: 'flex' }}>
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                )}
               </GlassCard>
             ))
         )}

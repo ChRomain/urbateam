@@ -11,11 +11,26 @@ export default function UsersManager() {
   const [searchTerm, setSearchTerm] = useState('');
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteLoading, setInviteLoading] = useState(false);
+  const [roles, setRoles] = useState([]);
   const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
     fetchUsers();
+    fetchRoles();
   }, []);
+
+  const fetchRoles = async () => {
+    try {
+      const token = document.cookie.split('; ').find(row => row.startsWith('admin_session='))?.split('=')[1];
+      const res = await fetch('/api/roles', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const { data } = await res.json();
+      setRoles(data || []);
+    } catch (error) {
+      console.error('Erreur roles:', error);
+    }
+  };
 
   const fetchUsers = async () => {
     try {
@@ -24,7 +39,7 @@ export default function UsersManager() {
       
       if (!token) return;
 
-      const res = await fetch('/api/users', {
+      const res = await fetch('/api/users?fields[]=*,role.name,role.id', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -48,13 +63,19 @@ export default function UsersManager() {
     try {
       const token = document.cookie.split('; ').find(row => row.startsWith('admin_session='))?.split('=')[1];
       
+      // Trouver l'ID du role Lecteur
+      const lecteurRole = roles.find(r => r.name === 'Lecteur');
+
       const res = await fetch('/api/users', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email: inviteEmail })
+        body: JSON.stringify({ 
+          email: inviteEmail,
+          role: lecteurRole?.id // Par défaut Lecteur
+        })
       });
 
       if (res.ok) {
@@ -89,6 +110,26 @@ export default function UsersManager() {
       }
     } catch (error) {
       alert('Erreur lors de la suppression');
+    }
+  };
+
+  const handleUpdateRole = async (userId, roleId) => {
+    try {
+      const token = document.cookie.split('; ').find(row => row.startsWith('admin_session='))?.split('=')[1];
+      const res = await fetch('/api/users', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id: userId, role: roleId })
+      });
+
+      if (res.ok) {
+        fetchUsers();
+      }
+    } catch (error) {
+      alert('Erreur lors du changement de rôle');
     }
   };
 
@@ -197,18 +238,33 @@ export default function UsersManager() {
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <div style={{ 
-                      padding: '0.4rem 0.8rem', 
-                      borderRadius: '8px', 
-                      backgroundColor: 'rgba(59, 130, 246, 0.1)', 
-                      color: 'var(--primary-color)',
-                      fontSize: '0.8rem',
-                      fontWeight: '600',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.3rem'
-                    }}>
-                      <Shield size={14} /> Admin
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <select 
+                        value={user.role?.id || ''} 
+                        onChange={(e) => handleUpdateRole(user.id, e.target.value)}
+                        disabled={user.email === 'admin@urbateam.fr'}
+                        style={{ 
+                          padding: '0.4rem 0.8rem', 
+                          borderRadius: '8px', 
+                          border: `1px solid ${colors.border}`,
+                          backgroundColor: colors.bg,
+                          color: user.role?.name === 'Administrator' ? 'var(--primary-color)' : colors.text,
+                          fontSize: '0.8rem',
+                          fontWeight: '600',
+                          outline: 'none'
+                        }}
+                      >
+                        {roles
+                          .filter(r => r.name !== 'Administrator')
+                          .map(role => (
+                            <option key={role.id} value={role.id}>{role.name}</option>
+                          ))
+                        }
+                        {/* On affiche quand même le rôle admin si c'est le compte principal */}
+                        {user.email === 'admin@urbateam.fr' && (
+                          <option value={user.role?.id} disabled>Administrator</option>
+                        )}
+                      </select>
                     </div>
                     {user.email !== 'admin@urbateam.fr' && (
                       <button 

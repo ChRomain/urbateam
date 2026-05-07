@@ -57,14 +57,27 @@ function DashboardContent() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState('Lecteur');
 
   useEffect(() => {
-    // Sécurité : Vérifier si l'utilisateur est connecté
-    const isLoggedIn = document.cookie.split('; ').some(row => row.startsWith('admin_session='));
-    if (!isLoggedIn) {
-      router.push('/admin');
-      return;
-    }
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+          const userData = await res.json();
+          setUser(userData);
+          setRole(userData.role?.name || 'Lecteur');
+        } else {
+          router.push('/admin');
+        }
+      } catch (err) {
+        console.error('Auth check error:', err);
+        router.push('/admin');
+      }
+    };
+
+    checkAuth();
 
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -77,9 +90,16 @@ function DashboardContent() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleLogout = () => {
-    document.cookie = "admin_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    router.push('/admin');
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.push('/admin');
+    } catch (err) {
+      console.error('Logout error:', err);
+      // Fallback au cas où l'API échoue
+      document.cookie = "admin_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      router.push('/admin');
+    }
   };
 
   const tabs = [
@@ -95,7 +115,8 @@ function DashboardContent() {
     { id: 'glossary', name: 'Lexique', icon: <Book size={20} /> },
     { id: 'qrcode', name: 'QR Code', icon: <QrCode size={20} /> },
     { id: 'socialcards', name: 'Social Cards', icon: <Share2 size={20} /> },
-    { id: 'users', name: 'Utilisateurs', icon: <Users size={20} /> },
+    // Seul l'admin voit la gestion des utilisateurs
+    ...(role === 'Administrator' ? [{ id: 'users', name: 'Utilisateurs', icon: <Users size={20} /> }] : []),
   ];
 
   return (
@@ -306,27 +327,36 @@ function DashboardContent() {
               <div style={{ height: '4px', width: '60px', backgroundColor: 'var(--primary-color)', marginTop: '0.5rem', borderRadius: '2px' }}></div>
             </div>
           </div>
-          {!isMobile && (
-            <div style={{ color: colors.textMuted, fontSize: '0.9rem', fontWeight: '500', transition: 'color 0.3s' }}>
-              Admin {'>'} {tabs.find(t => t.id === activeTab)?.name}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ textAlign: 'right', display: isMobile ? 'none' : 'block' }}>
+              <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: '700', color: colors.text }}>{user?.first_name || 'Admin'} {user?.last_name || ''}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'flex-end' }}>
+                <Shield size={12} color="var(--primary-color)" />
+                <p style={{ margin: 0, fontSize: '0.75rem', color: colors.textMuted, fontWeight: '600' }}>{role}</p>
+              </div>
             </div>
-          )}
+            {!isMobile && (
+              <div style={{ color: colors.textMuted, fontSize: '0.9rem', fontWeight: '500', transition: 'color 0.3s' }}>
+                Admin {'>'} {tabs.find(t => t.id === activeTab)?.name}
+              </div>
+            )}
+          </div>
         </header>
 
         <div style={{ maxWidth: '1200px', color: colors.text }}>
-          {activeTab === 'summary' && <SummaryManager />}
-          {activeTab === 'social' && <SocialManager />}
-          {activeTab === 'projets' && <ProjetsManager />}
-          {activeTab === 'blog' && <BlogManager />}
-          {activeTab === 'faq' && <FAQManager />}
-          {activeTab === 'glossary' && <GlossaryManager />}
-          {activeTab === 'team' && <TeamManager />}
-          {activeTab === 'clients' && <ClientsManager />}
-          {activeTab === 'partners' && <PartnersManager />}
-          {activeTab === 'stats' && <StatsManager />}
-          {activeTab === 'qrcode' && <QRCodeManager />}
-          {activeTab === 'socialcards' && <SocialCardsManager />}
-          {activeTab === 'users' && <UsersManager />}
+          {activeTab === 'summary' && <SummaryManager user={user} role={role} />}
+          {activeTab === 'social' && <SocialManager role={role} />}
+          {activeTab === 'projets' && <ProjetsManager role={role} />}
+          {activeTab === 'blog' && <BlogManager role={role} />}
+          {activeTab === 'faq' && <FAQManager role={role} />}
+          {activeTab === 'glossary' && <GlossaryManager role={role} />}
+          {activeTab === 'team' && <TeamManager role={role} />}
+          {activeTab === 'clients' && <ClientsManager role={role} />}
+          {activeTab === 'partners' && <PartnersManager role={role} />}
+          {activeTab === 'stats' && <StatsManager role={role} />}
+          {activeTab === 'qrcode' && <QRCodeManager role={role} />}
+          {activeTab === 'socialcards' && <SocialCardsManager role={role} />}
+          {activeTab === 'users' && role === 'Administrator' && <UsersManager role={role} />}
         </div>
       </main>
     </div>

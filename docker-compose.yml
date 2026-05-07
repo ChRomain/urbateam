@@ -62,6 +62,8 @@ services:
       EMAIL_SMTP_USER: "user@example.com"
       EMAIL_SMTP_PASSWORD: "password"
       EMAIL_SMTP_SECURE: "false"
+      # Limite de taille des fichiers
+      FILES_MAX_SIZE: "10mb"
     volumes:
       - directus_uploads:/directus/uploads
 

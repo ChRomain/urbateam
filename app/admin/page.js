@@ -29,9 +29,7 @@ export default function AdminLoginPage() {
       });
 
       if (res.ok) {
-        const { data } = await res.json();
-        // On stocke le token dans un cookie pour la session
-        document.cookie = `admin_session=${data.access_token}; path=/; max-age=86400; SameSite=Strict`;
+        // Le cookie est maintenant géré côté serveur par l'API (httpOnly)
         router.push('/admin/dashboard');
       } else {
         const errData = await res.json();
