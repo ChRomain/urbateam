@@ -1,0 +1,39 @@
+name: ⏰ Keep Supabase Awake
+
+on:
+  schedule:
+    # Déclenchement tous les jours à 6h00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Permet de lancer le workflow manuellement depuis GitHub
+
+jobs:
+  ping:
+    name: ⚡ Ping Supabase Database
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🌐 Ping Supabase REST API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "❌ Erreur : Les secrets SUPABASE_URL ou SUPABASE_ANON_KEY ne sont pas configurés dans GitHub Secrets."
+            exit 1
+          fi
+
+          echo "Pinging: $SUPABASE_URL/rest/v1/projets?select=id&limit=1"
+          
+          # Effectue la requête HTTP et récupère le code de statut HTTP
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X GET "$SUPABASE_URL/rest/v1/projets?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+
+          echo "HTTP Status Code: $STATUS_CODE"
+
+          if [ "$STATUS_CODE" -eq 200 ]; then
+            echo "✅ Supabase est bien réveillé et répond correctement !"
+          else
+            echo "❌ Échec de la requête. Statut HTTP : $STATUS_CODE"
+            exit 1
+          fi

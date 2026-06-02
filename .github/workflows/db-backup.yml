@@ -1,0 +1,101 @@
+name: 💾 Supabase Database Backup
+
+on:
+  schedule:
+    # Déclenchement tous les jours à 3h00 UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Permet de lancer le backup manuellement depuis GitHub
+
+jobs:
+  backup:
+    name: 📤 Backup & Commit
+    runs-on: ubuntu-latest
+    
+    # Permission nécessaire pour pousser sur le dépôt GitHub
+    permissions:
+      contents: write
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Récupère tout l'historique pour gérer les branches
+
+      - name: ⚙️ Setup Git & Backup Branch
+        run: |
+          set -eo pipefail
+          
+          # Configuration de l'identité Git pour le commit
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Vérifier si la branche backup existe sur le dépôt distant
+          git fetch origin
+          if git show-ref --quiet refs/remotes/origin/backup; then
+            echo "La branche 'backup' existe. Passage sur cette branche..."
+            git checkout backup
+            git pull origin backup
+          else
+            echo "La branche 'backup' n'existe pas. Création d'une branche orpheline..."
+            git checkout --orphan backup
+            git rm -rf .
+            mkdir -p db_backups
+            touch db_backups/.gitkeep
+            git add db_backups/.gitkeep
+            git commit -m "Initialisation de la branche de backup"
+            git push origin backup
+          fi
+
+      - name: 🐘 Install PostgreSQL Client & Dump DB
+        env:
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        run: |
+          set -eo pipefail
+          
+          if [ -z "$PGPASSWORD" ] || [ -z "$PROJECT_ID" ]; then
+            echo "❌ Erreur : Les secrets SUPABASE_DB_PASSWORD ou SUPABASE_PROJECT_ID ne sont pas configurés dans GitHub Secrets."
+            exit 1
+          fi
+
+          # Installation du client PostgreSQL pour avoir pg_dump
+          echo "Installation du client PostgreSQL..."
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client
+
+          # Créer le répertoire des backups s'il n'existe pas
+          mkdir -p db_backups
+          
+          # Générer le nom de fichier avec la date du jour
+          FILENAME="db_backups/backup_$(date +%Y-%m-%d).sql.gz"
+          
+          echo "Démarrage du dump de la base de données Supabase..."
+          # Utilisation de pg_dump via le host direct de Supabase
+          pg_dump -h "db.${PROJECT_ID}.supabase.co" -U postgres -d postgres | gzip > "$FILENAME"
+          echo "Dump terminé avec succès : $FILENAME"
+
+      - name: 🗑️ Apply 7-day Retention Policy
+        run: |
+          set -eo pipefail
+          echo "Application de la politique de rétention (7 jours)..."
+          
+          # Lister les fichiers, les trier par date décroissante (les plus récents en premier),
+          # et supprimer tous les fichiers à partir de l'index 8 (conserve donc uniquement les 7 plus récents)
+          ls -t db_backups/backup_*.sql.gz 2>/dev/null | tail -n +8 | while read -r file; do
+            echo "Suppression de l'ancien backup obsolète : $file"
+            rm "$file"
+          done
+
+      - name: 📤 Push Backup to GitHub
+        run: |
+          set -eo pipefail
+          
+          git add db_backups/
+          
+          # Vérifier s'il y a des modifications à commiter
+          if git diff --cached --quiet; then
+            echo "Aucun changement détecté dans la base de données. Aucun backup supplémentaire commité aujourd'hui."
+          else
+            git commit -m "db-backup: sauvegarde automatique du $(date +%Y-%m-%d)"
+            git push origin backup
+          fi
