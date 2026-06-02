@@ -25,19 +25,6 @@ export default function StatsManager() {
       const res = await fetch('/api/admin/stats');
       const data = await res.json();
       
-      // Données mockées impressionnantes pour la démo
-      if (!data.daily || Object.keys(data.daily).length < 2) {
-        data.daily = {
-          "2026-04-24": 124, "2026-04-25": 156, "2026-04-26": 132,
-          "2026-04-27": 189, "2026-04-28": 245, "2026-04-29": 210, "2026-04-30": 285
-        };
-      }
-      if (!data.devices || data.devices.Desktop < 5) {
-        data.devices = { Desktop: 68, Mobile: 28, Tablet: 4 };
-      }
-      if (!data.browsers || Object.keys(data.browsers).length < 2) {
-        data.browsers = { "Chrome": 58, "Safari": 24, "Firefox": 10, "Edge": 8 };
-      }
       setStats(data);
     } catch (err) {
       console.error('Erreur stats');
