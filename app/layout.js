@@ -21,16 +21,27 @@ const righteous = Righteous({
   weight: ["400"],
 });
 
+export const viewport = {
+  themeColor: "#79a081",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL('https://urbateam.fr'),
   title: "URBATEAM | Géomètre-Expert & Topographe à Brest, Saint-Renan et Douarnenez",
   description: "Cabinet de Géomètres-Experts et urbanistes à Brest, Saint-Renan et Douarnenez. Expertise foncière, topographie et aménagement à Landerneau, Saint-Urbain et Finistère-Nord.",
+  manifest: "/site.webmanifest",
   icons: {
     icon: [
-      { url: '/favicon.jpg', sizes: '32x32' },
-      { url: '/web-app-icon.png', sizes: '192x192' }
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
     ],
-    apple: '/apple-touch-icon.png',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   robots: {
     index: true,
@@ -94,7 +105,7 @@ export default function RootLayout({ children }) {
                   "@id": "https://urbateam.fr/#organization",
                   "name": "URBATEAM",
                   "url": "https://urbateam.fr",
-                  "logo": "https://urbateam.fr/favicon.jpg",
+                  "logo": "https://urbateam.fr/apple-touch-icon.png",
                   "image": "https://urbateam.fr/og-image.png",
                   "description": "Cabinet de Géomètres-Experts et urbanistes à Brest, Saint-Renan et Douarnenez.",
                   "telephone": "+33298842965",

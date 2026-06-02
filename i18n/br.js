@@ -15,6 +15,7 @@ export const br = {
     "resources_dropdown": "Danvezioù",
     "division_simulator": "Simuler Rannañ Douar",
     "sun_simulator": "Simulatour Disheol & Ensoleillement",
+    "eco_diagnostic": "Ekodiagnostik",
     "my_project": "Ma Raktres",
     "cadastre_map": "Kartenn Kadas & Bornerezh",
     "profil_long": "Troc'h Altimetrek",
@@ -1350,6 +1351,68 @@ export const br = {
     "steps_desc": "Ar c'holl ensoleillement a c'hell bezañ gwelet el lezenn evel ur 'trouble anormal de voisinage'. Evit ober un dra bennak, e ranker : (1) Ober ur studiadenn disheol gant ar c'hompagnunezh, (2) Lakaat ur mailh da sevel ur paper ofisiel, (3) Klask un asant gant an amezeg, ha (4) Mont dirak ar barner evit goulenn arc'hant pe cheñch ar raktres.",
     "viability_title": "⚖️ Petra eo un 'trouble anormal de voisinage' ?",
     "viability_desc": "Ur c'holl eo hag a ya pelloc'h eget ar gudenn voutin etre amezeien. Ar barner a sell ouzh pegen bras eo ar gudenn hervez al lec'h (kêr pe maez), an ensoleillement er penn-kentañ, hag implij ar c'hambr pe ar sal Toucher."
+  },
+  "eco": {
+    "title": "Ekodiagnostik Tachennoù Evezhiadenn",
+    "subtitle": "Priziit diouzhtu kudenn an endro, ar riskloù douar-ouriezh hag an ensoleillement war ho tachenn.",
+    "search_address": "Klask chomlec'h",
+    "loading_text": "Krouiñ an ekodiagnostik tachenn...",
+    "overall_score": "Poentoù hollek a viabilite",
+    "overall_desc": "Ar score-mañ a sell ouzh pegen mat eo an dachenn evit an endro hag ar reolerezh.",
+    "radar_title": "Studiadenn meur a berzh war an dachenn",
+    "download_report": "Danevell Ekodiagnostik (PDF)",
+    "lead_title": "Kaout ur studiadenn ofisiel gant ur mailh",
+    "lead_desc": "C'hoant hoc'h eus da vont pelloc'h gant ur Geometer-Harpour Urbateam? Hor c'habined a ra danevelloù ofisiel.",
+    "registered": "Danevell kaset !",
+    "registered_desc": "Ho ekodiagnostik a zo bet enrollet mat. Un douaroner Urbateam a gemero darempred ganeoc'h buan.",
+    "free_study": "Lakaat ur mailh da wiriañ",
+    "how_it_works_title": "Penaos eo jedet an diagnostik-mañ ?",
+    "how_it_works_desc": "An diagnostik-mañ a sell ouzh perzhioù fizik an dachenn (GPS) ha riskloù (Argiles BRGM, Dour-beuz Géorisques, Heol ADEME ha Glad).",
+    "simulation_note_title": "⚠️ Note vras : Simulatour hepken",
+    "simulation_note_desc": "Ur simulatour eo an teul-mañ. Ret eo kaout ur geometer Urbateam war an dachenn evit bezañ sur da vat eus ho raktres.",
+    "axes": {
+      "soil": "Douar",
+      "water": "Dour",
+      "climate": "Hin",
+      "heritage": "Glad",
+      "viability": "Roueadoù"
+    },
+    "soil": {
+      "title": "Douar & Riskloù douar-ouriezh",
+      "desc": "Priziit pegen stabil eo an douar hag ar riskloù.",
+      "clay_level": "Live pri (retrait-gonflement)",
+      "seismic": "Lec'h sismik",
+      "radon": "Risk Radon",
+      "slope": "Pente an dachenn"
+    },
+    "water": {
+      "title": "Dour & Hidrologie",
+      "desc": "Studiadenn war riskloù an dour-beuz.",
+      "flood": "Lec'h dour-beuz (PPRI)",
+      "wet_zone": "Lec'h gleb",
+      "runoff": "Risk dour o redek"
+    },
+    "climate": {
+      "title": "Heol & Hin",
+      "desc": "Potentiel heol evit produiñ tredan.",
+      "exposure": "Tu an dachenn",
+      "solar_potential": "Heol potentiel (ADEME)",
+      "wind": "Avel"
+    },
+    "heritage": {
+      "title": "Glad & Reolennoù Urbanism",
+      "desc": "Kudennoù melestradurel ha glad gwarezet.",
+      "monuments": "Monumant Istorel tost",
+      "natura2000": "Natura 2000 / ZNIEFF",
+      "plu": "Lec'h ar PLU"
+    },
+    "viability": {
+      "title": "Roueadoù & Viabilite",
+      "desc": "Tostder ouzh ar rouedadoù tredan ha dour.",
+      "access": "Hent foran",
+      "networks": "Roueadoù tredan ha dour",
+      "sewer": "Kariañ an dour"
+    }
   }
 };
 

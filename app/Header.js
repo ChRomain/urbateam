@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronDown, Wrench } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import styles from './Header.module.css';
 import { useLanguage } from '../context/LanguageContext';
@@ -55,11 +55,12 @@ export default function Header() {
   ];
 
   const resourceLinks = [
-    { name: t('header.division_simulator'), href: '/simulateur-division' },
-    { name: t('header.sun_simulator'), href: '/simulateur-ensoleillement' },
-    { name: t('header.cadastre_map'), href: '/carte-cadastre' },
-    { name: t('header.profil_long'), href: '/profil-long' },
-    { name: t('header.my_project'), href: '/mon-projet' },
+    { name: t('header.division_simulator'), href: '/simulateur-division', isTool: true },
+    { name: t('header.sun_simulator'), href: '/simulateur-ensoleillement', isTool: true },
+    { name: t('header.eco_diagnostic'), href: '/eco-diagnostic', isTool: true },
+    { name: t('header.cadastre_map'), href: '/carte-cadastre', isTool: true },
+    { name: t('header.profil_long'), href: '/profil-long', isTool: true },
+    { name: t('header.my_project'), href: '/mon-projet', isTool: true },
     { name: t('header.follow_us'), href: '/nous-suivre' },
     { name: t('header.faq'), href: '/faq' },
     { name: t('meta.rse.title').split('|')[0].trim(), href: '/rse' },
@@ -171,6 +172,7 @@ export default function Header() {
                         >
                           {link.dropdown.map(sub => (
                             <Link key={sub.href} href={sub.href} className={styles.dropdownItem}>
+                              {sub.isTool && <Wrench size={14} className={styles.toolIcon} />}
                               {sub.name}
                             </Link>
                           ))}
@@ -290,13 +292,14 @@ export default function Header() {
                       </Link>
                       {link.dropdown && (
                         <div className={styles.mobileSubNav}>
-                          {link.dropdown.map(sub => (
+                           {link.dropdown.map(sub => (
                             <Link 
                               key={sub.href} 
                               href={sub.href} 
                               className={styles.mobileSubNavLink}
                               onClick={() => setIsOpen(false)}
                             >
+                              {sub.isTool && <Wrench size={14} className={styles.toolIcon} />}
                               {sub.name}
                             </Link>
                           ))}

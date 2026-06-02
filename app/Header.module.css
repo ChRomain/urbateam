@@ -217,6 +217,8 @@
   color: var(--text-light);
   padding: 0.5rem 0;
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
 .mobileSubNavLink:hover {
@@ -374,4 +376,19 @@
 
 .scrolled .mobileLangBtn {
   background: rgba(255,255,255,0.1);
+}
+
+.toolIcon {
+  margin-right: 8px;
+  color: var(--primary-color);
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+
+.dropdownItem:hover .toolIcon,
+.mobileSubNavLink:hover .toolIcon {
+  transform: rotate(20deg);
+  color: var(--primary-color);
+  opacity: 1;
 }

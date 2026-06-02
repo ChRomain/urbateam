@@ -73,6 +73,7 @@ export const en = {
     resources_dropdown: "Resources",
     division_simulator: "Land Division Simulator",
     sun_simulator: "Shadow & Solar Simulator",
+    eco_diagnostic: "Eco-Diagnosis",
     my_project: "My Project",
     cadastre_map: "Cadastre & Boundary Map",
     profil_long: "Elevation Profile",
@@ -1155,5 +1156,67 @@ export const en = {
     steps_desc: "The loss of sunlight can be legally classified as a 'neighborhood disturbance'. To file an action, you should: (1) Conduct an initial geometric sunlight study, (2) Have an official report drawn up by an expert, (3) Attempt an amicable conciliation, and (4) Act before the civil court for compensation or to request the modification of the project.",
     viability_title: "⚖️ What is an abnormal neighborhood disturbance?",
     viability_desc: "It is a harm that exceeds the normal inconveniences a neighbor must bear. The judge sovereignly assesses the severity of the disturbance based on the geographical location (city or countryside), the initial sunlight coefficient, and the use of the affected room (living room, bedroom, or simple garden shed)."
+  },
+  eco: {
+    title: "Interactive Land Eco-Diagnosis",
+    subtitle: "Instantly evaluate the environmental constraints, geological risks, and potential of your cadastral parcel in real time.",
+    search_address: "Search address",
+    loading_text: "Generating the eco-diagnosis of the parcel...",
+    overall_score: "Overall viability score",
+    overall_desc: "This score evaluates the suitability of the parcel regarding environmental, physical, and regulatory constraints.",
+    radar_title: "Parcel multicriteria analysis",
+    download_report: "Generate Eco-Diagnosis Report (PDF)",
+    lead_title: "Obtain an official expertise",
+    lead_desc: "Would you like to deepen this study with a Chartered Surveyor from Urbateam? Our office conducts official environmental and urban planning diagnostics.",
+    registered: "Diagnosis sent!",
+    registered_desc: "Your eco-diagnosis has been successfully registered. An expert from Urbateam will analyze your land file and contact you shortly.",
+    free_study: "Have an expert validate",
+    how_it_works_title: "How is this diagnosis calculated?",
+    how_it_works_desc: "This diagnosis crosses real physical data of your cadastral plot (GPS coordinates) with official risk and regulation indicators (BRGM clay, Géorisques earthquakes/floods, ADEME solar potential, and Historic Monuments).",
+    simulation_note_title: "⚠️ Important note: Indicative simulation",
+    simulation_note_desc: "This document constitutes an indicative numerical simulation. Only a complete geotechnical study and a physical boundary marking survey carried out on the ground by a Chartered Surveyor from Urbateam can legally guarantee the limits, official constructibility, and viability of your project.",
+    axes: {
+      soil: "Soil",
+      water: "Water",
+      climate: "Climate",
+      heritage: "Heritage",
+      viability: "Networks"
+    },
+    soil: {
+      title: "Soil & Geological Risks",
+      desc: "Assessment of foundations stability and telluric risks.",
+      clay_level: "Clay level (shrink-swell)",
+      seismic: "Seismicity zone",
+      radon: "Radon risk",
+      slope: "Average slope of the terrain"
+    },
+    water: {
+      title: "Water Management & Hydrology",
+      desc: "Analysis of flood risk and stormwater runoff.",
+      flood: "Floodable zone (PPRI)",
+      wet_zone: "Presence of wet zone",
+      runoff: "Runoff risk"
+    },
+    climate: {
+      title: "Solar & Climate",
+      desc: "Sunlight estimation and potential for renewable energy production.",
+      exposure: "Main exposure",
+      solar_potential: "Solar potential (ADEME)",
+      wind: "Wind exposure"
+    },
+    heritage: {
+      title: "Heritage & Urban Planning Rules",
+      desc: "Administrative constraints and heritage protection perimeters.",
+      monuments: "Historic Monument proximity",
+      natura2000: "Natura 2000 / ZNIEFF Zone",
+      plu: "PLU Zone"
+    },
+    viability: {
+      title: "Networks & Viability",
+      desc: "Proximity and accessibility to public distribution networks.",
+      access: "Public road access",
+      networks: "Networks connection (water/elec)",
+      sewer: "Sanitation"
+    }
   }
 };

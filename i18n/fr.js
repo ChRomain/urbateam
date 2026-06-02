@@ -73,6 +73,7 @@ export const fr = {
     resources_dropdown: "Ressources",
     division_simulator: "Simulateur de Division",
     sun_simulator: "Simulateur d'Ensoleillement",
+    eco_diagnostic: "Éco-Diagnostic",
     my_project: "Mon Projet",
     cadastre_map: "Bornage & Cadastre",
     profil_long: "Profil en Long",
@@ -1154,5 +1155,67 @@ export const fr = {
     steps_desc: "La perte d'ensoleillement peut être qualifiée en justice de 'trouble anormal de voisinage'. Pour intenter un recours, il convient : (1) D'effectuer une étude géométrique d'ensoleillement en amont, (2) De faire dresser un constat officiel par un expert, (3) De tenter une conciliation amiable, et (4) D'agir devant le tribunal judiciaire en indemnisation ou pour demander la modification du projet.",
     viability_title: "⚖️ Qu'est-ce qu'un trouble anormal de voisinage ?",
     viability_desc: "C'est un préjudice qui excède les inconvénients normaux qu'un voisin doit supporter. Le juge apprécie souverainement la gravité du trouble en fonction de la situation géographique (ville ou campagne), du coefficient d'ensoleillement initial et de la destination de la pièce touchée (salon, chambre ou simple abri de jardin)."
+  },
+  eco: {
+    title: "Éco-Diagnostic Foncier Interactif",
+    subtitle: "Évaluez instantanément les contraintes environnementales, les risques géologiques et le potentiel de votre parcelle cadastrale en temps réel.",
+    search_address: "Rechercher une adresse",
+    loading_text: "Génération de l'éco-diagnostic de la parcelle...",
+    overall_score: "Score global de viabilité",
+    overall_desc: "Ce score évalue l'adéquation de la parcelle par rapport aux contraintes environnementales, physiques et règlementaires.",
+    radar_title: "Analyse multicritères de la parcelle",
+    download_report: "Générer le Rapport Éco-Diagnostic (PDF)",
+    lead_title: "Obtenir une expertise officielle",
+    lead_desc: "Vous souhaitez approfondir cette étude avec un Géomètre-Expert Urbateam ? Notre cabinet réalise des diagnostics environnementaux et d'urbanisme officiels.",
+    registered: "Diagnostic transmis !",
+    registered_desc: "Votre éco-diagnostic a bien été enregistré. Un expert d'Urbateam va analyser votre dossier foncier et vous recontacteront rapidement.",
+    free_study: "Faire valider par un expert",
+    how_it_works_title: "Comment ce diagnostic est-il calculé ?",
+    how_it_works_desc: "Ce diagnostic croise les données physiques réelles de votre parcelle cadastrale (coordonnées GPS) avec les indicateurs officiels de risques et réglementations (Argiles BRGM, Séismes/Inondations Géorisques, Potentiel solaire ADEME, et Monuments Historiques).",
+    simulation_note_title: "⚠️ Note importante : Simulation indicative",
+    simulation_note_desc: "Ce document constitue une simulation numérique à titre indicatif. Seule une étude géotechnique complète et un relevé de bornage contradictoire physique réalisé sur le terrain par un Géomètre-Expert d'Urbateam permet de garantir juridiquement les limites, la constructibilité officielle et la viabilité de votre projet.",
+    axes: {
+      soil: "Sol",
+      water: "Eau",
+      climate: "Climat",
+      heritage: "Patrimoine",
+      viability: "Réseaux"
+    },
+    soil: {
+      title: "Sol & Risques géologiques",
+      desc: "Évaluation de la stabilité des fondations et des risques telluriques.",
+      clay_level: "Niveau d'argile (retrait-gonflement)",
+      seismic: "Zone de sismicité",
+      radon: "Risque Radon",
+      slope: "Pente moyenne du terrain"
+    },
+    water: {
+      title: "Gestion de l'Eau & Hydrologie",
+      desc: "Analyse du risque d'inondation et de ruissellement des eaux pluviales.",
+      flood: "Zone inondable (PPRI)",
+      wet_zone: "Présence de zone humide",
+      runoff: "Risque de ruissellement"
+    },
+    climate: {
+      title: "Solaire & Climat",
+      desc: "Estimation de l'ensoleillement et potentiel de production d'énergie renouvelable.",
+      exposure: "Exposition principale",
+      solar_potential: "Potentiel solaire (ADEME)",
+      wind: "Exposition au vent"
+    },
+    heritage: {
+      title: "Patrimoine & Règles d'Urbanisme",
+      desc: "Contraintes administratives et périmètres de protection du patrimoine.",
+      monuments: "Proximité Monument Historique",
+      natura2000: "Zone Natura 2000 / ZNIEFF",
+      plu: "Zone du PLU"
+    },
+    viability: {
+      title: "Réseaux & Viabilité",
+      desc: "Proximité et accessibilité aux réseaux de distribution publics.",
+      access: "Accès voirie publique",
+      networks: "Raccordement réseaux (eau/élec)",
+      sewer: "Assainissement"
+    }
   }
 };
