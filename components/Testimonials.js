@@ -29,6 +29,9 @@ export default function Testimonials() {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
+  const activeReviews = Array.isArray(t('testimonials.items')) ? t('testimonials.items') : reviews;
+
+
   return (
     <section ref={containerRef} className={styles.section}>
       <div className="container">
@@ -97,17 +100,17 @@ export default function Testimonials() {
             </div>
 
             <p className={styles.reviewText}>
-              "{reviews[0].text}"
+              "{activeReviews[0].text}"
             </p>
 
             <div className={styles.cardFooter}>
               <div className={styles.authorBox}>
-                <h4 className={styles.authorName}>{reviews[0].name}</h4>
+                <h4 className={styles.authorName}>{activeReviews[0].name}</h4>
                 <span className={styles.sourceText}>{t('testimonials.source')}</span>
               </div>
               <div className={styles.locationTag}>
                 <MapPin size={12} />
-                <span>{reviews[0].location}</span>
+                <span>{activeReviews[0].location}</span>
               </div>
             </div>
           </motion.div>
@@ -132,17 +135,17 @@ export default function Testimonials() {
             </div>
 
             <p className={styles.reviewText}>
-              "{reviews[1].text}"
+              "{activeReviews[1].text}"
             </p>
 
             <div className={styles.cardFooter}>
               <div className={styles.authorBox}>
-                <h4 className={styles.authorName}>{reviews[1].name}</h4>
+                <h4 className={styles.authorName}>{activeReviews[1].name}</h4>
                 <span className={styles.sourceText}>{t('testimonials.source')}</span>
               </div>
               <div className={styles.locationTag}>
                 <MapPin size={12} />
-                <span>{reviews[1].location}</span>
+                <span>{activeReviews[1].location}</span>
               </div>
             </div>
           </motion.div>
@@ -167,17 +170,17 @@ export default function Testimonials() {
             </div>
 
             <p className={styles.reviewText}>
-              "{reviews[2].text}"
+              "{activeReviews[2].text}"
             </p>
 
             <div className={styles.cardFooter}>
               <div className={styles.authorBox}>
-                <h4 className={styles.authorName}>{reviews[2].name}</h4>
+                <h4 className={styles.authorName}>{activeReviews[2].name}</h4>
                 <span className={styles.sourceText}>{t('testimonials.source')}</span>
               </div>
               <div className={styles.locationTag}>
                 <MapPin size={12} />
-                <span>{reviews[2].location}</span>
+                <span>{activeReviews[2].location}</span>
               </div>
             </div>
           </motion.div>

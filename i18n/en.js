@@ -72,8 +72,10 @@ export const en = {
     clients: "Our Clients",
     resources_dropdown: "Resources",
     division_simulator: "Land Division Simulator",
+    sun_simulator: "Shadow & Solar Simulator",
     my_project: "My Project",
     cadastre_map: "Cadastre & Boundary Map",
+    profil_long: "Elevation Profile",
     blog: "News & Blog",
     follow_us: "Follow us",
     social: "Follow us",
@@ -926,7 +928,24 @@ export const en = {
     title: "What our clients say",
     subtitle: "Google Certified Reviews (Overall Rating: 4.5/5)",
     source: "Google Review",
-    cta: "Explore all reviews on Google"
+    cta: "Explore all reviews on Google",
+    items: [
+      {
+         name: "Jean-Luc Charles",
+         location: "Plouézec (22)",
+         text: "From start to finish, our file was perfectly managed by the professionals at Urbateam. On the ground, the surveying plan was carried out in a very precise and efficient manner, and communication with the neighbors during the boundary marking meeting was excellent thanks to Urbateam. As for the timeline between the start and end of our project, it was scrupulously respected. Thank you again for the relevance of your advice and for the follow-up of our entire file. Thanks to your team, everything went very well and we can now finalize this project which is so close to our hearts."
+      },
+      {
+         name: "Patrick Cloatre",
+         location: "Saint-Renan (29)",
+         text: "Friendly welcome and client-focused. Fast and efficient intervention to correct an error from the land registry service. Highly recommended."
+      },
+      {
+         name: "Christelle Abiven",
+         location: "Brest (29)",
+         text: "My friend and I called on Urbateam and we are delighted. They give good advice, are friendly, and above all, very professional. Thanks again to the surveyors."
+      }
+    ]
   },
   legal_pages: {
     common: {
@@ -1109,5 +1128,32 @@ export const en = {
     viability_desc: "To detach a viable building plot, you must validate: direct physical access to a public road (or via a minimum 3m right-of-way servitude), networks connection (drinking water, electricity, collective or individual sanitation), and compliance with PLU implementation rules (setbacks from boundaries).",
     loading_text: "Drawing cadastral parcel...",
     terrain_selected: "Selected land:"
+  },
+  sun: {
+    title: "Shadow & Solar Simulator",
+    subtitle: "Simulate the impact of a neighboring construction project on your sunlight: draw in 3D, move the sun, and calculate the exact percentage of daylight loss for your house or garden.",
+    house_settings: "Your Property",
+    neighbor_settings: "Neighbor Project",
+    time_settings: "Time Controls",
+    analysis: "Sunlight Analysis",
+    results: "Calculation Results",
+    loss_label: "Global loss",
+    loss_levels: {
+      favorable: "Favorable (Minimal loss)",
+      moderate: "Moderate (Tolerable loss)",
+      critical: "Critical (Major loss)",
+      intolerable: "Intolérable (Abnormal disturbance)"
+    },
+    pdf_report: "Download Report (PDF)",
+    contact_expert: "Contact a Surveyor",
+    ready_title: "Ready for simulation",
+    ready_desc: "Use the controls below to draw your neighbor's house in 3D and calculate the impact of shadows cast.",
+    free_study: "Have an expert validate",
+    registered_sim: "Request registered!",
+    registered_sim_desc: "Your sunlight simulation has been successfully sent to our office. Our expert surveyors will study your parcels and contact you shortly for a complete sunlight diagnosis.",
+    steps_title: "☀️ What are the remedies for a loss of sunlight? ☀️",
+    steps_desc: "The loss of sunlight can be legally classified as a 'neighborhood disturbance'. To file an action, you should: (1) Conduct an initial geometric sunlight study, (2) Have an official report drawn up by an expert, (3) Attempt an amicable conciliation, and (4) Act before the civil court for compensation or to request the modification of the project.",
+    viability_title: "⚖️ What is an abnormal neighborhood disturbance?",
+    viability_desc: "It is a harm that exceeds the normal inconveniences a neighbor must bear. The judge sovereignly assesses the severity of the disturbance based on the geographical location (city or countryside), the initial sunlight coefficient, and the use of the affected room (living room, bedroom, or simple garden shed)."
   }
 };

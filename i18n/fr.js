@@ -72,8 +72,10 @@ export const fr = {
     clients: "Nos Clients",
     resources_dropdown: "Ressources",
     division_simulator: "Simulateur de Division",
+    sun_simulator: "Simulateur d'Ensoleillement",
     my_project: "Mon Projet",
     cadastre_map: "Bornage & Cadastre",
+    profil_long: "Profil en Long",
     blog: "Actualités & Blog",
     follow_us: "Nous suivre",
     social: "Nous suivre",
@@ -971,7 +973,24 @@ export const fr = {
     title: "Ce que disent nos clients",
     subtitle: "Avis certifiés Google (Note Globale : 4,5/5)",
     source: "Avis Google",
-    cta: "Explorer tous les avis sur Google"
+    cta: "Explorer tous les avis sur Google",
+    items: [
+      {
+         name: "Jean-Luc Charles",
+         location: "Plouézec (22)",
+         text: "Du début à la fin, notre dossier a été parfaitement géré par les professionnels d’Urbateam. Sur le terrain, le plan a été réalisé de manière très précise et efficace et la communication avec les voisins, lors de la réunion de bornage, a été excellente grâce à Urbateam. Quant au délai entre le début et la fin de notre projet, il a été scrupuleusement respecté. Merci encore pour la pertinence de vos conseils ainsi que pour le suivi de l’ensemble de notre dossier. Grâce à votre équipe, tout s’est très bien déroulé et nous pouvons ainsi finaliser ce projet qui nous tient tant à cœur."
+      },
+      {
+         name: "Patrick Cloatre",
+         location: "Saint-Renan (29)",
+         text: "Accueil agréable et à l'écoute du client. Intervention rapide et efficace pour faire rectifier une erreur du service du cadastre. Je recommande."
+      },
+      {
+         name: "Christelle Abiven",
+         location: "Brest (29)",
+         text: "Mon ami et moi avons fait appel à Urbateam et nous sommes ravis. Ils sont de bons conseils, sympas et surtout très professionnels. Merci aux géomètres encore."
+      }
+    ]
   },
   legal_pages: {
     common: {
@@ -1108,5 +1127,32 @@ export const fr = {
     viability_desc: "Pour détacher un lot à bâtir viable, il faut obligatoirement valider : l'accès physique direct à une voie publique (ou via une servitude de passage de minimum 3m), la viabilisation en réseaux (eau potable, électricité, assainissement collectif ou autonome), et le respect des règles d'implantation du PLU (reculs par rapport aux limites).",
     loading_text: "Dessin de la parcelle cadastrale...",
     terrain_selected: "Terrain sélectionné :"
+  },
+  sun: {
+    title: "Calcul d'Ombre Portée & d'Ensoleillement",
+    subtitle: "Simulez l'impact d'un projet de construction voisin sur votre ensoleillement : dessinez en 3D, déplacez le soleil et calculez précisément le pourcentage de perte de lumière de votre maison ou de votre jardin.",
+    house_settings: "Votre Propriété",
+    neighbor_settings: "Projet Voisin",
+    time_settings: "Contrôles Temporels",
+    analysis: "Analyse d'Ensoleillement",
+    results: "Résultats des calculs",
+    loss_label: "Perte globale",
+    loss_levels: {
+      favorable: "Favorable (Perte minime)",
+      moderate: "Modéré (Perte tolérable)",
+      critical: "Critique (Perte majeure)",
+      intolerable: "Intolérable (Trouble anormal)"
+    },
+    pdf_report: "Télécharger le Rapport (PDF)",
+    contact_expert: "Contacter un Géomètre-Expert",
+    ready_title: "Prêt pour la simulation",
+    ready_desc: "Utilisez les contrôles ci-dessous pour dessiner en 3D la maison de votre voisin et calculer l'impact des ombres portées.",
+    free_study: "Faire valider par un expert",
+    registered_sim: "Demande enregistrée !",
+    registered_sim_desc: "Votre simulation d'ensoleillement a bien été transmise à notre cabinet. Nos Géomètres-Experts vont étudier vos parcelles et vous recontacteront rapidement pour un diagnostic complet d'ensoleillement.",
+    steps_title: "☀️ Quels sont les recours en cas de perte d'ensoleillement ? ☀️",
+    steps_desc: "La perte d'ensoleillement peut être qualifiée en justice de 'trouble anormal de voisinage'. Pour intenter un recours, il convient : (1) D'effectuer une étude géométrique d'ensoleillement en amont, (2) De faire dresser un constat officiel par un expert, (3) De tenter une conciliation amiable, et (4) D'agir devant le tribunal judiciaire en indemnisation ou pour demander la modification du projet.",
+    viability_title: "⚖️ Qu'est-ce qu'un trouble anormal de voisinage ?",
+    viability_desc: "C'est un préjudice qui excède les inconvénients normaux qu'un voisin doit supporter. Le juge apprécie souverainement la gravité du trouble en fonction de la situation géographique (ville ou campagne), du coefficient d'ensoleillement initial et de la destination de la pièce touchée (salon, chambre ou simple abri de jardin)."
   }
 };

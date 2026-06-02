@@ -14,8 +14,10 @@ export const br = {
     "clients": "Hor Pratikoù",
     "resources_dropdown": "Danvezioù",
     "division_simulator": "Simuler Rannañ Douar",
+    "sun_simulator": "Simulatour Disheol & Ensoleillement",
     "my_project": "Ma Raktres",
     "cadastre_map": "Kartenn Kadas & Bornerezh",
+    "profil_long": "Troc'h Altimetrek",
     "blog": "Keleier & Blog",
     "follow_us": "Heuilhit ac'hanomp",
     "view_profile": "Gwelet ar profil",
@@ -1057,7 +1059,24 @@ export const br = {
     "title": "Ar pezh a lavar hor pratikoù",
     "subtitle": "Aliou Google siguret (Notenn : 4,5/5)",
     "source": "Ali Google",
-    "cta": "Gwelet an holl aliou war Google"
+    "cta": "Gwelet an holl aliou war Google",
+    "items": [
+      {
+         "name": "Jean-Luc Charles",
+         "location": "Plouezeg (22)",
+         "text": "A-raok ha goude, hor c'haier a zo et meret mat-kenañ gant renerien Urbateam. War an dachenn, an dresadenn a zo bet graet en un doare resis-tre ha plijus-tre, hag an darempred gant an amezeien a zo bet eus ar c'hentañ e-kerzh ar bonnañ. Doujet eo bet da gement termen zo a-raok echuiñ ar raktres. Trugarez d'ar skipailh evit o alioù ha pep tra zo bet graet mat. Ganto e c'hellomp echuiñ ar raktres-mañ a zo ken pouezus evidomp."
+      },
+      {
+         "name": "Patrick Cloatre",
+         "location": "Lokournan (29)",
+         "text": "Degemer mat ha skipailh a-feson ouzh an dud. Intervention prim ha prim evit cheñch ur fazi graet gant ar c'hadastr publik. Ali a ran deoc'h mont ganto."
+      },
+      {
+         "name": "Christelle Abiven",
+         "location": "Brest (29)",
+         "text": "Ma mignon ha me hon eus graet darempred gant Urbateam ha laouen omp. Roet o deus alioù mat, plijus int ha dreist-holl mailh int war o labour. Trugarez d'ar skipailh."
+      }
+    ]
   },
   "legal_pages": {
     "common": {
@@ -1304,6 +1323,33 @@ export const br = {
     "viability_desc": "Evit krouiñ un dachenn da sevel a-feson, e ranker gwiriañ : ur monedone war-eeun gant un hent publik (pe ur servij tremen a 3m d'an nebeutañ), kemmañ d'ar rouedadoù (dour, tredan, yac'husaat publik pe hiniennel), ha doujañ da reolennoù an ti-kêr (PLU).",
     "loading_text": "O tresañ ar barcell...",
     "terrain_selected": "Tachenn dibabet :"
+  },
+  "sun": {
+    "title": "Simulatour Disheol & Ensoleillement",
+    "subtitle": "Simulit levezon ur raktres sevel amezeg war ho ensoleillement : treset e 3D, fiñvit an heol, ha jedit resisted ar c'holl goulou evit ho ti pe ho liorzh.",
+    "house_settings": "Ho Perc'henniezh",
+    "neighbor_settings": "Raktres Amezeg",
+    "time_settings": "Fiñv Temporel",
+    "analysis": "Koll Goulou",
+    "results": "Disoc'hoù ar jedadur",
+    "loss_label": "Koll hollek",
+    "loss_levels": {
+      "favorable": "Favorable (Koll bihan)",
+      "moderate": "Krenn (Koll a-feson)",
+      "critical": "Uhel (Koll bras)",
+      "intolerable": "Kudenn (Koll gwall-vras)"
+    },
+    "pdf_report": "Kargañ an danevell (PDF)",
+    "contact_expert": "Darempred gant un Douaroner",
+    "ready_title": "Prest evit ar simulatour",
+    "ready_desc": "Implijit ar reolerezhioù dindan evit tresañ ti hoc'h amezeg e 3D ha jediñ levezon an disheol.",
+    "free_study": "Lakaat ur mailh da wiriañ",
+    "registered_sim": "Goulennet enrollet !",
+    "registered_sim_desc": "Ho simulatour disheol a zo bet kaset d'hor c'habined. Hor Geometred-Harpourien a studio ho tachenn hag a gemero darempred ganeoc'h buan evit ur studiadenn digoust.",
+    "steps_title": "☀️ Peseurt recours ma 'z eus ur c'holl ensoleillement ? ☀️",
+    "steps_desc": "Ar c'holl ensoleillement a c'hell bezañ gwelet el lezenn evel ur 'trouble anormal de voisinage'. Evit ober un dra bennak, e ranker : (1) Ober ur studiadenn disheol gant ar c'hompagnunezh, (2) Lakaat ur mailh da sevel ur paper ofisiel, (3) Klask un asant gant an amezeg, ha (4) Mont dirak ar barner evit goulenn arc'hant pe cheñch ar raktres.",
+    "viability_title": "⚖️ Petra eo un 'trouble anormal de voisinage' ?",
+    "viability_desc": "Ur c'holl eo hag a ya pelloc'h eget ar gudenn voutin etre amezeien. Ar barner a sell ouzh pegen bras eo ar gudenn hervez al lec'h (kêr pe maez), an ensoleillement er penn-kentañ, hag implij ar c'hambr pe ar sal Toucher."
   }
 };
 

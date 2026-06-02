@@ -56,7 +56,9 @@ export default function Header() {
 
   const resourceLinks = [
     { name: t('header.division_simulator'), href: '/simulateur-division' },
+    { name: t('header.sun_simulator'), href: '/simulateur-ensoleillement' },
     { name: t('header.cadastre_map'), href: '/carte-cadastre' },
+    { name: t('header.profil_long'), href: '/profil-long' },
     { name: t('header.my_project'), href: '/mon-projet' },
     { name: t('header.follow_us'), href: '/nous-suivre' },
     { name: t('header.faq'), href: '/faq' },
