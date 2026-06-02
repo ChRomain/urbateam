@@ -1085,7 +1085,7 @@ export default function SimulateurEnsoleillementClient() {
 
                 <div className={styles.controlGroup}>
                   <label className={styles.controlLabel}>
-                    <span>Angle d'implantation</span>
+                    <span>Angle d&apos;implantation</span>
                     <span className={styles.controlVal}>{neighborAngle}°</span>
                   </label>
                   <input

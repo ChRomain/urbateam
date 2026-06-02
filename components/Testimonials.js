@@ -100,7 +100,7 @@ export default function Testimonials() {
             </div>
 
             <p className={styles.reviewText}>
-              "{activeReviews[0].text}"
+              &ldquo;{activeReviews[0].text}&rdquo;
             </p>
 
             <div className={styles.cardFooter}>
@@ -135,7 +135,7 @@ export default function Testimonials() {
             </div>
 
             <p className={styles.reviewText}>
-              "{activeReviews[1].text}"
+              &ldquo;{activeReviews[1].text}&rdquo;
             </p>
 
             <div className={styles.cardFooter}>
@@ -170,7 +170,7 @@ export default function Testimonials() {
             </div>
 
             <p className={styles.reviewText}>
-              "{activeReviews[2].text}"
+              &ldquo;{activeReviews[2].text}&rdquo;
             </p>
 
             <div className={styles.cardFooter}>

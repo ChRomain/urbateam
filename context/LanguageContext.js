@@ -12,11 +12,12 @@ const translations = { fr, en, br };
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState('fr');
 
-  // Au montage, on pourrait vérifier la langue du navigateur ou le localStorage
   useEffect(() => {
     const savedLang = localStorage.getItem('urbateam-lang');
     if (savedLang && (savedLang === 'fr' || savedLang === 'en' || savedLang === 'br')) {
-      setLanguage(savedLang);
+      setTimeout(() => {
+        setLanguage(savedLang);
+      }, 0);
     }
   }, []);
 
