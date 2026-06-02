@@ -22,7 +22,7 @@ export default function StatsManager() {
 
   const fetchStats = async () => {
     try {
-      const res = await fetch('/data/stats.json');
+      const res = await fetch('/api/admin/stats');
       const data = await res.json();
       
       // Données mockées impressionnantes pour la démo

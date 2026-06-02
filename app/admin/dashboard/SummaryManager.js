@@ -22,7 +22,7 @@ export default function SummaryManager({ user, role }) {
       const [blog, social, stats, team, faq, projets] = await Promise.all([
         fetch('/data/blog.json').then(r => r.ok ? r.json() : []),
         fetch('/data/social.json').then(r => r.ok ? r.json() : []),
-        fetch('/data/stats.json').then(r => r.ok ? r.json() : { totalVisits: 0 }),
+        fetch('/api/admin/stats').then(r => r.ok ? r.json() : { totalVisits: 0 }),
         fetch('/data/team.json').then(r => r.ok ? r.json() : { members: [] }),
         fetch('/data/faq.json').then(r => r.ok ? r.json() : []),
         fetch('/data/projets.json').then(r => r.ok ? r.json() : [])
