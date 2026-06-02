@@ -123,8 +123,10 @@
 
 @media (max-width: 768px) {
   .hero {
-    height: 90vh; /* Better for mobile with address bar */
-    margin-top: -70px;
+    height: auto;
+    min-height: 80vh;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
   
   .title::before {
