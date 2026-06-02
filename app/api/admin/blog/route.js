@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getArticles, createItem, updateItem, deleteItem, uploadFile } from '../../../../lib/supabase';
-import { verifyAdminSession } from '../../../../lib/auth-helper';
+import { getArticles, createItem, updateItem, deleteItem, uploadFile } from '../../../../../lib/supabase';
+import { verifyAdminSession } from '../../../../../lib/auth-helper';
 
 export async function GET(request) {
   try {
