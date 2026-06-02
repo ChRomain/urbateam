@@ -1,5 +1,5 @@
 import ClientsClient from './ClientsClient';
-import { getClients } from '../../lib/directus';
+import { getClients } from '../../lib/supabase';
 
 export const revalidate = 3600;
 

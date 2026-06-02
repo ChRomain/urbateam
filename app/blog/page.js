@@ -1,5 +1,5 @@
 import BlogClient from './BlogClient';
-import { getArticles } from '../../lib/directus';
+import { getArticles } from '../../lib/supabase';
 
 export const metadata = {
   title: 'Actualités & Innovation | URBATEAM',

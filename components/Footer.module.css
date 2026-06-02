@@ -1,9 +1,27 @@
 .footer {
+  position: relative;
   background-color: var(--secondary-color);
   color: white;
-  padding: 6rem 0 2rem;
-  margin-top: 0;
-  border-top: 1px solid var(--primary-color);
+  padding: 3rem 0 2rem;
+  margin-top: 1.5rem;
+}
+
+.topoTransition {
+  position: absolute;
+  top: -19px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  width: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.transitionSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .grid {
@@ -85,6 +103,6 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 3rem 0 1.5rem;
+    padding: 2rem 0 1.5rem;
   }
 }

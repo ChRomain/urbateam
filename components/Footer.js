@@ -18,6 +18,43 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
+      {/* Precision Surveyor's Graduated Ruler Transition */}
+      <div className={styles.topoTransition} aria-hidden="true">
+        <svg viewBox="0 0 1440 20" preserveAspectRatio="none" className={styles.transitionSvg}>
+          {/* Main horizontal baseline */}
+          <line 
+            x1="0" 
+            y1="10" 
+            x2="1440" 
+            y2="10" 
+            stroke="var(--primary-color)" 
+            strokeWidth="1.5" 
+            opacity="0.8" 
+          />
+          {/* Tick marks along the straight line */}
+          {[...Array(145)].map((_, i) => {
+            const x = i * 10;
+            const isMajor = i % 5 === 0;
+            const isDoubleMajor = i % 10 === 0;
+            const height = isDoubleMajor ? 12 : isMajor ? 8 : 4;
+            const y1 = 10 - height / 2;
+            const y2 = 10 + height / 2;
+            return (
+              <line 
+                key={`tick-${i}`}
+                x1={x} 
+                y1={y1} 
+                x2={x} 
+                y2={y2} 
+                stroke={isDoubleMajor ? "var(--accent-color)" : "var(--primary-color)"} 
+                strokeWidth="1"
+                opacity={isDoubleMajor ? 0.8 : 0.35} 
+              />
+            );
+          })}
+        </svg>
+      </div>
+
       <div className={`container ${styles.grid}`}>
         <div>
           <h3 className={styles.title}>URBATEAM</h3>

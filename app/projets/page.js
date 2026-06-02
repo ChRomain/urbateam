@@ -1,5 +1,5 @@
 import ProjetsClient from './ProjetsClient';
-import { getProjets } from '../../lib/directus';
+import { getProjets } from '../../lib/supabase';
 
 export const revalidate = 0;
 

@@ -1,5 +1,5 @@
 import PartnersClient from './PartnersClient';
-import { getPartenaires } from '../../lib/directus';
+import { getPartenaires } from '../../lib/supabase';
 
 export const revalidate = 3600;
 

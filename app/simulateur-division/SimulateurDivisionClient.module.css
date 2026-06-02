@@ -1,0 +1,460 @@
+/* app/simulateur-division/SimulateurDivisionClient.module.css */
+/* Stylesheet premium pour le Découpeur de Terrain Virtuel */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-top: 3rem;
+  align-items: stretch;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mapWrapper {
+  height: 650px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 8px solid white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.searchHeader {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchInputWrapper {
+  position: relative;
+}
+
+.searchInput {
+  width: 100%; 
+  padding: 0.8rem 1rem 0.8rem 2.5rem; 
+  border-radius: var(--border-radius-sm); 
+  border: 1px solid #cbd5e1;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(121, 160, 129, 0.2);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+}
+
+.suggestionsList {
+  position: absolute; 
+  top: 100%; 
+  left: 0; 
+  right: 0; 
+  background-color: white; 
+  border: 1px solid #cbd5e1; 
+  border-radius: var(--border-radius-sm); 
+  box-shadow: var(--shadow-md); 
+  list-style: none; 
+  padding: 0; 
+  margin: 5px 0 0 0;
+  z-index: 10;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.suggestionItem {
+  padding: 0.8rem 1rem; 
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem:hover {
+  background-color: #f8fafc;
+}
+
+.searchInfo {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Simulateur Panel & Controls */
+.simTitle {
+  color: var(--primary-color);
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controlGroup {
+  margin-bottom: 1.2rem;
+}
+
+.controlLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 0.4rem;
+}
+
+.controlVal {
+  color: var(--primary-color);
+}
+
+.sliderInput {
+  width: 100%;
+  height: 6px;
+  background-color: #e2e8f0;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sliderInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  transition: transform 0.1s;
+}
+
+.sliderInput::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxInput {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+/* Fiche surfaces & checklist */
+.lotResults {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.lotCard {
+  background-color: rgba(255,255,255,0.5);
+  border-radius: var(--border-radius-sm);
+  padding: 0.8rem;
+  border: 1px solid rgba(121, 160, 129, 0.1);
+  text-align: center;
+}
+
+.lotName {
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 0.2rem;
+}
+
+.lotNameA { color: var(--primary-color); }
+.lotNameB { color: var(--accent-color); }
+
+.lotArea {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.checkItemValid {
+  color: var(--primary-color);
+}
+
+.checkItemInvalid {
+  color: #ef4444;
+}
+
+/* Lead submission form */
+.formTitle {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.8rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.formInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(121, 160, 129, 0.2);
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.8rem;
+  outline: none;
+  height: 60px;
+  resize: none;
+  transition: all 0.3s ease;
+}
+
+.formTextarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(121, 160, 129, 0.2);
+}
+
+.submitBtn {
+  width: 100%;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--primary-color);
+  color: white !important;
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  color: white !important;
+}
+
+.submitBtn:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.successCard {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.successTitle {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.successText {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+/* Card Placeholders */
+.loadingCard {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.loadingText {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.errorCard {
+  padding: 2rem;
+  border-left: 4px solid #ef4444;
+}
+
+.errorTitle {
+  display: flex;
+  gap: 10px;
+  color: #dc2626;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  align-items: center;
+}
+
+.errorText {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.emptyCard {
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.emptyIconWrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+}
+
+.emptyTitle {
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.emptyText {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* Bottom Guidelines Grid */
+.footerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 5rem;
+}
+
+.footerCardTitle {
+  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+}
+
+.footerCardText {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .mapWrapper {
+    height: 500px;
+  }
+}
+
+@media (max-width: 576px) {
+  .mapWrapper {
+    height: 400px;
+    border-width: 4px;
+  }
+  
+  .lotResults {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+}
+
+.progressBarWrapper {
+  display: flex;
+  height: 10px;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #e2e8f0;
+  margin-top: 0.6rem;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.progressBarFillA {
+  background: linear-gradient(90deg, var(--primary-color), #8ab895);
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+.progressBarFillB {
+  background: linear-gradient(90deg, #f87171, #ef4444);
+  height: 100%;
+  transition: width 0.2s ease;
+}
+

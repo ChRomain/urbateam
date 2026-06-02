@@ -1,5 +1,5 @@
 import LexiqueClient from './LexiqueClient';
-import { getGlossaire } from '../../lib/directus';
+import { getGlossaire } from '../../lib/supabase';
 import { fr } from '../../i18n/fr';
 
 export const revalidate = 3600;

@@ -46,3 +46,6 @@ next-env.d.ts
 
 # scratch
 /scratch/
+
+# cloudflare / opennext build output
+/.open-next/

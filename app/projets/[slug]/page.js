@@ -1,5 +1,5 @@
 import ProjetDetailClient from './ProjetDetailClient';
-import { getProjets, getProjetBySlug } from '../../../lib/directus';
+import { getProjets, getProjetBySlug } from '../../../lib/supabase';
 
 export const revalidate = 3600;
 export const dynamicParams = true;

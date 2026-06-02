@@ -1,5 +1,5 @@
 import FAQClient from './FAQClient';
-import { getFaq } from '../../lib/directus';
+import { getFaq } from '../../lib/supabase';
 import { fr } from '../../i18n/fr';
 
 export const revalidate = 3600;

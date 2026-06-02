@@ -71,7 +71,9 @@ export const en = {
     projects: "Our Projects",
     clients: "Our Clients",
     resources_dropdown: "Resources",
+    division_simulator: "Land Division Simulator",
     my_project: "My Project",
+    cadastre_map: "Cadastre & Boundary Map",
     blog: "News & Blog",
     follow_us: "Follow us",
     social: "Follow us",
@@ -109,10 +111,10 @@ export const en = {
         desc: "Development studies office: ZAC, eco-neighborhoods, city sections, activity parks, town entrances, and urban redevelopment.",
         longDesc: "URBATEAM supports local authorities and private developers in the design of sustainable and harmonious living environments. Our approach combines strategic urban vision and landscape sensitivity to create meaningful spaces, integrating <a class=\"wiki-link\" href=\"/lexique?search=PLU\">PLU</a> requirements and sustainable development goals.",
         missions: [
-          { title: "Urban feasibility studies", desc: "Analysis of the potential for site transformation and definition of development scenarios." },
-          { title: "Eco-neighborhood & ZAC design", desc: "Complete project management for the creation of new sustainable city neighborhoods." },
-          { title: "Public space development", desc: "Design of squares, streets, parks, and soft paths promoting living together." },
-          { title: "Regulatory planning", desc: "Support in the development of urban planning documents and development permit files." }
+          { title: "Feasibility studies", desc: "Analysis of sites and development scenarios." },
+          { title: "Eco-neighborhoods & ZAC", desc: "Creation of new sustainable city neighborhoods." },
+          { title: "Public spaces", desc: "Design of squares, streets, parks, and paths." },
+          { title: "Regulatory planning", desc: "Development permit files and master plans." }
         ]
       },
       geometre: { 
@@ -120,10 +122,10 @@ export const en = {
         desc: "Land studies office: boundary marking, parcel divisions, co-ownerships, amicable property delimitations.",
         longDesc: "As the only professional authorized to set property boundaries, the URBATEAM Chartered Surveyor guarantees the legal security of your assets. We intervene on all land-related issues, from <a class=\"wiki-link\" href=\"/lexique?search=Boundary\">boundary marking</a> to <a class=\"wiki-link\" href=\"/lexique?search=Easement\">easement</a> management.",
         missions: [
-          { title: "Contradictory boundary marking", desc: "Legal definition and physical materialization of property separating limits." },
-          { title: "Land Division", desc: "Complete support for the <a class=\"wiki-link\" href=\"/lexique?search=Detachment\">detachment</a> of building plots and cadastral updates via a <a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>." },
-          { title: "Co-ownership & Volume Division", desc: "Preparation of interior plans and descriptive division statements for <a class=\"wiki-link\" href=\"/lexique?search=Co-ownership\">co-ownership</a> or <a class=\"wiki-link\" href=\"/lexique?search=Volumes\">volumes</a>." },
-          { title: "Land & Legal expertise", desc: "Advice on easements, joint ownerships, and complex urban planning regulations." }
+          { title: "Amicable boundary", desc: "Legal definition and physical staking of property limits." },
+          { title: "Land division", desc: "Creation of building plots (DMPC cadastral update)." },
+          { title: "Co-ownership & Volumes", desc: "Plans and statements for co-ownership or volumes." },
+          { title: "Legal expertise", desc: "Advice on easements, boundaries and joint ownerships." }
         ]
       },
       vrd: { 
@@ -131,10 +133,10 @@ export const en = {
         desc: "Infrastructure studies office: roads, diverse networks, sanitation, rainwater treatment, parking lots, roundabouts.",
         longDesc: "Our engineers and technicians design the essential technical infrastructure for project servicing. We favor innovative solutions for <a class=\"wiki-link\" href=\"/lexique?search=VRD\">roads and utilities</a> and sustainable water management.",
         missions: [
-          { title: "Infrastructure project management", desc: "Technical design and work monitoring for roads and diverse networks." },
-          { title: "Alternative rainwater management", desc: "Sizing of retention basins, landscaped swales, and infiltration systems." },
-          { title: "Hydraulic studies", desc: "Analysis of sanitation networks and flow modeling to prevent flooding." },
-          { title: "Roundabout & Parking design", desc: "Optimization of traffic flows and technical development of parking areas." }
+          { title: "Infrastructure management", desc: "Technical design and roadworks construction monitoring." },
+          { title: "Rainwater management", desc: "Sizing of retention basins and landscaped swales." },
+          { title: "Hydraulic studies", desc: "Analysis and flow modeling of sanitation networks." },
+          { title: "Traffic flow design", desc: "Optimization of roads, parking lots and roundabouts." }
         ]
       },
       sport: { 
@@ -142,10 +144,10 @@ export const en = {
         desc: "Development of sports complexes: athletics stadiums, sports fields, synthetic grass installations.",
         longDesc: "Specializing in sports equipment, URBATEAM designs high-performance installations meeting federation standards. We support clubs and town halls in creating modern complexes.",
         missions: [
-          { title: "Large game fields", desc: "Design of football and rugby fields in natural or latest generation synthetic grass." },
-          { title: "Athletics tracks", desc: "Realization of technical tracks with approved synthetic coatings." },
-          { title: "Local equipment", desc: "Development of City-stadiums, skateparks, and fitness trails." },
-          { title: "Expertise & Compliance", desc: "Technical audit of existing installations and regulatory standards updates." }
+          { title: "Large game fields", desc: "Football and rugby fields in synthetic grass." },
+          { title: "Athletics tracks", desc: "Technical tracks with approved synthetic coatings." },
+          { title: "Local equipment", desc: "City-stadiums, skateparks, and fitness trails." },
+          { title: "Compliance & Auditing", desc: "Technical audits and regulatory standard updates." }
         ]
       },
       topographie: { 
@@ -153,21 +155,21 @@ export const en = {
         desc: "Topographic studies office: precision topographic plans, land and architectural surveys, site layouts.",
         longDesc: "Precision is at the heart of our business. Using high-tech tools (<a class=\"wiki-link\" href=\"/lexique?search=Scanner\">3D Scanner</a>, <a class=\"wiki-link\" href=\"/lexique?search=Drone\">Drone</a>, GPS), we capture existing conditions with absolute fidelity to serve as a basis for your projects.",
         missions: [
-          { title: "Precision topographic plans", desc: "Detailed status reports to serve as a basis for architectural studies." },
-          { title: "3D Scanner & Point Clouds", desc: "Complete digitization of complex buildings or sites for <a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a> exploitation via a <a class=\"wiki-link\" href=\"/lexique?search=Point\">point cloud</a>." },
-          { title: "Drone surveys", desc: "Orthophotographs and digital terrain models for large areas or inaccessible zones." },
-          { title: "Structural layout", desc: "Field reporting of construction axes and boundaries with millimeter precision." }
+          { title: "Precision plans", desc: "Detailed surveys for architectural studies." },
+          { title: "3D Scanner & BIM", desc: "Complete 3D scanning of complex buildings." },
+          { title: "Drone surveys", desc: "Aerial digital terrain modeling of large areas." },
+          { title: "Staking & Layouts", desc: "Field reporting of construction axes with high precision." }
         ]
       },
       copropriete: {
-        title: "Co-ownership & 3D Department",
+        title: "Co-ownership & 3D",
         desc: "Expertise in building surveys, co-ownership setup, and BIM modeling for intelligent building management.",
         longDesc: "URBATEAM excels in capturing and modeling existing structures. We transform your physical buildings into intelligent digital twins (<a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a>), centralizing all technical data.",
         missions: [
-          { title: "Co-ownership & Volumetry", desc: "Calculation of <a class=\"wiki-link\" href=\"/lexique?search=Shares\">shares</a>, division plans, and <a class=\"wiki-link\" href=\"/lexique?search=Co-ownership\">co-ownership</a> regulations." },
-          { title: "3D Survey by Laser Scanner", desc: "Millimeter capture of complex structures to obtain exhaustive point clouds." },
-          { title: "BIM Modeling (Scan-to-BIM)", desc: "Creation of digital models containing intelligent data (materials, networks, insulation)." },
-          { title: "Centralized Digital Model", desc: "Implementation of shared servers for real-time updates of project modifications." }
+          { title: "Co-ownership setup", desc: "Calculation of shares and division plans." },
+          { title: "3D Laser scan survey", desc: "Millimeter laser capture of complex structures." },
+          { title: "BIM Modeling", desc: "Creation of intelligent 3D digital models." },
+          { title: "Centralized twin", desc: "Shared server jumeau numérique updated in real-time." }
         ]
       }
     },
@@ -1036,5 +1038,76 @@ export const en = {
     cta_title: "A shared vision?",
     cta_desc: "Would you like to know more about our commitments or collaborate on a sustainable project?",
     cta_btn: "Discuss it with us"
+  },
+  cadastre: {
+    title: "Boundary & Cadastre Map",
+    subtitle: "Find your parcel and discover in real-time if our firm has already intervened nearby or on your land.",
+    search_address: "Enter an address",
+    placeholder: "E.g., 12 Rue de Brest, Saint-Renan...",
+    search_info: "ℹ️ This service queries the French National Cadastre in real-time via the State's official open APIs.",
+    error_no_parcel: "No cadastral parcel found precisely at this location.",
+    error_ign_down: "The National Cadastre server (IGN) is temporarily unavailable.",
+    error_connection: "Unable to contact the Cadastre service (check your internet connection).",
+    error_addr_service: "Address service unavailable (offline)",
+    known_parcel: "Boundary / Nearby survey found!",
+    nearby_project: "Our firm Urbateam has already intervened in the immediate vicinity (just {distance} meters away) for the project: {name}. Our land archives contain precise data on this area.",
+    view_project: "View project: {name}",
+    known_sector: "We know your area perfectly. Contact us for a priority study of your land.",
+    no_nearby_project: "No recent Urbateam survey",
+    no_recent_op: "No boundary or division file is recorded for this specific parcel in our recent history. Separate legal boundaries are potentially not guaranteed.",
+    request_quote: "Request a boundary survey",
+    faq_title_1: "Why boundary your land?",
+    faq_desc_1: "Boundary determination is the only legal act that guarantees the exact and definitive limit of your real estate property. It avoids any dispute with your neighbors regarding boundary lines.",
+    faq_title_2: "What is the difference with the cadastre?",
+    faq_desc_2: "The cadastral map is a purely fiscal document. It has no legal value of ownership and often contains geometric errors of several meters.",
+    faq_title_3: "How does a boundary survey take place?",
+    faq_desc_3: "Our licensed land surveyor convenes neighbors, performs precision field surveys, positions markers with everyone's agreement, and registers the Minutes at the mortgage registry.",
+    parcel_sheet: "Parcel Sheet",
+    commune: "Municipality",
+    section: "Cadastral section",
+    parcel_number: "Parcel number",
+    tax_surface: "Tax surface",
+    loading_text: "Querying Cadastre...",
+    consulter_projet: "View this project",
+    ready_title: "Ready to search",
+    ready_desc: "Enter a postal address in the search engine to center the map and draw the official boundaries of the cadastre.",
+    address_searched: "Searched address:",
+    view_project_sheet: "View project sheet"
+  },
+  division: {
+    title: "Land Division Simulator",
+    subtitle: "Virtually divide your land in real time: adjust the cut line, check geometric constraints, and study the building potential of your parcels.",
+    search_address: "Enter an address",
+    search_info: "ℹ️ Enter your land or click directly on any parcel of the interactive map to load boundaries.",
+    divider_tool: "Terrain divider",
+    calculated_share: "Calculated surface split",
+    split_angle: "Division angle",
+    split_offset: "Lateral offset",
+    has_access: "Both lots have direct road access",
+    theoretical_est: "Theoretical estimation",
+    lot_a: "Lot A",
+    lot_b: "Lot B",
+    lot_a_constructible: "Lot A buildable ({surface} sq.m. >= 250 sq.m.)",
+    lot_a_not_constructible: "Lot A not buildable ({surface} sq.m. < 250 sq.m.)",
+    lot_b_constructible: "Lot B buildable ({surface} sq.m. >= 250 sq.m.)",
+    lot_b_not_constructible: "Lot B not buildable ({surface} sq.m. < 250 sq.m.)",
+    access_networks: "Access & networks compliant (min. 3m)",
+    access_networks_invalid: "Access road not compliant",
+    free_study: "Free feasibility study",
+    full_name: "Full name *",
+    email_addr: "Email address *",
+    phone_num: "Phone (optional)",
+    comments_placeholder: "Comments or cutting guidelines...",
+    send_sim: "Send my simulation",
+    registered_sim: "Request registered!",
+    registered_sim_desc: "Your division simulation has been successfully sent to our office. Our expert surveyors will study your parcels and contact you shortly for a free technical feasibility study.",
+    ready_to_cut: "Ready to divide",
+    ready_to_cut_desc: "Search for a land by its address or click directly on a parcel on the map to load the division simulator.",
+    steps_title: "🏷️ What are the steps for a land division?",
+    steps_desc: "The division of a parcel requires: (1) A feasibility study regarding local urban regulations (PLU), (2) A precision topographic survey by the surveyor, (3) The boundary determination of dividing limits, (4) Submission of a Preliminary Declaration (DP) to town hall, and (5) Drafting of a land survey document (DMPC) validated by tax authorities.",
+    viability_title: "🚧 How to ensure a new plot is buildable?",
+    viability_desc: "To detach a viable building plot, you must validate: direct physical access to a public road (or via a minimum 3m right-of-way servitude), networks connection (drinking water, electricity, collective or individual sanitation), and compliance with PLU implementation rules (setbacks from boundaries).",
+    loading_text: "Drawing cadastral parcel...",
+    terrain_selected: "Selected land:"
   }
 };

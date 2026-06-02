@@ -1,5 +1,5 @@
 import SocialClient from './SocialClient';
-import { getSocialPosts } from '../../lib/directus';
+import { getSocialPosts } from '../../lib/supabase';
 
 export const revalidate = 3600;
 

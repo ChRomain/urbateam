@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Mode serveur (SSR/ISR) — requis pour la connexion à la DB Directus
-  output: 'standalone',
 
   // Optimisation des images — Next.js convertit automatiquement en WebP/AVIF
   images: {
@@ -12,7 +10,7 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
 
-    // Domaines autorisés pour les images distantes (Directus)
+    // Domaines autorisés pour les images distantes
     remotePatterns: [
       {
         protocol: 'http',
@@ -24,6 +22,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'admin.urbateam.fr',
         pathname: '/assets/**',
+      },
+      {
+        // Supabase Storage (cloud)
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/storage/v1/object/public/**',
       },
     ],
 

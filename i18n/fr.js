@@ -71,7 +71,9 @@ export const fr = {
     projects: "Nos Réalisations",
     clients: "Nos Clients",
     resources_dropdown: "Ressources",
+    division_simulator: "Simulateur de Division",
     my_project: "Mon Projet",
+    cadastre_map: "Bornage & Cadastre",
     blog: "Actualités & Blog",
     follow_us: "Nous suivre",
     social: "Nous suivre",
@@ -109,10 +111,10 @@ export const fr = {
         desc: "Bureau d'études en aménagement : ZAC, éco-quartiers, morceaux de ville, parcs d'activités, entrées de ville, et réaménagement urbain.",
         longDesc: "URBATEAM accompagne les collectivités et les aménageurs privés dans la conception de cadres de vie durables et harmonieux. Notre approche mêle vision stratégique urbaine et sensibilité paysagère pour créer des espaces qui font sens, en intégrant les enjeux du <a class=\"wiki-link\" href=\"/lexique?search=PLU\">PLU</a> et du développement durable.",
         missions: [
-          { title: "Études de faisabilité urbaine", desc: "Analyse du potentiel de mutation de sites et définition de scenarii d'aménagement." },
-          { title: "Conception d'Éco-quartiers & ZAC", desc: "Maîtrise d'œuvre complète pour la création de nouveaux quartiers de ville durables." },
-          { title: "Aménagement d'espaces publics", desc: "Conception de places, rues, parcs et cheminements doux favorisant le vivre-ensemble." },
-          { title: "Planification réglementaire", desc: "Accompagnement dans l'élaboration de documents d'urbanisme et de dossiers de permis d'aménager." }
+          { title: "Études de faisabilité urbaine", desc: "Analyse de sites et scenarii d'aménagement." },
+          { title: "Conception d'Éco-quartiers & ZAC", desc: "Création de nouveaux quartiers de ville durables." },
+          { title: "Aménagement d'espaces publics", desc: "Places, rues, parcs et cheminements doux." },
+          { title: "Planification réglementaire", desc: "Dossiers de permis d'aménager et PLU." }
         ]
       },
       geometre: { 
@@ -120,10 +122,10 @@ export const fr = {
         desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés.",
         longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Nous intervenons sur toutes les problématiques liées au droit du sol, du <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bornage</a> à la gestion des <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">servitudes</a>.",
         missions: [
-          { title: "Bornage contradictoire", desc: "Définition juridique et matérialisation physique des limites séparatives de propriété." },
-          { title: "Division parcellaire", desc: "Accompagnement complet pour le <a class=\"wiki-link\" href=\"/lexique?search=Détachement\">détachement</a> de terrains à bâtir et mises à jour cadastrales via un <a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>." },
-          { title: "Copropriété & Division en volumes", desc: "Établissement des plans d'intérieurs et des états descriptifs de division en <a class=\"wiki-link\" href=\"/lexique?search=Copropriété\">copropriété</a> ou en <a class=\"wiki-link\" href=\"/lexique?search=Volumes\">volumes</a>." },
-          { title: "Expertise foncière & juridique", desc: "Conseil sur les servitudes, les mitoyennetés et les règlements d'urbanisme complexes." }
+          { title: "Bornage contradictoire", desc: "Définition juridique et physique des limites." },
+          { title: "Division parcellaire", desc: "Création de terrains à bâtir (DMPC)." },
+          { title: "Copropriété & Division en volumes", desc: "Plans et descriptifs de division en volumes." },
+          { title: "Expertise foncière & juridique", desc: "Conseil sur les servitudes et mitoyennetés." }
         ]
       },
       vrd: { 
@@ -131,10 +133,10 @@ export const fr = {
         desc: "Bureau d'études en infrastructures : voirie, réseaux divers, assainissement, traitement des eaux pluviales, parkings, giratoires.",
         longDesc: "Nos ingénieurs et techniciens conçoivent les infrastructures techniques indispensables à la viabilisation des projets. Nous privilégions des solutions innovantes pour la <a class=\"wiki-link\" href=\"/lexique?search=VRD\">voirie et les réseaux</a> et la gestion durable des eaux.",
         missions: [
-          { title: "Maîtrise d'œuvre d'infrastructures", desc: "Conception technique et suivi de travaux pour la voirie et les réseaux divers." },
-          { title: "Gestion alternative des eaux pluviales", desc: "Dimensionnement de bassins de rétention, noues paysagères et systèmes d'infiltration." },
-          { title: "Études hydrauliques", desc: "Analyse des réseaux d'assainissement et modélisation des flux pour prévenir les inondations." },
-          { title: "Conception de giratoires & parkings", desc: "Optimisation des flux de circulation et aménagement technique des zones de stationnement." }
+          { title: "Maîtrise d'œuvre d'infrastructures", desc: "Conception et suivi de travaux de voirie." },
+          { title: "Gestion alternative des eaux pluviales", desc: "Dimensionnement de bassins et noues." },
+          { title: "Études hydrauliques", desc: "Modélisation des flux d'assainissement." },
+          { title: "Conception de giratoires & parkings", desc: "Optimisation des flux de circulation." }
         ]
       },
       sport: { 
@@ -142,10 +144,10 @@ export const fr = {
         desc: "Aménagement de complexes sportifs : stades d'athlétisme, terrains de sports, installations de gazon synthétique.",
         longDesc: "Spécialiste des équipements sportifs, URBATEAM conçoit des installations performantes répondant aux normes des fédérations. Nous accompagnons les clubs et mairies dans la création de complexes modernes.",
         missions: [
-          { title: "Terrains de grands jeux", desc: "Conception de terrains de football et rugby en gazon naturel ou synthétique de dernière génération." },
-          { title: "Pistes d'athlétisme", desc: "Réalisation de pistes techniques avec revêtements synthétiques homologués." },
-          { title: "Équipements de proximité", desc: "Aménagement de City-stades, skateparks et parcours de santé." },
-          { title: "Expertise & Mise en conformité", desc: "Audit technique des installations existantes et mise aux normes réglementaires." }
+          { title: "Terrains de grands jeux", desc: "Football et rugby en gazon synthétique." },
+          { title: "Pistes d'athlétisme", desc: "Revêtements synthétiques homologués." },
+          { title: "Équipements de proximité", desc: "City-stades, skateparks et parcours." },
+          { title: "Expertise & Mise en conformité", desc: "Audit technique et mise aux normes." }
         ]
       },
       topographie: { 
@@ -153,10 +155,10 @@ export const fr = {
         desc: "Bureau d'études topographiques : plans topographiques de précision, relevés de terrain et d'architecture, implantations.",
         longDesc: "La précision est au cœur de notre métier. Grâce à des outils de haute technologie (<a class=\"wiki-link\" href=\"/lexique?search=Scanner\">Scanner 3D</a>, <a class=\"wiki-link\" href=\"/lexique?search=Drone\">Drone</a>, GPS), nous capturons l'existant avec une fidélité absolue pour servir de base à vos projets.",
         missions: [
-          { title: "Plans topographiques de précision", desc: "Relevés d'état des lieux détaillés pour servir de base aux études architecturales." },
-          { title: "Scanner 3D & Nuages de points", desc: "Numérisation complète de bâtiments ou sites complexes pour une exploitation <a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a> via un <a class=\"wiki-link\" href=\"/lexique?search=Nuage\">nuage de points</a>." },
-          { title: "Levés par drone", desc: "Orthophotographies et modèles numériques de terrain pour de grandes surfaces ou zones inaccessibles." },
-          { title: "Implantations d'ouvrages", desc: "Report sur le terrain des axes de construction et des limites avec une précision millimétrique." }
+          { title: "Plans topographiques de précision", desc: "Relevés d'état des lieux ultra-précis." },
+          { title: "Scanner 3D & Nuages de points", desc: "Numérisation 3D de bâtiments complexes." },
+          { title: "Levés par drone", desc: "Orthophotographies de grandes surfaces." },
+          { title: "Implantations d'ouvrages", desc: "Report millimétrique des axes de projet." }
         ]
       },
       copropriete: {
@@ -164,10 +166,10 @@ export const fr = {
         desc: "Expertise en relevés de bâtiments, mise en copropriété et modélisation BIM pour une gestion intelligente du bâti.",
         longDesc: "URBATEAM excelle dans la capture et la modélisation de l'existant. Nous transformons vos bâtiments physiques en jumeaux numériques intelligents (<a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a>), centralisant toutes les données techniques.",
         missions: [
-          { title: "Mise en copropriété & Volumétrie", desc: "Réalisation des calculs de <a class=\"wiki-link\" href=\"/lexique?search=Tantièmes\">tantièmes</a>, des plans de division et des règlements de <a class=\"wiki-link\" href=\"/lexique?search=Copropriété\">copropriété</a>." },
-          { title: "Relevé 3D par Scanner Laser", desc: "Capture millimétrique de structures complexes pour obtenir des nuages de points exhaustifs." },
-          { title: "Modélisation BIM (Scan-to-BIM)", desc: "Création de modèles numériques contenant des données intelligentes (matériaux, réseaux, isolations)." },
-          { title: "Maquette Numérique Centralisée", desc: "Mise en place de serveurs partagés pour une mise à jour en temps réel des modifications du projet." }
+          { title: "Mise en copropriété & Volumétrie", desc: "Calcul de tantièmes et plans de division." },
+          { title: "Relevé 3D par Scanner Laser", desc: "Capture laser de structures complexes." },
+          { title: "Modélisation BIM (Scan-to-BIM)", desc: "Création de maquettes numériques 3D." },
+          { title: "Maquette Numérique Centralisée", desc: "Jumeau numérique mis à jour en temps réel." }
         ]
       }
     },
@@ -1035,5 +1037,76 @@ export const fr = {
       desc: "Vous avez travaillé avec URBATEAM ? Partagez votre expérience sur Google pour nous aider à nous améliorer.",
       cta: "Laisser un avis sur Google"
     }
+  },
+  cadastre: {
+    title: "Bornage & Cadastre",
+    subtitle: "Trouvez votre parcelle et découvrez en direct si notre cabinet est déjà intervenu à proximité ou sur votre terrain.",
+    search_address: "Saisir une adresse",
+    placeholder: "Ex: 12 Rue de Brest, Saint-Renan...",
+    search_info: "ℹ️ Ce service interroge en temps réel le Cadastre National français via les API officielles ouvertes de l'État.",
+    error_no_parcel: "Aucune parcelle cadastrale trouvée précisément à cet endroit.",
+    error_ign_down: "Le serveur du Cadastre National (IGN) est temporairement indisponible.",
+    error_connection: "Impossible de contacter le service du Cadastre (vérifiez votre connexion internet).",
+    error_addr_service: "Service d'adresse indisponible (hors-ligne)",
+    known_parcel: "Bornage / Relevé proche trouvé !",
+    nearby_project: "Notre cabinet Urbateam est déjà intervenu à proximité immédiate (à seulement {distance} mètres) pour le projet : {name}. Nos archives foncières disposent de données précises sur cette zone.",
+    view_project: "Voir le projet : {name}",
+    known_sector: "Nous connaissons parfaitement votre secteur. Contactez-nous pour une étude prioritaire de votre terrain.",
+    no_nearby_project: "Aucun relevé récent Urbateam",
+    no_recent_op: "Aucun dossier de bornage ou de division n'est enregistré pour cette parcelle spécifique dans notre historique récent. Les limites juridiques séparatives ne sont potentiellement pas garanties.",
+    request_quote: "Demander un bornage",
+    faq_title_1: "Pourquoi borner son terrain ?",
+    faq_desc_1: "Le bornage est le seul acte juridique qui garantit la limite exacte et définitive de votre propriété foncière. Il évite tout litige avec vos voisins concernant les limites séparatives.",
+    faq_title_2: "Quelle est la différence avec le cadastre ?",
+    faq_desc_2: "Le plan cadastral est un document purement fiscal. Il n'a aucune valeur juridique de propriété et comporte souvent des erreurs géométriques de plusieurs mètres.",
+    faq_title_3: "Comment se déroule un bornage ?",
+    faq_desc_3: "Notre Géomètre-Expert convoque les voisins, effectue le relevé terrain de précision, positionne les bornes avec l'accord de tous, et enregistre le Procès-Verbal aux hypothèques.",
+    parcel_sheet: "Fiche Parcelle",
+    commune: "Commune",
+    section: "Section cadastrale",
+    parcel_number: "N° de parcelle",
+    tax_surface: "Surface fiscale",
+    loading_text: "Interrogation du Cadastre...",
+    consulter_projet: "Consulter ce projet",
+    ready_title: "Prêt pour la recherche",
+    ready_desc: "Saisissez une adresse postale dans le moteur de recherche pour centrer la carte et dessiner les contours officiels du cadastre.",
+    address_searched: "Adresse recherchée :",
+    view_project_sheet: "Consulter la fiche projet"
+  },
+  division: {
+    title: "Simulateur de Division Foncière",
+    subtitle: "Divisez virtuellement votre terrain en direct : ajustez la ligne de coupe, vérifiez les contraintes géométriques et étudiez le potentiel constructible de vos parcelles.",
+    search_address: "Saisir une adresse",
+    search_info: "ℹ️ Saisissez votre terrain ou cliquez directement sur n'importe quelle parcelle de la carte interactive pour charger les contours.",
+    divider_tool: "Découpeur de terrain",
+    calculated_share: "Partage des surfaces (calculé)",
+    split_angle: "Angle de division",
+    split_offset: "Déplacement latéral",
+    has_access: "Les deux lots disposent d'un accès direct",
+    theoretical_est: "Estimation théorique",
+    lot_a: "Lot A",
+    lot_b: "Lot B",
+    lot_a_constructible: "Lot A constructible ({surface} m² >= 250m²)",
+    lot_a_not_constructible: "Lot A non constructible ({surface} m² < 250m²)",
+    lot_b_constructible: "Lot B constructible ({surface} m² >= 250m²)",
+    lot_b_not_constructible: "Lot B non constructible ({surface} m² < 250m²)",
+    access_networks: "Accès voirie et réseaux conforme (min. 3m)",
+    access_networks_invalid: "Accès voirie non conforme",
+    free_study: "Étude de faisabilité gratuite",
+    full_name: "Nom complet *",
+    email_addr: "Adresse e-mail *",
+    phone_num: "Téléphone (optionnel)",
+    comments_placeholder: "Commentaires ou consignes de découpe...",
+    send_sim: "Envoyer ma simulation",
+    registered_sim: "Demande enregistrée !",
+    registered_sim_desc: "Votre simulation de division a bien été transmise à notre cabinet. Nos Géomètres-Experts vont étudier vos parcelles et vous recontacteront rapidement pour une étude de faisabilité technique gratuite.",
+    ready_to_cut: "Prêt pour la découpe",
+    ready_to_cut_desc: "Recherchez un terrain par son adresse ou cliquez directement sur une parcelle sur la carte pour charger le simulateur de division.",
+    steps_title: "🏷️ Quelles sont les étapes d'une division parcellaire ?",
+    steps_desc: "La division d'une parcelle requiert : (1) Une étude de faisabilité vis-à-vis du document d'urbanisme local (PLU), (2) Un relevé topographique de précision par le géomètre, (3) Le bornage contradictoire des limites séparatives, (4) Le dépôt d'une Déclaration Préalable (DP) en mairie, et (5) La rédaction d'un document d'arpentage (DMPC) validé par les impôts.",
+    viability_title: "🚧 Comment s'assurer qu'un nouveau terrain est constructible ?",
+    viability_desc: "Pour détacher un lot à bâtir viable, il faut obligatoirement valider : l'accès physique direct à une voie publique (ou via une servitude de passage de minimum 3m), la viabilisation en réseaux (eau potable, électricité, assainissement collectif ou autonome), et le respect des règles d'implantation du PLU (reculs par rapport aux limites).",
+    loading_text: "Dessin de la parcelle cadastrale...",
+    terrain_selected: "Terrain sélectionné :"
   }
 };

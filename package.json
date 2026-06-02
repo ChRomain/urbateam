@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "lint": "eslint",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -14,16 +16,18 @@
     "docker:down": "docker compose down"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.19.11",
+    "@supabase/supabase-js": "^2.106.2",
     "framer-motion": "^12.38.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.9.0",
-    "next": "16.2.4",
+    "next": "^16.2.6",
     "qrcode.react": "^4.2.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "react-leaflet": "^5.0.0",
     "react-leaflet-cluster": "^4.1.3",
     "recharts": "^3.8.1"
@@ -33,11 +37,13 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^6.0.1",
+    "esbuild": "^0.28.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.2.6",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "jsdom": "^29.1.0",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "wrangler": "^4.95.0"
   }
 }

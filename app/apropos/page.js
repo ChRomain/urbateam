@@ -1,5 +1,5 @@
 import AproposClient from './AproposClient';
-import { getTeam } from '../../lib/directus';
+import { getTeam } from '../../lib/supabase';
 import { fr } from '../../i18n/fr';
 
 export const revalidate = 0;

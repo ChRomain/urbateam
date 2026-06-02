@@ -1,5 +1,5 @@
 import ArticleClient from './ArticleClient';
-import { getArticles, getArticleBySlug } from '../../../lib/directus';
+import { getArticles, getArticleBySlug } from '../../../lib/supabase';
 
 // ISR : revalider toutes les 60 secondes
 export const revalidate = 3600;
