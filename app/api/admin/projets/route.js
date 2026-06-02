@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getProjets, createItem, updateItem, deleteItem, uploadFile } from '@/lib/directus';
+import { getProjets, createItem, updateItem, deleteItem, uploadFile } from '../../../../lib/supabase';
+import { verifyAdminSession } from '../../../../lib/auth-helper';
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const admin = await verifyAdminSession(request);
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const projects = await getProjets(null);
     return NextResponse.json(projects);
   } catch (error) {
@@ -12,6 +17,10 @@ export async function GET() {
 
 export async function POST(request) {
   try {
+    const admin = await verifyAdminSession(request);
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const formData = await request.formData();
     const id = formData.get('id');
     const status = formData.get('status') || 'published';
@@ -86,6 +95,10 @@ export async function POST(request) {
 
 export async function DELETE(request) {
   try {
+    const admin = await verifyAdminSession(request);
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const { id } = await request.json();
     if (!id) return NextResponse.json({ error: 'ID is required' }, { status: 400 });
 

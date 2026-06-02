@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getCurrentUser } from '@/lib/directus';
+import { getCurrentUser } from '../../../../lib/supabase';
 
 export async function GET(request) {
   try {
