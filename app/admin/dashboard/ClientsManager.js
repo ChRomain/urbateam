@@ -13,6 +13,7 @@ export default function ClientsManager() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [editingClient, setEditingClient] = useState(null);
+  const [updatingCarouselId, setUpdatingCarouselId] = useState(null);
 
   useEffect(() => {
     fetchClients();
@@ -32,13 +33,6 @@ export default function ClientsManager() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Enforce 15 clients max when adding a new one
-    if (!editingClient && clients.length >= 15) {
-      showToast('Limite de 15 clients atteinte.', 'error');
-      return;
-    }
-
     setSubmitting(true);
     const formData = new FormData(e.target);
 
@@ -83,6 +77,28 @@ export default function ClientsManager() {
     }
   };
 
+  const handleToggleCarousel = async (id, checked) => {
+    setUpdatingCarouselId(id);
+    try {
+      const res = await fetch('/api/admin/clients', {
+        method: 'PATCH',
+        body: JSON.stringify({ id, in_carousel: checked }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const result = await res.json();
+      if (result.success) {
+        showToast(checked ? 'Client ajouté au carrousel !' : 'Client retiré du carrousel.', 'success');
+        fetchClients();
+      } else {
+        showToast(result.message || 'Une erreur est survenue', 'error');
+      }
+    } catch (err) {
+      showToast('Erreur de connexion', 'error');
+    } finally {
+      setUpdatingCarouselId(null);
+    }
+  };
+
   const handleEdit = (client) => {
     setEditingClient(client);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -91,6 +107,8 @@ export default function ClientsManager() {
   const handleCancel = () => {
     setEditingClient(null);
   };
+
+  const carouselClients = clients.filter(c => c.in_carousel);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12" style={{ gap: '2rem' }}>
@@ -132,11 +150,6 @@ export default function ClientsManager() {
               <label style={{ display: 'block', fontSize: '0.9rem', color: colors.textMuted, marginBottom: '0.5rem' }}>Logo (optionnel)</label>
               <input name="logo" type="file" accept="image/*" style={{ fontSize: '0.8rem', color: colors.text }} />
             </div>
-            {clients.length >= 15 && !editingClient && (
-              <div style={{ padding: '0.8rem', backgroundColor: '#fee2e2', color: '#ef4444', borderRadius: '10px', fontSize: '0.85rem', fontWeight: '600', marginBottom: '1rem' }}>
-                ⚠️ Limite de 15 clients atteinte. Vous devez supprimer un client avant d'en ajouter un nouveau.
-              </div>
-            )}
             <div style={{ display: 'flex', gap: '1rem' }}>
               {editingClient && (
                 <button type="button" onClick={handleCancel} className="btn" style={{ flex: 1, border: `1px solid ${colors.border}` }}>
@@ -146,7 +159,7 @@ export default function ClientsManager() {
               <button 
                 className="btn btn-primary" 
                 type="submit" 
-                disabled={submitting || (clients.length >= 15 && !editingClient)} 
+                disabled={submitting} 
                 style={{ flex: 2 }}
               >
                 {submitting ? 'Publication...' : editingClient ? 'Mettre à jour' : 'Ajouter le client'}
@@ -157,6 +170,20 @@ export default function ClientsManager() {
       </div>
 
       <div className="lg:col-span-7">
+        <GlassCard style={{ padding: '1.2rem', marginBottom: '1.5rem', borderLeft: '4px solid var(--accent-color)' }}>
+          <h4 style={{ margin: 0, fontSize: '0.95rem', color: colors.text, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            ✨ Carrousel Page d'Accueil ({carouselClients.length} / 15)
+          </h4>
+          <p style={{ margin: '0.5rem 0 0', fontSize: '0.8rem', color: colors.textMuted, lineHeight: '1.4' }}>
+            Sélectionnez entre 4 et 15 clients à afficher dans le slider rotatif.
+            {carouselClients.length < 4 && (
+              <span style={{ color: 'var(--primary-color)', display: 'block', marginTop: '0.2rem', fontWeight: '600' }}>
+                💡 Moins de 4 clients sélectionnés : des placeholders par défaut seront affichés en complément.
+              </span>
+            )}
+          </p>
+        </GlassCard>
+
         <h3 style={{ fontSize: '1.2rem', color: colors.text, marginBottom: '1.5rem' }}>Clients & Références ({clients.length})</h3>
         {loading ? (
           <p style={{ color: colors.textMuted }}>Chargement...</p>
@@ -179,7 +206,20 @@ export default function ClientsManager() {
                   <h4 style={{ margin: 0, color: colors.text }}>{client.name}</h4>
                   <span style={{ fontSize: '0.8rem', color: 'var(--primary-color)', fontWeight: '600', textTransform: 'uppercase' }}>{client.category}</span>
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginRight: '1rem' }}>
+                    <input 
+                      type="checkbox" 
+                      id={`carousel-${client.id}`}
+                      checked={client.in_carousel || false}
+                      disabled={updatingCarouselId === client.id}
+                      onChange={(e) => handleToggleCarousel(client.id, e.target.checked)}
+                      style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                    />
+                    <label htmlFor={`carousel-${client.id}`} style={{ fontSize: '0.8rem', color: colors.textMuted, cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                      Accueil
+                    </label>
+                  </div>
                   <button onClick={() => handleEdit(client)} style={{ padding: '0.5rem', borderRadius: '8px', border: 'none', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', color: 'var(--primary-color)', cursor: 'pointer' }}>
                     <Edit size={18} />
                   </button>

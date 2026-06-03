@@ -3,10 +3,10 @@ import Stats from '../components/Stats';
 import Expertise from '../components/Expertise';
 import References from '../components/References';
 import Testimonials from '../components/Testimonials';
-import { getClients } from '../lib/supabase';
+import { getCarouselClients } from '../lib/supabase';
 
 export default async function Home() {
-  const clients = await getClients();
+  const clients = await getCarouselClients();
   return (
     <>
       <Hero />

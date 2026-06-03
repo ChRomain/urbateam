@@ -43,7 +43,8 @@ export async function GET(request) {
         logo: c.logo ? getLogoUrl(c.logo) : null,
         category: REVERSE_CATEGORY_MAP[tag] || 'collectivite',
         tags: c.tags,
-        sort: c.sort
+        sort: c.sort,
+        in_carousel: c.in_carousel || false
       };
     });
 
@@ -69,19 +70,6 @@ export async function POST(request) {
 
     if (!name || !category) {
       return NextResponse.json({ success: false, message: 'Nom et catégorie requis' }, { status: 400 });
-    }
-
-    // Enforce 15 clients max when adding a new one
-    if (!id) {
-      const { count, error: countErr } = await supabase
-        .from('clients')
-        .select('*', { count: 'exact', head: true });
-
-      if (countErr) throw countErr;
-
-      if (count >= 15) {
-        return NextResponse.json({ success: false, message: 'Limite de 15 clients atteinte' }, { status: 400 });
-      }
     }
 
     const dbTag = CATEGORY_MAP[category] || 'Collectivite';
@@ -115,12 +103,47 @@ export async function POST(request) {
         : (lastClients[0].sort || 0) + 1;
 
       itemData.sort = nextSort;
+      itemData.in_carousel = false; // default to false on creation
       result = await createItem('clients', itemData);
     }
 
     return NextResponse.json({ success: true, client: result });
   } catch (error) {
     console.error('Client POST error:', error);
+    return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+  }
+}
+
+export async function PATCH(request) {
+  try {
+    const admin = await verifyAdminSession(request);
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id, in_carousel } = await request.json();
+    if (id === undefined || in_carousel === undefined) {
+      return NextResponse.json({ success: false, message: 'ID et statut requis' }, { status: 400 });
+    }
+
+    if (in_carousel === true) {
+      // Count how many are already in the carousel
+      const { count, error: countErr } = await supabase
+        .from('clients')
+        .select('*', { count: 'exact', head: true })
+        .eq('in_carousel', true);
+
+      if (countErr) throw countErr;
+
+      if (count >= 15) {
+        return NextResponse.json({ success: false, message: 'Vous ne pouvez pas sélectionner plus de 15 clients pour le carrousel.' }, { status: 400 });
+      }
+    }
+
+    const result = await updateItem('clients', id, { in_carousel });
+    return NextResponse.json({ success: true, client: result });
+  } catch (error) {
+    console.error('Client PATCH error:', error);
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }

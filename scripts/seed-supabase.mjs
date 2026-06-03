@@ -120,6 +120,7 @@ async function main() {
     name: c.name,
     logo: c.logo || null,
     tags: c.tags || [],
+    in_carousel: true,
   }));
   await populateTable('clients', clients);
 
