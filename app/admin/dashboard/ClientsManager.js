@@ -20,9 +20,9 @@ export default function ClientsManager() {
 
   const fetchClients = async () => {
     try {
-      const res = await fetch('/data/clients.json');
+      const res = await fetch('/api/admin/clients');
       const data = await res.json();
-      setClients(data);
+      setClients(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Fetch error:', error);
     } finally {
@@ -32,11 +32,18 @@ export default function ClientsManager() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Enforce 15 clients max when adding a new one
+    if (!editingClient && clients.length >= 15) {
+      showToast('Limite de 15 clients atteinte.', 'error');
+      return;
+    }
+
     setSubmitting(true);
     const formData = new FormData(e.target);
 
     try {
-      const res = await fetch('/data/clients.json', {
+      const res = await fetch('/api/admin/clients', {
         method: 'POST',
         body: formData,
       });
@@ -61,7 +68,7 @@ export default function ClientsManager() {
     if (!confirm('Voulez-vous vraiment supprimer ce client ?')) return;
 
     try {
-      const res = await fetch('/data/clients.json', {
+      const res = await fetch('/api/admin/clients', {
         method: 'DELETE',
         body: JSON.stringify({ id }),
         headers: { 'Content-Type': 'application/json' },
@@ -125,13 +132,23 @@ export default function ClientsManager() {
               <label style={{ display: 'block', fontSize: '0.9rem', color: colors.textMuted, marginBottom: '0.5rem' }}>Logo (optionnel)</label>
               <input name="logo" type="file" accept="image/*" style={{ fontSize: '0.8rem', color: colors.text }} />
             </div>
+            {clients.length >= 15 && !editingClient && (
+              <div style={{ padding: '0.8rem', backgroundColor: '#fee2e2', color: '#ef4444', borderRadius: '10px', fontSize: '0.85rem', fontWeight: '600', marginBottom: '1rem' }}>
+                ⚠️ Limite de 15 clients atteinte. Vous devez supprimer un client avant d'en ajouter un nouveau.
+              </div>
+            )}
             <div style={{ display: 'flex', gap: '1rem' }}>
               {editingClient && (
                 <button type="button" onClick={handleCancel} className="btn" style={{ flex: 1, border: `1px solid ${colors.border}` }}>
                   Annuler
                 </button>
               )}
-              <button className="btn btn-primary" type="submit" disabled={submitting} style={{ flex: 2 }}>
+              <button 
+                className="btn btn-primary" 
+                type="submit" 
+                disabled={submitting || (clients.length >= 15 && !editingClient)} 
+                style={{ flex: 2 }}
+              >
                 {submitting ? 'Publication...' : editingClient ? 'Mettre à jour' : 'Ajouter le client'}
               </button>
             </div>

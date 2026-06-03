@@ -5,12 +5,24 @@ import { motion } from 'framer-motion';
 import styles from './References.module.css';
 import { useLanguage } from '../context/LanguageContext';
 
-// Liste étendue pour le slider automatique
-const clientLogos = [1, 2, 3, 4, 1, 2, 3, 4]; 
+const defaultPlaceholders = [
+  { id: 'placeholder-1', name: 'Brest Métropole', logo: '/pictures/logo-client-1.png' },
+  { id: 'placeholder-2', name: 'Finistère Le Département', logo: '/pictures/logo-client-2.png' },
+  { id: 'placeholder-3', name: 'Région Bretagne', logo: '/pictures/logo-client-3.png' },
+  { id: 'placeholder-4', name: 'Logeo', logo: '/pictures/logo-client-4.png' }
+];
 
-export default function References() {
+export default function References({ clients = [] }) {
   const { t } = useLanguage();
   const referenceList = t('references.items') || [];
+
+  const displayClients = [...clients];
+  if (displayClients.length < 4) {
+    const missingCount = 4 - displayClients.length;
+    for (let i = 0; i < missingCount; i++) {
+      displayClients.push(defaultPlaceholders[i]);
+    }
+  }
 
   return (
     <section className={`container ${styles.section}`}>
@@ -38,19 +50,25 @@ export default function References() {
             repeat: Infinity 
           }}
         >
-          {clientLogos.concat(clientLogos).concat(clientLogos).map((num, idx) => (
-            <div key={`logo-${num}-${idx}`} className={styles.logoItem}>
-              <div key={`logo-card-${num}-${idx}`} className={`glass-card ${styles.logoCard}`}>
+          {displayClients.concat(displayClients).concat(displayClients).map((client, idx) => (
+            <div key={`logo-${client.id}-${idx}`} className={styles.logoItem}>
+              <div key={`logo-card-${client.id}-${idx}`} className={`glass-card ${styles.logoCard}`}>
                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                  <Image 
-                    src={`/pictures/logo-client-${num}.png`} 
-                    alt={`Logo Client ${num}`} 
-                    fill
-                    sizes="(max-width: 768px) 150px, 200px"
-                    loading="lazy"
-                    style={{ objectFit: 'contain' }}
-                    className={styles.clientLogo}
-                  />
+                  {client.logo ? (
+                    <Image 
+                      src={client.logo} 
+                      alt={client.name} 
+                      fill
+                      sizes="(max-width: 768px) 150px, 200px"
+                      loading="lazy"
+                      style={{ objectFit: 'contain' }}
+                      className={styles.clientLogo}
+                    />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'var(--text-light)', fontSize: '0.8rem', textAlign: 'center', padding: '0.5rem' }}>
+                      {client.name}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
