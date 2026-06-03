@@ -38,11 +38,14 @@ export function proxy(request) {
   } else {
     // Si aucun préfixe de langue n'est présent dans l'URL,
     // on lit le cookie pour voir si un choix précédent a été mémorisé.
+    // NOTE : On vérifie parmi toutes les langues gérées (y compris 'fr') pour éviter que l'accept-language ne prenne le dessus
     const cookieLang = request.cookies.get('urbateam-lang')?.value;
-    if (cookieLang && SUPPORTED_LOCALES.includes(cookieLang)) {
+    const allLocales = [DEFAULT_LOCALE, ...SUPPORTED_LOCALES];
+    
+    if (cookieLang && allLocales.includes(cookieLang)) {
       locale = cookieLang;
     } else {
-      // Optionnel : détection automatique basée sur les préférences du navigateur
+      // Détection automatique basée sur les préférences du navigateur
       const acceptLang = request.headers.get('accept-language') || '';
       if (acceptLang.startsWith('en')) {
         locale = 'en';
