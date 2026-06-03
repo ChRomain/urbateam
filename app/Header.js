@@ -34,6 +34,7 @@ export default function Header() {
   }, [isOpen]);
 
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileLangOpen, setMobileLangOpen] = useState(false);
 
   if (pathname?.includes('/admin')) {
     return null;
@@ -248,22 +249,48 @@ export default function Header() {
           </nav>
 
           <div className={styles.mobileControls}>
-            <button 
-              className={styles.mobileLangBtn}
-              aria-label="Changer de langue"
-              onClick={() => {
-                const nextLang = language === 'fr' ? 'en' : language === 'en' ? 'br' : 'fr';
-                switchLanguage(nextLang);
-              }}
-            >
-              <span key={language}>
-                {flags[language === 'fr' ? 'en' : language === 'en' ? 'br' : 'fr'].icon}
-              </span>
-            </button>
+            <div className={styles.mobileLangWrapper}>
+              <button 
+                className={styles.mobileLangBtn}
+                aria-label="Changer de langue"
+                onClick={() => setMobileLangOpen(!mobileLangOpen)}
+              >
+                <span className={styles.flagIcon}>{flags[language].icon}</span>
+                <ChevronDown size={12} className={`${styles.chevron} ${mobileLangOpen ? styles.chevronRotated : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {mobileLangOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className={styles.mobileLangDropdown}
+                  >
+                    {Object.keys(flags).filter(l => l !== language).map(lang => (
+                      <button 
+                        key={lang} 
+                        onClick={() => {
+                          switchLanguage(lang);
+                          setMobileLangOpen(false);
+                        }}
+                        className={styles.mobileLangOption}
+                      >
+                        <span className={styles.flagIcon}>{flags[lang].icon}</span>
+                        <span className={styles.mobileLangOptionLabel}>{flags[lang].label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             
             <button 
               className={styles.mobileToggle} 
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                setIsOpen(!isOpen);
+                setMobileLangOpen(false); // Fermer le menu langue si on ouvre le menu principal
+              }}
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={32} /> : <Menu size={32} />}

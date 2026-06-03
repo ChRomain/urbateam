@@ -346,36 +346,86 @@
   transform: translateX(5px);
 }
 
+.mobileLangWrapper {
+  position: relative;
+  display: none;
+}
+
 .mobileLangBtn {
   background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   height: 40px;
+  padding: 0 10px;
   border-radius: 10px;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   font-size: 1.2rem;
   cursor: pointer;
   backdrop-filter: blur(4px);
   transition: all 0.2s ease;
 }
 
+.mobileLangDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  min-width: 105px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-top: 8px;
+  z-index: 1200;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobileLangOption {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;
+  background: none;
+  color: var(--secondary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.mobileLangOption:active {
+  background: #f1f5f9;
+}
+
+.mobileLangOptionLabel {
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+}
+
 .mobileControls {
   display: none;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 @media (max-width: 1024px) {
   .desktopNav { display: none; }
   .mobileToggle { display: flex; }
-  .mobileLangBtn { display: flex; }
+  .mobileLangWrapper { display: block; }
   .mobileControls { display: flex; }
 }
 
 .scrolled .mobileLangBtn {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.05);
 }
 
 .toolIcon {
