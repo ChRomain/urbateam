@@ -49,3 +49,21 @@ next-env.d.ts
 
 # cloudflare / opennext build output
 /.open-next/
+
+# ─── Dossiers de travail / recherche — NE PAS COMMITER ──────────────────────
+# Pages Instagram aspirées pour la section "nous-suivre" (données brutes)
+/Franck Le Gall_files/
+/Instagram_files/
+/Laura Charretteur_files/
+
+# PDF charte graphique (document client confidentiel)
+/*.pdf
+
+# Routes API désactivées (code archivé, non déployé)
+/api-disabled/
+
+# Scripts de travail ponctuels
+/scratch/
+
+# Fichiers macOS
+**/.DS_Store
