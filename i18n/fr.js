@@ -1072,7 +1072,6 @@ export const fr = {
     nearby_project: "Notre cabinet Urbateam est déjà intervenu à proximité immédiate (à seulement {distance} mètres) pour le projet : {name}. Nos archives foncières disposent de données précises sur cette zone.",
     view_project: "Voir le projet : {name}",
     known_sector: "Nous connaissons parfaitement votre secteur. Contactez-nous pour une étude prioritaire de votre terrain.",
-    no_nearby_project: "Aucun relevé récent Urbateam",
     no_recent_op: "Aucun dossier de bornage ou de division n'est enregistré pour cette parcelle spécifique dans notre historique récent. Les limites juridiques séparatives ne sont potentiellement pas garanties.",
     request_quote: "Demander un bornage",
     faq_title_1: "Pourquoi borner son terrain ?",
@@ -1091,7 +1090,8 @@ export const fr = {
     ready_title: "Prêt pour la recherche",
     ready_desc: "Saisissez une adresse postale dans le moteur de recherche pour centrer la carte et dessiner les contours officiels du cadastre.",
     address_searched: "Adresse recherchée :",
-    view_project_sheet: "Consulter la fiche projet"
+    view_project_sheet: "Consulter la fiche projet",
+    simulator_note: "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Pour des informations précises et juridiquement garanties sur votre parcelle, contactez URBATEAM."
   },
   division: {
     title: "Simulateur de Division Foncière",
@@ -1127,7 +1127,8 @@ export const fr = {
     viability_title: "🚧 Comment s'assurer qu'un nouveau terrain est constructible ?",
     viability_desc: "Pour détacher un lot à bâtir viable, il faut obligatoirement valider : l'accès physique direct à une voie publique (ou via une servitude de passage de minimum 3m), la viabilisation en réseaux (eau potable, électricité, assainissement collectif ou autonome), et le respect des règles d'implantation du PLU (reculs par rapport aux limites).",
     loading_text: "Dessin de la parcelle cadastrale...",
-    terrain_selected: "Terrain sélectionné :"
+    terrain_selected: "Terrain sélectionné :",
+    simulator_note: "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Pour des informations précises et juridiquement garanties sur votre parcelle, contactez URBATEAM."
   },
   sun: {
     title: "Calcul d'Ombre Portée & d'Ensoleillement",
@@ -1154,7 +1155,8 @@ export const fr = {
     steps_title: "☀️ Quels sont les recours en cas de perte d'ensoleillement ? ☀️",
     steps_desc: "La perte d'ensoleillement peut être qualifiée en justice de 'trouble anormal de voisinage'. Pour intenter un recours, il convient : (1) D'effectuer une étude géométrique d'ensoleillement en amont, (2) De faire dresser un constat officiel par un expert, (3) De tenter une conciliation amiable, et (4) D'agir devant le tribunal judiciaire en indemnisation ou pour demander la modification du projet.",
     viability_title: "⚖️ Qu'est-ce qu'un trouble anormal de voisinage ?",
-    viability_desc: "C'est un préjudice qui excède les inconvénients normaux qu'un voisin doit supporter. Le juge apprécie souverainement la gravité du trouble en fonction de la situation géographique (ville ou campagne), du coefficient d'ensoleillement initial et de la destination de la pièce touchée (salon, chambre ou simple abri de jardin)."
+    viability_desc: "C'est un préjudice qui excède les inconvénients normaux qu'un voisin doit supporter. Le juge apprécie souverainement la gravité du trouble en fonction de la situation géographique (ville ou campagne), du coefficient d'ensoleillement initial et de la destination de la pièce touchée (salon, chambre ou simple abri de jardin).",
+    simulator_note: "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Les résultats sont des estimations géométriques. Pour une étude officielle opposable en justice, contactez URBATEAM."
   },
   eco: {
     title: "Éco-Diagnostic Foncier Interactif",

@@ -431,10 +431,6 @@ export default function CarteCadastreClient({ projects = [] }) {
                     </div>
                   ) : (
                     <div>
-                      <div className={styles.statusAlertTitle}>
-                        <AlertTriangle size={20} color="var(--accent-color)" />
-                        {t("cadastre.no_nearby_project")}
-                      </div>
                       <p className={styles.statusAlertText}>
                         {t("cadastre.no_recent_op")}
                       </p>
@@ -448,6 +444,12 @@ export default function CarteCadastreClient({ projects = [] }) {
                     </div>
                   )}
                 </GlassCard>
+
+                {/* Note simulateur */}
+                <div className={styles.simulatorNote}>
+                  <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <p>{t("cadastre.simulator_note")}</p>
+                </div>
               </motion.div>
             ) : (
               <motion.div

@@ -906,6 +906,12 @@ export default function SimulateurDivisionClient() {
 
       </div>
 
+      {/* Note simulateur */}
+      <div className={styles.simulatorNote}>
+        <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+        <p>{t("division.simulator_note")}</p>
+      </div>
+
       {/* Guide RSE et Division en footer de page */}
       <div className={styles.footerGrid}>
         <GlassCard>

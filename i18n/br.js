@@ -1268,7 +1268,6 @@ export const br = {
     "nearby_project": "Hor c'habined Urbateam a zo bet o labourat tost tre (nemet {distance} metr) evit ar raktres : {name}. Hon dielloù douar o deus titouroù resis war ar gorn-mañ.",
     "view_project": "Gwelet ar raktres : {name}",
     "known_sector": "Anavezout a reomp mat ho korn-bro. Kit e darempred ganeomp evit studial ho touar.",
-    "no_nearby_project": "Dossier ebet gant Urbateam",
     "no_recent_op": "N'eus dossier bornerezh ebet enrollet evit ar barcell-mañ en hon istor nevez zo. N'eus surentez ebet war an harzoù lezennel.",
     "request_quote": "Goulenn ur bornerezh",
     "faq_title_1": "Perak bornañ e zouar ?",
@@ -1287,7 +1286,8 @@ export const br = {
     "ready_title": "Prest evit klask",
     "ready_desc": "Skrivit ur chomlec'h er c'hlast evit kargañ ar gartenn hag ar c'hadas.",
     "address_searched": "Chomlec'h klasket :",
-    "view_project_sheet": "Gwelet ar fichenn raktres"
+    "view_project_sheet": "Gwelet ar fichenn raktres",
+    "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ roet evit titouroù hepken. Evit titouroù resis ha gwarezet el lezenn war ho tachenn, kit e darempred gant URBATEAM."
   },
   "division": {
     "title": "Simulatour Rannañ Douar",
@@ -1323,7 +1323,8 @@ export const br = {
     "viability_title": "🚧 Penaos bezañ sur e c'haller sevel war an douar nevez ?",
     "viability_desc": "Evit krouiñ un dachenn da sevel a-feson, e ranker gwiriañ : ur monedone war-eeun gant un hent publik (pe ur servij tremen a 3m d'an nebeutañ), kemmañ d'ar rouedadoù (dour, tredan, yac'husaat publik pe hiniennel), ha doujañ da reolennoù an ti-kêr (PLU).",
     "loading_text": "O tresañ ar barcell...",
-    "terrain_selected": "Tachenn dibabet :"
+    "terrain_selected": "Tachenn dibabet :",
+    "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ roet evit titouroù hepken. Evit titouroù resis ha gwarezet el lezenn war ho tachenn, kit e darempred gant URBATEAM."
   },
   "sun": {
     "title": "Simulatour Disheol & Ensoleillement",
@@ -1350,7 +1351,8 @@ export const br = {
     "steps_title": "☀️ Peseurt recours ma 'z eus ur c'holl ensoleillement ? ☀️",
     "steps_desc": "Ar c'holl ensoleillement a c'hell bezañ gwelet el lezenn evel ur 'trouble anormal de voisinage'. Evit ober un dra bennak, e ranker : (1) Ober ur studiadenn disheol gant ar c'hompagnunezh, (2) Lakaat ur mailh da sevel ur paper ofisiel, (3) Klask un asant gant an amezeg, ha (4) Mont dirak ar barner evit goulenn arc'hant pe cheñch ar raktres.",
     "viability_title": "⚖️ Petra eo un 'trouble anormal de voisinage' ?",
-    "viability_desc": "Ur c'holl eo hag a ya pelloc'h eget ar gudenn voutin etre amezeien. Ar barner a sell ouzh pegen bras eo ar gudenn hervez al lec'h (kêr pe maez), an ensoleillement er penn-kentañ, hag implij ar c'hambr pe ar sal Toucher."
+    "viability_desc": "Ur c'holl eo hag a ya pelloc'h eget ar gudenn voutin etre amezeien. Ar barner a sell ouzh pegen bras eo ar gudenn hervez al lec'h (kêr pe maez), an ensoleillement er penn-kentañ, hag implij ar c'hambr pe ar sal Toucher.",
+    "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ roet evit titouroù hepken. An disoc'hoù a zo jesturioù jeometregel. Evit ur studiadenn ofisiel e-enep al lezenn, kit e darempred gant URBATEAM."
   },
   "eco": {
     "title": "Ekodiagnostik Tachennoù Evezhiadenn",

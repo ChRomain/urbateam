@@ -1073,7 +1073,6 @@ export const en = {
     nearby_project: "Our firm Urbateam has already intervened in the immediate vicinity (just {distance} meters away) for the project: {name}. Our land archives contain precise data on this area.",
     view_project: "View project: {name}",
     known_sector: "We know your area perfectly. Contact us for a priority study of your land.",
-    no_nearby_project: "No recent Urbateam survey",
     no_recent_op: "No boundary or division file is recorded for this specific parcel in our recent history. Separate legal boundaries are potentially not guaranteed.",
     request_quote: "Request a boundary survey",
     faq_title_1: "Why boundary your land?",
@@ -1092,7 +1091,8 @@ export const en = {
     ready_title: "Ready to search",
     ready_desc: "Enter a postal address in the search engine to center the map and draw the official boundaries of the cadastre.",
     address_searched: "Searched address:",
-    view_project_sheet: "View project sheet"
+    view_project_sheet: "View project sheet",
+    simulator_note: "⚠️ This tool is a simulator provided for informational purposes only. For precise and legally guaranteed information about your parcel, please contact URBATEAM."
   },
   division: {
     title: "Land Division Simulator",
@@ -1128,7 +1128,8 @@ export const en = {
     viability_title: "🚧 How to ensure a new plot is buildable?",
     viability_desc: "To detach a viable building plot, you must validate: direct physical access to a public road (or via a minimum 3m right-of-way servitude), networks connection (drinking water, electricity, collective or individual sanitation), and compliance with PLU implementation rules (setbacks from boundaries).",
     loading_text: "Drawing cadastral parcel...",
-    terrain_selected: "Selected land:"
+    terrain_selected: "Selected land:",
+    simulator_note: "⚠️ This tool is a simulator provided for informational purposes only. For precise and legally guaranteed information about your parcel, please contact URBATEAM."
   },
   sun: {
     title: "Shadow & Solar Simulator",
@@ -1155,7 +1156,8 @@ export const en = {
     steps_title: "☀️ What are the remedies for a loss of sunlight? ☀️",
     steps_desc: "The loss of sunlight can be legally classified as a 'neighborhood disturbance'. To file an action, you should: (1) Conduct an initial geometric sunlight study, (2) Have an official report drawn up by an expert, (3) Attempt an amicable conciliation, and (4) Act before the civil court for compensation or to request the modification of the project.",
     viability_title: "⚖️ What is an abnormal neighborhood disturbance?",
-    viability_desc: "It is a harm that exceeds the normal inconveniences a neighbor must bear. The judge sovereignly assesses the severity of the disturbance based on the geographical location (city or countryside), the initial sunlight coefficient, and the use of the affected room (living room, bedroom, or simple garden shed)."
+    viability_desc: "It is a harm that exceeds the normal inconveniences a neighbor must bear. The judge sovereignly assesses the severity of the disturbance based on the geographical location (city or countryside), the initial sunlight coefficient, and the use of the affected room (living room, bedroom, or simple garden shed).",
+    simulator_note: "⚠️ This tool is a simulator provided for informational purposes only. Results are geometric estimates. For an official legally binding study, please contact URBATEAM."
   },
   eco: {
     title: "Interactive Land Eco-Diagnosis",

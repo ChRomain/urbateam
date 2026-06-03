@@ -1476,6 +1476,12 @@ export default function SimulateurEnsoleillementClient() {
         </div>
 
       </div>
+
+      {/* Note simulateur */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', background: 'rgba(245, 158, 11, 0.08)', border: '1px solid rgba(245, 158, 11, 0.25)', borderRadius: '12px', padding: '0.75rem 1rem', color: '#92400e', fontSize: '0.75rem', lineHeight: '1.5', marginTop: '2rem' }}>
+        <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+        <p style={{ margin: 0 }}>{t('sun.simulator_note') || "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Pour des informations précises et juridiquement garanties, contactez URBATEAM."}</p>
+      </div>
     </div>
   );
 }
