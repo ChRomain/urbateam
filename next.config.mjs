@@ -24,10 +24,16 @@ const nextConfig = {
         pathname: '/assets/**',
       },
       {
-        // Supabase Storage (cloud)
+        // Supabase Storage (cloud) — objet brut
         protocol: 'https',
         hostname: '*.supabase.co',
         pathname: '/storage/v1/object/public/**',
+      },
+      {
+        // Supabase Storage — endpoint de transformation d'image à la volée
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/storage/v1/render/image/**',
       },
     ],
 
