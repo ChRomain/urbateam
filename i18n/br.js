@@ -1372,6 +1372,7 @@ export const br = {
     "how_it_works_desc": "An diagnostik-mañ a sell ouzh perzhioù fizik an dachenn (GPS) ha riskloù (Argiles BRGM, Dour-beuz Géorisques, Heol ADEME ha Glad).",
     "simulation_note_title": "⚠️ Note vras : Simulatour hepken",
     "simulation_note_desc": "Ur simulatour eo an teul-mañ. Ret eo kaout ur geometer Urbateam war an dachenn evit bezañ sur da vat eus ho raktres.",
+    "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ evit titouroù hepken. Evit titouroù resis ha gwarezet el lezenn war ho tachenn, kit e darempred gant URBATEAM.",
     "axes": {
       "soil": "Douar",
       "water": "Dour",
@@ -1415,6 +1416,9 @@ export const br = {
       "networks": "Roueadoù tredan ha dour",
       "sewer": "Kariañ an dour"
     }
+  },
+  "profil_long": {
+    "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ evit titouroù hepken. Evit titouroù resis ha gwarezet el lezenn war ho tachenn, kit e darempred gant URBATEAM."
   }
 };
 

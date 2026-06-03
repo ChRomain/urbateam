@@ -479,17 +479,16 @@ export default function CarteCadastreClient({ projects = [] }) {
             zoom={zoomLevel} 
             style={{ height: '100%', width: '100%' }}
             scrollWheelZoom={true}
+            attributionControl={false}
           >
             <ChangeView center={mapCenter} zoom={zoomLevel} />
             <MapEventsHandler onMapClick={handleMapClick} />
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
             />
             
             {/* Couche transparente officielle du cadastre (OpenStreetMap France) */}
             <TileLayer
-              attribution='&copy; Direction générale des Finances publiques - Cadastre'
               url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
               tms={true}
               opacity={0.6}

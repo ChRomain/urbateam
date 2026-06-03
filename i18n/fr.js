@@ -1162,7 +1162,6 @@ export const fr = {
     title: "Éco-Diagnostic Foncier Interactif",
     subtitle: "Évaluez instantanément les contraintes environnementales, les risques géologiques et le potentiel de votre parcelle cadastrale en temps réel.",
     search_address: "Rechercher une adresse",
-    loading_text: "Génération de l'éco-diagnostic de la parcelle...",
     overall_score: "Score global de viabilité",
     overall_desc: "Ce score évalue l'adéquation de la parcelle par rapport aux contraintes environnementales, physiques et règlementaires.",
     radar_title: "Analyse multicritères de la parcelle",
@@ -1173,9 +1172,24 @@ export const fr = {
     registered_desc: "Votre éco-diagnostic a bien été enregistré. Un expert d'Urbateam va analyser votre dossier foncier et vous recontacteront rapidement.",
     free_study: "Faire valider par un expert",
     how_it_works_title: "Comment ce diagnostic est-il calculé ?",
-    how_it_works_desc: "Ce diagnostic croise les données physiques réelles de votre parcelle cadastrale (coordonnées GPS) avec les indicateurs officiels de risques et réglementations (Argiles BRGM, Séismes/Inondations Géorisques, Potentiel solaire ADEME, et Monuments Historiques).",
+    how_it_works_desc: "Ce diagnostic interroge les API publiques de l'État à partir des coordonnées de votre parcelle : cadastre IGN, argiles et risques naturels Géorisques, monuments historiques, zonage PLU (GPU), Natura 2000 et altimétrie IGN. Aucune valeur n'est inventée si un service ne répond pas.",
+    loaded_desc: "Les indicateurs ci-dessous proviennent des API publiques lorsqu'elles répondent ; les services injoignables sont signalés explicitement.",
+    api_unreachable: "Pas d'information sur la zone (service indisponible)",
+    api_unavailable_banner: "Pas d'information sur la zone pour les services suivants (API publiques injoignables) :",
+    no_data_at_point: "Aucune donnée à cette position",
+    no_data_zone: "Aucune donnée sur la parcelle ni dans les alentours immédiats (~50 m)",
+    source_nearby: "Donnée obtenue sur un point voisin de la parcelle (source officielle)",
+    source_buffer: "Donnée obtenue sur la zone parcelle + alentours ~50 m (source officielle)",
+    loading_text: "Interrogation des services publics (parcelle et alentours)…",
+    no_monument_1km: "Aucun monument répertorié dans un rayon de 1 km",
+    plu_no_zone: "Aucune zone d'urbanisme trouvée à cette position",
+    natura_none: "Aucun site Natura 2000 à cette position",
+    overall_desc_partial: "Calculé uniquement à partir des indicateurs effectivement retournés par les API publiques.",
+    radar_insufficient: "Graphique non disponible : données API insuffisantes pour calculer les scores.",
+    radar_empty: "Sélectionnez une parcelle pour afficher le graphique.",
     simulation_note_title: "⚠️ Note importante : Simulation indicative",
     simulation_note_desc: "Ce document constitue une simulation numérique à titre indicatif. Seule une étude géotechnique complète et un relevé de bornage contradictoire physique réalisé sur le terrain par un Géomètre-Expert d'Urbateam permet de garantir juridiquement les limites, la constructibilité officielle et la viabilité de votre projet.",
+    simulator_note: "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Pour des informations précises et juridiquement garanties sur votre parcelle, contactez URBATEAM.",
     axes: {
       soil: "Sol",
       water: "Eau",
@@ -1194,7 +1208,8 @@ export const fr = {
     water: {
       title: "Gestion de l'Eau & Hydrologie",
       desc: "Analyse du risque d'inondation et de ruissellement des eaux pluviales.",
-      flood: "Zone inondable (PPRI)",
+      flood: "Inondation (Géorisques)",
+      groundwater: "Remontée de nappe (Géorisques)",
       wet_zone: "Présence de zone humide",
       runoff: "Risque de ruissellement"
     },
@@ -1219,5 +1234,8 @@ export const fr = {
       networks: "Raccordement réseaux (eau/élec)",
       sewer: "Assainissement"
     }
+  },
+  profil_long: {
+    simulator_note: "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Pour des informations précises et juridiquement garanties sur votre parcelle, contactez URBATEAM."
   }
 };

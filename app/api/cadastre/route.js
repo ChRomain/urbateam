@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 
+function unavailableResponse() {
+  return NextResponse.json({ unavailable: true }, { status: 503 });
+}
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get('action');
@@ -68,7 +72,7 @@ export async function GET(request) {
             'User-Agent': 'Urbateam-Agent/1.0',
             'Accept': 'application/json',
           },
-          signal: AbortSignal.timeout(5000)
+          signal: AbortSignal.timeout(12000)
         });
 
         if (res.ok) {
@@ -101,7 +105,7 @@ export async function GET(request) {
       } catch (err) {
         console.warn('API BRGM Clay failed:', err.message);
       }
-      return NextResponse.json({ data: [] });
+      return unavailableResponse();
     }
 
     if (action === 'monuments') {
@@ -124,7 +128,7 @@ export async function GET(request) {
       } catch (err) {
         console.warn('API Opendatasoft Monuments failed:', err.message);
       }
-      return NextResponse.json({ records: [] });
+      return unavailableResponse();
     }
 
     if (action === 'inondations') {
@@ -147,7 +151,7 @@ export async function GET(request) {
       } catch (err) {
         console.warn('API Georisques resultats_rapport_risque failed:', err.message);
       }
-      return NextResponse.json({ error: 'API Georisques failed' }, { status: 502 });
+      return unavailableResponse();
     }
 
     if (action === 'plu') {
@@ -171,7 +175,7 @@ export async function GET(request) {
       } catch (err) {
         console.warn('API GPU zone-urba failed:', err.message);
       }
-      return NextResponse.json({ features: [] });
+      return unavailableResponse();
     }
 
     if (action === 'natura2000') {
@@ -192,14 +196,18 @@ export async function GET(request) {
           })
         ]);
 
-        const habitats = habitatsRes.ok ? (await habitatsRes.json()).features : [];
-        const oiseaux = oiseauxRes.ok ? (await oiseauxRes.json()).features : [];
+        if (!habitatsRes.ok || !oiseauxRes.ok) {
+          return unavailableResponse();
+        }
+
+        const habitats = (await habitatsRes.json()).features || [];
+        const oiseaux = (await oiseauxRes.json()).features || [];
 
         return NextResponse.json({ habitats, oiseaux });
       } catch (err) {
         console.warn('API Natura2000 failed:', err.message);
       }
-      return NextResponse.json({ habitats: [], oiseaux: [] });
+      return unavailableResponse();
     }
 
     if (action === 'alti') {
@@ -222,7 +230,7 @@ export async function GET(request) {
       } catch (err) {
         console.warn('API IGN Alti failed:', err.message);
       }
-      return NextResponse.json({ elevations: [] });
+      return unavailableResponse();
     }
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });

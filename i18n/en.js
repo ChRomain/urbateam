@@ -1163,7 +1163,6 @@ export const en = {
     title: "Interactive Land Eco-Diagnosis",
     subtitle: "Instantly evaluate the environmental constraints, geological risks, and potential of your cadastral parcel in real time.",
     search_address: "Search address",
-    loading_text: "Generating the eco-diagnosis of the parcel...",
     overall_score: "Overall viability score",
     overall_desc: "This score evaluates the suitability of the parcel regarding environmental, physical, and regulatory constraints.",
     radar_title: "Parcel multicriteria analysis",
@@ -1174,9 +1173,24 @@ export const en = {
     registered_desc: "Your eco-diagnosis has been successfully registered. An expert from Urbateam will analyze your land file and contact you shortly.",
     free_study: "Have an expert validate",
     how_it_works_title: "How is this diagnosis calculated?",
-    how_it_works_desc: "This diagnosis crosses real physical data of your cadastral plot (GPS coordinates) with official risk and regulation indicators (BRGM clay, Géorisques earthquakes/floods, ADEME solar potential, and Historic Monuments).",
+    how_it_works_desc: "This tool queries French public APIs from your plot coordinates: IGN cadastre, Géorisques clay and natural risks, historic monuments, PLU zoning (GPU), Natura 2000 and IGN elevation. No value is invented when a service does not respond.",
+    loaded_desc: "Indicators below come from public APIs when they respond; unreachable services are clearly flagged.",
+    api_unreachable: "No information for this area (service unavailable)",
+    api_unavailable_banner: "No information for this area from the following public APIs:",
+    no_data_at_point: "No data at this location",
+    no_data_zone: "No data on the plot or within ~50 m",
+    source_nearby: "Data from a nearby point on the plot (official source)",
+    source_buffer: "Data from plot + ~50 m surroundings (official source)",
+    loading_text: "Querying public services (plot and surroundings)…",
+    no_monument_1km: "No listed monument within 1 km",
+    plu_no_zone: "No urban planning zone found at this location",
+    natura_none: "No Natura 2000 site at this location",
+    overall_desc_partial: "Computed only from indicators actually returned by public APIs.",
+    radar_insufficient: "Chart unavailable: insufficient API data to compute scores.",
+    radar_empty: "Select a plot to display the chart.",
     simulation_note_title: "⚠️ Important note: Indicative simulation",
     simulation_note_desc: "This document constitutes an indicative numerical simulation. Only a complete geotechnical study and a physical boundary marking survey carried out on the ground by a Chartered Surveyor from Urbateam can legally guarantee the limits, official constructibility, and viability of your project.",
+    simulator_note: "⚠️ This tool is a simulator provided for informational purposes only. For precise and legally guaranteed information about your parcel, please contact URBATEAM.",
     axes: {
       soil: "Soil",
       water: "Water",
@@ -1195,7 +1209,8 @@ export const en = {
     water: {
       title: "Water Management & Hydrology",
       desc: "Analysis of flood risk and stormwater runoff.",
-      flood: "Floodable zone (PPRI)",
+      flood: "Flooding (Géorisques)",
+      groundwater: "Groundwater rise (Géorisques)",
       wet_zone: "Presence of wet zone",
       runoff: "Runoff risk"
     },
@@ -1220,5 +1235,8 @@ export const en = {
       networks: "Networks connection (water/elec)",
       sewer: "Sanitation"
     }
+  },
+  profil_long: {
+    simulator_note: "⚠️ This tool is a simulator provided for informational purposes only. For precise and legally guaranteed information about your parcel, please contact URBATEAM."
   }
 };

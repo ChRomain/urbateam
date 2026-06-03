@@ -8,18 +8,13 @@ import {
   CheckCircle, 
   AlertTriangle, 
   FileText, 
-  ArrowRight, 
   Loader, 
   ShieldAlert, 
   Droplets, 
-  Sun, 
   Building2, 
   Activity, 
   Download, 
   HelpCircle,
-  Percent,
-  Sliders,
-  TreePine,
   Sparkles
 } from 'lucide-react';
 import PageHeader from '../../components/PageHeader';
@@ -95,8 +90,115 @@ function getPolygonCentroid(geometry) {
   return [latSum / count, lonSum / count];
 }
 
+function formatDataSource(t, source) {
+  if (!source || source === 'centroid') return null;
+  if (source === 'buffer_50m') {
+    return t('eco.source_buffer') || 'Zone analysée : parcelle et alentours (~50 m)';
+  }
+  return t('eco.source_nearby') || 'Donnée obtenue sur un point voisin de la parcelle';
+}
+
+function scoreFromClayClasse(classe) {
+  if (!classe) return null;
+  if (classe === 'Fort') return 60;
+  if (classe === 'Moyen') return 85;
+  if (classe === 'Faible' || classe === 'Nul') return 100;
+  return null;
+}
+
+function scoreFromRiskLabel(label) {
+  if (!label) return null;
+  const low = label.toLowerCase();
+  if (low.includes('important') || low.includes('fort') || low.includes('élevé') || low.includes('eleve')) return 50;
+  if (low.includes('moyen') || low.includes('modéré') || low.includes('modere')) return 70;
+  if (low.includes('faible') || low.includes('très faible') || low.includes('tres faible')) return 90;
+  return null;
+}
+
+function computeDiagnosisScores(ecoData) {
+  if (!ecoData) return null;
+
+  let soilParts = [];
+  const clayScore = scoreFromClayClasse(ecoData.clayClasse);
+  if (clayScore !== null) soilParts.push(clayScore);
+  const seismeScore = scoreFromRiskLabel(ecoData.seisme);
+  if (seismeScore !== null) soilParts.push(seismeScore);
+  const radonScore = scoreFromRiskLabel(ecoData.radon);
+  if (radonScore !== null) soilParts.push(radonScore);
+  const soil =
+    soilParts.length > 0
+      ? Math.max(10, Math.min(100, Math.round(soilParts.reduce((a, b) => a + b, 0) / soilParts.length)))
+      : null;
+
+  let water = null;
+  if (!ecoData.georisquesUnavailable) {
+    const waterParts = [];
+    const inondScore = scoreFromRiskLabel(ecoData.inundation);
+    const nappeScore = scoreFromRiskLabel(ecoData.nappe);
+    if (inondScore !== null) waterParts.push(inondScore);
+    if (nappeScore !== null) waterParts.push(nappeScore);
+    if (waterParts.length > 0) {
+      water = Math.max(10, Math.min(100, Math.round(waterParts.reduce((a, b) => a + b, 0) / waterParts.length)));
+    }
+  }
+
+  let heritageParts = [];
+  if (!ecoData.monumentsUnavailable) {
+    if (ecoData.monumentsNoneInRadius) {
+      heritageParts.push(100);
+    } else if (ecoData.monumentDist != null) {
+      let h = 100;
+      if (ecoData.monumentDist < 500) h -= (500 - ecoData.monumentDist) * 0.15;
+      heritageParts.push(Math.max(10, Math.min(100, Math.round(h))));
+    }
+  }
+  if (!ecoData.naturaUnavailable) {
+    heritageParts.push(ecoData.naturaSites?.length > 0 ? 70 : 100);
+  }
+  const heritage =
+    heritageParts.length > 0
+      ? Math.max(10, Math.min(100, Math.round(heritageParts.reduce((a, b) => a + b, 0) / heritageParts.length)))
+      : null;
+
+  const axisScores = [soil, water, heritage].filter((v) => v !== null);
+  const overall =
+    axisScores.length > 0
+      ? Math.round(axisScores.reduce((a, b) => a + b, 0) / axisScores.length)
+      : null;
+
+  return { soil, water, heritage, overall };
+}
+
+function DataIndicator({ label, unavailable, empty, value, unavailableText, emptyText, hint, sourceNote }) {
+  const valueClass =
+    unavailable || empty
+      ? styles.statusMuted
+      : hint === 'danger'
+        ? styles.statusDanger
+        : hint === 'warning'
+          ? styles.statusWarning
+          : styles.statusSuccess;
+
+  let displayValue = value;
+  if (unavailable) displayValue = unavailableText;
+  else if (empty) displayValue = emptyText;
+
+  return (
+    <div className={styles.indicatorCard}>
+      <span className={styles.indicatorLabel}>{label}</span>
+      <span className={`${styles.indicatorValue} ${valueClass}`}>{displayValue}</span>
+      {hint && !unavailable && !empty && typeof hint === 'string' && (
+        <span className={styles.indicatorStatus}>{hint}</span>
+      )}
+      {sourceNote && !unavailable && !empty && (
+        <span className={styles.indicatorStatus}>{sourceNote}</span>
+      )}
+    </div>
+  );
+}
+
 export default function EcoDiagnosticClient() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   
   // États de recherche
   const [searchQuery, setSearchQuery] = useState('');
@@ -115,22 +217,8 @@ export default function EcoDiagnosticClient() {
   const [errorMsg, setErrorMsg] = useState('');
   const [centroid, setCentroid] = useState(null);
 
-  // --- PARAMÈTRES INTERACTIFS DE SIMULATION GÉOMÉTRIQUE & RISQUES ---
-  const [simulatedSlope, setSimulatedSlope] = useState(5); // 0 à 45%
-  const [simulatedClay, setSimulatedClay] = useState('medium'); // low, medium, high
-  const [simulatedMonumentDist, setSimulatedMonumentDist] = useState(600); // 10m à 1000m
-  const [simulatedExposure, setSimulatedExposure] = useState('south'); // north, east, west, south
-  const [simulatedWetZone, setSimulatedWetZone] = useState(false); // true/false
-
-  // Données réelles récoltées des APIs publiques
-  const [monumentName, setMonumentName] = useState('');
-  const [realInundation, setRealInundation] = useState('Hors PPRI (Favorable)');
-  const [realNappe, setRealNappe] = useState('Aucun risque de remontée de nappe');
-  const [realPluZone, setRealPluZone] = useState('Zone U (Urbaine)');
-  const [realPluDesc, setRealPluDesc] = useState('');
-  const [realNatura, setRealNatura] = useState('Non concerné');
-  const [realSeisme, setRealSeisme] = useState('Faible');
-  const [realRadon, setRealRadon] = useState('Faible');
+  // Données issues exclusivement des APIs publiques (null = non chargé)
+  const [ecoData, setEcoData] = useState(null);
 
   // Onglet actif pour les fiches de risques
   const [activeTab, setActiveTab] = useState('soil');
@@ -198,6 +286,7 @@ export default function EcoDiagnosticClient() {
     setCadastreGeoJson(null);
     setCadastreInfo(null);
     setCentroid(null);
+    setEcoData(null);
     setErrorMsg('');
     setLoadingCadastre(true);
     setLeadSuccess(false);
@@ -214,163 +303,37 @@ export default function EcoDiagnosticClient() {
           
           const props = parcelFeature.properties;
           setCadastreInfo({
-            numero: props.numero || 'Inconnu',
-            section: props.section || 'Inconnue',
-            code_commune: props.code_insee || 'Inconnu',
-            commune: props.nom_com || 'Inconnue',
-            surface: props.contenance || 500,
+            numero: props.numero ?? null,
+            section: props.section ?? null,
+            code_commune: props.code_insee ?? null,
+            commune: props.nom_com ?? null,
+            surface: props.contenance ?? null,
           });
 
           const center = getPolygonCentroid(parcelFeature.geometry);
           setCentroid(center);
           setMapCenter(center);
 
-          // Algorithme de génération réaliste de secours
-          const gpsSum = Math.abs(lat + lon);
-          const slopeSeed = Math.round((gpsSum * 100) % 15);
-          const claySeed = (gpsSum * 7) % 3;
-          const monumentSeed = Math.round((gpsSum * 14) % 800) + 100;
-          const expSeed = Math.round(gpsSum * 3) % 4;
-
-          let finalSlope = slopeSeed;
-          let finalClay = claySeed < 1 ? 'low' : claySeed < 2 ? 'medium' : 'high';
-          let finalMonumentDist = monumentSeed;
-          let finalExposure = expSeed === 0 ? 'north' : expSeed === 1 ? 'east' : expSeed === 2 ? 'west' : 'south';
-          let finalWetZone = gpsSum % 5 === 0;
-
-          // Données géographiques et de risques réelles
-          let finalMonumentName = '';
-          let finalInundation = 'Hors PPRI (Favorable)';
-          let finalNappe = 'Aucun risque de remontée de nappe';
-          let finalPluZone = 'Zone U (Urbaine)';
-          let finalPluDesc = '';
-          let finalNatura = 'Non concerné';
-          let finalSeisme = 'Risque Existant - faible';
-          let finalRadon = 'Risque Existant - faible';
-
-          // Tentative d'appel des APIs publiques réelles en arrière-plan
-          try {
-            const [argilesRes, monumentsRes, altiRes, inondationsRes, pluRes, naturaRes] = await Promise.all([
-              fetch(`/api/cadastre?action=argiles&lat=${lat}&lon=${lon}`),
-              fetch(`/api/cadastre?action=monuments&lat=${lat}&lon=${lon}`),
-              fetch(`/api/cadastre?action=alti&lat=${lat}&lon=${lon}`),
-              fetch(`/api/cadastre?action=inondations&lat=${lat}&lon=${lon}`),
-              fetch(`/api/cadastre?action=plu&lat=${lat}&lon=${lon}`),
-              fetch(`/api/cadastre?action=natura2000&lat=${lat}&lon=${lon}`)
-            ]);
-
-            if (argilesRes.ok) {
-              const argilesData = await argilesRes.json();
-              if (argilesData.data && argilesData.data.length > 0) {
-                const classe = argilesData.data[0].classe_exposition_argile;
-                if (classe === 'Fort') finalClay = 'high';
-                else if (classe === 'Moyen') finalClay = 'medium';
-                else finalClay = 'low';
-              }
-            }
-
-            if (monumentsRes.ok) {
-              const monumentsData = await monumentsRes.json();
-              if (monumentsData.records && monumentsData.records.length > 0) {
-                const record = monumentsData.records[0];
-                const distance = Math.round(record.fields.dist || monumentSeed);
-                finalMonumentDist = Math.min(1000, Math.max(10, distance));
-                finalMonumentName = record.fields.titre_editorial_de_la_notice || '';
-              }
-            }
-
-            if (altiRes.ok) {
-              const altiData = await altiRes.json();
-              if (altiData.elevations && altiData.elevations.length > 0) {
-                const z = altiData.elevations[0].z;
-                finalSlope = Math.min(40, Math.max(0, Math.round(z % 18))); // Émulation altimétrique
-              }
-            }
-
-            if (inondationsRes.ok) {
-              const inondationsData = await inondationsRes.json();
-              if (inondationsData.risquesNaturels) {
-                if (inondationsData.risquesNaturels.inondation) {
-                  const inond = inondationsData.risquesNaturels.inondation;
-                  if (inond.present) {
-                    finalInundation = inond.libelleStatutAdresse || 'Risque Existant';
-                  }
-                }
-                if (inondationsData.risquesNaturels.remonteeNappe) {
-                  const nappe = inondationsData.risquesNaturels.remonteeNappe;
-                  if (nappe.present) {
-                    finalNappe = nappe.libelleStatutAdresse || 'Risque Existant';
-                  }
-                }
-                if (inondationsData.risquesNaturels.seisme) {
-                  const seisme = inondationsData.risquesNaturels.seisme;
-                  finalSeisme = seisme.libelleStatutAdresse || 'Risque Existant - faible';
-                }
-                if (inondationsData.risquesNaturels.radon) {
-                  const radon = inondationsData.risquesNaturels.radon;
-                  finalRadon = radon.libelleStatutAdresse || 'Risque Existant - faible';
-                }
-              }
-            }
-
-            if (pluRes.ok) {
-              const pluData = await pluRes.json();
-              if (pluData.features && pluData.features.length > 0) {
-                const f = pluData.features[0];
-                finalPluZone = `Zone ${f.properties.libelle || f.properties.typezone || 'U'}`;
-                finalPluDesc = f.properties.libelong || '';
-              }
-            }
-
-            if (naturaRes.ok) {
-              const naturaData = await naturaRes.json();
-              const sites = [];
-              if (naturaData.habitats && naturaData.habitats.length > 0) {
-                naturaData.habitats.forEach(h => {
-                  if (h.properties && h.properties.sitename) {
-                    sites.push(`${h.properties.sitename} (Directive Habitats)`);
-                  }
-                });
-              }
-              if (naturaData.oiseaux && naturaData.oiseaux.length > 0) {
-                naturaData.oiseaux.forEach(o => {
-                  if (o.properties && o.properties.sitename) {
-                    sites.push(`${o.properties.sitename} (Directive Oiseaux)`);
-                  }
-                });
-              }
-              if (sites.length > 0) {
-                const uniqueSites = [...new Set(sites)];
-                finalNatura = `Concerné : ${uniqueSites.join(', ')}`;
-              } else {
-                finalNatura = 'Non concerné';
-              }
-            }
-          } catch (apiErr) {
-            console.warn('Real APIs failed, fallback active:', apiErr.message);
-          }
-
-          // Détermination dynamique de la présence de zone humide si risques hydrogéologiques existants
-          if (finalInundation.includes('Existant') || finalNappe.includes('Existant')) {
-            finalWetZone = true;
+          const geomParam = encodeURIComponent(JSON.stringify(parcelFeature.geometry));
+          const ecoRes = await fetch(
+            `/api/eco-diagnostic?lat=${center[0]}&lon=${center[1]}&geom=${geomParam}`
+          );
+          const ecoJson = await ecoRes.json().catch(() => ({}));
+          if (!ecoRes.ok || ecoJson.fetchError) {
+            setEcoData({
+              unavailableServices: ecoJson.unavailableServices || [
+                'Services publics (Géorisques, IGN, Culture)',
+              ],
+              clayUnavailable: true,
+              georisquesUnavailable: true,
+              monumentsUnavailable: true,
+              pluUnavailable: true,
+              naturaUnavailable: true,
+              altiUnavailable: true,
+            });
           } else {
-            finalWetZone = false;
+            setEcoData(ecoJson);
           }
-
-          setSimulatedSlope(finalSlope);
-          setSimulatedClay(finalClay);
-          setSimulatedMonumentDist(finalMonumentDist);
-          setSimulatedExposure(finalExposure);
-          setSimulatedWetZone(finalWetZone);
-
-          setMonumentName(finalMonumentName);
-          setRealInundation(finalInundation);
-          setRealNappe(finalNappe);
-          setRealPluZone(finalPluZone);
-          setRealPluDesc(finalPluDesc);
-          setRealNatura(finalNatura);
-          setRealSeisme(finalSeisme);
-          setRealRadon(finalRadon);
         } else {
           setErrorMsg('cadastre.error_no_parcel');
         }
@@ -410,67 +373,28 @@ export default function EcoDiagnosticClient() {
     loadParcelDetails(lat, lon, reverseLabel);
   };
 
-  // --- ENGINE GÉOMÉTRIQUE & SCIENTIFIQUE DE CALCUL DE SCORES ---
-  const diagnosisScores = useMemo(() => {
-    if (!cadastreInfo) return null;
+  const diagnosisScores = useMemo(() => computeDiagnosisScores(ecoData), [ecoData]);
 
-    // 1. SOL & RISQUES GÉOLOGIQUES (Clay, Seismicity, Radon)
-    let soilVal = 100;
-    if (simulatedClay === 'medium') soilVal -= 15;
-    if (simulatedClay === 'high') soilVal -= 40;
-    
-    const lowSeism = realSeisme.toLowerCase();
-    if (lowSeism.includes('moyen') || lowSeism.includes('fort') || lowSeism.includes('modéré')) {
-      soilVal -= 20;
-    } else if (lowSeism.includes('faible') && !lowSeism.includes('très faible')) {
-      soilVal -= 5;
-    }
-    
-    const lowRadon = realRadon.toLowerCase();
-    if (lowRadon.includes('important') || lowRadon.includes('fort') || lowRadon.includes('moyen')) {
-      soilVal -= 20;
-    }
-    const soilScore = Math.max(10, Math.min(100, Math.round(soilVal)));
-
-    // 2. GESTION DE L'EAU (Flooding PPRI, Groundwater rise)
-    let waterVal = 100;
-    if (realInundation !== 'Hors PPRI (Favorable)') {
-      waterVal -= 50;
-    }
-    const lowNappe = realNappe.toLowerCase();
-    if (lowNappe.includes('existant') || (lowNappe.includes('risque') && !lowNappe.includes('aucun') && !lowNappe.includes('faible'))) {
-      waterVal -= 30;
-    }
-    const waterScore = Math.max(10, Math.min(100, Math.round(waterVal)));
-
-    // 3. PATRIMOINE & REGLES (Heritage / Urbanisme)
-    let heritageVal = 100;
-    if (simulatedMonumentDist < 500) {
-      heritageVal -= (500 - simulatedMonumentDist) * 0.15; // Fortes contraintes ABF
-    }
-    if (realNatura !== 'Non concerné') {
-      heritageVal -= 30; // Natura 2000
-    }
-    const heritageScore = Math.max(10, Math.min(100, Math.round(heritageVal)));
-
-    const overallScore = Math.round((soilScore + waterScore + heritageScore) / 3);
-
-    return {
-      soil: soilScore,
-      water: waterScore,
-      heritage: heritageScore,
-      overall: overallScore
-    };
-  }, [cadastreInfo, simulatedClay, simulatedMonumentDist, realSeisme, realRadon, realInundation, realNappe, realNatura]);
+  const unavailableText =
+    t('eco.api_unreachable') || "Pas d'information sur la zone (service indisponible)";
+  const noDataText =
+    t('eco.no_data_zone') ||
+    'Aucune donnée sur la parcelle ni dans les alentours immédiats (~50 m)';
+  const apiBannerText =
+    t('eco.api_unavailable_banner') ||
+    "Pas d'information sur la zone pour les services suivants (API publiques injoignables) :";
 
   // Formater les données pour le Radar Chart de Recharts (Triangle Sol, Eau, Patrimoine)
   const chartData = useMemo(() => {
     if (!diagnosisScores) return [];
-    return [
-      { subject: t('eco.axes.soil') || 'Sol & Risques', A: diagnosisScores.soil, fullMark: 100 },
-      { subject: t('eco.axes.water') || 'Eau & Inondations', A: diagnosisScores.water, fullMark: 100 },
-      { subject: t('eco.axes.heritage') || 'Urbanisme & Patrimoine', A: diagnosisScores.heritage, fullMark: 100 }
+    const axes = [
+      { subject: t('eco.axes.soil') || 'Sol & Risques', value: diagnosisScores.soil },
+      { subject: t('eco.axes.water') || 'Eau & Inondations', value: diagnosisScores.water },
+      { subject: t('eco.axes.heritage') || 'Urbanisme & Patrimoine', value: diagnosisScores.heritage },
     ];
+    return axes
+      .filter((a) => a.value !== null)
+      .map((a) => ({ subject: a.subject, A: a.value, fullMark: 100 }));
   }, [diagnosisScores, t]);
 
   // Soumission du formulaire
@@ -480,6 +404,7 @@ export default function EcoDiagnosticClient() {
       setLeadError('Veuillez renseigner au moins votre nom et votre adresse e-mail.');
       return;
     }
+    if (!cadastreInfo || !ecoData) return;
 
     setSubmittingLead(true);
     setLeadError('');
@@ -489,22 +414,16 @@ export default function EcoDiagnosticClient() {
         .from('eco_diagnostics')
         .insert([{
           address: selectedAddress,
-          parcel_ref: `Section ${cadastreInfo.section} n°${cadastreInfo.numero} (${cadastreInfo.commune})`,
-          surface: `${cadastreInfo.surface} m²`,
-          overall_score: diagnosisScores.overall,
+          parcel_ref: [
+            cadastreInfo.section && `Section ${cadastreInfo.section}`,
+            cadastreInfo.numero && `n°${cadastreInfo.numero}`,
+            cadastreInfo.commune,
+          ].filter(Boolean).join(' ') || selectedAddress,
+          surface: cadastreInfo.surface != null ? `${cadastreInfo.surface} m²` : null,
+          overall_score: diagnosisScores?.overall ?? null,
           scores: {
-            ...diagnosisScores,
-            simulatedSlope,
-            simulatedClay,
-            simulatedMonumentDist,
-            simulatedExposure,
-            simulatedWetZone,
-            monumentName,
-            realInundation,
-            realNappe,
-            realPluZone,
-            realPluDesc,
-            realNatura
+            ...(diagnosisScores || {}),
+            ecoData,
           },
           client_name: clientName,
           client_email: clientEmail,
@@ -531,7 +450,7 @@ export default function EcoDiagnosticClient() {
 
   // Génération du rapport PDF haut de gamme avec jsPDF
   const generatePDFReport = () => {
-    if (!cadastreInfo || !diagnosisScores) return;
+    if (!cadastreInfo || !ecoData) return;
 
     const doc = new jsPDF();
     const primaryColor = [121, 160, 129]; // #79a081
@@ -570,84 +489,93 @@ export default function EcoDiagnosticClient() {
     doc.text(`- Adresse : ${selectedAddress}`, 15, 80);
     doc.text(`- Commune : ${cadastreInfo.commune}`, 15, 87);
     doc.text(`- Parcelle : Section ${cadastreInfo.section} n°${cadastreInfo.numero}`, 15, 94);
-    doc.text(`- Surface Fiscale : ${cadastreInfo.surface} m²`, 15, 101);
+    if (cadastreInfo.surface != null) {
+      doc.text(`- Surface Fiscale : ${cadastreInfo.surface} m²`, 15, 101);
+    }
 
-    // Score global de viabilité
-    doc.setFillColor(248, 250, 252);
-    doc.rect(15, 110, 180, 25, 'F');
-    doc.setDrawColor(226, 232, 240);
-    doc.rect(15, 110, 180, 25, 'S');
+    let y = cadastreInfo.surface != null ? 110 : 101;
 
-    doc.setFont("Helvetica", "bold");
-    doc.setFontSize(14);
-    doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-    doc.text(`SCORE GLOBAL D'ECO-DIAGNOSTIC : ${diagnosisScores.overall} / 100`, 25, 125);
+    if (ecoData.unavailableServices.length > 0) {
+      doc.setFont("Helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(180, 80, 50);
+      doc.text('API publiques non joignables :', 15, y);
+      y += 6;
+      doc.setFont("Helvetica", "normal");
+      doc.setFontSize(8);
+      ecoData.unavailableServices.forEach((svc) => {
+        doc.text(`- ${svc}`, 18, y);
+        y += 5;
+      });
+      y += 4;
+    }
 
-    doc.setFont("Helvetica", "normal");
-    doc.setFontSize(9);
-    doc.setTextColor(100, 116, 139);
-    doc.text("Ce score reflète l'adéquation de la parcelle vis-à-vis des contraintes géologiques,", 25, 131);
-    doc.text("hydrologiques et réglementaires calculées à l'aide des bases de données publiques de l'État.", 25, 135);
+    if (diagnosisScores?.overall != null) {
+      doc.setFillColor(248, 250, 252);
+      doc.rect(15, y, 180, 22, 'F');
+      doc.setDrawColor(226, 232, 240);
+      doc.rect(15, y, 180, 22, 'S');
+      doc.setFont("Helvetica", "bold");
+      doc.setFontSize(13);
+      doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+      doc.text(`SCORE INDICATIF (données disponibles) : ${diagnosisScores.overall} / 100`, 25, y + 14);
+      y += 30;
+    }
 
-    // Tableau des Scores Détaillés
     doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(13);
-    doc.text("Analyse thématique multicritère", 15, 148);
-
-    const tableData = [
-      [t('eco.axes.soil') || "Sol & Risques", `${diagnosisScores.soil} / 100`, simulatedClay === 'high' ? "Alerte Argiles (Fort)" : "Sol favorable"],
-      [t('eco.axes.water') || "Gestion de l'Eau", `${diagnosisScores.water} / 100`, realInundation !== 'Hors PPRI (Favorable)' ? `PPRI (${realInundation})` : "Faible risque hydrologique"],
-      [t('eco.axes.heritage') || "Patrimoine & Urbanisme", `${diagnosisScores.heritage} / 100`, simulatedMonumentDist < 500 ? `ABF requis (${realPluZone})` : "Aucun périmètre classé"]
-    ];
-
-    autoTable(doc, {
-      startY: 154,
-      head: [['Thématique de Diagnostic', 'Note d\'évaluation', 'Observations techniques']],
-      body: tableData,
-      headStyles: { fillColor: primaryColor },
-      theme: 'striped',
-      margin: { left: 15, right: 15 }
-    });
-
-    // Recommandations de l'Expert
-    const lastY = doc.lastAutoTable.finalY + 15;
-    doc.setFont("Helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text("Recommandations techniques préliminaires", 15, lastY);
+    doc.text("Données officielles recueillies", 15, y);
+    y += 8;
 
     doc.setFont("Helvetica", "normal");
-    doc.setFontSize(10);
-    let textOffset = lastY + 8;
+    doc.setFontSize(9);
+    const lines = [];
+    if (ecoData.clayClasse) lines.push(`Argiles (Géorisques) : ${ecoData.clayClasse}`);
+    if (ecoData.seisme) lines.push(`Sismicité : ${ecoData.seisme}`);
+    if (ecoData.radon) lines.push(`Radon : ${ecoData.radon}`);
+    if (ecoData.inundation) lines.push(`Inondation : ${ecoData.inundation}`);
+    if (ecoData.nappe) lines.push(`Nappe : ${ecoData.nappe}`);
+    if (ecoData.altitude != null) lines.push(`Altitude IGN : ${ecoData.altitude} m`);
+    if (ecoData.monumentsNoneInRadius) lines.push('Monuments historiques : aucun dans un rayon de 1 km');
+    else if (ecoData.monumentDist != null) {
+      lines.push(`Monument le plus proche : ${ecoData.monumentDist} m${ecoData.monumentName ? ` (${ecoData.monumentName})` : ''}`);
+    }
+    if (ecoData.pluZone) lines.push(`PLU : ${ecoData.pluZone}${ecoData.pluDesc ? ` — ${ecoData.pluDesc}` : ''}`);
+    if (ecoData.naturaSites?.length) lines.push(`Natura 2000 : ${ecoData.naturaSites.join('; ')}`);
+    if (ecoData.naturaNoneAtPoint) lines.push('Natura 2000 : aucun site à cette position');
 
-    if (simulatedClay === 'high') {
-      doc.text("- Argile gonflante détectée : Des fondations profondes (micro-pieux) sont fortement recommandées.", 15, textOffset);
-      textOffset += 7;
-    }
-    if (realInundation !== 'Hors PPRI (Favorable)' || realNappe !== 'Aucun risque de remontée de nappe') {
-      doc.text(`- Risque Hydrologique : Zone PPRI (${realInundation}) / Nappe (${realNappe}). Étude hydrogéologique requise.`, 15, textOffset);
-      textOffset += 7;
-    }
-    if (simulatedMonumentDist < 500) {
-      doc.text(`- Périmètre Monument Historique : ${monumentName || "Monument"} à ${simulatedMonumentDist}m. Avis ABF obligatoire.`, 15, textOffset);
-      textOffset += 7;
-    }
-    if (realPluZone) {
-      const pluShort = realPluDesc ? (realPluDesc.length > 75 ? realPluDesc.substring(0, 75) + "..." : realPluDesc) : "";
-      doc.text(`- Réglementation d'urbanisme : Classé en ${realPluZone} : ${pluShort}`, 15, textOffset);
-      textOffset += 7;
+    lines.forEach((line) => {
+      const wrapped = doc.splitTextToSize(line, 175);
+      doc.text(wrapped, 15, y);
+      y += wrapped.length * 5;
+    });
+
+    if (diagnosisScores && chartData.length > 0) {
+      const tableData = chartData.map((row) => [
+        row.subject,
+        `${row.A} / 100`,
+        'Score indicatif (données partielles possibles)',
+      ]);
+      autoTable(doc, {
+        startY: y + 5,
+        head: [['Thématique', 'Note', 'Remarque']],
+        body: tableData,
+        headStyles: { fillColor: primaryColor },
+        theme: 'striped',
+        margin: { left: 15, right: 15 },
+      });
+      y = doc.lastAutoTable.finalY + 10;
     }
 
-    doc.text("- Optimisation bioclimatique : L'implantation de votre bâti doit privilégier une orientation sud/sud-ouest.", 15, textOffset);
-
-    // Pied de page / Signature
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text("Ce diagnostic est une simulation en ligne basée sur des données statistiques ouvertes. Seule l'intervention physique", 15, 275);
+    doc.text("Synthèse indicative à partir des API publiques de l'État. Seule l'intervention physique", 15, 275);
     doc.text("d'un Géomètre-Expert d'Urbateam sur site permet de dresser des plans officiels et un bornage juridiquement garanti.", 15, 279);
     doc.text(`Généré le ${new Date().toLocaleDateString()} - URBATEAM SARL`, 15, 283);
 
-    doc.save(`Eco_Diagnostic_Foncier_Urbateam_${cadastreInfo.commune}.pdf`);
+    const communeSlug = cadastreInfo.commune || 'parcelle';
+    doc.save(`Eco_Diagnostic_Foncier_Urbateam_${communeSlug}.pdf`);
   };
 
   return (
@@ -670,7 +598,7 @@ export default function EcoDiagnosticClient() {
               </span>
             ) : (
               <span className={styles.introText}>
-                <strong>Diagnostic chargé !</strong> Retrouvez ci-dessous les contraintes réelles de votre projet issues des bases de données publiques de l'État.
+                <strong>Parcelle identifiée.</strong> {t('eco.loaded_desc') || 'Les indicateurs ci-dessous proviennent des API publiques de l\'État lorsqu\'elles répondent ; les services injoignables sont signalés.'}
               </span>
             )}
           </div>
@@ -764,7 +692,7 @@ export default function EcoDiagnosticClient() {
                   </p>
                 </GlassCard>
               </motion.div>
-            ) : cadastreInfo && diagnosisScores ? (
+            ) : cadastreInfo && ecoData ? (
               <motion.div
                 key="dashboard-sidebar"
                 initial={{ opacity: 0, scale: 0.98 }}
@@ -872,17 +800,31 @@ export default function EcoDiagnosticClient() {
 
         {/* Bloc principal (Carte + Graphique Radar 2/3) */}
         <div className={styles.dashboardContent}>
-          {cadastreInfo && diagnosisScores && (
+          {ecoData?.unavailableServices?.length > 0 && (
+            <GlassCard className={styles.apiWarningBanner}>
+              <AlertTriangle size={18} />
+              <div>
+                <strong>{apiBannerText}</strong>
+                <ul className={styles.apiWarningList}>
+                  {ecoData.unavailableServices.map((svc) => (
+                    <li key={svc}>{svc}</li>
+                  ))}
+                </ul>
+              </div>
+            </GlassCard>
+          )}
+
+          {cadastreInfo && ecoData && diagnosisScores?.overall != null && (
             <div className={styles.scoreBanner}>
               <div className={styles.scoreCircle}>
                 {diagnosisScores.overall}
               </div>
               <div className={styles.scoreTextContainer}>
                 <h3 className={styles.scoreTitle}>
-                  {t('eco.overall_score') || "Score global de viabilité"}
+                  {t('eco.overall_score') || "Score indicatif de viabilité"}
                 </h3>
                 <p className={styles.scoreDesc}>
-                  {t('eco.overall_desc') || "Évaluation générale de constructibilité en zone protégée et risques environnementaux."}
+                  {t('eco.overall_desc_partial') || "Calculé uniquement à partir des indicateurs effectivement retournés par les API publiques."}
                 </p>
               </div>
             </div>
@@ -896,17 +838,16 @@ export default function EcoDiagnosticClient() {
                 zoom={zoomLevel} 
                 style={{ height: '100%', width: '100%', zIndex: 10 }}
                 scrollWheelZoom={true}
+                attributionControl={false}
               >
                 <ChangeView center={mapCenter} zoom={zoomLevel} />
                 <MapEventsHandler onMapClick={handleMapClick} />
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
                 />
                 
                 {/* Couche transparent Cadastre */}
                 <TileLayer
-                  attribution='&copy; Direction générale des Finances publiques - Cadastre'
                   url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
                   tms={true}
                   opacity={0.4}
@@ -947,7 +888,7 @@ export default function EcoDiagnosticClient() {
                 {t('eco.radar_title') || "Bilan thématique multicritères"}
               </h4>
               
-              {diagnosisScores ? (
+              {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={300}>
                   <RadarChart cx="50%" cy="50%" radius="45%" data={chartData} margin={{ top: 10, right: 35, bottom: 10, left: 35 }}>
                     <PolarGrid stroke="#e2e8f0" />
@@ -972,7 +913,9 @@ export default function EcoDiagnosticClient() {
               ) : (
                 <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.85rem', padding: '3rem 1rem' }}>
                   <HelpCircle size={32} style={{ marginBottom: '0.8rem', opacity: 0.5 }} />
-                  Sélectionnez une parcelle pour générer le graphique radar d'analyse.
+                  {ecoData
+                    ? (t('eco.radar_insufficient') || 'Graphique non disponible : données API insuffisantes pour calculer les scores.')
+                    : (t('eco.radar_empty') || 'Sélectionnez une parcelle pour afficher le graphique.')}
                 </div>
               )}
             </div>
@@ -1003,7 +946,7 @@ export default function EcoDiagnosticClient() {
           )}
 
           {/* Fiches de risques interactives (Tabs) */}
-          {cadastreInfo && diagnosisScores && (
+          {cadastreInfo && ecoData && (
             <div>
               <div className={styles.tabsContainer}>
                 <button 
@@ -1047,54 +990,45 @@ export default function EcoDiagnosticClient() {
                       <p className={styles.tabDescription}>{t('eco.soil.desc') || "Évaluation de la stabilité des fondations."}</p>
                       
                       <div className={styles.tabGrid}>
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.soil.clay_level') || "Retrait-gonflement des argiles"}</span>
-                          <span className={`${styles.indicatorValue} ${simulatedClay === 'high' ? styles.statusDanger : simulatedClay === 'medium' ? styles.statusWarning : styles.statusSuccess}`}>
-                            {simulatedClay === 'high' ? 'Aléa Fort (Argiles)' : simulatedClay === 'medium' ? 'Aléa Moyen' : 'Aléa Faible'}
-                          </span>
-                          <span className={styles.indicatorStatus}>
-                            {simulatedClay === 'high' 
-                              ? 'Risque élevé de fissures. Fondations spéciales requises.' 
-                              : 'Sol stable, aucune contrainte majeure.'}
-                          </span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Sismicité</span>
-                          {(() => {
-                            const isHigh = realSeisme.includes('moyen') || realSeisme.includes('fort');
-                            const isLow = realSeisme.includes('faible') || realSeisme.includes('très faible');
-                            const seismClass = isHigh ? styles.statusDanger : isLow ? styles.statusSuccess : styles.statusWarning;
-                            const seismValue = realSeisme.includes('faible') ? 'Zone 2 (Faible)' : realSeisme.includes('très faible') ? 'Zone 1 (Très Faible)' : realSeisme.includes('modéré') ? 'Zone 3 (Modéré)' : realSeisme;
-                            const seismStatus = (isHigh || realSeisme.includes('modéré')) 
-                              ? 'Normes parasismiques renforcées obligatoires pour la structure du bâtiment.' 
-                              : 'Règles de construction parasismiques standard applicables.';
-                            return (
-                              <>
-                                <span className={`${styles.indicatorValue} ${seismClass}`}>{seismValue}</span>
-                                <span className={styles.indicatorStatus}>{seismStatus}</span>
-                              </>
-                            );
-                          })()}
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Risque Radon</span>
-                          {(() => {
-                            const isHigh = realRadon.includes('important') || realRadon.includes('fort');
-                            const isLow = realRadon.includes('faible') || realRadon.includes('non concerné');
-                            const radonClass = isHigh ? styles.statusDanger : isLow ? styles.statusSuccess : styles.statusWarning;
-                            const radonStatus = isHigh 
-                              ? 'Présence potentielle de radon significative dans le sol (roches granitiques). Ventilation renforcée du sous-sol fortement recommandée.' 
-                              : 'Niveau d\'exposition au radon faible ou standard. Précautions d\'usage.';
-                            return (
-                              <>
-                                <span className={`${styles.indicatorValue} ${radonClass}`}>{realRadon}</span>
-                                <span className={styles.indicatorStatus}>{radonStatus}</span>
-                              </>
-                            );
-                          })()}
-                        </div>
+                        <DataIndicator
+                          label={t('eco.soil.clay_level') || 'Retrait-gonflement des argiles (Géorisques)'}
+                          unavailable={ecoData.clayUnavailable}
+                          empty={ecoData.clayNoData}
+                          value={ecoData.clayClasse}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.claySource)}
+                          hint={ecoData.clayClasse === 'Fort' ? 'danger' : ecoData.clayClasse === 'Moyen' ? 'warning' : ecoData.clayClasse ? 'success' : undefined}
+                        />
+                        <DataIndicator
+                          label={t('eco.soil.seismic') || 'Sismicité (Géorisques)'}
+                          unavailable={ecoData.georisquesUnavailable}
+                          empty={!ecoData.georisquesUnavailable && (ecoData.georisquesNoData || !ecoData.seisme)}
+                          value={ecoData.seisme}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.georisquesSource)}
+                          hint={ecoData.seisme ? (ecoData.seisme.toLowerCase().includes('fort') || ecoData.seisme.toLowerCase().includes('moyen') ? 'warning' : 'success') : undefined}
+                        />
+                        <DataIndicator
+                          label={t('eco.soil.radon') || 'Risque radon (Géorisques)'}
+                          unavailable={ecoData.georisquesUnavailable}
+                          empty={!ecoData.georisquesUnavailable && (ecoData.georisquesNoData || !ecoData.radon)}
+                          value={ecoData.radon}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.georisquesSource)}
+                          hint={ecoData.radon ? (ecoData.radon.toLowerCase().includes('important') || ecoData.radon.toLowerCase().includes('fort') ? 'danger' : 'success') : undefined}
+                        />
+                        <DataIndicator
+                          label={t('eco.soil.altitude') || 'Altitude au point (IGN)'}
+                          unavailable={ecoData.altiUnavailable}
+                          empty={!ecoData.altiUnavailable && ecoData.altitude == null}
+                          value={ecoData.altitude != null ? `${ecoData.altitude} m` : null}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.altiSource)}
+                        />
                       </div>
                     </div>
                   )}
@@ -1108,34 +1042,24 @@ export default function EcoDiagnosticClient() {
                       <p className={styles.tabDescription}>{t('eco.water.desc') || "Analyse du risque inondation."}</p>
                       
                       <div className={styles.tabGrid}>
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Risque inondabilité</span>
-                          <span className={`${styles.indicatorValue} ${realInundation !== 'Hors PPRI (Favorable)' ? styles.statusDanger : styles.statusSuccess}`}>
-                            {realInundation === 'Hors PPRI (Favorable)' ? 'Hors PPRI (Favorable)' : `Zone PPRI (${realInundation})`}
-                          </span>
-                          <span className={styles.indicatorStatus}>
-                            {realInundation === 'Hors PPRI (Favorable)' 
-                              ? "Parcelle située en dehors des zones d'inondation de crue répertoriées." 
-                              : "Parcelle située en zone d'inondation réglementée (PPRI). Prescriptions de construction et d'altimétrie obligatoires."}
-                          </span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Remontée de nappe phréatique</span>
-                          {(() => {
-                            const isHigh = realNappe.toLowerCase().includes('existant') || (realNappe.toLowerCase().includes('risque') && !realNappe.toLowerCase().includes('aucun') && !realNappe.toLowerCase().includes('faible'));
-                            const nappeClass = isHigh ? styles.statusDanger : styles.statusSuccess;
-                            const nappeStatus = isHigh 
-                              ? 'Parcelle sensible aux remontées de nappe phréatique. Dispositions constructives obligatoires pour les sous-sols.' 
-                              : 'Aucune sensibilité majeure aux remontées de nappe phréatique détectée.';
-                            return (
-                              <>
-                                <span className={`${styles.indicatorValue} ${nappeClass}`}>{realNappe}</span>
-                                <span className={styles.indicatorStatus}>{nappeStatus}</span>
-                              </>
-                            );
-                          })()}
-                        </div>
+                        <DataIndicator
+                          label={t('eco.water.flood') || 'Inondation (Géorisques)'}
+                          unavailable={ecoData.georisquesUnavailable}
+                          empty={!ecoData.georisquesUnavailable && (ecoData.georisquesNoData || !ecoData.inundation)}
+                          value={ecoData.inundation}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.georisquesSource)}
+                        />
+                        <DataIndicator
+                          label={t('eco.water.groundwater') || 'Remontée de nappe (Géorisques)'}
+                          unavailable={ecoData.georisquesUnavailable}
+                          empty={!ecoData.georisquesUnavailable && (ecoData.georisquesNoData || !ecoData.nappe)}
+                          value={ecoData.nappe}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.georisquesSource)}
+                        />
                       </div>
                     </div>
                   )}
@@ -1149,37 +1073,49 @@ export default function EcoDiagnosticClient() {
                       <p className={styles.tabDescription}>{t('eco.heritage.desc') || "Périmètres règlementaires."}</p>
                       
                       <div className={styles.tabGrid}>
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.heritage.monuments')}</span>
-                          <span className={`${styles.indicatorValue} ${simulatedMonumentDist < 500 ? styles.statusWarning : styles.statusSuccess}`}>
-                            {simulatedMonumentDist} m
-                          </span>
-                          <span className={styles.indicatorStatus}>
-                            {simulatedMonumentDist < 500 
-                              ? `Situé à ${simulatedMonumentDist}m d'un monument historique${monumentName ? ` (${monumentName})` : ''}. Avis de l'Architecte des Bâtiments de France (ABF) requis.` 
-                              : `Hors périmètre de protection historique (plus proche monument à ${simulatedMonumentDist}m).`}
-                          </span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Zonage PLU</span>
-                          <span className={styles.indicatorValue}>{realPluZone}</span>
-                          <span className={styles.indicatorStatus}>
-                            {realPluDesc || "Règlementation favorable à la densification douce."}
-                          </span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Natura 2000</span>
-                          <span className={`${styles.indicatorValue} ${realNatura !== 'Non concerné' ? styles.statusWarning : styles.statusSuccess}`}>
-                            {realNatura}
-                          </span>
-                          <span className={styles.indicatorStatus}>
-                            {realNatura !== 'Non concerné' 
-                              ? "Présence d'un espace naturel d'importance écologique. Mesures environnementales spécifiques à prévoir." 
-                              : "Aucune contrainte d'espace naturel protégé (Natura 2000 / ZNIEFF) détectée sur la parcelle."}
-                          </span>
-                        </div>
+                        <DataIndicator
+                          label={t('eco.heritage.monuments') || 'Monument historique le plus proche (1 km)'}
+                          unavailable={ecoData.monumentsUnavailable}
+                          empty={
+                            !ecoData.monumentsUnavailable &&
+                            !ecoData.monumentsNoneInRadius &&
+                            ecoData.monumentDist == null &&
+                            !ecoData.monumentName
+                          }
+                          value={
+                            ecoData.monumentsNoneInRadius
+                              ? (t('eco.no_monument_1km') || 'Aucun monument répertorié dans un rayon de 1 km')
+                              : ecoData.monumentDist != null
+                                ? `${ecoData.monumentDist} m${ecoData.monumentName ? ` — ${ecoData.monumentName}` : ''}`
+                                : ecoData.monumentName
+                                  ? ecoData.monumentName
+                                  : null
+                          }
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          hint={
+                            ecoData.monumentDist != null && ecoData.monumentDist < 500 ? 'warning' : ecoData.monumentsNoneInRadius ? 'success' : undefined
+                          }
+                        />
+                        <DataIndicator
+                          label={t('eco.heritage.plu') || 'Zonage PLU (GPU)'}
+                          unavailable={ecoData.pluUnavailable}
+                          empty={ecoData.pluNoZoneAtPoint}
+                          value={ecoData.pluZone ? `${ecoData.pluZone}${ecoData.pluDesc ? ` — ${ecoData.pluDesc}` : ''}` : null}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.pluSource)}
+                        />
+                        <DataIndicator
+                          label={t('eco.heritage.natura2000') || 'Natura 2000 (IGN)'}
+                          unavailable={ecoData.naturaUnavailable}
+                          empty={ecoData.naturaNoneAtPoint}
+                          value={ecoData.naturaSites?.length ? ecoData.naturaSites.join(' ; ') : null}
+                          unavailableText={unavailableText}
+                          emptyText={noDataText}
+                          sourceNote={formatDataSource(t, ecoData.naturaSource)}
+                          hint={ecoData.naturaSites?.length ? 'warning' : undefined}
+                        />
                       </div>
                     </div>
                   )}
@@ -1188,6 +1124,11 @@ export default function EcoDiagnosticClient() {
             </div>
           )}
         </div>
+      </div>
+
+      <div className={styles.simulatorNote}>
+        <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+        <p>{t('eco.simulator_note')}</p>
       </div>
     </div>
   );

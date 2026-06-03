@@ -837,11 +837,11 @@ export default function SimulateurDivisionClient() {
             maxZoom={22}
             style={{ height: '100%', width: '100%' }}
             scrollWheelZoom={true}
+            attributionControl={false}
           >
             <ChangeView center={mapCenter} zoom={zoomLevel} bounds={parcelBounds} />
             <MapEventsHandler onMapClick={handleMapClick} />
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
               maxZoom={22}
               maxNativeZoom={20}
@@ -849,7 +849,6 @@ export default function SimulateurDivisionClient() {
             
             {/* Couche transparente officielle du cadastre (OpenStreetMap France) */}
             <TileLayer
-              attribution='&copy; Direction générale des Finances publiques - Cadastre'
               url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
               tms={true}
               opacity={0.6}

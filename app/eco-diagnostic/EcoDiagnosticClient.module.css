@@ -269,6 +269,29 @@
   color: #ef4444;
 }
 
+.statusMuted {
+  color: #64748b;
+  font-style: italic;
+}
+
+.apiWarningBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.apiWarningList {
+  margin: 0.5rem 0 0 1rem;
+  padding: 0;
+  color: var(--text-light);
+}
+
 .scoreBanner {
   background: var(--bg-white);
   border-radius: var(--border-radius-lg);
@@ -542,6 +565,24 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-left: auto;
+}
+
+.simulatorNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1rem;
+  color: #92400e;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-top: 2rem;
+}
+
+.simulatorNote p {
+  margin: 0;
 }
 
 @keyframes pulse {

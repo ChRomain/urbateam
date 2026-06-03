@@ -8,7 +8,8 @@ import {
   Ruler, 
   Scale, 
   RefreshCw, 
-  AlertCircle, 
+  AlertCircle,
+  AlertTriangle,
   MapPin, 
   Sliders, 
   Download, 
@@ -723,6 +724,7 @@ export default function ProfilLongClient() {
             zoom={zoomLevel} 
             style={{ height: '100%', width: '100%', borderRadius: '15px' }}
             scrollWheelZoom={true}
+            attributionControl={false}
           >
             <ChangeView 
               center={
@@ -739,13 +741,11 @@ export default function ProfilLongClient() {
             <MapEventsHandler onMapClick={handleMapClick} />
             
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
             />
             
             {/* Couche Cadastre transparente de l'IGN pour une dimension pro BTP */}
             <TileLayer
-              attribution='&copy; Direction générale des Finances publiques - Cadastre'
               url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
               tms={true}
               opacity={0.3}
@@ -952,6 +952,11 @@ export default function ProfilLongClient() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <div className={styles.simulatorNote}>
+        <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+        <p>{t('profil_long.simulator_note')}</p>
+      </div>
     </div>
   );
 }
