@@ -9,21 +9,27 @@ const LanguageContext = createContext();
 
 const translations = { fr, en, br };
 
-export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('fr');
+export function LanguageProvider({ children, defaultLanguage = 'fr' }) {
+  const [language, setLanguage] = useState(defaultLanguage);
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('urbateam-lang');
-    if (savedLang && (savedLang === 'fr' || savedLang === 'en' || savedLang === 'br')) {
-      setTimeout(() => {
-        setLanguage(savedLang);
-      }, 0);
-    }
-  }, []);
+    setLanguage(defaultLanguage);
+  }, [defaultLanguage]);
 
   const switchLanguage = (lang) => {
     setLanguage(lang);
     localStorage.setItem('urbateam-lang', lang);
+    
+    // Mémoriser dans le cookie pour que le serveur Next.js soit au courant dès le prochain chargement
+    document.cookie = `urbateam-lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+
+    // Rediriger vers l'URL correspondante (ex: de /apropos à /en/apropos ou inversement)
+    const pathname = window.location.pathname;
+    const cleanPath = pathname.replace(/^\/(en|br)/, '');
+    const targetPath = lang === 'fr' ? (cleanPath || '/') : `/${lang}${cleanPath}`;
+    const search = window.location.search;
+    
+    window.location.href = targetPath + search;
   };
 
   const t = (keypath) => {

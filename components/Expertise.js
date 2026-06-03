@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
+import Link from '@/components/Link';
 import Image from 'next/image';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Map, Ruler, Droplets, Trophy, Compass, Layers, ArrowRight, Crosshair, Check } from 'lucide-react';

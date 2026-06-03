@@ -7,6 +7,7 @@ import BackToTop from '../components/BackToTop';
 import CookieBanner from '../components/CookieBanner';
 import StatsTracker from '../components/StatsTracker';
 import { LanguageProvider } from '../context/LanguageContext';
+import { headers } from 'next/headers';
 
 
 const montserrat = Montserrat({
@@ -72,25 +73,35 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headersList = await headers();
+  const lang = headersList.get('x-locale') || 'fr';
+  const pathname = headersList.get('x-pathname') || '/';
+
+  // Calculer les URLs alternatives pour chaque langue
+  const cleanPath = pathname.replace(/^\/(en|br)/, '') || '';
+  const canonicalUrl = `https://urbateam.fr${pathname === '/' ? '' : pathname}`;
+  const frUrl = `https://urbateam.fr${cleanPath}`;
+  const enUrl = `https://urbateam.fr/en${cleanPath}`;
+  const brUrl = `https://urbateam.fr/br${cleanPath}`;
+
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https://www.google.com; media-src 'self' https://assets.mixkit.co https://player.vimeo.com https://vimeo.com https://*.pexels.com https://*.vimeocdn.com;" />
         <meta name="permissions-policy" content="geolocation=(self), camera=(), microphone=(), payment=()" />
         
         {/* Hreflang - Signaux multilingues pour les moteurs de recherche */}
-        <link rel="canonical" href="https://urbateam.fr" />
-        <link rel="alternate" hrefLang="fr" href="https://urbateam.fr" />
-        <link rel="alternate" hrefLang="en" href="https://urbateam.fr" />
-        <link rel="alternate" hrefLang="br" href="https://urbateam.fr" />
-        <link rel="alternate" hrefLang="x-default" href="https://urbateam.fr" />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="fr" href={frUrl} />
+        <link rel="alternate" hrefLang="en" href={enUrl} />
+        <link rel="alternate" hrefLang="br" href={brUrl} />
+        <link rel="alternate" hrefLang="x-default" href={frUrl} />
 
         {/* DNS & Connection Optimization */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://www.google.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Note : Google Fonts n'est plus utilisé ici — next/font auto-héberge les polices */}
+        {/* On préconnecte uniquement aux domaines tiers réellement utilisés à l'écran */}
         <link rel="preconnect" href="https://www.google.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
 
         {/* JSON-LD: ProfessionalService & LocalBusiness branches */}
         <script
@@ -203,7 +214,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${montserrat.variable} ${righteous.variable}`}>
-        <LanguageProvider>
+        <LanguageProvider defaultLanguage={lang}>
           <ScrollProgress key="scroll-progress" />
           <BackToTop key="back-to-top" />
           <CookieBanner key="cookie-banner" />
