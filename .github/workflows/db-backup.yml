@@ -50,6 +50,7 @@ jobs:
         env:
           PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+          DB_HOST_SECRET: ${{ secrets.SUPABASE_DB_HOST }}
         run: |
           set -eo pipefail
           
@@ -69,9 +70,29 @@ jobs:
           # Générer le nom de fichier avec la date du jour
           FILENAME="db_backups/backup_$(date +%Y-%m-%d).sql.gz"
           
+          # Déterminer les paramètres de connexion
+          # Si un host personnalisé est spécifié (ex: le pooler aws-0-eu-west-3.pooler.supabase.com), on utilise le port 6543
+          if [ -n "$DB_HOST_SECRET" ]; then
+            DB_HOST="$DB_HOST_SECRET"
+            DB_PORT="6543"
+            DB_USER="postgres.${PROJECT_ID}"
+            echo "ℹ️ Connexion via le Pooler de connexion Supabase (IPv4 compatible) :"
+            echo "   Host : $DB_HOST"
+            echo "   Port : $DB_PORT"
+            echo "   User : $DB_USER"
+          else
+            DB_HOST="db.${PROJECT_ID}.supabase.co"
+            DB_PORT="5432"
+            DB_USER="postgres"
+            echo "⚠️ Connexion directe (IPv6 uniquement pour les projets gratuits) :"
+            echo "   Host : $DB_HOST"
+            echo "   Port : $DB_PORT"
+            echo "   User : $DB_USER"
+            echo "   (Si vous rencontrez une erreur 'Network is unreachable', veuillez configurer le secret SUPABASE_DB_HOST)"
+          fi
+
           echo "Démarrage du dump de la base de données Supabase..."
-          # Utilisation de pg_dump via le host direct de Supabase
-          pg_dump -h "db.${PROJECT_ID}.supabase.co" -U postgres -d postgres | gzip > "$FILENAME"
+          pg_dump -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d postgres | gzip > "$FILENAME"
           echo "Dump terminé avec succès : $FILENAME"
 
       - name: 🗑️ Apply 7-day Retention Policy
