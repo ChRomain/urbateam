@@ -518,8 +518,8 @@ export default function SimulateurDivisionClient() {
   }, [cadastreGeoJson]);
 
   // Réglementation (PLU) - Pastilles
-  const isLotASurfaceValid = surfaceLotA >= 250;
-  const isLotBSurfaceValid = surfaceLotB >= 250;
+  const isLotASurfaceValid = surfaceLotA >= 150;
+  const isLotBSurfaceValid = surfaceLotB >= 150;
   const isFormValid = isLotASurfaceValid && isLotBSurfaceValid && hasAccess;
 
   return (

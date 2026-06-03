@@ -40,7 +40,7 @@ import {
 } from 'recharts';
 import { supabase } from '../../lib/supabase';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 // Fix pour les icônes par défaut de Leaflet
 if (typeof window !== 'undefined') {
@@ -121,6 +121,16 @@ export default function EcoDiagnosticClient() {
   const [simulatedMonumentDist, setSimulatedMonumentDist] = useState(600); // 10m à 1000m
   const [simulatedExposure, setSimulatedExposure] = useState('south'); // north, east, west, south
   const [simulatedWetZone, setSimulatedWetZone] = useState(false); // true/false
+
+  // Données réelles récoltées des APIs publiques
+  const [monumentName, setMonumentName] = useState('');
+  const [realInundation, setRealInundation] = useState('Hors PPRI (Favorable)');
+  const [realNappe, setRealNappe] = useState('Aucun risque de remontée de nappe');
+  const [realPluZone, setRealPluZone] = useState('Zone U (Urbaine)');
+  const [realPluDesc, setRealPluDesc] = useState('');
+  const [realNatura, setRealNatura] = useState('Non concerné');
+  const [realSeisme, setRealSeisme] = useState('Faible');
+  const [realRadon, setRealRadon] = useState('Faible');
 
   // Onglet actif pour les fiches de risques
   const [activeTab, setActiveTab] = useState('soil');
@@ -228,12 +238,25 @@ export default function EcoDiagnosticClient() {
           let finalExposure = expSeed === 0 ? 'north' : expSeed === 1 ? 'east' : expSeed === 2 ? 'west' : 'south';
           let finalWetZone = gpsSum % 5 === 0;
 
+          // Données géographiques et de risques réelles
+          let finalMonumentName = '';
+          let finalInundation = 'Hors PPRI (Favorable)';
+          let finalNappe = 'Aucun risque de remontée de nappe';
+          let finalPluZone = 'Zone U (Urbaine)';
+          let finalPluDesc = '';
+          let finalNatura = 'Non concerné';
+          let finalSeisme = 'Risque Existant - faible';
+          let finalRadon = 'Risque Existant - faible';
+
           // Tentative d'appel des APIs publiques réelles en arrière-plan
           try {
-            const [argilesRes, monumentsRes, altiRes] = await Promise.all([
+            const [argilesRes, monumentsRes, altiRes, inondationsRes, pluRes, naturaRes] = await Promise.all([
               fetch(`/api/cadastre?action=argiles&lat=${lat}&lon=${lon}`),
               fetch(`/api/cadastre?action=monuments&lat=${lat}&lon=${lon}`),
-              fetch(`/api/cadastre?action=alti&lat=${lat}&lon=${lon}`)
+              fetch(`/api/cadastre?action=alti&lat=${lat}&lon=${lon}`),
+              fetch(`/api/cadastre?action=inondations&lat=${lat}&lon=${lon}`),
+              fetch(`/api/cadastre?action=plu&lat=${lat}&lon=${lon}`),
+              fetch(`/api/cadastre?action=natura2000&lat=${lat}&lon=${lon}`)
             ]);
 
             if (argilesRes.ok) {
@@ -252,6 +275,7 @@ export default function EcoDiagnosticClient() {
                 const record = monumentsData.records[0];
                 const distance = Math.round(record.fields.dist || monumentSeed);
                 finalMonumentDist = Math.min(1000, Math.max(10, distance));
+                finalMonumentName = record.fields.titre_editorial_de_la_notice || '';
               }
             }
 
@@ -262,8 +286,75 @@ export default function EcoDiagnosticClient() {
                 finalSlope = Math.min(40, Math.max(0, Math.round(z % 18))); // Émulation altimétrique
               }
             }
+
+            if (inondationsRes.ok) {
+              const inondationsData = await inondationsRes.json();
+              if (inondationsData.risquesNaturels) {
+                if (inondationsData.risquesNaturels.inondation) {
+                  const inond = inondationsData.risquesNaturels.inondation;
+                  if (inond.present) {
+                    finalInundation = inond.libelleStatutAdresse || 'Risque Existant';
+                  }
+                }
+                if (inondationsData.risquesNaturels.remonteeNappe) {
+                  const nappe = inondationsData.risquesNaturels.remonteeNappe;
+                  if (nappe.present) {
+                    finalNappe = nappe.libelleStatutAdresse || 'Risque Existant';
+                  }
+                }
+                if (inondationsData.risquesNaturels.seisme) {
+                  const seisme = inondationsData.risquesNaturels.seisme;
+                  finalSeisme = seisme.libelleStatutAdresse || 'Risque Existant - faible';
+                }
+                if (inondationsData.risquesNaturels.radon) {
+                  const radon = inondationsData.risquesNaturels.radon;
+                  finalRadon = radon.libelleStatutAdresse || 'Risque Existant - faible';
+                }
+              }
+            }
+
+            if (pluRes.ok) {
+              const pluData = await pluRes.json();
+              if (pluData.features && pluData.features.length > 0) {
+                const f = pluData.features[0];
+                finalPluZone = `Zone ${f.properties.libelle || f.properties.typezone || 'U'}`;
+                finalPluDesc = f.properties.libelong || '';
+              }
+            }
+
+            if (naturaRes.ok) {
+              const naturaData = await naturaRes.json();
+              const sites = [];
+              if (naturaData.habitats && naturaData.habitats.length > 0) {
+                naturaData.habitats.forEach(h => {
+                  if (h.properties && h.properties.sitename) {
+                    sites.push(`${h.properties.sitename} (Directive Habitats)`);
+                  }
+                });
+              }
+              if (naturaData.oiseaux && naturaData.oiseaux.length > 0) {
+                naturaData.oiseaux.forEach(o => {
+                  if (o.properties && o.properties.sitename) {
+                    sites.push(`${o.properties.sitename} (Directive Oiseaux)`);
+                  }
+                });
+              }
+              if (sites.length > 0) {
+                const uniqueSites = [...new Set(sites)];
+                finalNatura = `Concerné : ${uniqueSites.join(', ')}`;
+              } else {
+                finalNatura = 'Non concerné';
+              }
+            }
           } catch (apiErr) {
             console.warn('Real APIs failed, fallback active:', apiErr.message);
+          }
+
+          // Détermination dynamique de la présence de zone humide si risques hydrogéologiques existants
+          if (finalInundation.includes('Existant') || finalNappe.includes('Existant')) {
+            finalWetZone = true;
+          } else {
+            finalWetZone = false;
           }
 
           setSimulatedSlope(finalSlope);
@@ -271,6 +362,15 @@ export default function EcoDiagnosticClient() {
           setSimulatedMonumentDist(finalMonumentDist);
           setSimulatedExposure(finalExposure);
           setSimulatedWetZone(finalWetZone);
+
+          setMonumentName(finalMonumentName);
+          setRealInundation(finalInundation);
+          setRealNappe(finalNappe);
+          setRealPluZone(finalPluZone);
+          setRealPluDesc(finalPluDesc);
+          setRealNatura(finalNatura);
+          setRealSeisme(finalSeisme);
+          setRealRadon(finalRadon);
         } else {
           setErrorMsg('cadastre.error_no_parcel');
         }
@@ -314,65 +414,62 @@ export default function EcoDiagnosticClient() {
   const diagnosisScores = useMemo(() => {
     if (!cadastreInfo) return null;
 
-    // 1. SOL & RISQUES GÉOLOGIQUES
+    // 1. SOL & RISQUES GÉOLOGIQUES (Clay, Seismicity, Radon)
     let soilVal = 100;
     if (simulatedClay === 'medium') soilVal -= 15;
     if (simulatedClay === 'high') soilVal -= 40;
-    soilVal -= simulatedSlope * 0.8;
+    
+    const lowSeism = realSeisme.toLowerCase();
+    if (lowSeism.includes('moyen') || lowSeism.includes('fort') || lowSeism.includes('modéré')) {
+      soilVal -= 20;
+    } else if (lowSeism.includes('faible') && !lowSeism.includes('très faible')) {
+      soilVal -= 5;
+    }
+    
+    const lowRadon = realRadon.toLowerCase();
+    if (lowRadon.includes('important') || lowRadon.includes('fort') || lowRadon.includes('moyen')) {
+      soilVal -= 20;
+    }
     const soilScore = Math.max(10, Math.min(100, Math.round(soilVal)));
 
-    // 2. GESTION DE L'EAU
+    // 2. GESTION DE L'EAU (Flooding PPRI, Groundwater rise)
     let waterVal = 100;
-    if (simulatedWetZone) waterVal -= 50;
-    // Si la pente est trop faible, léger risque de stagnation, si trop forte, ruissellement
-    if (simulatedSlope < 2) waterVal -= 10;
-    if (simulatedSlope > 20) waterVal -= 15;
+    if (realInundation !== 'Hors PPRI (Favorable)') {
+      waterVal -= 50;
+    }
+    const lowNappe = realNappe.toLowerCase();
+    if (lowNappe.includes('existant') || (lowNappe.includes('risque') && !lowNappe.includes('aucun') && !lowNappe.includes('faible'))) {
+      waterVal -= 30;
+    }
     const waterScore = Math.max(10, Math.min(100, Math.round(waterVal)));
 
-    // 3. SOLAIRE & CLIMAT
-    let climateVal = 60; // Base de départ
-    if (simulatedExposure === 'south') climateVal += 40;
-    if (simulatedExposure === 'west') climateVal += 25;
-    if (simulatedExposure === 'east') climateVal += 20;
-    if (simulatedExposure === 'north') climateVal += 5;
-    // Le vent en Bretagne littoral
-    if (centroid && centroid[0] > 48.3) climateVal -= 5; 
-    const climateScore = Math.max(10, Math.min(100, Math.round(climateVal)));
-
-    // 4. PATRIMOINE & REGLES
+    // 3. PATRIMOINE & REGLES (Heritage / Urbanisme)
     let heritageVal = 100;
     if (simulatedMonumentDist < 500) {
       heritageVal -= (500 - simulatedMonumentDist) * 0.15; // Fortes contraintes ABF
     }
+    if (realNatura !== 'Non concerné') {
+      heritageVal -= 30; // Natura 2000
+    }
     const heritageScore = Math.max(10, Math.min(100, Math.round(heritageVal)));
 
-    // 5. RESEAUX & VIABILITE
-    let viabilityVal = 95;
-    // Plus la pente est forte, plus la viabilisation assainissement est chère
-    if (simulatedSlope > 15) viabilityVal -= 15;
-    const viabilityScore = Math.max(10, Math.min(100, Math.round(viabilityVal)));
-
-    const overallScore = Math.round((soilScore + waterScore + climateScore + heritageScore + viabilityScore) / 5);
+    const overallScore = Math.round((soilScore + waterScore + heritageScore) / 3);
 
     return {
       soil: soilScore,
       water: waterScore,
-      climate: climateScore,
       heritage: heritageScore,
-      viability: viabilityScore,
       overall: overallScore
     };
-  }, [cadastreInfo, simulatedSlope, simulatedClay, simulatedMonumentDist, simulatedExposure, simulatedWetZone, centroid]);
+  }, [cadastreInfo, simulatedClay, simulatedMonumentDist, realSeisme, realRadon, realInundation, realNappe, realNatura]);
 
-  // Formater les données pour le Radar Chart de Recharts
+  // Formater les données pour le Radar Chart de Recharts (Triangle Sol, Eau, Patrimoine)
   const chartData = useMemo(() => {
     if (!diagnosisScores) return [];
     return [
-      { subject: t('eco.axes.soil') || 'Sol', A: diagnosisScores.soil, fullMark: 100 },
-      { subject: t('eco.axes.water') || 'Eau', A: diagnosisScores.water, fullMark: 100 },
-      { subject: t('eco.axes.climate') || 'Climat', A: diagnosisScores.climate, fullMark: 100 },
-      { subject: t('eco.axes.heritage') || 'Patrimoine', A: diagnosisScores.heritage, fullMark: 100 },
-      { subject: t('eco.axes.viability') || 'Viabilité', A: diagnosisScores.viability, fullMark: 100 }
+      { subject: t('eco.axes.soil') || 'Sol & Risques', A: diagnosisScores.soil, fullMark: 100 },
+      { subject: t('eco.axes.water') || 'Eau & Inondations', A: diagnosisScores.water, fullMark: 100 },
+      { subject: t('eco.axes.heritage') || 'Urbanisme & Patrimoine', A: diagnosisScores.heritage, fullMark: 100 }
     ];
   }, [diagnosisScores, t]);
 
@@ -395,7 +492,20 @@ export default function EcoDiagnosticClient() {
           parcel_ref: `Section ${cadastreInfo.section} n°${cadastreInfo.numero} (${cadastreInfo.commune})`,
           surface: `${cadastreInfo.surface} m²`,
           overall_score: diagnosisScores.overall,
-          scores: diagnosisScores,
+          scores: {
+            ...diagnosisScores,
+            simulatedSlope,
+            simulatedClay,
+            simulatedMonumentDist,
+            simulatedExposure,
+            simulatedWetZone,
+            monumentName,
+            realInundation,
+            realNappe,
+            realPluZone,
+            realPluDesc,
+            realNatura
+          },
           client_name: clientName,
           client_email: clientEmail,
           client_phone: clientPhone || null,
@@ -471,13 +581,13 @@ export default function EcoDiagnosticClient() {
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(14);
     doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-    doc.text(`SCORE GLOBAL DE VIABILITE : ${diagnosisScores.overall} / 100`, 25, 125);
+    doc.text(`SCORE GLOBAL D'ECO-DIAGNOSTIC : ${diagnosisScores.overall} / 100`, 25, 125);
 
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139);
     doc.text("Ce score reflète l'adéquation de la parcelle vis-à-vis des contraintes géologiques,", 25, 131);
-    doc.text("hydrologiques, thermiques et règlementaires calculées à l'aide d'algorithmes géospatiaux.", 25, 135);
+    doc.text("hydrologiques et réglementaires calculées à l'aide des bases de données publiques de l'État.", 25, 135);
 
     // Tableau des Scores Détaillés
     doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
@@ -486,14 +596,12 @@ export default function EcoDiagnosticClient() {
     doc.text("Analyse thématique multicritère", 15, 148);
 
     const tableData = [
-      [t('eco.axes.soil') || "Sol & Risques", `${diagnosisScores.soil} / 100`, simulatedClay === 'high' || simulatedSlope > 20 ? "Contraintes fortes" : "Favorable"],
-      [t('eco.axes.water') || "Gestion de l'Eau", `${diagnosisScores.water} / 100`, simulatedWetZone ? "Risque de zone humide" : "Favorable"],
-      [t('eco.axes.climate') || "Solaire & Climat", `${diagnosisScores.climate} / 100`, simulatedExposure === 'south' ? "Excellente exposition" : "Modéré"],
-      [t('eco.axes.heritage') || "Patrimoine & Règles", `${diagnosisScores.heritage} / 100`, simulatedMonumentDist < 500 ? "Avis Architecte des Bâtiments de France requis" : "Aucun périmètre classé"],
-      [t('eco.axes.viability') || "Réseaux & Accès", `${diagnosisScores.viability} / 100`, "Raccordable à proximité immédiate"]
+      [t('eco.axes.soil') || "Sol & Risques", `${diagnosisScores.soil} / 100`, simulatedClay === 'high' ? "Alerte Argiles (Fort)" : "Sol favorable"],
+      [t('eco.axes.water') || "Gestion de l'Eau", `${diagnosisScores.water} / 100`, realInundation !== 'Hors PPRI (Favorable)' ? `PPRI (${realInundation})` : "Faible risque hydrologique"],
+      [t('eco.axes.heritage') || "Patrimoine & Urbanisme", `${diagnosisScores.heritage} / 100`, simulatedMonumentDist < 500 ? `ABF requis (${realPluZone})` : "Aucun périmètre classé"]
     ];
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 154,
       head: [['Thématique de Diagnostic', 'Note d\'évaluation', 'Observations techniques']],
       body: tableData,
@@ -516,16 +624,17 @@ export default function EcoDiagnosticClient() {
       doc.text("- Argile gonflante détectée : Des fondations profondes (micro-pieux) sont fortement recommandées.", 15, textOffset);
       textOffset += 7;
     }
-    if (simulatedWetZone) {
-      doc.text("- Risque Hydrologique : Une étude de sol de type G1/G2 avec sondage hydrogéologique est nécessaire.", 15, textOffset);
+    if (realInundation !== 'Hors PPRI (Favorable)' || realNappe !== 'Aucun risque de remontée de nappe') {
+      doc.text(`- Risque Hydrologique : Zone PPRI (${realInundation}) / Nappe (${realNappe}). Étude hydrogéologique requise.`, 15, textOffset);
       textOffset += 7;
     }
     if (simulatedMonumentDist < 500) {
-      doc.text("- Périmètre historique (ABF) : Le projet architectural devra respecter la charte locale des matériaux.", 15, textOffset);
+      doc.text(`- Périmètre Monument Historique : ${monumentName || "Monument"} à ${simulatedMonumentDist}m. Avis ABF obligatoire.`, 15, textOffset);
       textOffset += 7;
     }
-    if (simulatedSlope > 15) {
-      doc.text("- Pente supérieure à 15% : Prévoir des terrassements spécifiques (cubatures de déblais/remblais).", 15, textOffset);
+    if (realPluZone) {
+      const pluShort = realPluDesc ? (realPluDesc.length > 75 ? realPluDesc.substring(0, 75) + "..." : realPluDesc) : "";
+      doc.text(`- Réglementation d'urbanisme : Classé en ${realPluZone} : ${pluShort}`, 15, textOffset);
       textOffset += 7;
     }
 
@@ -561,7 +670,7 @@ export default function EcoDiagnosticClient() {
               </span>
             ) : (
               <span className={styles.introText}>
-                <strong>Diagnostic chargé !</strong> Utilisez les curseurs de simulation dans le panneau de gauche pour affiner les contraintes réelles de votre projet.
+                <strong>Diagnostic chargé !</strong> Retrouvez ci-dessous les contraintes réelles de votre projet issues des bases de données publiques de l'État.
               </span>
             )}
           </div>
@@ -663,88 +772,6 @@ export default function EcoDiagnosticClient() {
                 exit={{ opacity: 0 }}
                 className={styles.sidebar}
               >
-                {/* Curseurs de simulation interactive */}
-                <GlassCard style={{ padding: '1.5rem' }}>
-                  <h4 className={styles.simHeader}>
-                    <Sliders size={16} />
-                    Ajuster les caractéristiques
-                    <span className={styles.interactiveBadge}>Interactif</span>
-                  </h4>
-
-                  {/* Curseur de Pente */}
-                  <div className={styles.controlGroup}>
-                    <label className={styles.controlLabel}>
-                      <span>{t('eco.soil.slope') || "Pente moyenne"}</span>
-                      <span className={styles.controlVal}>{simulatedSlope}%</span>
-                    </label>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="40" 
-                      value={simulatedSlope}
-                      onChange={(e) => setSimulatedSlope(parseInt(e.target.value))}
-                      className={styles.rangeSlider}
-                    />
-                  </div>
-
-                  {/* Argile Select */}
-                  <div className={styles.controlGroup} style={{ marginTop: '0.8rem' }}>
-                    <label className={styles.controlLabel} style={{ marginBottom: '4px' }}>
-                      <span>{t('eco.soil.clay_level') || "Risque Argile (G1/G2)"}</span>
-                    </label>
-                    <select
-                      value={simulatedClay}
-                      onChange={(e) => setSimulatedClay(e.target.value)}
-                      style={{ padding: '0.4rem', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '0.85rem', outline: 'none' }}
-                    >
-                      <option value="low">Faible (Zone sableuse/rocheuse)</option>
-                      <option value="medium">Moyen (Silt / Limon breton)</option>
-                      <option value="high">Élevé (Argiles gonflantes)</option>
-                    </select>
-                  </div>
-
-                  {/* Monument Distance Slider */}
-                  <div className={styles.controlGroup} style={{ marginTop: '0.8rem' }}>
-                    <label className={styles.controlLabel}>
-                      <span>{t('eco.heritage.monuments') || "Distance monument historique"}</span>
-                      <span className={styles.controlVal}>{simulatedMonumentDist} m</span>
-                    </label>
-                    <input 
-                      type="range" 
-                      min="10" 
-                      max="1000" 
-                      value={simulatedMonumentDist}
-                      onChange={(e) => setSimulatedMonumentDist(parseInt(e.target.value))}
-                      className={styles.rangeSlider}
-                    />
-                  </div>
-
-                  {/* Zone Humide toggle */}
-                  <div className={styles.controlGroup} style={{ marginTop: '0.8rem', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-light)' }}>
-                      {t('eco.water.wet_zone') || "Zone humide identifiée"}
-                    </span>
-                    <label className={styles.switch} style={{ position: 'relative', display: 'inline-block', width: '34px', height: '20px' }}>
-                      <input 
-                        type="checkbox" 
-                        checked={simulatedWetZone}
-                        onChange={(e) => setSimulatedWetZone(e.target.checked)}
-                        style={{ opacity: 0, width: 0, height: 0 }}
-                      />
-                      <span style={{
-                        position: 'absolute', cursor: 'pointer', top: 0, left: 0, right: 0, bottom: 0,
-                        backgroundColor: simulatedWetZone ? 'var(--primary-color)' : '#cbd5e1',
-                        borderRadius: '20px', transition: '.4s'
-                      }}>
-                        <span style={{
-                          position: 'absolute', content: '""', height: '14px', width: '14px', left: simulatedWetZone ? '16px' : '3px', bottom: '3px',
-                          backgroundColor: 'white', borderRadius: '50%', transition: '.4s'
-                        }}></span>
-                      </span>
-                    </label>
-                  </div>
-                </GlassCard>
-
                 {/* Formulaire de Lead */}
                 <GlassCard style={{ padding: '1.5rem' }}>
                   {leadSuccess ? (
@@ -994,25 +1021,11 @@ export default function EcoDiagnosticClient() {
                   {t('eco.axes.water') || "Gestion de l'Eau"}
                 </button>
                 <button 
-                  className={`${styles.tabButton} ${activeTab === 'climate' ? styles.tabButtonActive : ''}`}
-                  onClick={() => setActiveTab('climate')}
-                >
-                  <Sun size={14} />
-                  {t('eco.axes.climate') || "Solaire & Climat"}
-                </button>
-                <button 
                   className={`${styles.tabButton} ${activeTab === 'heritage' ? styles.tabButtonActive : ''}`}
                   onClick={() => setActiveTab('heritage')}
                 >
                   <Building2 size={14} />
                   {t('eco.axes.heritage') || "Patrimoine & Règles"}
-                </button>
-                <button 
-                  className={`${styles.tabButton} ${activeTab === 'viability' ? styles.tabButtonActive : ''}`}
-                  onClick={() => setActiveTab('viability')}
-                >
-                  <TreePine size={14} />
-                  {t('eco.axes.viability') || "Réseaux & Accès"}
                 </button>
               </div>
 
@@ -1035,7 +1048,7 @@ export default function EcoDiagnosticClient() {
                       
                       <div className={styles.tabGrid}>
                         <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.soil.clay_level')}</span>
+                          <span className={styles.indicatorLabel}>{t('eco.soil.clay_level') || "Retrait-gonflement des argiles"}</span>
                           <span className={`${styles.indicatorValue} ${simulatedClay === 'high' ? styles.statusDanger : simulatedClay === 'medium' ? styles.statusWarning : styles.statusSuccess}`}>
                             {simulatedClay === 'high' ? 'Aléa Fort (Argiles)' : simulatedClay === 'medium' ? 'Aléa Moyen' : 'Aléa Faible'}
                           </span>
@@ -1047,21 +1060,40 @@ export default function EcoDiagnosticClient() {
                         </div>
 
                         <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.soil.slope')}</span>
-                          <span className={`${styles.indicatorValue} ${simulatedSlope > 15 ? styles.statusWarning : styles.statusSuccess}`}>
-                            {simulatedSlope} %
-                          </span>
-                          <span className={styles.indicatorStatus}>
-                            {simulatedSlope > 15 
-                              ? 'Pente forte. Risque de glissement de terrain à modérer.' 
-                              : 'Pente douce idéale pour aménagement.'}
-                          </span>
+                          <span className={styles.indicatorLabel}>Sismicité</span>
+                          {(() => {
+                            const isHigh = realSeisme.includes('moyen') || realSeisme.includes('fort');
+                            const isLow = realSeisme.includes('faible') || realSeisme.includes('très faible');
+                            const seismClass = isHigh ? styles.statusDanger : isLow ? styles.statusSuccess : styles.statusWarning;
+                            const seismValue = realSeisme.includes('faible') ? 'Zone 2 (Faible)' : realSeisme.includes('très faible') ? 'Zone 1 (Très Faible)' : realSeisme.includes('modéré') ? 'Zone 3 (Modéré)' : realSeisme;
+                            const seismStatus = (isHigh || realSeisme.includes('modéré')) 
+                              ? 'Normes parasismiques renforcées obligatoires pour la structure du bâtiment.' 
+                              : 'Règles de construction parasismiques standard applicables.';
+                            return (
+                              <>
+                                <span className={`${styles.indicatorValue} ${seismClass}`}>{seismValue}</span>
+                                <span className={styles.indicatorStatus}>{seismStatus}</span>
+                              </>
+                            );
+                          })()}
                         </div>
 
                         <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Sismicité</span>
-                          <span className={styles.indicatorValue}>Zone 2 (Faible)</span>
-                          <span className={styles.indicatorStatus}>Règles de construction parasismiques standard.</span>
+                          <span className={styles.indicatorLabel}>Risque Radon</span>
+                          {(() => {
+                            const isHigh = realRadon.includes('important') || realRadon.includes('fort');
+                            const isLow = realRadon.includes('faible') || realRadon.includes('non concerné');
+                            const radonClass = isHigh ? styles.statusDanger : isLow ? styles.statusSuccess : styles.statusWarning;
+                            const radonStatus = isHigh 
+                              ? 'Présence potentielle de radon significative dans le sol (roches granitiques). Ventilation renforcée du sous-sol fortement recommandée.' 
+                              : 'Niveau d\'exposition au radon faible ou standard. Précautions d\'usage.';
+                            return (
+                              <>
+                                <span className={`${styles.indicatorValue} ${radonClass}`}>{realRadon}</span>
+                                <span className={styles.indicatorStatus}>{radonStatus}</span>
+                              </>
+                            );
+                          })()}
                         </div>
                       </div>
                     </div>
@@ -1077,65 +1109,32 @@ export default function EcoDiagnosticClient() {
                       
                       <div className={styles.tabGrid}>
                         <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.water.wet_zone')}</span>
-                          <span className={`${styles.indicatorValue} ${simulatedWetZone ? styles.statusDanger : styles.statusSuccess}`}>
-                            {simulatedWetZone ? 'Présence détectée' : 'Aucune zone humide'}
-                          </span>
-                          <span className={styles.indicatorStatus}>
-                            {simulatedWetZone 
-                              ? 'Préservation écologique obligatoire. Construction interdite ou régulée.' 
-                              : 'Sol sec, conforme à la règlementation.'}
-                          </span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
                           <span className={styles.indicatorLabel}>Risque inondabilité</span>
-                          <span className={styles.indicatorValue}>Hors PPRI (Favorable)</span>
-                          <span className={styles.indicatorStatus}>Parcelle située en dehors des zones d'inondation de crue.</span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Ruissellement pluvial</span>
-                          <span className={styles.indicatorValue}>Risque modéré</span>
-                          <span className={styles.indicatorStatus}>Une gestion alternative (noues, puits d'infiltration) est conseillée.</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'climate' && (
-                    <div>
-                      <div className={styles.tabHeader}>
-                        <Sun size={20} color="var(--primary-color)" />
-                        <h3 className={styles.tabTitle}>{t('eco.climate.title') || "Solaire & Climat"}</h3>
-                      </div>
-                      <p className={styles.tabDescription}>{t('eco.climate.desc') || "Potentiel bioclimatique du terrain."}</p>
-                      
-                      <div className={styles.tabGrid}>
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.climate.exposure')}</span>
-                          <span className={styles.indicatorValue}>
-                            {simulatedExposure === 'south' ? 'Plein Sud ☀️' : simulatedExposure === 'west' ? 'Ouest' : simulatedExposure === 'east' ? 'Est' : 'Nord ❄️'}
+                          <span className={`${styles.indicatorValue} ${realInundation !== 'Hors PPRI (Favorable)' ? styles.statusDanger : styles.statusSuccess}`}>
+                            {realInundation === 'Hors PPRI (Favorable)' ? 'Hors PPRI (Favorable)' : `Zone PPRI (${realInundation})`}
                           </span>
                           <span className={styles.indicatorStatus}>
-                            {simulatedExposure === 'south' 
-                              ? 'Excellente luminosité naturelle, idéal RT2020 / RE2020.' 
-                              : 'Luminosité réduite en hiver, optimiser les ouvertures.'}
+                            {realInundation === 'Hors PPRI (Favorable)' 
+                              ? "Parcelle située en dehors des zones d'inondation de crue répertoriées." 
+                              : "Parcelle située en zone d'inondation réglementée (PPRI). Prescriptions de construction et d'altimétrie obligatoires."}
                           </span>
                         </div>
 
                         <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.climate.solar_potential')}</span>
-                          <span className={`${styles.indicatorValue} ${styles.statusSuccess}`}>
-                            {simulatedExposure === 'south' ? 'Excellent (1150 kWh/m²)' : 'Moyen (850 kWh/m²)'}
-                          </span>
-                          <span className={styles.indicatorStatus}>Fort potentiel de rendement pour panneaux photovoltaïques.</span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Exposition aux Vents</span>
-                          <span className={styles.indicatorValue}>Littoral Ouest (Exposé)</span>
-                          <span className={styles.indicatorStatus}>Prévoir des brise-vents naturels ou plantations paysagères adaptées.</span>
+                          <span className={styles.indicatorLabel}>Remontée de nappe phréatique</span>
+                          {(() => {
+                            const isHigh = realNappe.toLowerCase().includes('existant') || (realNappe.toLowerCase().includes('risque') && !realNappe.toLowerCase().includes('aucun') && !realNappe.toLowerCase().includes('faible'));
+                            const nappeClass = isHigh ? styles.statusDanger : styles.statusSuccess;
+                            const nappeStatus = isHigh 
+                              ? 'Parcelle sensible aux remontées de nappe phréatique. Dispositions constructives obligatoires pour les sous-sols.' 
+                              : 'Aucune sensibilité majeure aux remontées de nappe phréatique détectée.';
+                            return (
+                              <>
+                                <span className={`${styles.indicatorValue} ${nappeClass}`}>{realNappe}</span>
+                                <span className={styles.indicatorStatus}>{nappeStatus}</span>
+                              </>
+                            );
+                          })()}
                         </div>
                       </div>
                     </div>
@@ -1157,51 +1156,29 @@ export default function EcoDiagnosticClient() {
                           </span>
                           <span className={styles.indicatorStatus}>
                             {simulatedMonumentDist < 500 
-                              ? "Situé dans le rayon de 500m. Avis de l'Architecte des Bâtiments de France obligatoire." 
-                              : "Hors périmètre de protection historique."}
+                              ? `Situé à ${simulatedMonumentDist}m d'un monument historique${monumentName ? ` (${monumentName})` : ''}. Avis de l'Architecte des Bâtiments de France (ABF) requis.` 
+                              : `Hors périmètre de protection historique (plus proche monument à ${simulatedMonumentDist}m).`}
                           </span>
                         </div>
 
                         <div className={styles.indicatorCard}>
                           <span className={styles.indicatorLabel}>Zonage PLU</span>
-                          <span className={styles.indicatorValue}>Zone U (Urbaine)</span>
-                          <span className={styles.indicatorStatus}>Règlementation favorable à la densification douce.</span>
+                          <span className={styles.indicatorValue}>{realPluZone}</span>
+                          <span className={styles.indicatorStatus}>
+                            {realPluDesc || "Règlementation favorable à la densification douce."}
+                          </span>
                         </div>
 
                         <div className={styles.indicatorCard}>
                           <span className={styles.indicatorLabel}>Natura 2000</span>
-                          <span className={styles.indicatorValue}>Non concerné</span>
-                          <span className={styles.indicatorStatus}>Aucune contrainte d'espace naturel protégé.</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'viability' && (
-                    <div>
-                      <div className={styles.tabHeader}>
-                        <TreePine size={20} color="var(--primary-color)" />
-                        <h3 className={styles.tabTitle}>{t('eco.viability.title') || "Réseaux & Viabilité foncière"}</h3>
-                      </div>
-                      <p className={styles.tabDescription}>{t('eco.viability.desc') || "Proximité aux infrastructures publiques."}</p>
-                      
-                      <div className={styles.tabGrid}>
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>{t('eco.viability.access')}</span>
-                          <span className={styles.indicatorValue}>Conforme (Voirie publique)</span>
-                          <span className={styles.indicatorStatus}>Accès routier existant et sécurisé, répondant aux exigences incendie.</span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Raccordement réseaux</span>
-                          <span className={styles.indicatorValue}>{"Proche (< 15 mètres)"}</span>
-                          <span className={styles.indicatorStatus}>Réseaux d'eau potable et électricité disponibles en bordure de parcelle.</span>
-                        </div>
-
-                        <div className={styles.indicatorCard}>
-                          <span className={styles.indicatorLabel}>Assainissement</span>
-                          <span className={styles.indicatorValue}>Collectif (Tout-à-l'égout)</span>
-                          <span className={styles.indicatorStatus}>Raccordement obligatoire au réseau public existant.</span>
+                          <span className={`${styles.indicatorValue} ${realNatura !== 'Non concerné' ? styles.statusWarning : styles.statusSuccess}`}>
+                            {realNatura}
+                          </span>
+                          <span className={styles.indicatorStatus}>
+                            {realNatura !== 'Non concerné' 
+                              ? "Présence d'un espace naturel d'importance écologique. Mesures environnementales spécifiques à prévoir." 
+                              : "Aucune contrainte d'espace naturel protégé (Natura 2000 / ZNIEFF) détectée sur la parcelle."}
+                          </span>
                         </div>
                       </div>
                     </div>

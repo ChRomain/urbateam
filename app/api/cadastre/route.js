@@ -110,7 +110,7 @@ export async function GET(request) {
       if (!lat || !lon) return NextResponse.json({ records: [] });
 
       try {
-        const res = await fetch(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=monuments-historiques-francais&geofilter.distance=${lat},${lon},1000&rows=1`, {
+        const res = await fetch(`https://data.culture.gouv.fr/api/records/1.0/search/?dataset=liste-des-immeubles-proteges-au-titre-des-monuments-historiques&geofilter.distance=${lat},${lon},1000&rows=1`, {
           headers: {
             'User-Agent': 'Urbateam-Agent/1.0',
             'Accept': 'application/json',
@@ -125,6 +125,81 @@ export async function GET(request) {
         console.warn('API Opendatasoft Monuments failed:', err.message);
       }
       return NextResponse.json({ records: [] });
+    }
+
+    if (action === 'inondations') {
+      const lat = searchParams.get('lat');
+      const lon = searchParams.get('lon');
+      if (!lat || !lon) return NextResponse.json({ error: 'Missing coordinates' }, { status: 400 });
+
+      try {
+        const res = await fetch(`https://www.georisques.gouv.fr/api/v1/resultats_rapport_risque?latlon=${lon},${lat}`, {
+          headers: {
+            'User-Agent': 'Urbateam-Agent/1.0',
+            'Accept': 'application/json',
+          },
+          signal: AbortSignal.timeout(5000)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          return NextResponse.json(data);
+        }
+      } catch (err) {
+        console.warn('API Georisques resultats_rapport_risque failed:', err.message);
+      }
+      return NextResponse.json({ error: 'API Georisques failed' }, { status: 502 });
+    }
+
+    if (action === 'plu') {
+      const lat = searchParams.get('lat');
+      const lon = searchParams.get('lon');
+      if (!lat || !lon) return NextResponse.json({ error: 'Missing coordinates' }, { status: 400 });
+
+      try {
+        const geom = JSON.stringify({ type: 'Point', coordinates: [parseFloat(lon), parseFloat(lat)] });
+        const res = await fetch(`https://apicarto.ign.fr/api/gpu/zone-urba?geom=${encodeURIComponent(geom)}`, {
+          headers: {
+            'User-Agent': 'Urbateam-Agent/1.0',
+            'Accept': 'application/json',
+          },
+          signal: AbortSignal.timeout(5000)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          return NextResponse.json(data);
+        }
+      } catch (err) {
+        console.warn('API GPU zone-urba failed:', err.message);
+      }
+      return NextResponse.json({ features: [] });
+    }
+
+    if (action === 'natura2000') {
+      const lat = searchParams.get('lat');
+      const lon = searchParams.get('lon');
+      if (!lat || !lon) return NextResponse.json({ habitats: [], oiseaux: [] });
+
+      try {
+        const geom = JSON.stringify({ type: 'Point', coordinates: [parseFloat(lon), parseFloat(lat)] });
+        const [habitatsRes, oiseauxRes] = await Promise.all([
+          fetch(`https://apicarto.ign.fr/api/nature/natura-habitat?geom=${encodeURIComponent(geom)}`, {
+            headers: { 'User-Agent': 'Urbateam-Agent/1.0', 'Accept': 'application/json' },
+            signal: AbortSignal.timeout(5000)
+          }),
+          fetch(`https://apicarto.ign.fr/api/nature/natura-oiseaux?geom=${encodeURIComponent(geom)}`, {
+            headers: { 'User-Agent': 'Urbateam-Agent/1.0', 'Accept': 'application/json' },
+            signal: AbortSignal.timeout(5000)
+          })
+        ]);
+
+        const habitats = habitatsRes.ok ? (await habitatsRes.json()).features : [];
+        const oiseaux = oiseauxRes.ok ? (await oiseauxRes.json()).features : [];
+
+        return NextResponse.json({ habitats, oiseaux });
+      } catch (err) {
+        console.warn('API Natura2000 failed:', err.message);
+      }
+      return NextResponse.json({ habitats: [], oiseaux: [] });
     }
 
     if (action === 'alti') {

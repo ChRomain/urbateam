@@ -13,9 +13,15 @@ import PageHeader from '../../components/PageHeader';
 import styles from './SimulateurEnsoleillementClient.module.css';
 
 // --- CONFIGURATION GÉOGRAPHIQUE & ASTRONOMIQUE ---
-const LATITUDE_FINISTERE = 48.39; // Brest / Finistère
+const LATITUDE_FINISTERE = 48.39; // Brest / Finistère par défaut
 
-function getSolarPosition(monthIndex, hourDecimal) {
+const getCityFromAddress = (addr) => {
+  if (!addr) return '';
+  const match = addr.match(/\d{5}\s+([^,]+)/);
+  return match ? match[1].trim() : addr;
+};
+
+function getSolarPosition(monthIndex, hourDecimal, latitude = LATITUDE_FINISTERE) {
   const rad = Math.PI / 180;
   
   // Jour moyen de l'année pour chaque mois
@@ -27,7 +33,7 @@ function getSolarPosition(monthIndex, hourDecimal) {
   // 2. Angle Horaire (H) - le soleil tourne de 15° par heure, 12h = 0°
   const H = 15 * (hourDecimal - 12);
   
-  const latRad = LATITUDE_FINISTERE * rad;
+  const latRad = latitude * rad;
   const decRad = declination * rad;
   const hRad = H * rad;
   
@@ -115,6 +121,16 @@ export default function SimulateurEnsoleillementClient() {
   const canvasRef = useRef(null);
   const rendererRef = useRef(null);
   
+  // --- ÉTATS DE RECHERCHE D'ADRESSE & LATITUDE ---
+  const [latitude, setLatitude] = useState(48.39); // Brest / Finistère par défaut
+  const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [apiError, setApiError] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState('');
+  const autocompleteRef = useRef(null);
+
   // --- ÉTATS DE CONFIGURATION DU MODÈLE ---
   const [activeTab, setActiveTab] = useState('voisin'); // 'voisin' ou 'propriete'
 
@@ -177,13 +193,19 @@ export default function SimulateurEnsoleillementClient() {
     let totalInitialHours = 0;
     let totalResidualHours = 0;
 
+    // Track total sun hours and residual sun hours per sensor over the year
+    const sensorLosses = {};
+    sensors.forEach(s => {
+      sensorLosses[s.id] = { initial: 0, residual: 0, label: s.label };
+    });
+
     for (let m = 0; m < 12; m++) {
       let activeInitial = 0;
       let activeResidual = 0;
       
       // On teste de 06h à 22h, par intervalles de 15 minutes (0.25h)
       for (let h = 6.0; h <= 22.0; h += 0.25) {
-        const { azimuth, altitude } = getSolarPosition(m, h);
+        const { azimuth, altitude } = getSolarPosition(m, h, latitude);
         
         // Si le soleil est au-dessus de l'horizon
         if (altitude > 0) {
@@ -201,6 +223,7 @@ export default function SimulateurEnsoleillementClient() {
           // 2. On fait la moyenne de l'ensoleillement sur tous nos capteurs
           sensors.forEach(sensor => {
             activeInitial += 0.25; // Le point reçoit le soleil théoriquement
+            sensorLosses[sensor.id].initial += 0.25;
             
             // Calcul d'ombrage
             const boxCenter = { x: neighborPos.x, y: neighborHeight / 2, z: neighborPos.z };
@@ -211,6 +234,7 @@ export default function SimulateurEnsoleillementClient() {
             
             if (!isBlocked) {
               activeResidual += 0.25; // Pas d'obstacle, le soleil passe !
+              sensorLosses[sensor.id].residual += 0.25;
             }
           });
         }
@@ -240,15 +264,64 @@ export default function SimulateurEnsoleillementClient() {
     const annualResidual = data.reduce((acc, d) => acc + d.residual, 0);
     const annualLossPercentage = annualInitial > 0 ? Math.round(((annualInitial - annualResidual) / annualInitial) * 100) : 0;
 
+    // Filtrer les capteurs qui perdent plus de 0.5h par an d'ensoleillement
+    const affectedSensorsList = Object.values(sensorLosses)
+      .filter(s => (s.initial - s.residual) > 0.5)
+      .map(s => s.label);
+
     return {
       monthlyData: data,
       currentMonthInitial: totalInitialHours,
       currentMonthResidual: totalResidualHours,
       currentMonthLoss: Math.max(0, Math.round((totalInitialHours - totalResidualHours) * 10) / 10),
       currentMonthLossPercent: totalInitialHours > 0 ? Math.round(((totalInitialHours - totalResidualHours) / totalInitialHours) * 100) : 0,
-      annualLossPercent: annualLossPercentage
+      annualLossPercent: annualLossPercentage,
+      affectedSensors: affectedSensorsList
     };
-  }, [houseWidth, houseHeight, houseDepth, neighborHeight, neighborWidth, neighborDepth, neighborPos, neighborRotation, monthIndex]);
+  }, [houseWidth, houseHeight, houseDepth, neighborHeight, neighborWidth, neighborDepth, neighborPos, neighborRotation, monthIndex, latitude, sensors]);
+
+  // Fermer les suggestions au clic en dehors
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (autocompleteRef.current && !autocompleteRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Recherche d'adresses (API Adresse de l'État Français - OpenData Gratuit)
+  useEffect(() => {
+    if (searchQuery.trim().length < 3) {
+      setSuggestions([]);
+      setApiError(false);
+      return;
+    }
+
+    const delayDebounce = setTimeout(async () => {
+      setLoadingSuggestions(true);
+      setApiError(false);
+      try {
+        const response = await fetch(`/api/cadastre?action=search&q=${encodeURIComponent(searchQuery)}`);
+        if (response.ok) {
+          const data = await response.json();
+          setSuggestions(data.features || []);
+        } else {
+          setSuggestions([]);
+          setApiError(true);
+        }
+      } catch (err) {
+        console.error('Erreur appel API Adresse :', err);
+        setSuggestions([]);
+        setApiError(true);
+      } finally {
+        setLoadingSuggestions(false);
+      }
+    }, 300); // Debounce de 300ms
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery]);
 
   // --- SCÈNE THREE.JS ---
   useEffect(() => {
@@ -496,7 +569,7 @@ export default function SimulateurEnsoleillementClient() {
       neighborGroup.rotation.y = (neighborRotation * Math.PI) / 180;
       
       // B. Calcul trigonométrique exact de la position du Soleil
-      const { azimuth, altitude } = getSolarPosition(monthIndex, hour);
+      const { azimuth, altitude } = getSolarPosition(monthIndex, hour, latitude);
       
       if (altitude > 0) {
         // Le soleil brille !
@@ -603,7 +676,7 @@ export default function SimulateurEnsoleillementClient() {
       
       renderer.dispose();
     };
-  }, [houseWidth, houseHeight, houseDepth, neighborHeight, neighborWidth, neighborDepth, neighborPos, neighborRotation, monthIndex, hour, sensors]);
+  }, [houseWidth, houseHeight, houseDepth, neighborHeight, neighborWidth, neighborDepth, neighborPos, neighborRotation, monthIndex, hour, sensors, latitude]);
 
   // --- ANIMATION HORAIRE JOURNALIÈRE ---
   useEffect(() => {
@@ -738,7 +811,7 @@ export default function SimulateurEnsoleillementClient() {
     doc.setFont("Helvetica", "normal");
     doc.setFontSize(9.5);
     doc.text(`Adresse du litige : ${clientAddress || "Non spécifiée (simulation en ligne)"}`, 20, 78);
-    doc.text(`Date de calcul : ${new Date().toLocaleDateString('fr-FR')} - Latitude: ${LATITUDE_FINISTERE}° N (Brest)`, 20, 84);
+    doc.text(`Date de calcul : ${new Date().toLocaleDateString('fr-FR')} - Latitude: ${latitude.toFixed(4)}° N`, 20, 84);
 
     // --- CONFIGURATION DE LA SIMULATION ---
     doc.setTextColor(121, 160, 129);
@@ -777,7 +850,11 @@ export default function SimulateurEnsoleillementClient() {
     doc.setFontSize(10);
     doc.text(`- Pourcentage annuel d'heures d'ensoleillement perdues : ${annualLossPercent}%`, 25, 175);
     doc.text(`- Perte maximale observée en ${months[monthIndex]} : ${calculateLossData.currentMonthLoss}h par jour (-${currentMonthLossPercent}%)`, 25, 182);
-    doc.text(`- Capteurs affectés : Salon (Sud), Fenêtres Est, Terrasse et Zone Jardin`, 25, 187);
+    
+    const affectedSensorsText = calculateLossData.affectedSensors.length > 0 
+      ? `Zones touchées : ${calculateLossData.affectedSensors.join(', ')}`
+      : "Aucun capteur ombragé par le voisin.";
+    doc.text(`- ${affectedSensorsText}`, 25, 187);
 
     // --- HISTORIQUE MENSUEL TABLEAU ---
     doc.setTextColor(121, 160, 129);
@@ -915,7 +992,9 @@ export default function SimulateurEnsoleillementClient() {
             {/* Informations temporelles sur le soleil */}
             <div className={styles.overlayTime}>
               {months[monthIndex]} - {Math.floor(hour)}h{String(Math.round((hour % 1) * 60)).padStart(2, '0')}
-              <span>Latitude: {LATITUDE_FINISTERE}° N (Brest)</span>
+              <span>
+                Latitude: {latitude.toFixed(2)}° N {clientAddress ? `(${getCityFromAddress(clientAddress)})` : '(Brest/Finistère)'}
+              </span>
             </div>
 
             {/* Boutons de contrôle de lecture journalière */}
@@ -1010,6 +1089,65 @@ export default function SimulateurEnsoleillementClient() {
                   <Home size={18} color="var(--accent-color)" />
                   {t('sun.house_settings') || "Votre Propriété"}
                 </h4>
+
+                {/* Localisation / Recherche d'adresse */}
+                <div className={styles.controlGroup} style={{ position: 'relative' }} ref={autocompleteRef}>
+                  <label className={styles.controlLabel}>
+                    <span>Adresse de la propriété</span>
+                    <span className={styles.controlVal} style={{ fontSize: '0.72rem', color: 'var(--text-light)', fontFamily: 'var(--font-montserrat)' }}>
+                      Lat: {latitude.toFixed(2)}° N
+                    </span>
+                  </label>
+                  <div className={styles.searchInputWrapper} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                        setClientAddress(e.target.value);
+                        setShowSuggestions(true);
+                      }}
+                      placeholder="Ex: 13 rue Lafayette, Landerneau..."
+                      className={styles.formInput}
+                      style={{ width: '100%', marginBottom: 0, paddingRight: '2rem' }}
+                    />
+                    <span style={{ position: 'absolute', right: '0.8rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-light)', display: 'flex', alignItems: 'center' }}>
+                      {loadingSuggestions ? <Loader size={16} className="spin" /> : <MapPin size={16} />}
+                    </span>
+                  </div>
+
+                  <AnimatePresence>
+                    {showSuggestions && (suggestions.length > 0 || apiError) && (
+                      <ul className={styles.suggestionsList}>
+                        {apiError ? (
+                          <li style={{ padding: '0.6rem 0.8rem', color: '#ef4444', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <AlertTriangle size={12} />
+                            Service d'adresses indisponible
+                          </li>
+                        ) : (
+                          suggestions.map((feature, idx) => (
+                            <li 
+                              key={idx}
+                              onClick={() => {
+                                const label = feature.properties.label;
+                                const lat = feature.geometry.coordinates[1];
+                                setSelectedAddress(label);
+                                setClientAddress(label);
+                                setSearchQuery(label);
+                                setLatitude(lat);
+                                setShowSuggestions(false);
+                              }}
+                              className={styles.suggestionItem}
+                            >
+                              <MapPin size={12} color="var(--primary-color)" />
+                              {feature.properties.label}
+                            </li>
+                          ))
+                        )}
+                      </ul>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 {/* Curseurs de la maison */}
                 <div className={styles.controlGroup}>
@@ -1151,6 +1289,21 @@ export default function SimulateurEnsoleillementClient() {
                         Perte max de <strong>{calculateLossData.currentMonthLoss}h/j</strong> en {months[monthIndex]}.
                       </span>
                     </div>
+                    {calculateLossData.affectedSensors && calculateLossData.affectedSensors.length > 0 ? (
+                      <div className={`${styles.checkItem} ${styles.checkItemCrit}`} style={{ padding: '0.5rem 0.8rem', marginTop: '0.5rem' }}>
+                        <AlertTriangle size={14} />
+                        <span style={{ fontSize: '0.78rem' }}>
+                          Zones touchées : <strong>{calculateLossData.affectedSensors.join(', ')}</strong>
+                        </span>
+                      </div>
+                    ) : (
+                      <div className={`${styles.checkItem} ${styles.checkItemValid}`} style={{ padding: '0.5rem 0.8rem', marginTop: '0.5rem' }}>
+                        <CheckCircle size={14} />
+                        <span style={{ fontSize: '0.78rem' }}>
+                          Aucun capteur ombragé par le voisin.
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

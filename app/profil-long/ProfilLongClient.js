@@ -623,6 +623,13 @@ export default function ProfilLongClient() {
                           {stats.minZ}m / {stats.maxZ}m
                         </strong>
                       </div>
+
+                      <div style={{ gridColumn: 'span 2', borderTop: '1px solid rgba(0, 0, 0, 0.06)', paddingTop: '0.8rem', marginTop: '0.4rem' }}>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', display: 'flex', gap: '6px', lineHeight: '1.4' }}>
+                          <Info size={14} style={{ flexShrink: 0, marginTop: '1px', color: 'var(--primary-color)' }} />
+                          Note : Coupe indicative calculée via la base altimétrique RGE Alti de l'IGN. Seul un levé topographique contradictoire sur le terrain par un Géomètre-Expert garantit l'altimétrie exacte de votre projet.
+                        </span>
+                      </div>
                     </div>
                   )}
                 </GlassCard>
