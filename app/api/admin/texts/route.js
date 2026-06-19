@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '../../../../lib/supabase';
+import { supabaseAdmin } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
 
 export async function GET(request) {
@@ -9,7 +9,7 @@ export async function GET(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('site_texts')
       .select('*')
       .order('key', { ascending: true });
@@ -37,7 +37,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Key and French translation are required' }, { status: 400 });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('site_texts')
       .upsert({
         key,
@@ -69,7 +69,7 @@ export async function DELETE(request) {
       return NextResponse.json({ error: 'Key is required' }, { status: 400 });
     }
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('site_texts')
       .delete()
       .eq('key', key);

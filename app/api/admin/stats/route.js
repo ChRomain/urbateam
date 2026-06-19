@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '../../../../lib/supabase';
+import { supabaseAdmin } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
 
 export async function GET(request) {
@@ -11,7 +11,7 @@ export async function GET(request) {
     }
 
     // Récupération des vraies visites enregistrées
-    const { data: visits, error } = await supabase
+    const { data: visits, error } = await supabaseAdmin
       .from('visits')
       .select('*')
       .order('created_at', { ascending: true });

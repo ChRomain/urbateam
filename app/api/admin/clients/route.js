@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getClients, createItem, updateItem, deleteItem, uploadFile, getLogoUrl, supabase } from '../../../../lib/supabase';
+import { getClients, createItem, updateItem, deleteItem, uploadFile, getLogoUrl, supabaseAdmin } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
 
 // Map categories from frontend select to Supabase tags
@@ -27,7 +27,7 @@ export async function GET(request) {
     }
 
     // Fetch clients ordered by sort
-    const { data: clients, error } = await supabase
+    const { data: clients, error } = await supabaseAdmin
       .from('clients')
       .select('*')
       .order('sort', { ascending: true });
@@ -92,7 +92,7 @@ export async function POST(request) {
       result = await updateItem('clients', id, itemData);
     } else {
       // Find max sort to append at the end
-      const { data: lastClients, error: sortErr } = await supabase
+      const { data: lastClients, error: sortErr } = await supabaseAdmin
         .from('clients')
         .select('sort')
         .order('sort', { ascending: false })
@@ -128,7 +128,7 @@ export async function PATCH(request) {
 
     if (in_carousel === true) {
       // Count how many are already in the carousel
-      const { count, error: countErr } = await supabase
+      const { count, error: countErr } = await supabaseAdmin
         .from('clients')
         .select('*', { count: 'exact', head: true })
         .eq('in_carousel', true);
