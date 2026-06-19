@@ -17,6 +17,8 @@ ALTER TABLE site_texts ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public read access on site_texts" ON site_texts
     FOR SELECT USING (true);
 
--- 2. Authenticated Write Policy
-CREATE POLICY "Allow all actions for authenticated users on site_texts" ON site_texts
-    FOR ALL TO authenticated USING (true);
+-- 2. Admin Write Policy
+CREATE POLICY "Allow admin write access on site_texts" ON site_texts 
+    FOR ALL TO authenticated 
+    USING (auth.jwt() ->> 'email' = 'admin@urbateam.fr')
+    WITH CHECK (auth.jwt() ->> 'email' = 'admin@urbateam.fr');
