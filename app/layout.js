@@ -8,6 +8,7 @@ import CookieBanner from '../components/CookieBanner';
 import StatsTracker from '../components/StatsTracker';
 import { LanguageProvider } from '../context/LanguageContext';
 import { headers } from 'next/headers';
+import { getSiteTexts } from '../lib/supabase';
 
 
 const montserrat = Montserrat({
@@ -77,6 +78,8 @@ export default async function RootLayout({ children }) {
   const headersList = await headers();
   const lang = headersList.get('x-locale') || 'fr';
   const pathname = headersList.get('x-pathname') || '/';
+
+  const siteTexts = await getSiteTexts();
 
   // Calculer les URLs alternatives pour chaque langue
   const cleanPath = pathname.replace(/^\/(en|br)/, '') || '';
@@ -214,7 +217,7 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body className={`${montserrat.variable} ${righteous.variable}`}>
-        <LanguageProvider defaultLanguage={lang}>
+        <LanguageProvider defaultLanguage={lang} initialTexts={siteTexts}>
           <ScrollProgress key="scroll-progress" />
           <BackToTop key="back-to-top" />
           <CookieBanner key="cookie-banner" />

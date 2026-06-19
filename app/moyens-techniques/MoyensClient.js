@@ -1,12 +1,59 @@
 'use client';
 
 import PageHeader from '../../components/PageHeader';
-import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
 import { useLanguage } from '../../context/LanguageContext';
+import { Building2, MapPin, Monitor, Cpu, Printer, HelpCircle } from 'lucide-react';
+
+const iconMap = {
+  building: <Building2 size={28} />,
+  'map-pin': <MapPin size={28} />,
+  monitor: <Monitor size={28} />,
+  software: <Cpu size={28} />,
+  printer: <Printer size={28} />
+};
 
 export default function MoyensClient() {
   const { t } = useLanguage();
+
+  const defaultSections = [
+    {
+      id: "infra",
+      title: t('technical.infrastructure.title'),
+      icon: "building",
+      list: t('technical.infrastructure.list')
+    },
+    {
+      id: "field",
+      title: t('technical.field.title'),
+      icon: "map-pin",
+      list: t('technical.field.list'),
+      showFieldImages: true
+    },
+    {
+      id: "computing",
+      title: t('technical.computing.title'),
+      icon: "monitor",
+      list: t('technical.computing.list')
+    },
+    {
+      id: "software",
+      title: t('technical.software.title'),
+      icon: "software",
+      desc: t('technical.software.desc'),
+      showSoftwareImages: true
+    },
+    {
+      id: "reprography",
+      title: t('technical.reprography.title'),
+      icon: "printer",
+      list: t('technical.reprography.list'),
+      fullWidth: true
+    }
+  ];
+
+  const rawSections = t('technical.sections');
+  const items = Array.isArray(rawSections) ? rawSections : defaultSections;
 
   return (
     <div className="container py-section">
@@ -16,90 +63,71 @@ export default function MoyensClient() {
       />
 
       <div className="grid grid-cols-2" style={{ gap: '2rem', marginTop: '4rem' }}>
-        {/* Infrastructures */}
-        <GlassCard>
-          <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--secondary-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-          </div>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('technical.infrastructure.title')}</h2>
-          <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-light)', listStyleType: 'disc' }}>
-            {t('technical.infrastructure.list').map((item, i) => (
-              <li key={`infra-${i}`} style={{ marginBottom: '0.5rem' }}>{item}</li>
-            ))}
-          </ul>
-        </GlassCard>
-
-        {/* Topographie */}
-        <GlassCard>
-          <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--accent-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-             <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.242-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-          </div>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('technical.field.title')}</h2>
-          <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-light)', listStyleType: 'disc', marginBottom: '2rem' }}>
-            {t('technical.field.list').map((item, i) => (
-              <li key={`field-${i}`} style={{ marginBottom: '0.5rem' }}>{item}</li>
-            ))}
-          </ul>
+        {items.map((item) => {
+          const isFullWidth = item.fullWidth;
+          const cardStyle = isFullWidth ? { gridColumn: '1 / -1' } : {};
+          const icon = iconMap[item.icon] || <HelpCircle size={28} />;
           
-          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-end', justifyContent: 'space-around', padding: '1rem 0' }}>
-            <div style={{ textAlign: 'center' }}>
-              <img src="/pictures/scanner-3d-final.png" alt="Scanner 3D" style={{ height: '100px', width: 'auto', objectFit: 'contain' }} />
-              <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Scanner 3D</p>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <img src="/pictures/station-trimble-final.png" alt="Station Trimble" style={{ height: '110px', width: 'auto', objectFit: 'contain' }} />
-              <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Station Trimble</p>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <img src="/pictures/gps-trimble-final.png" alt="GPS Trimble" style={{ height: '120px', width: 'auto', objectFit: 'contain' }} />
-              <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>GPS Trimble</p>
-            </div>
-          </div>
-        </GlassCard>
+          const themeColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--secondary-color)';
+          const borderTopColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--primary-color)';
 
-        {/* Informatique / DAO */}
-        <GlassCard>
-          <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--primary-color)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-          </div>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('technical.computing.title')}</h2>
-          <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-light)', listStyleType: 'disc' }}>
-            {t('technical.computing.list').map((item, i) => (
-              <li key={`comp-${i}`} style={{ marginBottom: '0.5rem' }}>{item}</li>
-            ))}
-          </ul>
-        </GlassCard>
+          return (
+            <GlassCard key={item.id} style={{ ...cardStyle, borderTop: `4px solid ${borderTopColor}` }}>
+              <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: themeColor, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                {icon}
+              </div>
+              <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem', fontSize: '1.5rem' }}>{item.title}</h2>
+              
+              {item.desc && (
+                <p style={{ color: 'var(--text-light)', marginBottom: '1.5rem', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                  {item.desc}
+                </p>
+              )}
 
-        {/* Logiciels */}
-        <GlassCard>
-          <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#6366f1', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-          </div>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('technical.software.title')}</h2>
-          <p style={{ color: 'var(--text-light)', marginBottom: '1.5rem' }}>
-            {t('technical.software.desc')}
-          </p>
-          
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', justifyContent: 'center', padding: '1rem 0' }}>
-            <img src="/pictures/autocad.png" alt="AutoCAD" style={{ height: '35px', width: 'auto' }} title="AutoCAD" />
-            <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '35px', width: 'auto' }} title="Covadis" />
-            <img src="/pictures/sketchup.png" alt="SketchUp" style={{ height: '35px', width: 'auto' }} title="SketchUp" />
-            <img src="/pictures/photoshop.png" alt="Photoshop" style={{ height: '35px', width: 'auto' }} title="Photoshop" />
-            <img src="/pictures/illustrator.png" alt="Illustrator" style={{ height: '35px', width: 'auto' }} title="Illustrator" />
-          </div>
-        </GlassCard>
+              {item.list && Array.isArray(item.list) && (
+                <ul className={item.fullWidth ? "multi-column-list" : ""} style={{ 
+                  paddingLeft: '1.5rem', 
+                  color: 'var(--text-light)', 
+                  listStyleType: 'disc',
+                  columnCount: item.fullWidth ? 2 : 1,
+                  columnGap: item.fullWidth ? '2rem' : '0'
+                }}>
+                  {item.list.map((listItem, i) => (
+                    <li key={i} style={{ marginBottom: '0.5rem', fontSize: '0.9rem' }}>{listItem}</li>
+                  ))}
+                </ul>
+              )}
+
+              {item.showFieldImages && (
+                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-end', justifyContent: 'space-around', padding: '1rem 0', marginTop: '1.5rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <img src="/pictures/scanner-3d-final.png" alt="Scanner 3D" style={{ height: '80px', width: 'auto', objectFit: 'contain' }} />
+                    <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Scanner 3D</p>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <img src="/pictures/station-trimble-final.png" alt="Station Trimble" style={{ height: '90px', width: 'auto', objectFit: 'contain' }} />
+                    <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Station Trimble</p>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <img src="/pictures/gps-trimble-final.png" alt="GPS Trimble" style={{ height: '95px', width: 'auto', objectFit: 'contain' }} />
+                    <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>GPS Trimble</p>
+                  </div>
+                </div>
+              )}
+
+              {item.showSoftwareImages && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', justifyContent: 'center', padding: '1rem 0', marginTop: '1.5rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                  <img src="/pictures/autocad.png" alt="AutoCAD" style={{ height: '30px', width: 'auto' }} title="AutoCAD" />
+                  <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '30px', width: 'auto' }} title="Covadis" />
+                  <img src="/pictures/sketchup.png" alt="SketchUp" style={{ height: '30px', width: 'auto' }} title="SketchUp" />
+                  <img src="/pictures/photoshop.png" alt="Photoshop" style={{ height: '30px', width: 'auto' }} title="Photoshop" />
+                  <img src="/pictures/illustrator.png" alt="Illustrator" style={{ height: '30px', width: 'auto' }} title="Illustrator" />
+                </div>
+              )}
+            </GlassCard>
+          );
+        })}
       </div>
-
-      <MotionSection style={{ marginTop: '4rem' }}>
-        <GlassCard>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '2rem' }}>{t('technical.reprography.title')}</h2>
-          <ul className="multi-column-list" style={{ paddingLeft: '1.5rem', color: 'var(--text-light)', listStyleType: 'disc', columnCount: 2, columnGap: '2rem' }}>
-            {t('technical.reprography.list').map((item, i) => (
-              <li key={`repro-${i}`} style={{ marginBottom: '0.5rem' }}>{item}</li>
-            ))}
-          </ul>
-        </GlassCard>
-      </MotionSection>
     </div>
   );
 }

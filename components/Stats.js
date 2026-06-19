@@ -82,6 +82,19 @@ export default function Stats() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
+  const getNumber = (key, defaultVal) => {
+    const val = t(key);
+    if (val === key) return defaultVal;
+    const parsed = parseInt(val, 10);
+    return isNaN(parsed) ? defaultVal : parsed;
+  };
+
+  const getSuffix = (key, defaultVal) => {
+    const val = t(key);
+    if (val === key) return defaultVal;
+    return val;
+  };
+
   return (
     <div ref={sectionRef} className={styles.statsContainer}>
       {/* Background Orientation Circle */}
@@ -124,7 +137,7 @@ export default function Stats() {
                 <span className={styles.techCoord}>[ LAT: 48.433 ]</span>
               </div>
               <div className={styles.numberRow}>
-                <Counter value={2007} />
+                <Counter value={getNumber('stats.creation.number', 2007)} />
               </div>
               <div className={styles.label}>{t('stats.creation.label')}</div>
               <div className={styles.description}>{t('stats.creation.desc')}</div>
@@ -138,7 +151,7 @@ export default function Stats() {
                 <span className={styles.techCoord}>[ COMPASS: 270° ]</span>
               </div>
               <div className={styles.numberRow}>
-                <Counter value={19} />
+                <Counter value={getNumber('stats.collaborators.number', 19)} />
               </div>
               <div className={styles.label}>{t('stats.collaborators.label')}</div>
               <div className={styles.description}>{t('stats.collaborators.desc')}</div>
@@ -152,7 +165,7 @@ export default function Stats() {
                 <span className={styles.techCoord}>[ ELEV: 142m ]</span>
               </div>
               <div className={styles.numberRow}>
-                <Counter value={500} suffix="+" />
+                <Counter value={getNumber('stats.projects.number', 500)} suffix={getSuffix('stats.projects.suffix', "+")} />
               </div>
               <div className={styles.label}>{t('stats.projects.label')}</div>
               <div className={styles.description}>{t('stats.projects.desc')}</div>

@@ -55,13 +55,18 @@ export default function Header() {
     { name: t('header.partners'), href: '/partenaires' },
   ];
 
+  const isToolVisible = (key) => {
+    const val = t(`tools.${key}.visible`);
+    return val !== 'false';
+  };
+
   const resourceLinks = [
-    { name: t('header.division_simulator'), href: '/simulateur-division', isTool: true },
-    { name: t('header.sun_simulator'), href: '/simulateur-ensoleillement', isTool: true },
-    { name: t('header.eco_diagnostic'), href: '/eco-diagnostic', isTool: true },
-    { name: t('header.cadastre_map'), href: '/carte-cadastre', isTool: true },
-    { name: t('header.profil_long'), href: '/profil-long', isTool: true },
-    { name: t('header.my_project'), href: '/mon-projet', isTool: true },
+    ...(isToolVisible('division_simulator') ? [{ name: t('header.division_simulator'), href: '/simulateur-division', isTool: true }] : []),
+    ...(isToolVisible('sun_simulator') ? [{ name: t('header.sun_simulator'), href: '/simulateur-ensoleillement', isTool: true }] : []),
+    ...(isToolVisible('eco_diagnostic') ? [{ name: t('header.eco_diagnostic'), href: '/eco-diagnostic', isTool: true }] : []),
+    ...(isToolVisible('cadastre_map') ? [{ name: t('header.cadastre_map'), href: '/carte-cadastre', isTool: true }] : []),
+    ...(isToolVisible('profil_long') ? [{ name: t('header.profil_long'), href: '/profil-long', isTool: true }] : []),
+    ...(isToolVisible('my_project') ? [{ name: t('header.my_project'), href: '/mon-projet', isTool: true }] : []),
     { name: t('header.follow_us'), href: '/nous-suivre' },
     { name: t('header.faq'), href: '/faq' },
     { name: t('meta.rse.title').split('|')[0].trim(), href: '/rse' },

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   HelpCircle, 
+  FileText,
   Book, 
   Users, 
   BarChart2, 
@@ -36,6 +37,7 @@ import SummaryManager from './SummaryManager';
 import QRCodeManager from './QRCodeManager';
 import SocialCardsManager from './SocialCardsManager';
 import UsersManager from './UsersManager';
+import TextsManager from './TextsManager';
 import { ToastProvider } from './ToastContext';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { Handshake } from 'lucide-react';
@@ -115,6 +117,7 @@ function DashboardContent() {
     { id: 'glossary', name: 'Lexique', icon: <Book size={20} /> },
     { id: 'qrcode', name: 'QR Code', icon: <QrCode size={20} /> },
     { id: 'socialcards', name: 'Social Cards', icon: <Share2 size={20} /> },
+    { id: 'texts', name: 'Textes du Site', icon: <FileText size={20} /> },
     // Seul l'admin voit la gestion des utilisateurs
     ...(role === 'Administrator' ? [{ id: 'users', name: 'Utilisateurs', icon: <Users size={20} /> }] : []),
   ];
@@ -356,6 +359,7 @@ function DashboardContent() {
           {activeTab === 'stats' && <StatsManager role={role} />}
           {activeTab === 'qrcode' && <QRCodeManager role={role} />}
           {activeTab === 'socialcards' && <SocialCardsManager role={role} />}
+          {activeTab === 'texts' && <TextsManager role={role} />}
           {activeTab === 'users' && role === 'Administrator' && <UsersManager role={role} />}
         </div>
       </main>
