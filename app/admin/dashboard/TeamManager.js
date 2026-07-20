@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import GlassCard from '../../../components/GlassCard';
 import { Save, Plus, Trash2, Users, ChevronUp, ChevronDown, Mail, Phone, User, Image as ImageIcon } from 'lucide-react';
+import ImageCropper from './ImageCropper';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './ToastContext';
@@ -52,6 +53,31 @@ export default function TeamManager() {
     }
   };
 
+  const [cropTarget, setCropTarget] = useState(null); // { file, memberId, isTeamPhoto, aspect }
+
+  const handleFileChange = (e, memberId = null, isTeamPhoto = false) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Définir le ratio d'aspect attendu
+    // Ex: portrait (3/4 ou 1/1) pour les membres, large (16/9 ou 2/1) pour la bannière
+    const aspect = isTeamPhoto ? (16 / 9) : (3 / 4);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setCropTarget({
+        src: reader.result,
+        file,
+        memberId,
+        isTeamPhoto,
+        aspect
+      });
+    };
+    reader.readAsDataURL(file);
+    // Réinitialiser la valeur de l'input pour pouvoir ré-uploader le même fichier
+    e.target.value = '';
+  };
+
   const uploadImage = async (file, memberId = null, isTeamPhoto = false) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -79,6 +105,16 @@ export default function TeamManager() {
       showToast('Erreur upload', 'error');
     }
   };
+
+  const handleCropConfirm = async (croppedBlob) => {
+    if (!cropTarget) return;
+    const { file, memberId, isTeamPhoto } = cropTarget;
+    // Recréer un fichier File à partir du Blob recadré
+    const croppedFile = new File([croppedBlob], file.name, { type: 'image/jpeg' });
+    setCropTarget(null);
+    await uploadImage(croppedFile, memberId, isTeamPhoto);
+  };
+
 
   const addMember = () => {
     const newMember = {
@@ -259,7 +295,7 @@ export default function TeamManager() {
                 <input 
                   type="file" 
                   accept="image/*" 
-                  onChange={(e) => e.target.files[0] && uploadImage(e.target.files[0], null, true)}
+                  onChange={(e) => handleFileChange(e, null, true)}
                   style={{ fontSize: '0.8rem' }}
                 />
               </div>
@@ -374,7 +410,7 @@ export default function TeamManager() {
                         <input 
                           type="file" 
                           accept="image/*" 
-                          onChange={(e) => e.target.files[0] && uploadImage(e.target.files[0], member.id)}
+                          onChange={(e) => handleFileChange(e, member.id, false)}
                           style={{ fontSize: '0.65rem', width: '100%' }}
                         />
                         <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', cursor: 'pointer' }}>
@@ -415,6 +451,16 @@ export default function TeamManager() {
           ))}
         </AnimatePresence>
       </div>
+
+      {cropTarget && (
+        <ImageCropper
+          imageSrc={cropTarget.src}
+          aspectRatio={cropTarget.aspect}
+          label={cropTarget.isTeamPhoto ? "Recadrer la photo d'équipe" : "Recadrer la photo de profil"}
+          onConfirm={handleCropConfirm}
+          onCancel={() => setCropTarget(null)}
+        />
+      )}
     </div>
   );
 }

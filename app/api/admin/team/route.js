@@ -62,6 +62,20 @@ export async function POST(request) {
     const body = await request.json();
     const { header, members } = body;
 
+    // Helper pour extraire le nom du fichier (key) si c'est une URL publique Supabase
+    const extractFilename = (urlOrName) => {
+      if (!urlOrName) return null;
+      if (urlOrName.includes('/storage/v1/object/public/urbateam-media/')) {
+        return urlOrName.split('/storage/v1/object/public/urbateam-media/').pop();
+      }
+      if (urlOrName.includes('/storage/v1/render/image/public/urbateam-media/')) {
+        // Enlève aussi les query params éventuels
+        const pathPart = urlOrName.split('/storage/v1/render/image/public/urbateam-media/').pop();
+        return pathPart.split('?')[0];
+      }
+      return urlOrName;
+    };
+
     // ── 1. Mise à jour du header (team_header, id = 1) ────────────────────────
     if (header) {
       const headerPayload = {
@@ -71,8 +85,7 @@ export async function POST(request) {
         subtitle_en: header.en?.subtitle ?? null,
         title_br: header.br?.title ?? null,
         subtitle_br: header.br?.subtitle ?? null,
-        // teamPhoto peut être une URL complète (ancien) ou un nom de fichier Supabase
-        team_photo: header.teamPhoto ?? null,
+        team_photo: extractFilename(header.teamPhoto),
       };
 
       const { error: headerError } = await supabaseAdmin
@@ -119,7 +132,7 @@ export async function POST(request) {
           phone: m.fr?.phone ?? null,
           linkedin: m.linkedin ?? null,
           generic: m.generic ?? false,
-          image: m.image ?? null,
+          image: extractFilename(m.image),
           sort: i,
           status: 'published',
         };
