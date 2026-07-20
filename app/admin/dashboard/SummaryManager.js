@@ -23,7 +23,7 @@ export default function SummaryManager({ user, role }) {
         fetch('/data/blog.json').then(r => r.ok ? r.json() : []),
         fetch('/data/social.json').then(r => r.ok ? r.json() : []),
         fetch('/api/admin/stats').then(r => r.ok ? r.json() : { totalVisits: 0 }),
-        fetch('/data/team.json').then(r => r.ok ? r.json() : { members: [] }),
+        fetch('/api/admin/team').then(r => r.ok ? r.json() : { members: [] }),
         fetch('/data/faq.json').then(r => r.ok ? r.json() : []),
         fetch('/data/projets.json').then(r => r.ok ? r.json() : [])
       ]);

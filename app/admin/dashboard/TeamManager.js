@@ -20,11 +20,12 @@ export default function TeamManager() {
 
   const fetchTeam = async () => {
     try {
-      const res = await fetch('/data/team.json');
+      const res = await fetch('/api/admin/team');
+      if (!res.ok) throw new Error('Erreur chargement équipe');
       const teamData = await res.json();
       setData(teamData);
     } catch (err) {
-      console.error('Erreur Équipe');
+      console.error('Erreur Équipe:', err);
     } finally {
       setLoading(false);
     }
@@ -33,7 +34,7 @@ export default function TeamManager() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch('/data/team.json', {
+      const res = await fetch('/api/admin/team', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -41,6 +42,8 @@ export default function TeamManager() {
       const resData = await res.json();
       if (resData.success) {
         showToast('Équipe mise à jour avec succès !', 'success');
+      } else {
+        showToast(resData.message || 'Erreur lors de la sauvegarde', 'error');
       }
     } catch (err) {
       showToast('Erreur lors de la sauvegarde', 'error');
@@ -56,7 +59,7 @@ export default function TeamManager() {
     if (isTeamPhoto) formData.append('isTeamPhoto', 'true');
 
     try {
-      const res = await fetch('/data/team.json/upload', {
+      const res = await fetch('/api/admin/team/upload', {
         method: 'POST',
         body: formData,
       });
