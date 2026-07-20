@@ -205,7 +205,7 @@ function computeSplitAreas(geometry, totalArea, splitAngle, splitOffset, centroi
 }
 
 
-export default function SimulateurDivisionClient() {
+export default function SimulateurDivisionClient({ hideHeader = false }) {
   const { t } = useLanguage();
   
   // États de recherche
@@ -523,13 +523,15 @@ export default function SimulateurDivisionClient() {
   const isFormValid = isLotASurfaceValid && isLotBSurfaceValid && hasAccess;
 
   return (
-    <div className="container py-section">
-      <PageHeader 
-        title={t("division.title")} 
-        subtitle={t("division.subtitle")} 
-      />
+    <div className={hideHeader ? "" : "container py-section"}>
+      {!hideHeader && (
+        <PageHeader 
+          title={t("division.title")} 
+          subtitle={t("division.subtitle")} 
+        />
+      )}
 
-      <div className={styles.layout}>
+      <div className={`${styles.layout} ${hideHeader ? styles.embeddedLayout : ''}`}>
         
         {/* Panel de contrôle et simulations (1/3) */}
         <div className={styles.sidebar}>
@@ -830,7 +832,7 @@ export default function SimulateurDivisionClient() {
         </div>
 
         {/* Bloc Carte Leaflet (2/3) */}
-        <div className={styles.mapWrapper}>
+        <div className={`${styles.mapWrapper} ${hideHeader ? styles.embeddedMap : ''}`}>
           <MapContainer 
             center={mapCenter} 
             zoom={zoomLevel} 

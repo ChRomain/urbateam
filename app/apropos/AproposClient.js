@@ -7,12 +7,21 @@ import GlassCard from '../../components/GlassCard';
 import Tilt from '../../components/Tilt';
 import Magnetic from '../../components/Magnetic';
 import { useLanguage } from '../../context/LanguageContext';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Building2, MapPin, Monitor, Cpu, Printer, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
+
+const iconMap = {
+  building: <Building2 size={24} />,
+  'map-pin': <MapPin size={24} />,
+  monitor: <Monitor size={24} />,
+  software: <Cpu size={24} />,
+  printer: <Printer size={24} />
+};
 
 // teamData est passé depuis le server component (page.js) via getTeam()
 export default function AproposClient({ teamData = { header: {}, members: [] } }) {
   const { t, language } = useLanguage();
+  const currentYear = new Date().getFullYear();
 
   const teamHeader = teamData.header[language] || {
     title: t('about.team.title'),
@@ -21,6 +30,44 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
 
   const teamMembers = teamData.members.length > 0 ? teamData.members : null;
 
+  const defaultTechnicalSections = [
+    {
+      id: "infra",
+      title: t('technical.infrastructure.title'),
+      icon: "building",
+      list: t('technical.infrastructure.list')
+    },
+    {
+      id: "field",
+      title: t('technical.field.title'),
+      icon: "map-pin",
+      list: t('technical.field.list'),
+      showFieldImages: true
+    },
+    {
+      id: "computing",
+      title: t('technical.computing.title'),
+      icon: "monitor",
+      list: t('technical.computing.list')
+    },
+    {
+      id: "software",
+      title: t('technical.software.title'),
+      icon: "software",
+      desc: t('technical.software.desc'),
+      showSoftwareImages: true
+    },
+    {
+      id: "reprography",
+      title: t('technical.reprography.title'),
+      icon: "printer",
+      list: t('technical.reprography.list'),
+      fullWidth: true
+    }
+  ];
+
+  const rawTechnicalSections = t('technical.sections');
+  const technicalItems = Array.isArray(rawTechnicalSections) ? rawTechnicalSections : defaultTechnicalSections;
 
   return (
     <div className="container py-section">
@@ -50,64 +97,66 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
         </GlassCard>
       </MotionSection>
 
-      {/* Section RSE */}
-      <div className="mt-4" style={{ marginTop: '6rem' }}>
-        <MotionSection>
-          <h2 className="text-center mb-4">{t('about.rse.title')}</h2>
-          <p className="text-center" style={{ color: 'var(--text-light)', maxWidth: '800px', margin: '0 auto 3rem' }}>
-            {t('about.rse.subtitle')}
-          </p>
-        </MotionSection>
+      {/* Section Frise Chronologique */}
+      <MotionSection style={{ marginTop: '2rem' }}>
+        <h2 className="text-center mb-4">{t('about.timeline.title')}</h2>
+        <p className="text-center" style={{ color: 'var(--text-light)', maxWidth: '800px', margin: '0 auto 0.5rem' }}>
+          {t('about.timeline.subtitle')}
+        </p>
 
-        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-          <GlassCard style={{ borderTop: '4px solid var(--primary-color)' }}>
-            <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>{t('about.rse.environmental.title')}</h3>
-            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>{t('about.rse.environmental.desc')}</p>
-            <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--text-light)', listStyleType: 'circle' }}>
-              {t('about.rse.environmental.items').slice(0, 3).map((item, i) => <li key={i} style={{ marginBottom: '0.3rem' }}>{item}</li>)}
-            </ul>
-          </GlassCard>
-          
-          <GlassCard style={{ borderTop: '4px solid var(--accent-color)' }}>
-            <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>{t('about.rse.social.title')}</h3>
-            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>{t('about.rse.social.desc')}</p>
-            <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--text-light)', listStyleType: 'circle' }}>
-              {t('about.rse.social.items').slice(0, 3).map((item, i) => <li key={i} style={{ marginBottom: '0.3rem' }}>{item}</li>)}
-            </ul>
-          </GlassCard>
+        <div className="timeline-section">
+          <div className="timeline-horizontal">
+            {t('about.timeline.items') && Array.isArray(t('about.timeline.items')) && t('about.timeline.items').map((item, index) => {
+              const displayTitle = item.year === '2027' ? item.title.replace('2027', currentYear.toString()) : item.title;
+              return (
+                <div key={index} className="timeline-col">
+                  {/* Top Card Wrapper */}
+                  {item.position === 'top' && (
+                    <div className="timeline-card-wrapper top">
+                      <div className={`timeline-card ${item.year === '2024' ? 'timeline-card-2024' : ''}`}>
+                        <div>
+                          <span className="timeline-year">{displayTitle}</span>
+                          <p className="timeline-desc" dangerouslySetInnerHTML={{ __html: item.desc }} />
+                        </div>
+                        {item.image && item.year === '2024' && (
+                          <img src={item.image} alt={item.year} className="timeline-avatar" />
+                        )}
+                        {item.image && item.year !== '2024' && (
+                          <div className="timeline-media">
+                            <img src={item.image} alt={item.year} className="timeline-avatar" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
-          <GlassCard style={{ borderTop: '4px solid var(--secondary-color)' }}>
-            <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>{t('about.rse.territorial.title')}</h3>
-            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>{t('about.rse.territorial.desc')}</p>
-            <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--text-light)', listStyleType: 'circle' }}>
-              {t('about.rse.territorial.items').slice(0, 3).map((item, i) => <li key={i} style={{ marginBottom: '0.3rem' }}>{item}</li>)}
-            </ul>
-          </GlassCard>
+                  {/* Middle Axis (Dot) */}
+                  <div className="timeline-axis">
+                    <div className="timeline-dot" />
+                  </div>
+
+                  {/* Bottom Card Wrapper */}
+                  {item.position === 'bottom' && (
+                    <div className="timeline-card-wrapper bottom">
+                      <div className="timeline-card">
+                        <span className="timeline-year">{displayTitle}</span>
+                        <p className="timeline-desc" dangerouslySetInnerHTML={{ __html: item.desc }} />
+                        {item.image && (
+                          <div className="timeline-media">
+                            <img src={item.image} alt={item.year} className="timeline-avatar" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
-          <Magnetic>
-            <Link href="/rse" style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
-              gap: '0.8rem', 
-              backgroundColor: 'var(--bg-white)', 
-              color: 'var(--primary-color)',
-              padding: '1rem 2rem',
-              borderRadius: '50px',
-              border: '1px solid var(--primary-color)',
-              fontWeight: '700',
-              textDecoration: 'none',
-              transition: 'all 0.3s ease'
-            }}>
-              {t('common.learn_more')}
-              <ArrowRight size={18} />
-            </Link>
-          </Magnetic>
-        </div>
-      </div>
-
-      <div className="mt-4" style={{ marginTop: '6rem' }}>
+      </MotionSection>
+      
+      <div className="mt-4" style={{ marginTop: '1.5rem' }}>
         <MotionSection>
           <h2 className="text-center mb-4">{teamHeader.title}</h2>
           <p className="text-center" style={{ color: 'var(--text-light)', maxWidth: '800px', margin: '0 auto 3rem' }}>
@@ -182,7 +231,120 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
             <div style={{ textAlign: 'center', gridColumn: '1/-1', opacity: 0.5 }}>{t('header.loading_references')}</div>
           )}
         </div>
+      </div>
 
+      {/* Section Moyens Techniques */}
+      <div className="mt-4" style={{ marginTop: '6rem' }}>
+        <MotionSection>
+          <h2 className="text-center mb-4">{t('technical.header.title')}</h2>
+          <p className="text-center" style={{ color: 'var(--text-light)', maxWidth: '800px', margin: '0 auto 3rem' }}>
+            {t('technical.header.subtitle')}
+          </p>
+        </MotionSection>
+        <div className="grid grid-cols-6" style={{ gap: '1.5rem' }}>
+          {technicalItems.map((item) => {
+            const isFirstRow = item.id === 'infra' || item.id === 'field' || item.id === 'computing';
+            const cardClass = item.id === 'reprography' ? 'col-span-4' : 'col-span-2';
+            const icon = iconMap[item.icon] || <HelpCircle size={20} />;
+            
+            const themeColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--secondary-color)';
+            const borderTopColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--primary-color)';
+
+            const cardPadding = isFirstRow ? '1rem 1.25rem' : '1.25rem 1.5rem';
+
+            return (
+              <GlassCard key={item.id} className={cardClass} style={{ padding: cardPadding, borderTop: `4px solid ${borderTopColor}` }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: themeColor, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: isFirstRow ? '0.75rem' : '1rem' }}>
+                  {icon}
+                </div>
+                <h3 style={{ color: 'var(--primary-color)', marginBottom: isFirstRow ? '0.5rem' : '0.75rem', fontSize: '1.2rem' }}>{item.title}</h3>
+                
+                {item.desc && (
+                  <p style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                    {item.desc}
+                  </p>
+                )}
+
+                {item.list && Array.isArray(item.list) && (
+                  <ul className={item.fullWidth ? "multi-column-list" : ""} style={{ 
+                    paddingLeft: '1.2rem', 
+                    color: 'var(--text-light)', 
+                    listStyleType: 'disc',
+                    columnCount: item.fullWidth ? 2 : 1,
+                    columnGap: item.fullWidth ? '2rem' : '0'
+                  }}>
+                    {item.list.map((listItem, i) => (
+                      <li key={i} style={{ marginBottom: isFirstRow ? '0.25rem' : '0.4rem', fontSize: '0.85rem' }}>{listItem}</li>
+                    ))}
+                  </ul>
+                )}
+
+                {item.showFieldImages && (
+                  <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-end', justifyContent: 'space-around', padding: '0.5rem 0', marginTop: '0.75rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <img src="/pictures/scanner-3d-final.png" alt="Scanner 3D" style={{ height: '50px', width: 'auto', objectFit: 'contain' }} />
+                      <p style={{ fontSize: '0.6rem', color: 'var(--text-light)', marginTop: '0.3rem' }}>Scanner 3D</p>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <img src="/pictures/station-trimble-final.png" alt="Station Trimble" style={{ height: '58px', width: 'auto', objectFit: 'contain' }} />
+                      <p style={{ fontSize: '0.6rem', color: 'var(--text-light)', marginTop: '0.3rem' }}>Station Trimble</p>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <img src="/pictures/gps-trimble-final.png" alt="GPS Trimble" style={{ height: '62px', width: 'auto', objectFit: 'contain' }} />
+                      <p style={{ fontSize: '0.6rem', color: 'var(--text-light)', marginTop: '0.3rem' }}>GPS Trimble</p>
+                    </div>
+                  </div>
+                )}
+
+                {item.showSoftwareImages && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', alignItems: 'center', justifyContent: 'center', padding: '0.75rem 0', marginTop: '1.25rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                    <img src="/pictures/autocad.png" alt="AutoCAD" style={{ height: '24px', width: 'auto' }} title="AutoCAD" />
+                    <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '24px', width: 'auto' }} title="Covadis" />
+                    <img src="/pictures/sketchup.png" alt="SketchUp" style={{ height: '24px', width: 'auto' }} title="SketchUp" />
+                    <img src="/pictures/photoshop.png" alt="Photoshop" style={{ height: '24px', width: 'auto' }} title="Photoshop" />
+                    <img src="/pictures/illustrator.png" alt="Illustrator" style={{ height: '24px', width: 'auto' }} title="Illustrator" />
+                  </div>
+                )}
+              </GlassCard>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Section RSE */}
+      <div className="mt-4" style={{ marginTop: '6rem' }}>
+        <MotionSection>
+          <h2 className="text-center mb-4">{t('about.rse.title')}</h2>
+          <p className="text-center" style={{ color: 'var(--text-light)', maxWidth: '800px', margin: '0 auto 3rem' }}>
+            {t('about.rse.subtitle')}
+          </p>
+        </MotionSection>
+
+        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <GlassCard style={{ borderTop: '4px solid var(--primary-color)' }}>
+            <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>{t('about.rse.environmental.title')}</h3>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>{t('about.rse.environmental.desc')}</p>
+            <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--text-light)', listStyleType: 'circle' }}>
+              {t('about.rse.environmental.items').slice(0, 3).map((item, i) => <li key={i} style={{ marginBottom: '0.3rem' }}>{item}</li>)}
+            </ul>
+          </GlassCard>
+          
+          <GlassCard style={{ borderTop: '4px solid var(--accent-color)' }}>
+            <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>{t('about.rse.social.title')}</h3>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>{t('about.rse.social.desc')}</p>
+            <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--text-light)', listStyleType: 'circle' }}>
+              {t('about.rse.social.items').slice(0, 3).map((item, i) => <li key={i} style={{ marginBottom: '0.3rem' }}>{item}</li>)}
+            </ul>
+          </GlassCard>
+
+          <GlassCard style={{ borderTop: '4px solid var(--secondary-color)' }}>
+            <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.2rem', marginBottom: '1rem' }}>{t('about.rse.territorial.title')}</h3>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>{t('about.rse.territorial.desc')}</p>
+            <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--text-light)', listStyleType: 'circle' }}>
+              {t('about.rse.territorial.items').slice(0, 3).map((item, i) => <li key={i} style={{ marginBottom: '0.3rem' }}>{item}</li>)}
+            </ul>
+          </GlassCard>
+        </div>
       </div>
 
       <div className="mt-4" style={{ marginTop: '6rem' }}>

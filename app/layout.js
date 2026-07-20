@@ -6,6 +6,7 @@ import ScrollProgress from '../components/ScrollProgress';
 import BackToTop from '../components/BackToTop';
 import CookieBanner from '../components/CookieBanner';
 import StatsTracker from '../components/StatsTracker';
+import GlossaryTooltip from '../components/GlossaryTooltip';
 import { LanguageProvider } from '../context/LanguageContext';
 import { headers } from 'next/headers';
 import { getSiteTexts } from '../lib/supabase';
@@ -223,6 +224,7 @@ export default async function RootLayout({ children }) {
           <CookieBanner key="cookie-banner" />
           <StatsTracker key="stats-tracker" />
           <Header key="header" />
+          <GlossaryTooltip key="glossary-tooltip" />
 
           <main id="main-content" key="main-content">
             {children}

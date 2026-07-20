@@ -21,7 +21,8 @@ import {
   ExternalLink,
   QrCode,
   Share2,
-  Shield
+  Shield,
+  List
 } from 'lucide-react';
 
 import SocialManager from './SocialManager';
@@ -38,6 +39,7 @@ import QRCodeManager from './QRCodeManager';
 import SocialCardsManager from './SocialCardsManager';
 import UsersManager from './UsersManager';
 import TextsManager from './TextsManager';
+import ProjetsMarquantsManager from './ProjetsMarquantsManager';
 import { ToastProvider } from './ToastContext';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { Handshake } from 'lucide-react';
@@ -110,6 +112,7 @@ function DashboardContent() {
     { id: 'social', name: 'Galerie Photos', icon: <ImageIcon size={20} /> },
     { id: 'blog', name: 'Articles Blog', icon: <Book size={20} /> },
     { id: 'projets', name: 'Réalisations', icon: <Layout size={20} /> },
+    { id: 'projets-marquants', name: 'Projets Marquants', icon: <List size={20} /> },
     { id: 'clients', name: 'Clients', icon: <Users size={20} /> },
     { id: 'partners', name: 'Partenaires', icon: <Handshake size={20} /> },
     { id: 'team', name: 'Équipe', icon: <Users size={20} /> },
@@ -350,6 +353,7 @@ function DashboardContent() {
           {activeTab === 'summary' && <SummaryManager user={user} role={role} />}
           {activeTab === 'social' && <SocialManager role={role} />}
           {activeTab === 'projets' && <ProjetsManager role={role} />}
+          {activeTab === 'projets-marquants' && <ProjetsMarquantsManager role={role} />}
           {activeTab === 'blog' && <BlogManager role={role} />}
           {activeTab === 'faq' && <FAQManager role={role} />}
           {activeTab === 'glossary' && <GlossaryManager role={role} />}

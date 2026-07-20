@@ -36,23 +36,39 @@ export default function Header() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileLangOpen, setMobileLangOpen] = useState(false);
 
+  const handleNavLinkClick = (e, href) => {
+    if (href && href.includes('#')) {
+      const parts = href.split('#');
+      const hash = parts[1];
+      const targetPath = parts[0] || '/';
+      
+      const cleanPathname = pathname ? pathname.replace(/^\/(en|br)/, '') : '/';
+      const cleanTargetPath = targetPath ? targetPath.replace(/^\/(en|br)/, '') : '/';
+      
+      const normalizedPathname = cleanPathname === '' ? '/' : cleanPathname;
+      const normalizedTargetPath = cleanTargetPath === '' ? '/' : cleanTargetPath;
+      
+      if (normalizedPathname === normalizedTargetPath) {
+        const element = document.getElementById(hash);
+        if (element) {
+          e.preventDefault();
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+  };
+
   if (pathname?.includes('/admin')) {
     return null;
   }
 
   const expertiseLinks = [
-    { name: t('expertise.items.urbanisme.title'), href: '/expertise/urbanisme' },
-    { name: t('expertise.items.geometre.title'), href: '/expertise/geometre' },
-    { name: t('expertise.items.vrd.title'), href: '/expertise/vrd' },
-    { name: t('expertise.items.sport.title'), href: '/expertise/sport' },
-    { name: t('expertise.items.topographie.title'), href: '/expertise/topographie' },
+    { name: t('expertise.items.bornage.title'), href: '/expertise/bornage' },
+    { name: t('expertise.items.division.title'), href: '/expertise/division' },
     { name: t('expertise.items.copropriete.title'), href: '/expertise/copropriete' },
-  ];
-
-  const portfolioLinks = [
-    { name: t('header.projects'), href: '/projets' },
-    { name: t('header.clients'), href: '/clients' },
-    { name: t('header.partners'), href: '/partenaires' },
+    { name: t('expertise.items.lotissement.title'), href: '/expertise/lotissement' },
+    { name: t('expertise.items.urbanisme.title'), href: '/expertise/urbanisme' },
+    { name: t('expertise.items.vrd.title'), href: '/expertise/vrd' },
   ];
 
   const isToolVisible = (key) => {
@@ -76,10 +92,8 @@ export default function Header() {
 
   const navLinks = [
     { name: t('header.about'), href: '/apropos' },
-    { name: t('header.expertises'), href: '#', dropdown: expertiseLinks },
-    { name: t('header.portfolio'), href: '#', dropdown: portfolioLinks },
-    { name: t('header.technical'), href: '/moyens-techniques' },
-    { name: t('header.resources_dropdown'), href: '#', dropdown: resourceLinks },
+    { name: t('header.expertises'), href: '/#expertises' },
+    { name: t('header.portfolio'), href: '/projets' },
     { name: t('header.contact'), href: '/contact', primary: true },
   ];
 
@@ -193,6 +207,7 @@ export default function Header() {
                         href={link.href} 
                         className={link.primary ? 'btn btn-primary' : styles.navLink}
                         onMouseEnter={() => router.prefetch(link.href)}
+                        onClick={(e) => handleNavLinkClick(e, link.href)}
                       >
                         {link.name}
                       </Link>
@@ -320,7 +335,10 @@ export default function Header() {
                     <Link 
                       href={link.href} 
                       className={styles.mobileNavLink}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        handleNavLinkClick(e, link.href);
+                        setIsOpen(false);
+                      }}
                     >
                       {link.name}
                       {!link.dropdown && <ArrowRight size={20} className={styles.itemArrow} />}

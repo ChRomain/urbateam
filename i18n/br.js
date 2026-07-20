@@ -1,15 +1,15 @@
 export const br = {
   "header": {
     "home": "Degemer",
-    "about": "Diwar-benn",
-    "expertises": "Barregezhioù",
+    "about": "Ar Burev",
+    "expertises": "Hon obererezhioù",
     "technical": "Doareoù teknikel",
     "faq": "Goulennoù alies",
     "contact": "Darempred",
     "sitemap": "Kartenn al lec'hienn",
     "sitemap_subtitle": "Kavit aes an holl bagezennoù hon lec'hienn.",
     "social": "Heuilhit ac'hanomp",
-    "portfolio": "Portfolio",
+    "portfolio": "Hor Raktresoù",
     "projects": "Hor Raktresoù",
     "clients": "Hor Pratikoù",
     "resources_dropdown": "Danvezioù",
@@ -36,6 +36,7 @@ export const br = {
   },
   "stats": {
     "creation": {
+      "number": "1983",
       "label": "Bloavezh krouiñ",
       "desc": "Ur varregezh kreñv ha brud vat e Breizh-Izel."
     },
@@ -52,6 +53,50 @@ export const br = {
     "title": "Hor Barregezhioù",
     "subtitle": "Ur sell hollek ha liesplegek evit respont da ezhommoù ho raktresoù kêraozerezh, douar ha frammoù.",
     "items": {
+      "bornage": {
+        "title": "Bonnañ",
+        "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh.",
+        "longDesc": "An Douaroner-Barnour eo an den nemetañ a c'hell lakaat harzoù ofisiel d'ho touar, gwarantiñ a ra URBATEAM surentez ho madoù. Labourat a reomp war holl gudennoù gwir an douar gant teuliadoù bonnañ resis.",
+        "missions": [
+          { "title": "Bonnañ ofisiel", "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh." },
+          { "title": "Klask paperioù kozh", "desc": "Klask e-barzh an dielloù ha lenn an teuliadoù douar." },
+          { "title": "Lakaat bonnoù", "desc": "Plantañ bonnoù pe repère-metek war an dachenn." },
+          { "title": "Sklentoù ha gwir", "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù douar." }
+        ]
+      },
+      "division": {
+        "title": "Rannañ",
+        "desc": "Krouiñ lodennoù douar nevez evit sevel tiez pe gwerzhañ.",
+        "longDesc": "URBATEAM a ambroug ac'hanoc'h evit rannañ ho touaroù. Eus ar studi gentañ d'an teuliadoù evit an ti-kêr, hag an tresoù arpentage.",
+        "missions": [
+          { "title": "Rannañ douar", "desc": "Sikour klok evit rannañ douaroù ha kemmañ ar c'hadastr gant un teuliad DMPC." },
+          { "title": "Studi dachenn", "desc": "Anavezout ar PLU evit gwelet ma c'heller sevel un ti." },
+          { "title": "Disklêriadur ti-kêr", "desc": "Sevel ha kas an teuliad disklêriañ da di-kêr." },
+          { "title": "Muzuliañ ha bonnañ lodennoù", "desc": "Muzuliañ resis al lodennoù nevez ha plantañ bonnoù." }
+        ]
+      },
+      "copropriete": {
+        "title": "Kenperc'henniezh & Rannañ e volumoù",
+        "desc": "Tresañ rannoù ar savadur, jediñ al lodennoù ha rannañ e volumoù.",
+        "longDesc": "Sevel a reomp tresoù ar genperc'henniezh ha jediñ al lodennoù. Labourat a reomp ivez war ensembles savadurioù kemplezh evit rannañ anezho e volumoù 3D hep rannoù boutin.",
+        "missions": [
+          { "title": "Lakaat e kenperc'henniezh & Volumoù", "desc": "Jediñ al lodennoù, tresañ ar rannoù ha sevel reolennoù ar genperc'henniezh." },
+          { "title": "Rannañ e volumoù", "desc": "Mestroniañ teuliadoù rannañ e volumoù 3D gant an notered." },
+          { "title": "Kemmañ kenperc'henniezh", "desc": "Kemmañ tresoù ha tantièmes goude labourioù pe gwerzhioù." },
+          { "title": "Muzuliañ 3D & BIM", "desc": "Muzuliañ milimetrek ar frammoù kemplezh gant ur scanner 3D." }
+        ]
+      },
+      "lotissement": {
+        "title": "Lodennaouegoù",
+        "desc": "Meizañ lodennaouegoù, krouiñ douaroù da sevel tiez ha mestroniañ al labourioù.",
+        "longDesc": "Eus an tres kentañ da fin al labourioù, URBATEAM a ambroug ac'hanoc'h evit sevel lodennaouegoù ha karterioù ekologel. Prientet e vez ganeomp al labourioù hentoù ha rouedadoù (VRD).",
+        "missions": [
+          { "title": "Permet aozañ", "desc": "Sevel an teuliad melestradurel evit krouiñ ul lodennaoueg." },
+          { "title": "Meizañ al lodennaoueg", "desc": "Tresad-kempenn ha lakaat brav e-barzh ar gweledva." },
+          { "title": "Mestroniezh-ober VRD", "desc": "Heuliañ al labourioù viabiliser ha staliañ ar rouedadoù." },
+          { "title": "Bonnañ al lodennoù", "desc": "Lakaat ar bonnoù war pep lodenn krouet a-raok gwerzhañ." }
+        ]
+      },
       "urbanisme": {
         "title": "Kêraozerezh & Gweledva",
         "desc": "Burev studial an aozañ : ZAC, karterioù ekologel, lodennoù kêr, takadoù obererezh ha reneveziñ kêr.",
@@ -75,31 +120,8 @@ export const br = {
           }
         ]
       },
-      "geometre": {
-        "title": "Douaroner-Barnour",
-        "desc": "Burev studial douar : bonnañ, rannañ lodennoù, kenperc'henniezh ha lakaat harzoù d'an douaroù.",
-        "longDesc": "An Douaroner-Barnour eo an den nemetañ a c'hell lakaat harzoù ofisiel d'ho touar, gwarantiñ a ra URBATEAM surentez ho madoù. Labourat a reomp war holl gudennoù gwir an douar, adalek ar <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bonnañ</a> betek ar <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">sklentoù</a>.",
-        "missions": [
-          {
-            "title": "Bonnañ ofisiel",
-            "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh."
-          },
-          {
-            "title": "Rannañ douar",
-            "desc": "Sikour klok evit rannañ douaroù ha kemmañ ar c'hadastr gant un teuliad <a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>."
-          },
-          {
-            "title": "Kenperc'henniezh & Volumoù",
-            "desc": "Sevel tresoù diabarzh ha teuliadoù evit ar <a class=\"wiki-link\" href=\"/lexique?search=Copropriété\">genperc'henniezh</a>."
-          },
-          {
-            "title": "Gwir an douar",
-            "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù kemplezh."
-          }
-        ]
-      },
       "vrd": {
-        "title": "Dornouriezh VRD",
+        "title": "Mestroniezh-ober & VRD",
         "desc": "Burev studial frammoù : hentoù, rouedadoù liesseurt, dour-lous ha dour-glav, parkingoù.",
         "longDesc": "Hon dornourien a veiz ar frammoù a zo ezhomm evit ur raktres (dour, hentoù, h.a). Dibab a reomp diskoulmoù nevez evit ar <a class=\"wiki-link\" href=\"/lexique?search=VRD\">rouedadoù</a> ha mestroniañ an dour e mod padus.",
         "missions": [
@@ -167,26 +189,26 @@ export const br = {
           }
         ]
       },
-      "copropriete": {
-        "title": "Pôle Kenperc'henniezh & 3D",
-        "desc": "Varregezh war muzuliañ savadurioù, lakaat e kenperc'henniezh ha diskouez e 3D.",
-        "longDesc": "URBATEAM a oar ober e-barzh lakaat ha meizañ ar savadurioù. Cheñch a reomp ho savadurioù da gevelled niverel speredek (<a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a>).",
+      "geometre": {
+        "title": "Douaroner-Barnour",
+        "desc": "Burev studial douar : bonnañ, rannañ lodennoù, kenperc'henniezh ha lakaat harzoù d'an douaroù.",
+        "longDesc": "An Douaroner-Barnour eo an den nemetañ a c'hell lakaat harzoù ofisiel d'ho touar, gwarantiñ a ra URBATEAM surentez ho madoù. Labourat a reomp war holl gudennoù gwir an douar, adalek ar <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bonnañ</a> betek ar <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">sklentoù</a>.",
         "missions": [
           {
-            "title": "Lakaat e kenperc'henniezh & Volumoù",
-            "desc": "Jediñ al <a class=\"wiki-link\" href=\"/lexique?search=Tantièmes\">lodennoù</a>, tresañ ar rannoù ha sevel reolennoù ar <a class=\"wiki-link\" href=\"/lexique?search=Copropriété\">genperc'henniezh</a>."
+            "title": "Bonnañ ofisiel",
+            "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh."
           },
           {
-            "title": "Scanner 3D",
-            "desc": "Muzuliañ milimetrek ar frammoù kemplezh evit kaout ur c'hoabr poentoù resis."
+            "title": "Rannañ douar",
+            "desc": "Sikour klok evit rannañ douaroù ha kemmañ ar c'hadastr gant un teuliad <a class=\"wiki-link\" href=\"/lexique?search=DMPC\">DMPC</a>."
           },
           {
-            "title": "Meizañ BIM (Scan-to-BIM)",
-            "desc": "Krouiñ ur patrom niverel gant titouroù speredek (dafar, rouedadoù, h.a)."
+            "title": "Kenperc'henniezh & Volumoù",
+            "desc": "Sevel tresoù diabarzh ha teuliadoù evit ar <a class=\"wiki-link\" href=\"/lexique?search=Copropriété\">genperc'henniezh</a>."
           },
           {
-            "title": "Maketenn Niverel",
-            "desc": "Lakaat servijourien evit un hizivaat dibaouez pa cheñch ar raktres."
+            "title": "Gwir an douar",
+            "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù kemplezh."
           }
         ]
       }
@@ -198,7 +220,7 @@ export const br = {
   "references": {
     "title": "Fiziañs o deus ennomp",
     "subtitle": "Strolladoù tiriadel, saverien ha mestrourien a fiz o raktresoù aozañ ennomp.",
-    "list_title": "Kefridioù mestroniezh-ober anavezet :",
+    "list_title": "Hor raktresoù heverk",
     "items": [
       "Karter ekologel PLEUZEG (22) - Kevezadeg tresañ",
       "SQUIFFIEC (22) : Karter padus nevez 'Le Hameau de la Vallée'",
@@ -230,6 +252,57 @@ export const br = {
       "p2": "Hor c'hefridioù a denn da dachennoù boas an Douaronerien-Varnourien (bonnañ, rannañ, sevel lodennoù da sevel tiez, kenperc'henniezh, topografiezh), met ivez da geriaozerezh, gweledva ha dornouriezh frammoù (VRD).",
       "p3": "Gouestlañ a reomp da vestroniañ ha da warantiñ kalite hor servijoù, en ur doujañ d'an ezhommoù ho peus.",
       "media_placeholder": "[Lec'h evit poltred ar skipailh]"
+    },
+    "timeline": {
+      "title": "Hon Istor",
+      "subtitle": "Ouzhpenn 40 vloaz a istor hag emdroadur e-biad deoc'h",
+      "items": [
+        {
+          "year": "1983",
+          "title": "1983",
+          "desc": "Krouidigezh ar c'habined gant <strong>François Quéau</strong>, douaroner-varnour",
+          "image": "/pictures/francois_queau_v2.png",
+          "position": "bottom"
+        },
+        {
+          "year": "2000",
+          "title": "Deroù ar bloavezhioù 2000",
+          "desc": "Diorren a ra ar c'habined e varregezhioù tamm-ha-tamm evit heuliañ raktresoù aozañ an tiriad ha kêraozerezh.",
+          "position": "top"
+        },
+        {
+          "year": "2007",
+          "title": "2007",
+          "desc": "Prenerezh kabined Thomas e <strong>Douarnenez</strong> ha krouidigezh ar gevredigezh QUEAU-L'HENAFF",
+          "position": "bottom"
+        },
+        {
+          "year": "2012",
+          "title": "2012",
+          "desc": "Cheñch a ra anv ar gevredigezh hag a zeu da vezañ <strong>URBATEAM</strong>",
+          "position": "top"
+        },
+        {
+          "year": "2021",
+          "title": "2021",
+          "desc": "Dont a ra <strong>Franck Le Gall</strong> da vezañ keveler gant URBATEAM",
+          "image": "/pictures/franck_le_gall_v2.png",
+          "position": "bottom"
+        },
+        {
+          "year": "2024",
+          "title": "2024",
+          "desc": "Mont a ra François Quéau war e leve ha dont a ra <strong>Laura Charretteur</strong> da vezañ kevelerez gant URBATEAM",
+          "image": "/pictures/laura_charretteur_v2.png",
+          "position": "top"
+        },
+        {
+          "year": "2027",
+          "title": "2027 ha goude",
+          "desc": "Kenderc'hel a ra an dazont da vezañ skrivet gant raktresoù nevez, sfidoù nevez ha bepred ar memes youl : <strong>ambroug padus an tiriadoù hag o emdroadurioù</strong>",
+          "position": "bottom"
+        }
+      ]
     },
     "team": {
       "title": "Hor Skipailh",
@@ -1038,6 +1111,7 @@ export const br = {
     "rights": "Pep gwir miret strizh",
     "projects": "Hor Raktresoù",
     "clients": "Hor Pratikoù",
+    "clients_partners": "Hor Pratikoù ha Kenoberourien",
     "follow_us": "Heuilhit ac'hanomp"
   },
   "common": {
@@ -1058,7 +1132,7 @@ export const br = {
   },
   "testimonials": {
     "title": "Ar pezh a lavar hor pratikoù",
-    "subtitle": "Aliou Google siguret (Notenn : 4,5/5)",
+    "subtitle": "Aliou Google siguret (Notenn : 5/5)",
     "source": "Ali Google",
     "cta": "Gwelet an holl aliou war Google",
     "items": [
@@ -1158,16 +1232,28 @@ export const br = {
       "description": "Ezhomm un devis pe un ali ? Deuit e darempred gant hor skiperien evit ho raktresoù e Brest ha Penn-ar-Bed a-bezh."
     },
     "expertises": {
+      "bornage": {
+        "title": "Bonnañ Douar | Harzoù Ofisiel | URBATEAM",
+        "description": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh gant un Douaroner-Barnour."
+      },
+      "division": {
+        "title": "Rannañ Douar | Krouiñ Lodennoù | URBATEAM",
+        "description": "Sikour klok evit rannañ douaroù, krouiñ lodennoù da sevel tiez ha kemmañ ar c'hadastr."
+      },
+      "copropriete": {
+        "title": "Kenperc'henniezh & Rannañ e volumoù | URBATEAM",
+        "description": "Sevel tresoù kenperc'henniezh, jediñ al lodennoù ha rannañ e volumoù tridimensionel."
+      },
+      "lotissement": {
+        "title": "Lodennaouegoù & Aozañ | URBATEAM",
+        "description": "Ambroug ac'hanoc'h evit sevel lodennaouegoù ha karterioù ekologel eus an tres kentañ da fin al labourioù."
+      },
       "urbanisme": {
         "title": "Kêraozerezh & Gweledva | Aozañ Padus | URBATEAM",
         "description": "Studi, meizañ karterioù ekologel hag aozañ takadoù kêr gant hor c'hêraourien."
       },
-      "geometre": {
-        "title": "Douaroner-Barnour | Bonnañ & Rannañ | URBATEAM",
-        "description": "An hini nemetañ a c'hell lakaat harzoù ofisiel. Bonnañ, rannañ douaroù ha gwir an douar."
-      },
       "vrd": {
-        "title": "Dornouriezh VRD | Hentoù & Rouedadoù | URBATEAM",
+        "title": "Mestroniezh-ober & VRD | Infrastrukturoù | URBATEAM",
         "description": "Burev studial VRD : dour-lous, hentoù, mestroniañ an dour-glav ha prientiñ douaroù."
       },
       "sport": {
@@ -1178,9 +1264,9 @@ export const br = {
         "title": "Topografiezh Resis | Tresoù 2D/3D | URBATEAM",
         "description": "Tresoù topografek, lakaat savadurioù ha muzuliañ savouriezh gant scanner 3D ha dron."
       },
-      "copropriete": {
-        "title": "Kenperc'henniezh & BIM | Tresoù 3D | URBATEAM",
-        "description": "Lakaat e kenperc'henniezh, jediñ lodennoù, rannañ e volumoù ha meizañ e BIM."
+      "geometre": {
+        "title": "Douaroner-Barnour | Bonnañ & Rannañ | URBATEAM",
+        "description": "An hini nemetañ a c'hell lakaat harzoù ofisiel. Bonnañ, rannañ douaroù ha gwir an douar."
       },
       "partners": {
         "title": "Kenoberourien | URBATEAM",

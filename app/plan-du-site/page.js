@@ -14,7 +14,7 @@ export default function SitemapHTML() {
     { href: '/apropos', label: t('header.about') },
     { href: '/expertise', label: t('header.expertises') },
     { href: '/projets', label: t('header.projects') },
-    { href: '/clients', label: t('header.clients') },
+    { href: '/clients-et-partenaires', label: t('footer.clients_partners') },
     { href: '/mon-projet', label: t('header.my_project') },
     { href: '/blog', label: t('header.blog') },
     { href: '/nous-suivre', label: t('header.follow_us') },

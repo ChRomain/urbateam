@@ -46,6 +46,21 @@ const nextConfig = {
 
   // Compression gzip activée côté Next.js
   compress: true,
+
+  async redirects() {
+    return [
+      {
+        source: '/clients',
+        destination: '/clients-et-partenaires',
+        permanent: true,
+      },
+      {
+        source: '/partenaires',
+        destination: '/clients-et-partenaires',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

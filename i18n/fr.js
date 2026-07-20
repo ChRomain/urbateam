@@ -33,17 +33,29 @@ export const fr = {
       description: "Besoin d'un devis ou d'un conseil ? Contactez nos experts pour vos projets à Brest et dans tout le Finistère."
     },
     expertises: {
+      bornage: {
+        title: "Bornage de Propriété | Limites Foncières | URBATEAM",
+        description: "Définition juridique et physique des limites séparatives de votre propriété par nos Géomètres-Experts."
+      },
+      division: {
+        title: "Division Parcellaire | Création de Terrain | URBATEAM",
+        description: "Études de faisabilité, documents d'arpentage et division foncière pour vos projets de vente ou construction."
+      },
+      copropriete: {
+        title: "Copropriété & Division en volumes | URBATEAM",
+        description: "Mise en copropriété, calcul de tantièmes, états descriptifs de division et division en volumes complexes."
+      },
+      lotissement: {
+        title: "Lotissements & Aménagements | URBATEAM",
+        description: "Accompagnement complet de la conception à la viabilisation de vos lotissements et éco-quartiers."
+      },
       urbanisme: {
         title: "Urbanisme & Paysage | Aménagement Durable | URBATEAM",
         description: "Études de faisabilité, conception d'éco-quartiers et aménagement d'espaces publics par nos urbanistes experts."
       },
-      geometre: {
-        title: "Géomètre-Expert Foncier | Bornage & Division | URBATEAM",
-        description: "Seul habilité à fixer les limites de propriété. Bornage contradictoire, division parcellaire et expertise juridique."
-      },
       vrd: {
-        title: "Ingénierie VRD | Infrastructures & Réseaux | URBATEAM",
-        description: "Bureau d'études VRD : assainissement, voirie, gestion des eaux pluviales et viabilisation de terrains."
+        title: "Maîtrise d’œuvre & VRD | Infrastructures | URBATEAM",
+        description: "Bureau d'études VRD : assainissement, voirie, gestion des eaux pluviales et maîtrise d'œuvre de travaux."
       },
       sport: {
         title: "Ingénierie Sportive | Stades & Terrains | URBATEAM",
@@ -53,9 +65,9 @@ export const fr = {
         title: "Topographie de Précision | Plans 2D/3D | URBATEAM",
         description: "Levés topographiques, implantations d'ouvrages et relevés d'architecture par scanner 3D et drone."
       },
-      copropriete: {
-        title: "Copropriété & BIM | Relevés 3D | URBATEAM",
-        description: "Mise en copropriété, calcul de tantièmes, division en volumes et modélisation BIM (Scan-to-BIM)."
+      geometre: {
+        title: "Géomètre-Expert Foncier | Bornage & Division | URBATEAM",
+        description: "Seul habilité à fixer les limites de propriété. Bornage contradictoire, division parcellaire et expertise juridique."
       },
       partners: {
         title: "Partenaires Experts | URBATEAM",
@@ -65,10 +77,10 @@ export const fr = {
   },
   header: {
     home: "Accueil",
-    about: "L'Agence",
-    expertises: "Expertises",
-    portfolio: "Portfolio",
-    projects: "Nos Réalisations",
+    about: "Le Cabinet",
+    expertises: "Nos activités",
+    portfolio: "Nos Projets",
+    projects: "Nos projets",
     clients: "Nos Clients",
     resources_dropdown: "Ressources",
     division_simulator: "Simulateur de Division",
@@ -101,7 +113,7 @@ export const fr = {
     cta_more: "En savoir plus"
   },
   stats: {
-    creation: { label: "Année de création", desc: "Une expertise ancrée et reconnue en Bretagne-Ouest." },
+    creation: { number: "1983", label: "Année de création", desc: "Une expertise ancrée et reconnue en Bretagne-Ouest." },
     collaborators: { label: "Collaborateurs dédiés", desc: "Géomètres, urbanistes et ingénieurs pluridisciplinaires." },
     projects: { label: "Projets d'envergure", desc: "De la maison individuelle à l'éco-quartier régional." }
   },
@@ -109,8 +121,52 @@ export const fr = {
     title: "Nos Domaines d'Expertise",
     subtitle: "Une approche globale et pluridisciplinaire pour répondre aux exigences de vos projets d'aménagement urbain, foncier et d'infrastructures.",
     items: {
+      bornage: {
+        title: "Bornage",
+        desc: "Définition juridique et physique des limites séparatives de votre propriété.",
+        longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Le bornage contradictoire définit physiquement et juridiquement les limites de propriété en accord avec les riverains.",
+        missions: [
+          { title: "Bornage contradictoire", desc: "Définition juridique et physique des limites avec signature du procès-verbal." },
+          { title: "Recherche de documents", desc: "Recherche en archives et analyse des titres de propriété." },
+          { title: "Mise en place de bornes", desc: "Matérialisation physique de la limite sur le terrain." },
+          { title: "Expertise juridique & servitudes", desc: "Conseil sur les mitoyennetés, droits de passage et servitudes." }
+        ]
+      },
+      division: {
+        title: "Division",
+        desc: "Création de nouvelles parcelles foncières en vue de bâtir ou de vendre.",
+        longDesc: "URBATEAM vous accompagne dans toutes les étapes de la division parcellaire. De l'étude de faisabilité à la déclaration préalable en mairie, jusqu'au document d'arpentage et au bornage des nouveaux lots.",
+        missions: [
+          { title: "Division parcellaire", desc: "Création de terrains à bâtir avec Document de Modification du Parcellaire Cadastral (DMPC)." },
+          { title: "Étude de faisabilité", desc: "Analyse du Plan Local d'Urbanisme (PLU) pour vérifier la constructibilité." },
+          { title: "Déclaration préalable (DP)", desc: "Constitution et dépôt du dossier de demande de division en mairie." },
+          { title: "Arpentage & Bornage des lots", desc: "Mesure précise et pose de bornes pour délimiter les nouveaux lots." }
+        ]
+      },
+      copropriete: {
+        title: "Copropriété et division en volumes",
+        desc: "Mise en copropriété d'immeubles, calcul de tantièmes, états descriptifs de division et division en volumes.",
+        longDesc: "Nous réalisons les plans de copropriété, les états descriptifs de division (EDD) et le calcul des tantièmes de charges. Nous intervenons également pour les divisions en volumes complexes, en séparant la propriété en volumes tridimensionnels indépendants sans notion de parties communes.",
+        missions: [
+          { title: "Mise en copropriété", desc: "Plans de copropriété et calcul des tantièmes (millièmes) de charges." },
+          { title: "Division en volumes", desc: "Gestion des ensembles immobiliers complexes en volumes 3D." },
+          { title: "Modification de copropriété", desc: "Mise à jour des plans et des quotes-parts suite à des travaux ou ventes." },
+          { title: "Relevé scanner 3D & BIM", desc: "Numérisation 3D et modélisation pour une gestion intelligente du bâti." }
+        ]
+      },
+      lotissement: {
+        title: "Lotissements",
+        desc: "Aménagement d'ensemble, création de terrains à bâtir et gestion des espaces communs.",
+        longDesc: "De la conception à la réception des travaux, URBATEAM vous accompagne dans la réalisation de lotissements et d'éco-quartiers. Nous assurons la maîtrise d'œuvre complète des aménagements, des voiries et des réseaux divers (VRD).",
+        missions: [
+          { title: "Permis d'aménager", desc: "Dossier administratif pour la création de lotissements." },
+          { title: "Conception d'aménagements", desc: "Esquisses, plans de masse et insertion paysagère." },
+          { title: "Maîtrise d'œuvre complète", desc: "Direction des travaux de viabilisation et de voirie." },
+          { title: "Bornage de lotissement", desc: "Implantation finale et bornage de chacun des lots créés." }
+        ]
+      },
       urbanisme: { 
-        title: "Urbanisme & Paysage", 
+        title: "Urbanisme et Paysage", 
         desc: "Bureau d'études en aménagement : ZAC, éco-quartiers, morceaux de ville, parcs d'activités, entrées de ville, et réaménagement urbain.",
         longDesc: "URBATEAM accompagne les collectivités et les aménageurs privés dans la conception de cadres de vie durables et harmonieux. Notre approche mêle vision stratégique urbaine et sensibilité paysagère pour créer des espaces qui font sens, en intégrant les enjeux du <a class=\"wiki-link\" href=\"/lexique?search=PLU\">PLU</a> et du développement durable.",
         missions: [
@@ -120,26 +176,15 @@ export const fr = {
           { title: "Planification réglementaire", desc: "Dossiers de permis d'aménager et PLU." }
         ]
       },
-      geometre: { 
-        title: "Géomètre-Expert Foncier", 
-        desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés.",
-        longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Nous intervenons sur toutes les problématiques liées au droit du sol, du <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bornage</a> à la gestion des <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">servitudes</a>.",
-        missions: [
-          { title: "Bornage contradictoire", desc: "Définition juridique et physique des limites." },
-          { title: "Division parcellaire", desc: "Création de terrains à bâtir (DMPC)." },
-          { title: "Copropriété & Division en volumes", desc: "Plans et descriptifs de division en volumes." },
-          { title: "Expertise foncière & juridique", desc: "Conseil sur les servitudes et mitoyennetés." }
-        ]
-      },
       vrd: { 
-        title: "Ingénierie VRD", 
+        title: "Maîtrise d’œuvre et VRD", 
         desc: "Bureau d'études en infrastructures : voirie, réseaux divers, assainissement, traitement des eaux pluviales, parkings, giratoires.",
-        longDesc: "Nos ingénieurs et techniciens conçoivent les infrastructures techniques indispensables à la viabilisation des projets. Nous privilégions des solutions innovantes pour la <a class=\"wiki-link\" href=\"/lexique?search=VRD\">voirie et les réseaux</a> et la gestion durable des eaux.",
+        longDesc: "Nos ingénieurs et techniciens conçoivent et dirigent les travaux d'infrastructures indispensables à la viabilisation de vos projets. Nous concevons la voirie, les réseaux d'eau potable, d'eaux usées, d'électricité, de télécoms et la gestion alternative des eaux pluviales.",
         missions: [
-          { title: "Maîtrise d'œuvre d'infrastructures", desc: "Conception et suivi de travaux de voirie." },
-          { title: "Gestion alternative des eaux pluviales", desc: "Dimensionnement de bassins et noues." },
-          { title: "Études hydrauliques", desc: "Modélisation des flux d'assainissement." },
-          { title: "Conception de giratoires & parkings", desc: "Optimisation des flux de circulation." }
+          { title: "Maîtrise d'œuvre VRD", desc: "Conception, consultation des entreprises et suivi de travaux." },
+          { title: "Gestion des eaux pluviales", desc: "Dimensionnement de bassins, noues et techniques alternatives." },
+          { title: "Études de viabilisation", desc: "Calcul des pentes de réseaux et dimensionnement de voirie." },
+          { title: "Conception de giratoires & parkings", desc: "Optimisation de la voirie et des flux." }
         ]
       },
       sport: { 
@@ -164,15 +209,15 @@ export const fr = {
           { title: "Implantations d'ouvrages", desc: "Report millimétrique des axes de projet." }
         ]
       },
-      copropriete: {
-        title: "Pôle Copropriété & 3D",
-        desc: "Expertise en relevés de bâtiments, mise en copropriété et modélisation BIM pour une gestion intelligente du bâti.",
-        longDesc: "URBATEAM excelle dans la capture et la modélisation de l'existant. Nous transformons vos bâtiments physiques en jumeaux numériques intelligents (<a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a>), centralisant toutes les données techniques.",
+      geometre: { 
+        title: "Géomètre-Expert Foncier", 
+        desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés.",
+        longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Nous intervenons sur toutes les problématiques liées au droit du sol, du <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bornage</a> à la gestion des <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">servitudes</a>.",
         missions: [
-          { title: "Mise en copropriété & Volumétrie", desc: "Calcul de tantièmes et plans de division." },
-          { title: "Relevé 3D par Scanner Laser", desc: "Capture laser de structures complexes." },
-          { title: "Modélisation BIM (Scan-to-BIM)", desc: "Création de maquettes numériques 3D." },
-          { title: "Maquette Numérique Centralisée", desc: "Jumeau numérique mis à jour en temps réel." }
+          { title: "Bornage contradictoire", desc: "Définition juridique et physique des limites." },
+          { title: "Division parcellaire", desc: "Création de terrains à bâtir (DMPC)." },
+          { title: "Copropriété & Division en volumes", desc: "Plans et descriptifs de division en volumes." },
+          { title: "Expertise foncière & juridique", desc: "Conseil sur les servitudes et mitoyennetés." }
         ]
       }
     },
@@ -183,7 +228,7 @@ export const fr = {
   references: {
     title: "Ils nous font confiance",
     subtitle: "Collectivités, promoteurs et donneurs d'ordres institutionnels nous confient leurs projets d'aménagement.",
-    list_title: "Missions de maîtrise d'œuvre marquantes :",
+    list_title: "Nos projets marquants",
     categories: {
       collectivite: "Collectivités",
       amenageur: "Aménageurs & Promoteurs",
@@ -210,11 +255,62 @@ export const fr = {
       subtitle: "Votre partenaire privilégié pour l'aménagement du territoire en Bretagne-Ouest."
     },
     society: {
-      title: "Notre Société",
+      title: "Le cabinet",
       p1: "La société URBATEAM vous accompagne tout au long de vos projets d'aménagement sur la Bretagne-Ouest grâce à nos deux agences de proximité situées à Saint-Renan (près de Brest) et Douarnenez.",
       p2: "Nos missions portent sur les domaines d'activités traditionnels des Géomètres-Experts (bornages, divisions, créations de terrain à bâtir, copropriétés, implantations, expertises, topographie), mais également de manière historique sur l'aménagement urbain, le paysage et l'ingénierie d'infrastructures (VRD).",
       p3: "Nous nous engageons à maîtriser, valoriser et garantir la qualité des services offerts, tout en respectant scrupuleusement les besoins de nos maîtres d'ouvrage.",
       media_placeholder: "[Espace pour photo d'équipe ou vue drone]"
+    },
+    timeline: {
+      title: "Notre Histoire",
+      subtitle: "Plus de 40 ans d'histoire et d'évolution à vos côtés",
+      items: [
+        {
+          year: "1983",
+          title: "1983",
+          desc: "Création du cabinet par <strong>François Quéau</strong>, géomètre-expert",
+          image: "/pictures/francois_queau_v2.png",
+          position: "bottom"
+        },
+        {
+          year: "2000",
+          title: "Début des années 2000",
+          desc: "Le cabinet développe progressivement ses compétences pour accompagner les projets d'aménagement du territoire et d'urbanisme.",
+          position: "top"
+        },
+        {
+          year: "2007",
+          title: "2007",
+          desc: "Rachat du cabinet Thomas à <strong>Douarnenez</strong> et création de la société QUEAU-L'HENAFF",
+          position: "bottom"
+        },
+        {
+          year: "2012",
+          title: "2012",
+          desc: "La société change de nom et devient <strong>URBATEAM</strong>",
+          position: "top"
+        },
+        {
+          year: "2021",
+          title: "2021",
+          desc: "<strong>Franck Le Gall</strong> devient associé d'URBATEAM",
+          image: "/pictures/franck_le_gall_v2.png",
+          position: "bottom"
+        },
+        {
+          year: "2024",
+          title: "2024",
+          desc: "François Quéau prend sa retraite et <strong>Laura Charretteur</strong> devient associée d'URBATEAM",
+          image: "/pictures/laura_charretteur_v2.png",
+          position: "top"
+        },
+        {
+          year: "2027",
+          title: "2027 et au-delà",
+          desc: "L'avenir continue de s'écrire avec de nouveaux projets, de nouveaux défis et toujours la même volonté : <strong>accompagner durablement les territoires et leurs évolutions</strong>",
+          position: "bottom"
+        }
+      ]
     },
     team: {
       title: "Notre Équipe",
@@ -943,10 +1039,11 @@ export const fr = {
   },
   footer: {
     brand_text: "Votre partenaire pour l'aménagement en Bretagne-Ouest. Nos équipes interviennent sur tout le Pays d'Iroise et la Cornouaille, notamment à Brest, Saint-Renan, Plouzané, Douarnenez et Quimper...",
-    agencies: "Agences",
+    agencies: "Les Cabinets",
     resources: "Ressources & Légal",
-    projects: "Nos Réalisations",
+    projects: "Nos projets",
     clients: "Nos Clients",
+    clients_partners: "Nos Clients et Partenaires",
     follow_us: "Nous suivre",
     glossary: "Glossaire du Foncier",
     legal: "Mentions légales",
@@ -972,7 +1069,7 @@ export const fr = {
   },
   testimonials: {
     title: "Ce que disent nos clients",
-    subtitle: "Avis certifiés Google (Note Globale : 4,5/5)",
+    subtitle: "Avis certifiés Google (Note Globale : 5/5)",
     source: "Avis Google",
     cta: "Explorer tous les avis sur Google",
     items: [
@@ -1029,7 +1126,7 @@ export const fr = {
     }
   },
   projects: {
-    title: "Nos Réalisations",
+    title: "Nos projets",
     subtitle: "De la topographie de précision à l'aménagement urbain, découvrez comment nous accompagnons les projets qui façonnent la Bretagne-Ouest.",
     categories: {
       all: "Tous",

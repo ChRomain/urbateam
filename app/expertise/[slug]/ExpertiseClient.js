@@ -7,12 +7,15 @@ import { Map, Ruler, Droplets, Trophy, Compass, CheckCircle2, Layers } from 'luc
 import PageHeader from '../../../components/PageHeader';
 
 const iconMap = {
+  bornage: <Ruler size={48} />,
+  division: <Compass size={48} />,
+  copropriete: <Layers size={48} />,
+  lotissement: <Map size={48} />,
   urbanisme: <Map size={48} />,
-  geometre: <Ruler size={48} />,
   vrd: <Droplets size={48} />,
   sport: <Trophy size={48} />,
   topographie: <Compass size={48} />,
-  copropriete: <Layers size={48} />
+  geometre: <Ruler size={48} />
 };
 
 export default function ExpertiseClient({ slug }) {
@@ -136,7 +139,7 @@ export default function ExpertiseClient({ slug }) {
               </div>
             )}
 
-            {slug === 'topographie' && (
+            {(slug === 'topographie' || slug === 'division') && (
               <div style={{ 
                 width: '100%', 
                 height: '450px', 
@@ -244,7 +247,7 @@ export default function ExpertiseClient({ slug }) {
               </div>
             )}
 
-            {slug === 'geometre' && (
+            {(slug === 'geometre' || slug === 'bornage') && (
               <div style={{ 
                 width: '100%', 
                 height: '450px', 
@@ -356,7 +359,7 @@ export default function ExpertiseClient({ slug }) {
               </div>
             )}
 
-            {slug === 'sport' && (
+            {(slug === 'sport' || slug === 'lotissement') && (
               <div style={{ 
                 width: '100%', 
                 height: '450px', 

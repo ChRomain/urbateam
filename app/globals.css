@@ -270,10 +270,17 @@ input:focus, select:focus, textarea:focus {
 
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
 
 @media (max-width: 768px) {
-  .grid-cols-2, .grid-cols-3 {
+  .grid-cols-2, .grid-cols-3, .grid-cols-6 {
     grid-template-columns: 1fr;
+  }
+  .col-span-2, .col-span-3, .col-span-4 {
+    grid-column: span 1;
   }
   
   .container {
@@ -328,4 +335,412 @@ input:focus, select:focus, textarea:focus {
   background-color: rgba(16, 185, 129, 0.05);
   border-bottom-style: solid;
   color: var(--primary-color);
+}
+
+/* Glossary Tooltip */
+.glossary-tooltip {
+  width: 320px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  font-family: var(--font-montserrat), sans-serif;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.glossary-tooltip.visible {
+  pointer-events: auto;
+}
+
+.glossary-tooltip.placement-top {
+  transform: translateY(-100%) translateY(-10px) scale(0.95);
+}
+
+.glossary-tooltip.placement-top.visible {
+  opacity: 1;
+  transform: translateY(-100%) scale(1);
+}
+
+.glossary-tooltip.placement-bottom {
+  transform: translateY(10px) scale(0.95);
+}
+
+.glossary-tooltip.placement-bottom.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.glossary-tooltip-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.glossary-tooltip-title {
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.glossary-tooltip-definition {
+  color: var(--text-main);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.glossary-tooltip-footer {
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(121, 160, 129, 0.15);
+  padding-top: 0.5rem;
+}
+
+.glossary-tooltip-link {
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.glossary-tooltip-link:hover {
+  color: var(--secondary-color);
+}
+
+.glossary-tooltip-link .arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.glossary-tooltip-link:hover .arrow {
+  transform: translateX(3px);
+}
+
+.glossary-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  pointer-events: none;
+}
+
+.glossary-tooltip.placement-top .glossary-tooltip-arrow {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-color: var(--glass-border) transparent transparent transparent;
+}
+
+.glossary-tooltip.placement-bottom .glossary-tooltip-arrow {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent var(--glass-border) transparent;
+}
+
+
+/* ==========================================================================
+   Timeline / Frise Chronologique Section
+   ========================================================================== */
+
+.timeline-section {
+  width: 90vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 0;
+  background-color: transparent; /* Remove white background/frame */
+  border: none;
+  box-shadow: none;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden; /* Prevent scrollbar on desktop */
+}
+
+.timeline-horizontal {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 520px; /* Fixed height to control vertical layout perfectly */
+  margin: 0 auto;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 120px; /* Padding to prevent the last milestone text from clipping on the right */
+}
+
+/* Central horizontal line */
+.timeline-horizontal::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  right: 120px; /* Match padding to end line beautifully */
+  height: 4px;
+  background-color: var(--primary-color);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Arrow at the end of the line */
+.timeline-horizontal::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 105px;
+  transform: translateY(-50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 16px solid var(--primary-color);
+  z-index: 2;
+}
+
+.timeline-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  z-index: 2;
+  min-width: 0; /* Allow columns to shrink properly */
+}
+
+/* Axis (Middle row containing the dot) */
+.timeline-axis {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 3px solid var(--warm-white);
+  box-shadow: 0 0 0 2px var(--primary-color);
+  z-index: 4;
+  transition: transform 0.3s ease;
+}
+
+.timeline-col:hover .timeline-dot {
+  transform: scale(1.3);
+}
+
+/* Cards wrappers absolutely positioned relative to the center line */
+.timeline-card-wrapper {
+  position: absolute;
+  width: 90%;
+  left: 50%;
+}
+
+.timeline-card-wrapper.top {
+  bottom: 50%;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.timeline-card-wrapper.bottom {
+  top: 50%;
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Card content */
+.timeline-card {
+  position: relative;
+  padding-left: 15px;
+  width: 100%;
+}
+
+/* Vertical line connecting card to the timeline axis */
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 2px;
+  background-color: var(--primary-color);
+  opacity: 0.6;
+}
+
+/* Top item line goes down from bottom of card to the dot */
+.timeline-card-wrapper.top .timeline-card::before {
+  top: 6px;
+  bottom: -22px; /* Extends to the axis line exactly */
+}
+
+/* Bottom item line goes up from top of card to the dot */
+.timeline-card-wrapper.bottom .timeline-card::before {
+  top: -22px; /* Extends to the axis line exactly */
+  bottom: 6px;
+}
+
+.timeline-year {
+  display: block;
+  font-family: var(--font-righteous), cursive;
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: var(--primary-color);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.timeline-desc {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  line-height: 1.4;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.timeline-desc strong {
+  color: var(--secondary-color);
+  font-weight: 700;
+}
+
+/* Avatar positioning */
+.timeline-media {
+  margin-top: 8px;
+  display: flex;
+}
+
+.timeline-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  background-color: #f1f5f9;
+}
+
+/* 2024 Laura layout: text on left, avatar on right */
+.timeline-card-2024 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timeline-card-2024 .timeline-avatar {
+  flex-shrink: 0;
+}
+
+/* Responsive / Vertical Timeline for mobile & tablet */
+@media (max-width: 1024px) {
+  .timeline-section {
+    overflow-x: visible;
+    padding: 2.5rem 1.5rem;
+    width: 100%;
+    left: auto;
+    transform: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .timeline-horizontal {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-width: auto;
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  /* Vertical central line */
+  .timeline-horizontal::before {
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    right: auto;
+    width: 4px;
+    height: 100%;
+    transform: none;
+  }
+  
+  .timeline-horizontal::after {
+    display: none;
+  }
+  
+  .timeline-col {
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    margin-bottom: 2.5rem;
+    padding: 0;
+  }
+  
+  .timeline-col:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Dot position on the vertical axis */
+  .timeline-axis {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    transform: translate(-50%, 0);
+    z-index: 3;
+  }
+  
+  .timeline-dot {
+    margin-top: 0;
+    border-color: var(--warm-white);
+  }
+  
+  /* Adjust cards wrappers for vertical flow */
+  .timeline-card-wrapper {
+    position: relative;
+    left: 0;
+    top: auto;
+    bottom: auto;
+    margin: 0;
+    padding-left: 45px;
+    width: 100%;
+  }
+  
+  .timeline-card-wrapper.top,
+  .timeline-card-wrapper.bottom {
+    min-height: auto;
+    align-items: flex-start;
+  }
+  
+  .timeline-card {
+    max-width: 100% !important;
+    padding-left: 0;
+  }
+  
+  /* Disable connecting lines since the central vertical line runs behind all */
+  .timeline-card::before {
+    display: none;
+  }
+  
+  .timeline-card-2024 {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 15px;
+  }
 }

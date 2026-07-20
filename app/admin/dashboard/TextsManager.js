@@ -88,19 +88,25 @@ const CATEGORIES = [
       // Clients
       { key: 'references.title', label: 'Titre section Clients', type: 'text' },
       { key: 'references.subtitle', label: 'Sous-titre section Clients', type: 'textarea' },
-      { key: 'references.list_title', label: 'Titre liste missions marquantes', type: 'text' }
+      { key: 'references.list_title', label: 'Titre liste missions marquantes', type: 'text' },
+
+      // Avis Google / Témoignages
+      { key: 'testimonials.title', label: 'Témoignages : Titre de la section', type: 'text' },
+      { key: 'testimonials.subtitle', label: 'Témoignages : Sous-titre (ex: Note Globale : 5/5)', type: 'text' },
+      { key: 'testimonials.cta', label: 'Témoignages : Bouton "Explorer les avis"', type: 'text' }
     ]
   },
+
   {
     id: 'about',
     name: 'Page L\'Agence',
-    description: 'Notre Société, Démarche Qualité, Démarche RSE, et Vidéo.',
+    description: 'Le cabinet, Démarche Qualité, Démarche RSE, et Vidéo.',
     fields: [
       { key: 'about.header.title', label: 'Titre d\'en-tête L\'Agence', type: 'text' },
       { key: 'about.header.subtitle', label: 'Sous-titre d\'en-tête L\'Agence', type: 'textarea' },
       
-      // Notre Société
-      { key: 'about.society.title', label: 'Titre "Notre Société"', type: 'text' },
+      // Le cabinet
+      { key: 'about.society.title', label: 'Titre "Le cabinet"', type: 'text' },
       { key: 'about.society.p1', label: 'Paragraphe 1', type: 'textarea' },
       { key: 'about.society.p2', label: 'Paragraphe 2', type: 'textarea' },
       { key: 'about.society.p3', label: 'Paragraphe 3', type: 'textarea' },

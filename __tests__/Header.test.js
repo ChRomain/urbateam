@@ -29,20 +29,16 @@ describe('Header Component', () => {
 
   it('renders navigation links', () => {
     renderWithProvider(<Header />);
-    expect(screen.getByText('Accueil')).toBeInTheDocument();
-    expect(screen.getByText('À propos')).toBeInTheDocument();
-    expect(screen.getByText('Expertises')).toBeInTheDocument();
+    expect(screen.getByText('Le Cabinet')).toBeInTheDocument();
+    expect(screen.getByText('Nos activités')).toBeInTheDocument();
+    expect(screen.getByText('Nos Projets')).toBeInTheDocument();
   });
 
-  it('shows dropdown on hover/click (desktop logic)', async () => {
+  it('renders "Nos Projets" as a direct link', () => {
     renderWithProvider(<Header />);
-    const expertiseTrigger = screen.getByText('Expertises');
-    
-    // In our implementation, we use onMouseEnter to show dropdown
-    fireEvent.mouseEnter(expertiseTrigger.parentElement);
-    
-    // The dropdown items should appear
-    expect(await screen.findByText('Urbanisme & Paysage')).toBeInTheDocument();
+    const portfolioLink = screen.getByRole('link', { name: 'Nos Projets' });
+    expect(portfolioLink).toBeInTheDocument();
+    expect(portfolioLink).toHaveAttribute('href', '/projets');
   });
 
   it('toggles mobile menu', () => {
@@ -52,7 +48,7 @@ describe('Header Component', () => {
     fireEvent.click(toggle);
     
     // Check if mobile nav link is visible
-    const mobileLinks = screen.getAllByText('Accueil');
+    const mobileLinks = screen.getAllByText('Le Cabinet');
     expect(mobileLinks.length).toBeGreaterThan(1); // One for desktop, one for mobile
   });
 });

@@ -28,12 +28,15 @@ export async function generateMetadata({ params }) {
 
 export async function generateStaticParams() {
   return [
+    { slug: 'bornage' },
+    { slug: 'division' },
+    { slug: 'copropriete' },
+    { slug: 'lotissement' },
     { slug: 'urbanisme' },
-    { slug: 'geometre' },
     { slug: 'vrd' },
     { slug: 'sport' },
     { slug: 'topographie' },
-    { slug: 'copropriete' },
+    { slug: 'geometre' },
   ];
 }
 

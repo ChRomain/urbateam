@@ -10,17 +10,17 @@ import { useLanguage } from '../context/LanguageContext';
 import Magnetic from './Magnetic';
 
 const expertiseItems = [
-  { key: 'urbanisme', index: '01', icon: <Map size={20} />, image: '/pictures/urbanisme-bureau.png' },
-  { key: 'geometre', index: '02', icon: <Ruler size={20} />, image: '/pictures/geometre-bornage.png' },
-  { key: 'vrd', index: '03', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.png' },
-  { key: 'sport', index: '04', icon: <Trophy size={20} />, image: '/pictures/sport-ingenierie.png' },
-  { key: 'topographie', index: '05', icon: <Compass size={20} />, image: '/pictures/topographie-final.png' },
-  { key: 'copropriete', index: '06', icon: <Layers size={20} />, image: '/pictures/bim-3d-scan.png' }
+  { key: 'bornage', index: '01', icon: <Ruler size={20} />, image: '/pictures/geometre-bornage.png' },
+  { key: 'division', index: '02', icon: <Compass size={20} />, image: '/pictures/topographie-final.png' },
+  { key: 'copropriete', index: '03', icon: <Layers size={20} />, image: '/pictures/bim-3d-scan.png' },
+  { key: 'lotissement', index: '04', icon: <Map size={20} />, image: '/pictures/sport-ingenierie.png' },
+  { key: 'urbanisme', index: '05', icon: <Map size={20} />, image: '/pictures/urbanisme-bureau.png' },
+  { key: 'vrd', index: '06', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.png' }
 ];
 
 export default function Expertise() {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('urbanisme');
+  const [activeTab, setActiveTab] = useState('bornage');
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -30,7 +30,7 @@ export default function Expertise() {
   const activeMissions = t(`expertise.items.${activeTab}.missions`) || [];
 
   return (
-    <section ref={sectionRef} className={`section-dark ${styles.section}`}>
+    <section ref={sectionRef} id="expertises" className={`section-dark ${styles.section}`}>
       {/* Background blueprint grid overlay */}
       <div className={styles.gridOverlay} aria-hidden="true" />
 

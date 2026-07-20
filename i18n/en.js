@@ -33,17 +33,29 @@ export const en = {
       description: "Need a quote or advice? Contact our experts for your projects in Brest and throughout Finistère."
     },
     expertises: {
+      bornage: {
+        title: "Boundary Marking | Property Limits | URBATEAM",
+        description: "Legal and physical definition of property boundaries by our Chartered Land Surveyors."
+      },
+      division: {
+        title: "Land Division | Plot Creation | URBATEAM",
+        description: "Feasibility studies, cadastral updates, and land division for your construction or sale projects."
+      },
+      copropriete: {
+        title: "Co-ownership & Volume Division | URBATEAM",
+        description: "Co-ownership plans, share calculation, statements of division, and complex volume division."
+      },
+      lotissement: {
+        title: "Subdivisions & Housing Developments | URBATEAM",
+        description: "Comprehensive support from design to servicing for your subdivisions and eco-neighborhoods."
+      },
       urbanisme: {
         title: "Urban Planning & Landscape | Sustainable Development | URBATEAM",
         description: "Feasibility studies, eco-neighborhood design and public space development by our expert urban planners."
       },
-      geometre: {
-        title: "Chartered Land Surveyor | Boundary & Division | URBATEAM",
-        description: "The only professional authorized to set property boundaries. Boundary marking, land division and legal expertise."
-      },
       vrd: {
-        title: "Infrastructure Engineering | Networks | URBATEAM",
-        description: "Infrastructure design: sanitation, roads, rainwater management and land servicing."
+        title: "Project Management & VRD | Infrastructure | URBATEAM",
+        description: "Infrastructure engineering: sanitation, roads, rainwater management, and construction supervision."
       },
       sport: {
         title: "Sports Engineering | Stadiums & Fields | URBATEAM",
@@ -53,9 +65,9 @@ export const en = {
         title: "Precision Topography | 2D/3D Plans | URBATEAM",
         description: "Topographic surveys, structural staking and architectural surveys by 3D scanner and drone."
       },
-      copropriete: {
-        title: "Co-ownership & BIM | 3D Surveys | URBATEAM",
-        description: "Co-ownership setup, share calculation, volume division and BIM modeling (Scan-to-BIM)."
+      geometre: {
+        title: "Chartered Land Surveyor | Boundary & Division | URBATEAM",
+        description: "The only professional authorized to set property boundaries. Boundary marking, land division and legal expertise."
       },
       partners: {
         title: "Expert Partners | URBATEAM",
@@ -65,9 +77,9 @@ export const en = {
   },
   header: {
     home: "Home",
-    about: "The Agency",
-    expertises: "Expertise",
-    portfolio: "Portfolio",
+    about: "The Cabinet",
+    expertises: "Our Activities",
+    portfolio: "Our Projects",
     projects: "Our Projects",
     clients: "Our Clients",
     resources_dropdown: "Resources",
@@ -101,7 +113,7 @@ export const en = {
     cta_more: "Learn more"
   },
   stats: {
-    creation: { label: "Founded in", desc: "An expertise anchored and recognized in Western Brittany." },
+    creation: { number: "1983", label: "Founded in", desc: "An expertise anchored and recognized in Western Brittany." },
     collaborators: { label: "Dedicated collaborators", desc: "Pluridisciplinary surveyors, planners and engineers." },
     projects: { label: "Large-scale projects", desc: "From individual housing to regional eco-neighborhoods." }
   },
@@ -109,6 +121,50 @@ export const en = {
     title: "Our Areas of Expertise",
     subtitle: "A comprehensive and multidisciplinary approach to meet the requirements of your urban, land and infrastructure development projects.",
     items: {
+      bornage: {
+        title: "Boundary Marking",
+        desc: "Legal and physical definition of property boundaries.",
+        longDesc: "As the only professional authorized to define property limits, the URBATEAM Chartered Surveyor guarantees the legal security of your assets. Boundary marking defines physical and legal boundaries in agreement with neighbors.",
+        missions: [
+          { title: "Boundary marking", desc: "Legal definition and physical staking of limits." },
+          { title: "Archive research", desc: "Research in land archives and property deeds analysis." },
+          { title: "Boundary stones placement", desc: "Physical marking of boundaries on site." },
+          { title: "Easements & Legal advice", desc: "Advice on easements, boundaries and joint ownerships." }
+        ]
+      },
+      division: {
+        title: "Land Division",
+        desc: "Creation of new land parcels for building or selling.",
+        longDesc: "URBATEAM supports you in all stages of land division. From feasibility studies to municipal declarations, up to cadastral updates and lot boundary staking.",
+        missions: [
+          { title: "Land division", desc: "Creation of building plots (DMPC cadastral update)." },
+          { title: "Feasibility study", desc: "Analysis of local urban plans (PLU) to verify constructibility." },
+          { title: "Prior declaration", desc: "Constitution and filing of division requests to town halls." },
+          { title: "Surveying & Staking", desc: "Precise measurement and placement of boundary stones." }
+        ]
+      },
+      copropriete: {
+        title: "Co-ownership & volume division",
+        desc: "Co-ownership setup, share calculation, division plans, and volume division.",
+        longDesc: "We produce co-ownership plans, statements of division, and charges calculations. We also intervene for complex volume divisions, separating property in three-dimensional volumes without common parts.",
+        missions: [
+          { title: "Co-ownership setup", desc: "Calculation of shares and division plans." },
+          { title: "Volume division", desc: "Management of complex property groups in 3D volumes." },
+          { title: "Co-ownership updates", desc: "Updating plans and shares after works or sales." },
+          { title: "3D laser scan & BIM", desc: "Millimeter laser capture and BIM modeling for building management." }
+        ]
+      },
+      lotissement: {
+        title: "Subdivisions",
+        desc: "Comprehensive design, creation of building plots, and management of shared spaces.",
+        longDesc: "From design to final delivery, URBATEAM supports you in the creation of subdivisions and eco-neighborhoods. We handle the complete engineering of roads and utility networks (VRD).",
+        missions: [
+          { title: "Development permits", desc: "Administrative file for subdivision creations." },
+          { title: "Design & Layout", desc: "Sketches, master plans, and landscape integration." },
+          { title: "Project management", desc: "Supervision of servicing and roadworks construction." },
+          { title: "Subdivision boundary marking", desc: "Final staking and marking of each created lot." }
+        ]
+      },
       urbanisme: { 
         title: "Urban Planning & Landscape", 
         desc: "Development studies office: ZAC, eco-neighborhoods, city sections, activity parks, town entrances, and urban redevelopment.",
@@ -120,26 +176,15 @@ export const en = {
           { title: "Regulatory planning", desc: "Development permit files and master plans." }
         ]
       },
-      geometre: { 
-        title: "Chartered Land Surveyor", 
-        desc: "Land studies office: boundary marking, parcel divisions, co-ownerships, amicable property delimitations.",
-        longDesc: "As the only professional authorized to set property boundaries, the URBATEAM Chartered Surveyor guarantees the legal security of your assets. We intervene on all land-related issues, from <a class=\"wiki-link\" href=\"/lexique?search=Boundary\">boundary marking</a> to <a class=\"wiki-link\" href=\"/lexique?search=Easement\">easement</a> management.",
-        missions: [
-          { title: "Amicable boundary", desc: "Legal definition and physical staking of property limits." },
-          { title: "Land division", desc: "Creation of building plots (DMPC cadastral update)." },
-          { title: "Co-ownership & Volumes", desc: "Plans and statements for co-ownership or volumes." },
-          { title: "Legal expertise", desc: "Advice on easements, boundaries and joint ownerships." }
-        ]
-      },
       vrd: { 
-        title: "Civil Engineering (VRD)", 
+        title: "Project Management & VRD", 
         desc: "Infrastructure studies office: roads, diverse networks, sanitation, rainwater treatment, parking lots, roundabouts.",
-        longDesc: "Our engineers and technicians design the essential technical infrastructure for project servicing. We favor innovative solutions for <a class=\"wiki-link\" href=\"/lexique?search=VRD\">roads and utilities</a> and sustainable water management.",
+        longDesc: "Our engineers and technicians design and supervise the execution of infrastructure projects. We design roads, water supply, sewage systems, electrical grids, telecommunications, and alternative stormwater management.",
         missions: [
-          { title: "Infrastructure management", desc: "Technical design and roadworks construction monitoring." },
-          { title: "Rainwater management", desc: "Sizing of retention basins and landscaped swales." },
-          { title: "Hydraulic studies", desc: "Analysis and flow modeling of sanitation networks." },
-          { title: "Traffic flow design", desc: "Optimization of roads, parking lots and roundabouts." }
+          { title: "VRD Project Management", desc: "Design, procurement, and supervision of construction works." },
+          { title: "Stormwater management", desc: "Sizing of retention basins, swales, and eco-friendly techniques." },
+          { title: "Servicing studies", desc: "Calculations of network slopes and road structural sizing." },
+          { title: "Roundabout & Parking design", desc: "Traffic flow optimization and public area design." }
         ]
       },
       sport: { 
@@ -164,15 +209,15 @@ export const en = {
           { title: "Staking & Layouts", desc: "Field reporting of construction axes with high precision." }
         ]
       },
-      copropriete: {
-        title: "Co-ownership & 3D",
-        desc: "Expertise in building surveys, co-ownership setup, and BIM modeling for intelligent building management.",
-        longDesc: "URBATEAM excels in capturing and modeling existing structures. We transform your physical buildings into intelligent digital twins (<a class=\"wiki-link\" href=\"/lexique?search=BIM\">BIM</a>), centralizing all technical data.",
+      geometre: { 
+        title: "Chartered Land Surveyor", 
+        desc: "Land studies office: boundary marking, parcel divisions, co-ownerships, amicable property delimitations.",
+        longDesc: "As the only professional authorized to set property boundaries, the URBATEAM Chartered Surveyor guarantees the legal security of your assets. We intervene on all land-related issues, from <a class=\"wiki-link\" href=\"/lexique?search=Boundary\">boundary marking</a> to <a class=\"wiki-link\" href=\"/lexique?search=Easement\">easement</a> management.",
         missions: [
-          { title: "Co-ownership setup", desc: "Calculation of shares and division plans." },
-          { title: "3D Laser scan survey", desc: "Millimeter laser capture of complex structures." },
-          { title: "BIM Modeling", desc: "Creation of intelligent 3D digital models." },
-          { title: "Centralized twin", desc: "Shared server jumeau numérique updated in real-time." }
+          { title: "Amicable boundary", desc: "Legal definition and physical staking of property limits." },
+          { title: "Land division", desc: "Creation of building plots (DMPC cadastral update)." },
+          { title: "Co-ownership & Volumes", desc: "Plans and statements for co-ownership or volumes." },
+          { title: "Legal expertise", desc: "Advice on easements, boundaries and joint ownerships." }
         ]
       }
     },
@@ -183,7 +228,7 @@ export const en = {
   references: {
     title: "They trust us",
     subtitle: "Local authorities, developers and institutional clients entrust us with their development projects.",
-    list_title: "Key project management missions:",
+    list_title: "Our key projects",
     categories: {
       collectivite: "Local Authorities",
       amenageur: "Developers & Promoters",
@@ -215,6 +260,57 @@ export const en = {
       p2: "Our missions cover the traditional fields of activity of Chartered Land Surveyors (boundary marking, divisions, building land creation, co-ownerships, site layouts, expertise, topography), but also historically urban planning, landscape and infrastructure engineering (VRD).",
       p3: "We are committed to mastering, enhancing and guaranteeing the quality of the services offered, while scrupulously respecting the needs of our clients.",
       media_placeholder: "[Space for team photo or drone view]"
+    },
+    timeline: {
+      title: "Our History",
+      subtitle: "More than 40 years of history and evolution by your side",
+      items: [
+        {
+          year: "1983",
+          title: "1983",
+          desc: "Creation of the office by <strong>François Quéau</strong>, chartered land surveyor",
+          image: "/pictures/francois_queau_v2.png",
+          position: "bottom"
+        },
+        {
+          year: "2000",
+          title: "Early 2000s",
+          desc: "The office progressively develops its skills to support land planning and urban development projects.",
+          position: "top"
+        },
+        {
+          year: "2007",
+          title: "2007",
+          desc: "Acquisition of the Thomas office in <strong>Douarnenez</strong> and creation of the QUEAU-L'HENAFF company",
+          position: "bottom"
+        },
+        {
+          year: "2012",
+          title: "2012",
+          desc: "The company changes its name and becomes <strong>URBATEAM</strong>",
+          position: "top"
+        },
+        {
+          year: "2021",
+          title: "2021",
+          desc: "<strong>Franck Le Gall</strong> becomes a partner of URBATEAM",
+          image: "/pictures/franck_le_gall_v2.png",
+          position: "bottom"
+        },
+        {
+          year: "2024",
+          title: "2024",
+          desc: "François Quéau retires and <strong>Laura Charretteur</strong> becomes a partner of URBATEAM",
+          image: "/pictures/laura_charretteur_v2.png",
+          position: "top"
+        },
+        {
+          year: "2027",
+          title: "2027 and beyond",
+          desc: "The future continues to be written with new projects, new challenges and always the same desire: <strong>to sustainably support territories and their developments</strong>",
+          position: "bottom"
+        }
+      ]
     },
     team: {
       title: "Our Team",
@@ -902,6 +998,7 @@ export const en = {
     resources: "Resources & Legal",
     projects: "Our Projects",
     clients: "Our Clients",
+    clients_partners: "Our Clients & Partners",
     glossary: "Land Glossary",
     follow_us: "Follow us",
     legal: "Legal Mentions",
@@ -927,7 +1024,7 @@ export const en = {
   },
   testimonials: {
     title: "What our clients say",
-    subtitle: "Google Certified Reviews (Overall Rating: 4.5/5)",
+    subtitle: "Google Certified Reviews (Overall Rating: 5/5)",
     source: "Google Review",
     cta: "Explore all reviews on Google",
     items: [

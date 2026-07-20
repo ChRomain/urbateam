@@ -8,7 +8,7 @@ export default function sitemap() {
     '/apropos',
     '/expertise',
     '/projets',
-    '/clients',
+    '/clients-et-partenaires',
     '/mon-projet',
     '/blog',
     '/nous-suivre',

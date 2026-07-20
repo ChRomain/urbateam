@@ -53,6 +53,8 @@
 .logoItem {
   flex-shrink: 0;
   width: 220px;
+  display: block;
+  text-decoration: none;
 }
 
 .logoCard {
@@ -106,6 +108,17 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.refItem:hover {
+  transform: translateX(6px);
+}
+
+.refItem:hover .refText {
+  color: var(--accent-color);
 }
 
 .refIcon {

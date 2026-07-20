@@ -5,6 +5,8 @@ import { motion, useMotionValue, useTransform, animate, useInView } from 'framer
 import { Compass, Ruler, Award } from 'lucide-react';
 import styles from './Stats.module.css';
 import { useLanguage } from '../context/LanguageContext';
+import Link from '@/components/Link';
+import Magnetic from './Magnetic';
 
 function Counter({ value, suffix = "" }) {
   const ref = useRef(null);
@@ -137,7 +139,7 @@ export default function Stats() {
                 <span className={styles.techCoord}>[ LAT: 48.433 ]</span>
               </div>
               <div className={styles.numberRow}>
-                <Counter value={getNumber('stats.creation.number', 2007)} />
+                <Counter value={getNumber('stats.creation.number', 1983)} />
               </div>
               <div className={styles.label}>{t('stats.creation.label')}</div>
               <div className={styles.description}>{t('stats.creation.desc')}</div>
@@ -171,6 +173,14 @@ export default function Stats() {
               <div className={styles.description}>{t('stats.projects.desc')}</div>
               <TechnicalRuler delay={0.5} />
             </div>
+          </div>
+
+          <div className={styles.ctaWrapper}>
+            <Magnetic strength={0.3}>
+              <Link href="/apropos" className="btn btn-primary">
+                {t('hero.cta_more')}
+              </Link>
+            </Magnetic>
           </div>
         </motion.div>
       </div>

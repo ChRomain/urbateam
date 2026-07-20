@@ -476,3 +476,10 @@
   transition: width 0.2s ease;
 }
 
+.embeddedLayout {
+  margin-top: 1rem;
+}
+
+.embeddedMap {
+  height: 450px;
+}

@@ -121,9 +121,6 @@ export default function Hero() {
           <Magnetic strength={0.3}>
             <Link href="/contact" className="btn btn-primary">{t('hero.cta_contact')}</Link>
           </Magnetic>
-          <Magnetic strength={0.3}>
-            <Link href="/apropos" className={`btn ${styles.btnSecondary}`}>{t('hero.cta_more')}</Link>
-          </Magnetic>
         </motion.div>
       </motion.div>
 

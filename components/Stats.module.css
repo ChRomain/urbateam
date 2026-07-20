@@ -167,6 +167,12 @@
   display: block;
 }
 
+.ctaWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
 /* Responsive Styles */
 @media (max-width: 1024px) {
   .grid {

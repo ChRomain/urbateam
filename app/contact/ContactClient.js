@@ -6,6 +6,16 @@ import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
+import dynamic from 'next/dynamic';
+
+const SimulateurDivisionClient = dynamic(() => import('../simulateur-division/SimulateurDivisionClient'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-light)' }}>
+      Chargement du simulateur de division...
+    </div>
+  )
+});
 
 export default function ContactClient() {
   const { t } = useLanguage();
@@ -243,6 +253,11 @@ export default function ContactClient() {
             </div>
           </GlassCard>
         </div>
+      </MotionSection>
+
+      <MotionSection style={{ marginTop: '4rem' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('division.title')}</h2>
+        <SimulateurDivisionClient hideHeader={true} />
       </MotionSection>
     </div>
   );
