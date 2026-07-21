@@ -67,10 +67,16 @@ export default function ProjetsManager({ role }) {
     setSubmitting(true);
     setMessage({ type: '', text: '' });
 
-    const formData = new FormData(e.target);
+    const form = e.target.tagName === 'FORM' ? e.target : e.target.closest('form');
+    const formData = new FormData(form);
     
     // Vérification de la taille des fichiers (max 10 Mo)
-    const filesToCheck = [formData.get('beforeImage'), formData.get('afterImage'), ...formData.getAll('gallery')];
+    const filesToCheck = [
+      formData.get('beforeImage'), 
+      formData.get('afterImage'), 
+      ...formData.getAll('gallery'),
+      ...formData.getAll('documents')
+    ];
     for (const file of filesToCheck) {
       if (file && file instanceof File && file.size > 10 * 1024 * 1024) {
         setMessage({ type: 'error', text: `Le fichier "${file.name}" est trop volumineux (max 10 Mo).` });
