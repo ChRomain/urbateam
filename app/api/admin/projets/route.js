@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getProjets, createItem, updateItem, deleteItem, uploadFile } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
-import fs from 'fs';
 
 export async function GET(request) {
   try {
@@ -86,11 +85,11 @@ export async function POST(request) {
     }
 
     const documentsList = [];
-    fs.appendFileSync('/Users/romaincharretteur/Documents/workspace/freelance/urbateam/scratch/api_debug.log', `[${new Date().toISOString()}] Received documentFiles: ${documentFiles.length} files. Details: ${JSON.stringify(documentFiles.map(f => ({ name: f.name, size: f.size, type: typeof f })))}\n`);
+    console.log(`[Project API] Received documentFiles: ${documentFiles.length} files. Details: ${JSON.stringify(documentFiles.map(f => ({ name: f.name, size: f.size })))}\n`);
     for (const file of documentFiles) {
       if (file && typeof file !== 'string' && file.size > 0) {
         const fileId = await uploadFile(file);
-        fs.appendFileSync('/Users/romaincharretteur/Documents/workspace/freelance/urbateam/scratch/api_debug.log', `[${new Date().toISOString()}] Upload file returned: ${fileId} for file ${file.name}\n`);
+        console.log(`[Project API] Upload file returned: ${fileId} for file ${file.name}\n`);
         if (!fileId) {
           throw new Error(`Le téléversement du fichier PDF "${file.name}" a échoué. Veuillez vérifier que le stockage Supabase l'autorise.`);
         }
@@ -105,7 +104,7 @@ export async function POST(request) {
       itemData.documents = documentsList;
     }
 
-    fs.appendFileSync('/Users/romaincharretteur/Documents/workspace/freelance/urbateam/scratch/api_debug.log', `[${new Date().toISOString()}] Saving itemData: ${JSON.stringify(itemData)}\n`);
+    console.log(`[Project API] Saving itemData: ${JSON.stringify(itemData)}\n`);
 
     let result;
     if (id) {
@@ -115,12 +114,11 @@ export async function POST(request) {
       result = await createItem('projets', itemData);
     }
 
-    fs.appendFileSync('/Users/romaincharretteur/Documents/workspace/freelance/urbateam/scratch/api_debug.log', `[${new Date().toISOString()}] Save result: ${JSON.stringify(result)}\n`);
+    console.log(`[Project API] Save result: ${JSON.stringify(result)}\n`);
 
     return NextResponse.json({ success: true, project: result });
   } catch (error) {
-    fs.appendFileSync('/Users/romaincharretteur/Documents/workspace/freelance/urbateam/scratch/api_debug.log', `[${new Date().toISOString()}] API Error: ${error.message}\n${error.stack}\n`);
-    console.error('Project API Error:', error);
+    console.error('[Project API Error]:', error.message, error.stack);
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }
