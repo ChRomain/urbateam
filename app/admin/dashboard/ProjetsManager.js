@@ -318,6 +318,20 @@ export default function ProjetsManager({ role }) {
               <div className="form-group">
                 <label style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>Documents PDF (Plaquettes, plans, PV...)</label>
                 <input name="documents" type="file" accept=".pdf" multiple style={{ fontSize: '0.8rem', width: '100%' }} />
+                {editingProject?.documents && editingProject.documents.length > 0 && (
+                  <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', backgroundColor: '#f8fafc', padding: '0.5rem', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                    <span style={{ fontWeight: '700', color: '#475569', display: 'block', marginBottom: '0.2rem' }}>Fichiers attachés :</span>
+                    <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                      {editingProject.documents.map((doc, idx) => (
+                        <li key={idx} style={{ color: '#0284c7' }}>
+                          <a href={doc.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: '#0284c7' }}>
+                            {doc.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               {message.text && (
