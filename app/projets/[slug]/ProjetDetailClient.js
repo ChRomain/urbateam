@@ -9,6 +9,79 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FileText, Download } from 'lucide-react';
 
+function renderMarkdown(text) {
+  if (!text) return '';
+  
+  // Escape HTML to prevent XSS
+  let html = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+    
+  // Bold (**bold**)
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Split lines to handle block elements
+  const lines = html.split('\n');
+  let inList = false;
+  const result = [];
+  
+  for (let line of lines) {
+    const trimmed = line.trim();
+    
+    // Headers
+    if (trimmed.startsWith('### ')) {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
+      const title = trimmed.replace('### ', '');
+      result.push(`<h3 style="color: var(--secondary-color); margin-top: 1.8rem; margin-bottom: 0.8rem; font-size: 1.25rem; font-weight: 700;">${title}</h3>`);
+    } else if (trimmed.startsWith('## ')) {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
+      const title = trimmed.replace('## ', '');
+      result.push(`<h2 style="color: var(--secondary-color); margin-top: 2.2rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 700;">${title}</h2>`);
+    } else if (trimmed.startsWith('# ')) {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
+      const title = trimmed.replace(/^#\s+/, '');
+      result.push(`<h1 style="color: var(--secondary-color); margin-top: 2.5rem; margin-bottom: 1.2rem; font-size: 1.8rem; font-weight: 700;">${title}</h1>`);
+    }
+    // List items
+    else if (trimmed.startsWith('* ') || trimmed.startsWith('- ') || trimmed.startsWith('• ')) {
+      if (!inList) {
+        result.push('<ul style="margin-bottom: 1.2rem; padding-left: 1.2rem; list-style-type: disc;">');
+        inList = true;
+      }
+      const itemContent = trimmed.substring(2);
+      result.push(`<li style="margin-bottom: 0.4rem; line-height: 1.7; color: var(--text-light);">${itemContent}</li>`);
+    }
+    // Paragraphs / Empty lines
+    else {
+      if (inList) {
+        result.push('</ul>');
+        inList = false;
+      }
+      if (trimmed === '') {
+        result.push('<div style="height: 0.8rem;"></div>');
+      } else {
+        result.push(`<p style="margin-bottom: 0.8rem; line-height: 1.8; color: var(--text-light);">${line}</p>`);
+      }
+    }
+  }
+  
+  if (inList) {
+    result.push('</ul>');
+  }
+  
+  return result.join('\n');
+}
+
 // project est passé en props depuis le server component (page.js)
 export default function ProjetDetailClient({ project }) {
   const { t } = useLanguage();
@@ -37,9 +110,10 @@ export default function ProjetDetailClient({ project }) {
           <MotionSection>
             <div style={{ marginBottom: '3rem' }}>
               <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1.5rem' }}>À propos du projet</h2>
-              <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-light)', whiteSpace: 'pre-wrap' }}>
-                {project.description}
-              </p>
+              <div 
+                style={{ fontSize: '1.1rem', lineHeight: '1.8' }}
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(project.description) }}
+              />
             </div>
 
             {/* Before/After Slider */}

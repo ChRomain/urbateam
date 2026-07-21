@@ -37,6 +37,7 @@ export async function POST(request) {
     const beforeImage = formData.get('beforeImage');
     const afterImage = formData.get('afterImage');
     const galleryFiles = formData.getAll('gallery');
+    const documentFiles = formData.getAll('documents');
 
     const slug = title.toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -76,6 +77,23 @@ export async function POST(request) {
     
     if (galleryIds.length > 0) {
       itemData.images_gallery = galleryIds;
+    }
+
+    const documentsList = [];
+    for (const file of documentFiles) {
+      if (file && typeof file !== 'string' && file.size > 0) {
+        const fileId = await uploadFile(file);
+        if (fileId) {
+          documentsList.push({
+            name: file.name,
+            url: fileId
+          });
+        }
+      }
+    }
+
+    if (documentsList.length > 0) {
+      itemData.documents = documentsList;
     }
 
     let result;

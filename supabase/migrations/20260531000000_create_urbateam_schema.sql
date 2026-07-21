@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS projets (
     image_before TEXT,
     image_after TEXT,
     images_gallery JSONB DEFAULT '[]'::jsonb,
+    documents JSONB DEFAULT '[]'::jsonb,
     latitude DOUBLE PRECISION,
     longitude DOUBLE PRECISION,
     date TIMESTAMP WITH TIME ZONE,
