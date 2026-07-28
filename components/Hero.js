@@ -25,7 +25,7 @@ const TopoBackground = () => {
       <svg className={styles.svg} viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice">
         <defs>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(60,60,60,0.06)" strokeWidth="1"/>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
@@ -34,7 +34,7 @@ const TopoBackground = () => {
         <motion.path
           d="M 0 250 Q 250 150 500 250 T 1000 250"
           fill="none"
-          stroke="rgba(16, 185, 129, 0.3)"
+          stroke="rgba(121, 160, 129, 0.35)"
           strokeWidth="1.5"
           animate={{ d: ["M 0 250 Q 250 150 500 250 T 1000 250", "M 0 250 Q 250 350 500 250 T 1000 250", "M 0 250 Q 250 150 500 250 T 1000 250"] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -42,7 +42,7 @@ const TopoBackground = () => {
         <motion.path
           d="M 0 350 Q 300 250 600 350 T 1000 350"
           fill="none"
-          stroke="rgba(16, 185, 129, 0.25)"
+          stroke="rgba(121, 160, 129, 0.25)"
           strokeWidth="1.5"
           animate={{ d: ["M 0 350 Q 300 250 600 350 T 1000 350", "M 0 350 Q 300 450 600 350 T 1000 350", "M 0 350 Q 300 250 600 350 T 1000 350"] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -55,8 +55,8 @@ const TopoBackground = () => {
             cx={pt.cx}
             cy={pt.cy}
             r="2.5"
-            fill="var(--accent-color)"
-            opacity="0.6"
+            fill="var(--primary-color)"
+            opacity="0.7"
             animate={{ opacity: [0.3, 0.8, 0.3] }}
             transition={{ duration: pt.duration, repeat: Infinity }}
           />

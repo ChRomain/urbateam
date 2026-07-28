@@ -49,6 +49,27 @@ export const br = {
       "desc": "Adalek an ti hiniennel betek karterioù ekologel."
     }
   },
+  "values": {
+    "title": "AR TALVOUDEGEZHIOÙ A STUR HON OBEREREZH",
+    "items": {
+      "ethique": {
+        "title": "Etikiez micherel",
+        "desc": "Dizanc'h, neptuegezh, sklaerded ha doujañs ouzh ar reolennoù a stur hon doare da labourat bemdez."
+      },
+      "conseil": {
+        "title": "An alioù",
+        "desc": "Kompren an ezhommoù, ambroug an divizoù ha diskouez an diskoulmoù mat a zo e-kreiz hor micher."
+      },
+      "precision": {
+        "title": "Ar resisted",
+        "desc": "Peogwir e goull hor micherioù resisted ha surentez, e ziwallomp mat diouzh kalite ar studierioù, ar muzulioù hag al labourioù."
+      },
+      "equipe": {
+        "title": "Ar spered skipailh",
+        "desc": "Liesseurted ar barregezhioù hag al labour a-stroll a zo e kreiz mont en-dro Urbateam."
+      }
+    }
+  },
   "expertise": {
     "title": "Hor Barregezhioù",
     "subtitle": "Ur sell hollek ha liesplegek evit respont da ezhommoù ho raktresoù kêraozerezh, douar ha frammoù.",

@@ -221,14 +221,14 @@ input:focus, select:focus, textarea:focus {
 
 /* Footer */
 .footer {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: #ebdbcd;
+  color: var(--secondary-color);
   padding: 4rem 0 2rem;
   margin-top: 4rem;
 }
 
 .footer h3 {
-  color: white;
+  color: var(--primary-color);
 }
 
 .footer-grid {
@@ -247,18 +247,18 @@ input:focus, select:focus, textarea:focus {
 }
 
 .footer-links a {
-  color: #cbd5e1;
+  color: var(--secondary-color);
 }
 
 .footer-links a:hover {
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 
 .footer-bottom {
   text-align: center;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  color: #94a3b8;
+  border-top: 1px solid rgba(60, 60, 60, 0.15);
+  color: #555555;
   font-size: 0.875rem;
 }
 

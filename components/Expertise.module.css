@@ -1,7 +1,7 @@
 .section {
   position: relative;
-  background-color: var(--secondary-color);
-  color: var(--warm-white);
+  background-color: #ebdbcd;
+  color: var(--secondary-color);
   padding: 3rem 0;
   overflow: hidden;
 }
@@ -23,8 +23,8 @@
   bottom: 0;
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(121, 160, 129, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(121, 160, 129, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(60, 60, 60, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(60, 60, 60, 0.04) 1px, transparent 1px);
   pointer-events: none;
   z-index: 1;
 }
@@ -47,14 +47,14 @@
 
 .title {
   font-size: clamp(2rem, 4vw, 3rem);
-  color: white;
+  color: var(--secondary-color);
   margin-bottom: 1.25rem;
 }
 
 .subtitle {
   max-width: 700px;
   margin: 0 auto;
-  color: var(--beige);
+  color: #4a4a4a;
   font-size: 1.1rem;
   line-height: 1.6;
   opacity: 0.9;
@@ -82,11 +82,11 @@
   display: flex;
   align-items: center;
   text-align: left;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(60, 60, 60, 0.1);
   border-radius: var(--border-radius-md);
   padding: 1.25rem 1.5rem;
-  color: var(--warm-white);
+  color: var(--secondary-color);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   position: relative;
@@ -95,22 +95,22 @@
 }
 
 .tabBtn:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(121, 160, 129, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--primary-color);
   transform: translateX(4px);
 }
 
 .activeTab {
-  background: rgba(121, 160, 129, 0.08) !important;
+  background: #ffffff !important;
   border-color: var(--primary-color) !important;
-  box-shadow: 0 4px 20px rgba(121, 160, 129, 0.15);
+  box-shadow: 0 4px 20px rgba(121, 160, 129, 0.2);
 }
 
 .tabIndex {
   font-family: var(--font-righteous), cursive;
   font-size: 1.5rem;
-  color: var(--accent-color);
-  opacity: 0.6;
+  color: var(--primary-color);
+  opacity: 0.8;
   margin-right: 1.25rem;
   line-height: 1;
 }
@@ -129,14 +129,14 @@
 .tabTitle {
   font-weight: 700;
   font-size: 1.05rem;
-  color: white;
+  color: var(--secondary-color);
   margin-bottom: 4px;
 }
 
 .tabDesc {
   font-size: 0.8rem;
-  color: var(--beige);
-  opacity: 0.7;
+  color: #555555;
+  opacity: 0.85;
 }
 
 /* Sliding active target indicator */
@@ -167,10 +167,10 @@
 }
 
 .blueprintCard {
-  background: rgba(60, 60, 60, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(121, 160, 129, 0.35);
+  border: 1px solid rgba(121, 160, 129, 0.4);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -183,9 +183,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(121, 160, 129, 0.12);
   padding: 10px 1.5rem;
-  border-bottom: 1px dashed rgba(121, 160, 129, 0.25);
+  border-bottom: 1px dashed rgba(121, 160, 129, 0.3);
 }
 
 .bulletGroup {
@@ -212,7 +212,8 @@
 .bulletText {
   font-family: monospace;
   font-size: 0.65rem;
-  color: var(--accent-color);
+  color: var(--secondary-color);
+  font-weight: 600;
   letter-spacing: 0.5px;
 }
 
@@ -220,7 +221,7 @@
   font-family: monospace;
   font-size: 0.65rem;
   color: var(--primary-color);
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .blueprintBody {
@@ -239,7 +240,7 @@
   min-height: 240px;
   border-radius: var(--border-radius-md);
   overflow: hidden;
-  border: 1px solid rgba(121, 160, 129, 0.2);
+  border: 1px solid rgba(121, 160, 129, 0.3);
 }
 
 .blueprintImageWrapper {
@@ -251,7 +252,7 @@
 }
 
 .blueprintImage {
-  filter: contrast(1.05) brightness(0.85) saturate(0.9);
+  filter: contrast(1.02) brightness(0.95);
 }
 
 .blueprintLinesOverlay {
@@ -271,16 +272,16 @@
 
 .blueprintTitle {
   font-size: 1.6rem;
-  color: white;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
 }
 
 .blueprintLongDesc {
-  color: var(--beige);
+  color: #4a4a4a;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.25rem;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .blueprintLongDesc a {
@@ -289,14 +290,14 @@
 }
 
 .blueprintLongDesc a:hover {
-  color: white;
+  color: var(--secondary-color);
   border-bottom-style: solid;
 }
 
 /* Missions key items */
 .missionsBox {
-  background-color: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(121, 160, 129, 0.2);
   border-radius: var(--border-radius-md);
   padding: 1rem;
   margin-bottom: 1.25rem;
@@ -305,7 +306,8 @@
 .missionsTitle {
   font-family: monospace;
   font-size: 0.7rem;
-  color: var(--accent-color);
+  color: var(--primary-color);
+  font-weight: 700;
   letter-spacing: 1px;
   display: block;
   margin-bottom: 0.75rem;
@@ -344,14 +346,14 @@
 .missionTitle {
   font-size: 0.9rem;
   font-weight: 700;
-  color: white;
+  color: var(--secondary-color);
   margin-bottom: 2px;
 }
 
 .missionDesc {
   font-size: 0.8rem;
-  color: var(--beige);
-  opacity: 0.75;
+  color: #555555;
+  opacity: 0.9;
   line-height: 1.4;
 }
 
@@ -371,10 +373,10 @@
 
 /* Glassmorphic contact banner */
 .contactBanner {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(121, 160, 129, 0.25);
+  border: 1px solid rgba(121, 160, 129, 0.35);
   border-radius: var(--border-radius-lg);
   padding: 1.5rem 2.5rem;
   position: relative;
@@ -406,15 +408,15 @@
 }
 
 .contactInfo h3 {
-  color: white;
+  color: var(--secondary-color);
   margin-bottom: 4px;
   font-size: 1.4rem;
 }
 
 .contactInfo p {
-  color: var(--beige);
+  color: #4a4a4a;
   margin: 0;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .bannerBtn {

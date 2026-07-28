@@ -118,41 +118,20 @@ export default function Header() {
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} data-lang={language}>
         <div className={`container ${styles.container}`}>
           <Link href="/" className={styles.logo} onClick={() => setIsOpen(false)}>
-            <Magnetic strength={0.15}>
+            <Magnetic strength={0.08}>
               <motion.div 
-                className={styles.logoText}
-                style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
-                whileHover="hover"
+                className={styles.logoWrapper}
+                whileHover={{ opacity: 0.85 }}
+                transition={{ duration: 0.2 }}
               >
-                <motion.span 
-                  className={styles.urba}
-                  variants={{
-                    hover: { 
-                      rotateY: 15, 
-                      rotateX: -10,
-                      translateZ: 50,
-                      textShadow: "0 10px 20px rgba(0,0,0,0.1)"
-                    }
-                  }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  URBA
-                </motion.span>
-                <motion.span 
-                  className={styles.team}
-                  variants={{
-                    hover: { 
-                      rotateY: 25, 
-                      rotateX: -15,
-                      translateZ: 20,
-                      translateX: 5,
-                      textShadow: "0 5px 15px rgba(0,0,0,0.1)"
-                    }
-                  }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                >
-                  team
-                </motion.span>
+                <Image 
+                  src="/logo.svg" 
+                  alt="URBATEAM - Géomètre Expert" 
+                  width={280} 
+                  height={55} 
+                  className={styles.logoImage}
+                  priority
+                />
               </motion.div>
             </Magnetic>
           </Link>

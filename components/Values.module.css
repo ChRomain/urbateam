@@ -1,0 +1,157 @@
+.valuesSection {
+  padding: 0.5rem 0 2.5rem 0;
+  background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.bannerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem;
+}
+
+.titleBanner {
+  display: inline-block;
+  background-color: #cbe3d3;
+  padding: 0.85rem 2.25rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(121, 160, 129, 0.12);
+  text-align: center;
+}
+
+.titleText {
+  font-family: var(--font-righteous), cursive, sans-serif;
+  font-size: clamp(1.05rem, 2.5vw, 1.45rem);
+  font-weight: 400;
+  color: #314736;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem 1.25rem;
+  align-items: start;
+  justify-items: center;
+}
+
+.valueCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.circle {
+  width: clamp(165px, 14vw, 195px);
+  height: clamp(165px, 14vw, 195px);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.8rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  user-select: none;
+}
+
+.circle:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Color variations matching design */
+.circleBeige {
+  background-color: #dac5b3;
+  color: #3c3c3c;
+}
+
+.circleLightGreen {
+  background-color: #cde2d3;
+  color: #3c3c3c;
+}
+
+.circleDarkGreen {
+  background-color: #5c8266;
+  color: #ffffff;
+}
+
+.iconWrapper {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleTitle {
+  font-family: var(--font-righteous), cursive, sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.12rem);
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  color: inherit;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.description {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #424242;
+  text-align: center;
+  max-width: 220px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* Mobile & Tablet responsiveness */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 1.5rem;
+  }
+  
+  .circle {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .valuesSection {
+    padding: 2rem 0 1.5rem 0;
+  }
+  
+  .bannerContainer {
+    margin-bottom: 1.75rem;
+  }
+  
+  .titleBanner {
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .circle {
+    width: 175px;
+    height: 175px;
+  }
+  
+  .description {
+    max-width: 250px;
+  }
+}

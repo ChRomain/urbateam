@@ -77,7 +77,7 @@ export default function ContactClient() {
             <p style={{ color: 'var(--text-light)' }}>
               10 Rue Joseph le Velly<br />
               29290 Saint-Renan, France<br />
-              📞 <a href="tel:+33298842965" style={{ fontWeight: 'bold' }}>+33 2 98 84 29 65</a>
+              📞 <a href="tel:+33298842965" style={{ fontWeight: 'bold', color: '#d6b99f' }}>+33 2 98 84 29 65</a>
             </p>
           </div>
 
@@ -86,14 +86,14 @@ export default function ContactClient() {
             <p style={{ color: 'var(--text-light)' }}>
               Za Ste Croix, 5 Rue Breizh Izel<br />
               29100 Douarnenez, France<br />
-              📞 <a href="tel:+33298920756" style={{ fontWeight: 'bold' }}>+33 2 98 92 07 56</a>
+              📞 <a href="tel:+33298920756" style={{ fontWeight: 'bold', color: '#d6b99f' }}>+33 2 98 92 07 56</a>
             </p>
           </div>
 
           <div style={{ marginBottom: '2rem' }}>
             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>✉️ {t('contact.info.email_label')}</h3>
             <p style={{ color: 'var(--text-light)' }}>
-              <a href="mailto:contact@urbateam.fr" style={{ fontWeight: 'bold' }}>contact@urbateam.fr</a>
+              <a href="mailto:contact@urbateam.fr" style={{ fontWeight: 'bold', color: '#d6b99f' }}>contact@urbateam.fr</a>
             </p>
           </div>
 

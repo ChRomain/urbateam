@@ -30,7 +30,7 @@ export default function Expertise() {
   const activeMissions = t(`expertise.items.${activeTab}.missions`) || [];
 
   return (
-    <section ref={sectionRef} id="expertises" className={`section-dark ${styles.section}`}>
+    <section ref={sectionRef} id="expertises" className={styles.section}>
       {/* Background blueprint grid overlay */}
       <div className={styles.gridOverlay} aria-hidden="true" />
 
@@ -121,7 +121,7 @@ export default function Expertise() {
                     </div>
                     {/* SVG Blueprint grids superposed */}
                     <div className={styles.blueprintLinesOverlay}>
-                      <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5">
+                      <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="rgba(60,60,60,0.12)" strokeWidth="0.5">
                         <line x1="0" y1="10" x2="100" y2="10" />
                         <line x1="0" y1="50" x2="100" y2="50" />
                         <line x1="0" y1="90" x2="100" y2="90" />

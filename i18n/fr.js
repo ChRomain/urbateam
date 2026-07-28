@@ -117,6 +117,27 @@ export const fr = {
     collaborators: { label: "Collaborateurs dédiés", desc: "Géomètres, urbanistes et ingénieurs pluridisciplinaires." },
     projects: { label: "Projets d'envergure", desc: "De la maison individuelle à l'éco-quartier régional." }
   },
+  values: {
+    title: "LES VALEURS QUI GUIDENT NOTRE ACTION",
+    items: {
+      ethique: {
+        title: "L'éthique professionnelle",
+        desc: "Neutralité, impartialité, transparence et respect du cadre réglementaire guident notre manière d'exercer nos métiers au quotidien."
+      },
+      conseil: {
+        title: "Le conseil",
+        desc: "Comprendre les besoins, accompagner les décisions et orienter vers les bonnes solutions font partie intégrante de notre métier."
+      },
+      precision: {
+        title: "La précision",
+        desc: "Parce que nos métiers exigent rigueur et fiabilité, nous accordons une attention particulière à la qualité des études, des mesures et des réalisations."
+      },
+      equipe: {
+        title: "L'esprit d'équipe",
+        desc: "La diversité des compétences et le travail collectif sont au cœur du fonctionnement d'Urbateam."
+      }
+    }
+  },
   expertise: {
     title: "Nos Domaines d'Expertise",
     subtitle: "Une approche globale et pluridisciplinaire pour répondre aux exigences de vos projets d'aménagement urbain, foncier et d'infrastructures.",

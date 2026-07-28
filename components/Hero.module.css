@@ -1,7 +1,7 @@
 .hero {
   position: relative;
-  background-color: var(--secondary-color);
-  color: white;
+  background-color: #ebdbcd;
+  color: var(--secondary-color);
   padding: 6rem 2rem;
   text-align: center;
   overflow: hidden;
@@ -18,7 +18,7 @@
 }
 
 .title {
-  color: white;
+  color: var(--secondary-color);
   margin-bottom: 2rem;
   font-weight: 800;
   max-width: 900px;
@@ -28,11 +28,11 @@
 }
 
 .description {
-  color: var(--beige);
+  color: #4a4a4a;
   font-size: 1.25rem;
   max-width: 700px;
   margin: 0 auto 3rem auto;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .buttons {
@@ -79,8 +79,8 @@
   height: 70%;
   background: url('/pictures/FrankLeGall.jpg') center/cover;
   border-radius: var(--border-radius-lg);
-  opacity: 0.4;
-  mix-blend-mode: overlay;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
   z-index: 2;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--glass-border);
@@ -108,7 +108,7 @@
 }
 
 .scrollIndicator:hover {
-  color: white;
+  color: var(--secondary-color);
 }
 
 .arrow {

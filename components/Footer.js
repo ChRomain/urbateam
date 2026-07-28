@@ -46,7 +46,7 @@ export default function Footer() {
                 y1={y1} 
                 x2={x} 
                 y2={y2} 
-                stroke={isDoubleMajor ? "var(--accent-color)" : "var(--primary-color)"} 
+                stroke={isDoubleMajor ? "var(--secondary-color)" : "var(--primary-color)"} 
                 strokeWidth="1"
                 opacity={isDoubleMajor ? 0.8 : 0.35} 
               />
@@ -111,7 +111,7 @@ export default function Footer() {
       {/* SEO Intervention Zones */}
       <div className={styles.seoZones}>
         <div className="container">
-          <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', textAlign: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+          <p style={{ fontSize: '0.75rem', color: 'rgba(60,60,60,0.75)', textAlign: 'center', marginTop: '2rem', borderTop: '1px solid rgba(60,60,60,0.15)', paddingTop: '1rem' }}>
             <strong>Zones d'intervention :</strong> Brest, Daoulas, Douarnenez, Fouesnant, Gouesnou, Guilers, La foret Fouesnant, Landerneau, Landivisiau, Lesneven, Locmaria-Plouzané, Pencran, Plabennec, Plouarzel, Ploudaniel, Plouescat, Plougastel, Plouzané, Porspoder, Quimper, Saint Meen, Saint-Renan, Saint-Urbain, et sur toute la Bretagne-Ouest.
           </p>
         </div>

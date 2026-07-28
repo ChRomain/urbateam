@@ -117,6 +117,27 @@ export const en = {
     collaborators: { label: "Dedicated collaborators", desc: "Pluridisciplinary surveyors, planners and engineers." },
     projects: { label: "Large-scale projects", desc: "From individual housing to regional eco-neighborhoods." }
   },
+  values: {
+    title: "THE VALUES GUIDING OUR ACTION",
+    items: {
+      ethique: {
+        title: "Professional ethics",
+        desc: "Neutrality, impartiality, transparency and compliance with regulations guide how we exercise our professions daily."
+      },
+      conseil: {
+        title: "Expert advice",
+        desc: "Understanding needs, guiding decisions and pointing toward the right solutions are an integral part of our work."
+      },
+      precision: {
+        title: "Precision",
+        desc: "Because our fields demand rigor and reliability, we pay special attention to the quality of studies, measurements and completions."
+      },
+      equipe: {
+        title: "Team spirit",
+        desc: "Diversity of skills and collective teamwork are at the heart of Urbateam's operation."
+      }
+    }
+  },
   expertise: {
     title: "Our Areas of Expertise",
     subtitle: "A comprehensive and multidisciplinary approach to meet the requirements of your urban, land and infrastructure development projects.",

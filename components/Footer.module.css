@@ -1,7 +1,7 @@
 .footer {
   position: relative;
-  background-color: var(--secondary-color);
-  color: white;
+  background-color: #ebdbcd;
+  color: var(--secondary-color);
   padding: 3rem 0 2rem;
   margin-top: 1.5rem;
 }
@@ -40,7 +40,7 @@
 }
 
 .brandText {
-  color: #cbd5e1;
+  color: #4a4a4a;
   margin-bottom: 1.2rem;
 }
 
@@ -55,13 +55,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #cbd5e1;
+  color: var(--secondary-color);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .socialIcon:hover {
-  color: var(--accent-color);
+  color: var(--primary-color);
   transform: translateY(-2px);
 }
 
@@ -72,8 +72,8 @@
 .bottom {
   text-align: center;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  color: #94a3b8;
+  border-top: 1px solid rgba(60, 60, 60, 0.15);
+  color: #555555;
   font-size: 0.875rem;
 }
 
