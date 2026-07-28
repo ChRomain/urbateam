@@ -31,7 +31,7 @@ const CATEGORIES = [
   {
     id: 'home',
     name: 'Page d\'Accueil',
-    description: 'En-tête, Hero, Statistiques, et Domaines d\'Expertise.',
+    description: 'En-tête, Hero, Statistiques, Témoignages et Clients.',
     fields: [
       { key: 'hero.title_part1', label: 'Titre Hero (Partie 1)', type: 'text' },
       { key: 'hero.title_part2', label: 'Titre Hero (Partie 2)', type: 'text' },
@@ -53,49 +53,6 @@ const CATEGORIES = [
       { key: 'stats.projects.label', label: 'Stat 3 : Libellé', type: 'text' },
       { key: 'stats.projects.desc', label: 'Stat 3 : Description', type: 'textarea' },
       
-      // Domaines intro
-      { key: 'expertise.title', label: 'Titre de la section "Nos Domaines d\'Expertise"', type: 'text' },
-      { key: 'expertise.subtitle', label: 'Sous-titre de la section "Nos Domaines d\'Expertise"', type: 'textarea' },
-      
-      // Items expertises
-      { key: 'expertise.items.urbanisme.title', label: 'Urbanisme & Paysage : Titre', type: 'text' },
-      { key: 'expertise.items.urbanisme.desc', label: 'Urbanisme & Paysage : Courte description', type: 'textarea' },
-      { key: 'expertise.items.urbanisme.longDesc', label: 'Urbanisme & Paysage : Longue description', type: 'textarea' },
-      
-      { key: 'expertise.items.geometre.title', label: 'Géomètre-Expert Foncier : Titre', type: 'text' },
-      { key: 'expertise.items.geometre.desc', label: 'Géomètre-Expert Foncier : Courte description', type: 'textarea' },
-      { key: 'expertise.items.geometre.longDesc', label: 'Géomètre-Expert Foncier : Longue description', type: 'textarea' },
-      
-      { key: 'expertise.items.vrd.title', label: 'Ingénierie VRD : Titre', type: 'text' },
-      { key: 'expertise.items.vrd.desc', label: 'Ingénierie VRD : Courte description', type: 'textarea' },
-      { key: 'expertise.items.vrd.longDesc', label: 'Ingénierie VRD : Longue description', type: 'textarea' },
-      
-      { key: 'expertise.items.sport.title', label: 'Ingénierie Sportive : Titre', type: 'text' },
-      { key: 'expertise.items.sport.desc', label: 'Ingénierie Sportive : Courte description', type: 'textarea' },
-      { key: 'expertise.items.sport.longDesc', label: 'Ingénierie Sportive : Longue description', type: 'textarea' },
-      
-      { key: 'expertise.items.topographie.title', label: 'Topographie : Titre', type: 'text' },
-      { key: 'expertise.items.topographie.desc', label: 'Topographie : Courte description', type: 'textarea' },
-      { key: 'expertise.items.topographie.longDesc', label: 'Topographie : Longue description', type: 'textarea' },
-      
-      { key: 'expertise.items.copropriete.title', label: 'Pôle Copropriété & 3D : Titre', type: 'text' },
-      { key: 'expertise.items.copropriete.desc', label: 'Pôle Copropriété & 3D : Courte description', type: 'textarea' },
-      { key: 'expertise.items.copropriete.longDesc', label: 'Pôle Copropriété & 3D : Longue description', type: 'textarea' },
-
-      // Photos des 9 Domaines d'Expertise
-      { key: 'expertise.items.bornage.image', label: 'Bornage : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.division.image', label: 'Division : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.copropriete.image', label: 'Copropriété : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.lotissement.image', label: 'Lotissements : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.urbanisme.image', label: 'Urbanisme & Paysage : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.vrd.image', label: 'Maîtrise d\'œuvre & VRD : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.sport.image', label: 'Ingénierie Sportive : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.topographie.image', label: 'Topographie : Photo d\'illustration', type: 'image' },
-      { key: 'expertise.items.geometre.image', label: 'Géomètre-Expert Foncier : Photo d\'illustration', type: 'image' },
-      
-      // CTA
-      { key: 'expertise.cta_desc', label: 'Bannière d\'accroche : "Découvrez comment notre équipe peut vous aider."', type: 'text' },
-      
       // Clients
       { key: 'references.title', label: 'Titre section Clients', type: 'text' },
       { key: 'references.subtitle', label: 'Sous-titre section Clients', type: 'textarea' },
@@ -105,6 +62,76 @@ const CATEGORIES = [
       { key: 'testimonials.title', label: 'Témoignages : Titre de la section', type: 'text' },
       { key: 'testimonials.subtitle', label: 'Témoignages : Sous-titre (ex: Note Globale : 5/5)', type: 'text' },
       { key: 'testimonials.cta', label: 'Témoignages : Bouton "Explorer les avis"', type: 'text' }
+    ]
+  },
+
+  {
+    id: 'expertises_list',
+    name: 'Domaines d\'Expertise',
+    description: 'Titres, descriptions et photos d\'illustration des 9 activités.',
+    fields: [
+      // Domaines intro
+      { key: 'expertise.title', label: 'Titre de la section "Nos Domaines d\'Expertise"', type: 'text' },
+      { key: 'expertise.subtitle', label: 'Sous-titre de la section "Nos Domaines d\'Expertise"', type: 'textarea' },
+      
+      // 1. Bornage
+      { key: 'expertise.items.bornage.title', label: '1. Bornage : Titre', type: 'text' },
+      { key: 'expertise.items.bornage.desc', label: '1. Bornage : Courte description', type: 'textarea' },
+      { key: 'expertise.items.bornage.longDesc', label: '1. Bornage : Longue description', type: 'textarea' },
+      { key: 'expertise.items.bornage.image', label: '1. Bornage : Photo d\'illustration', type: 'image' },
+
+      // 2. Division
+      { key: 'expertise.items.division.title', label: '2. Division : Titre', type: 'text' },
+      { key: 'expertise.items.division.desc', label: '2. Division : Courte description', type: 'textarea' },
+      { key: 'expertise.items.division.longDesc', label: '2. Division : Longue description', type: 'textarea' },
+      { key: 'expertise.items.division.image', label: '2. Division : Photo d\'illustration', type: 'image' },
+
+      // 3. Copropriété
+      { key: 'expertise.items.copropriete.title', label: '3. Copropriété & 3D : Titre', type: 'text' },
+      { key: 'expertise.items.copropriete.desc', label: '3. Copropriété & 3D : Courte description', type: 'textarea' },
+      { key: 'expertise.items.copropriete.longDesc', label: '3. Copropriété & 3D : Longue description', type: 'textarea' },
+      { key: 'expertise.items.copropriete.image', label: '3. Copropriété & 3D : Photo d\'illustration', type: 'image' },
+
+      // 4. Lotissement
+      { key: 'expertise.items.lotissement.title', label: '4. Lotissements : Titre', type: 'text' },
+      { key: 'expertise.items.lotissement.desc', label: '4. Lotissements : Courte description', type: 'textarea' },
+      { key: 'expertise.items.lotissement.longDesc', label: '4. Lotissements : Longue description', type: 'textarea' },
+      { key: 'expertise.items.lotissement.image', label: '4. Lotissements : Photo d\'illustration', type: 'image' },
+
+      // 5. Urbanisme
+      { key: 'expertise.items.urbanisme.title', label: '5. Urbanisme & Paysage : Titre', type: 'text' },
+      { key: 'expertise.items.urbanisme.desc', label: '5. Urbanisme & Paysage : Courte description', type: 'textarea' },
+      { key: 'expertise.items.urbanisme.longDesc', label: '5. Urbanisme & Paysage : Longue description', type: 'textarea' },
+      { key: 'expertise.items.urbanisme.image', label: '5. Urbanisme & Paysage : Photo d\'illustration', type: 'image' },
+
+      // 6. VRD
+      { key: 'expertise.items.vrd.title', label: '6. Maîtrise d\'œuvre & VRD : Titre', type: 'text' },
+      { key: 'expertise.items.vrd.desc', label: '6. Maîtrise d\'œuvre & VRD : Courte description', type: 'textarea' },
+      { key: 'expertise.items.vrd.longDesc', label: '6. Maîtrise d\'œuvre & VRD : Longue description', type: 'textarea' },
+      { key: 'expertise.items.vrd.image', label: '6. Maîtrise d\'œuvre & VRD : Photo d\'illustration', type: 'image' },
+
+      // 7. Sport
+      { key: 'expertise.items.sport.title', label: '7. Ingénierie Sportive : Titre', type: 'text' },
+      { key: 'expertise.items.sport.desc', label: '7. Ingénierie Sportive : Courte description', type: 'textarea' },
+      { key: 'expertise.items.sport.longDesc', label: '7. Ingénierie Sportive : Longue description', type: 'textarea' },
+      { key: 'expertise.items.sport.image', label: '7. Ingénierie Sportive : Photo d\'illustration', type: 'image' },
+
+      // 8. Topographie
+      { key: 'expertise.items.topographie.title', label: '8. Topographie : Titre', type: 'text' },
+      { key: 'expertise.items.topographie.desc', label: '8. Topographie : Courte description', type: 'textarea' },
+      { key: 'expertise.items.topographie.longDesc', label: '8. Topographie : Longue description', type: 'textarea' },
+      { key: 'expertise.items.topographie.image', label: '8. Topographie : Photo d\'illustration', type: 'image' },
+
+      // 9. Géomètre-Expert Foncier
+      { key: 'expertise.items.geometre.title', label: '9. Géomètre-Expert Foncier : Titre', type: 'text' },
+      { key: 'expertise.items.geometre.desc', label: '9. Géomètre-Expert Foncier : Courte description', type: 'textarea' },
+      { key: 'expertise.items.geometre.longDesc', label: '9. Géomètre-Expert Foncier : Longue description', type: 'textarea' },
+      { key: 'expertise.items.geometre.image', label: '9. Géomètre-Expert Foncier : Photo d\'illustration', type: 'image' },
+
+      // CTA
+      { key: 'expertise.cta_title', label: 'Titre bannière CTA bas de page', type: 'text' },
+      { key: 'expertise.cta_desc', label: 'Description bannière CTA bas de page', type: 'textarea' },
+      { key: 'expertise.cta_btn', label: 'Texte du bouton CTA', type: 'text' }
     ]
   },
 
