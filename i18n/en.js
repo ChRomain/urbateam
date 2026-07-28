@@ -33,6 +33,10 @@ export const en = {
       description: "Need a quote or advice? Contact our experts for your projects in Brest and throughout Finistère."
     },
     expertises: {
+      main: {
+        title: "Our Areas of Expertise | Chartered Surveyors & Urban Planners | URBATEAM",
+        description: "Discover all our services: boundary marking, land division, co-ownership, subdivision, urban planning, infrastructure engineering, sports engineering, and topography."
+      },
       bornage: {
         title: "Boundary Marking | Property Limits | URBATEAM",
         description: "Legal and physical definition of property boundaries by our Chartered Land Surveyors."

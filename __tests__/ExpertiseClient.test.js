@@ -3,17 +3,25 @@ import ExpertiseClient from '../app/expertise/[slug]/ExpertiseClient';
 import { LanguageProvider } from '../context/LanguageContext';
 import React from 'react';
 
-// Mock framer-motion
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-    h1: ({ children, ...props }) => <h1 {...props}>{children}</h1>,
-    h2: ({ children, ...props }) => <h2 {...props}>{children}</h2>,
-    p: ({ children, ...props }) => <p {...props}>{children}</p>,
-    button: ({ children, ...props }) => <button {...props}>{children}</button>,
-  },
-  AnimatePresence: ({ children }) => children,
+jest.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ children, href, ...props }) => <a href={href} {...props}>{children}</a>
 }));
+
+jest.mock('framer-motion', () => {
+  const React = require('react');
+  return {
+    motion: new Proxy(
+      {},
+      {
+        get: (target, prop) => {
+          return ({ children, ...props }) => React.createElement(prop, props, children);
+        },
+      }
+    ),
+    AnimatePresence: ({ children }) => children,
+  };
+});
 
 const renderWithProvider = (ui) => {
   return render(
@@ -28,7 +36,7 @@ describe('ExpertiseClient', () => {
     renderWithProvider(<ExpertiseClient slug="urbanisme" />);
     
     // Check for title in PageHeader (h1)
-    expect(screen.getByRole('heading', { name: 'Urbanisme & Paysage', level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Urbanisme et Paysage', level: 1 })).toBeInTheDocument();
     expect(screen.getByText(/URBATEAM accompagne les collectivités/)).toBeInTheDocument();
   });
 

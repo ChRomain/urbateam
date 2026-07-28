@@ -18,6 +18,18 @@ const iconMap = {
   geometre: <Ruler size={48} />
 };
 
+const slugImageMap = {
+  bornage: { src: '/pictures/geometre-bornage.png', alt: 'Bornage et Limites de Propriété URBATEAM', badge: 'Sécurité Juridique & Bornage', desc: 'Seul professionnel habilité à définir vos limites de propriété avec une valeur juridique incontestable.' },
+  division: { src: '/pictures/topographie-final.png', alt: 'Division Parcellaire URBATEAM', badge: 'Division Parcellaire & Cadastre', desc: 'Création de terrains à bâtir et documents de modification du parcellaire cadastral (DMPC).' },
+  copropriete: { src: '/pictures/bim-3d-scan.png', alt: 'Copropriété et Division en Volumes URBATEAM', badge: 'Système Scan-to-BIM & Copropriété', desc: 'Nos relevés par scanner laser 3D permettent une modélisation millimétrée pour une gestion digitale de vos bâtiments.' },
+  lotissement: { src: '/pictures/lotissement-pro.png', alt: 'Aménagement de Lotissements URBATEAM', badge: 'Aménagement de Lotissements & Éco-quartiers', desc: 'Accompagnement global de la conception à la maîtrise d’œuvre des voiries et réseaux (VRD).' },
+  urbanisme: { src: '/pictures/urbanisme-bureau.png', alt: 'Urbanisme et Paysage URBATEAM', badge: 'Expertise & Planification Urbaine', desc: 'Analyse rigoureuse et conception de projets d\'aménagement ancrés dans la réalité de vos territoires.' },
+  vrd: { src: '/pictures/vrd-ingenierie.png', alt: 'Maîtrise d’œuvre et VRD URBATEAM', badge: 'Infrastructures & Réseaux VRD', desc: 'Conception technique et dimensionnement optimisé des réseaux et de la voirie pour vos projets.' },
+  sport: { src: '/pictures/sport-ingenierie.png', alt: 'Ingénierie Sportive URBATEAM', badge: 'Homologation & Topométrie Sportive', desc: 'Expertise pointue dans le traçage et le contrôle géométrique des infrastructures sportives.' },
+  topographie: { src: '/pictures/topographie-pro.png', alt: 'Relevé Topographique de Précision URBATEAM', badge: 'Précision Centimétrique & Levés', desc: 'Nos stations totales robotisées et récepteurs GPS de pointe garantissent une fiabilité absolue de vos relevés de terrain.' },
+  geometre: { src: '/pictures/geometre-foncier-v2.png', alt: 'Géomètre-Expert Foncier URBATEAM', badge: 'Expertise Foncière & Juridique', desc: 'Analyse foncière, étude des servitudes, droits de passage et délimitation de la propriété.' }
+};
+
 export default function ExpertiseClient({ slug }) {
   const { t } = useLanguage();
 
@@ -76,7 +88,7 @@ export default function ExpertiseClient({ slug }) {
               dangerouslySetInnerHTML={{ __html: expertise.longDesc || expertise.desc }}
             />
 
-            {slug === 'copropriete' && (
+            {slugImageMap[slug] && (
               <div style={{ 
                 width: '100%', 
                 height: '450px', 
@@ -84,108 +96,19 @@ export default function ExpertiseClient({ slug }) {
                 overflow: 'hidden', 
                 position: 'relative',
                 marginBottom: '3rem',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
                 backgroundColor: '#0a0a0a',
                 border: '1px solid rgba(16, 185, 129, 0.2)'
               }}>
                 <img 
-                  src="/pictures/bim-3d-scan.png" 
-                  alt="Visualisation BIM 3D" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} 
-                />
-                
-                <motion.div 
-                  animate={{ top: ['0%', '100%', '0%'] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    height: '2px',
-                    background: 'linear-gradient(to right, transparent, var(--primary-color), transparent)',
-                    boxShadow: '0 0 15px var(--primary-color)',
-                    zIndex: 2,
-                    opacity: 0.6
-                  }}
-                />
-
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(16, 185, 129, 0.05) 1px, transparent 0)',
-                  backgroundSize: '30px 30px',
-                  zIndex: 1
-                }} />
-
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: '2.5rem',
-                  zIndex: 3
-                }}>
-                  <div style={{ color: 'white' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--primary-color)', boxShadow: '0 0 10px var(--primary-color)' }}></span>
-                      <h4 style={{ color: 'var(--primary-color)', margin: 0, fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Système Scan-to-BIM</h4>
-                    </div>
-                    <p style={{ fontSize: '0.95rem', opacity: 0.8, maxWidth: '500px' }}>
-                      Nos relevés par scanner laser 3D permettent une modélisation millimétrée pour une gestion digitale de vos bâtiments.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {(slug === 'topographie' || slug === 'division') && (
-              <div style={{ 
-                width: '100%', 
-                height: '450px', 
-                borderRadius: 'var(--border-radius-lg)', 
-                overflow: 'hidden', 
-                position: 'relative',
-                marginBottom: '3rem',
-                boxShadow: 'var(--shadow-md)',
-                backgroundColor: '#f8f8f8',
-                border: '1px solid var(--glass-border)'
-              }}>
-                <img 
-                  src="/pictures/topographie-final.png" 
-                  alt="Relevé Topographique URBATEAM" 
+                  src={t(`expertise.items.${slug}.image`) || slugImageMap[slug].src} 
+                  alt={slugImageMap[slug].alt} 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                 />
-                
-                {/* Subtle Radar/Pulse effect in white */}
-                <motion.div 
-                  animate={{ 
-                    scale: [1, 1.5],
-                    opacity: [0.3, 0]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeOut" 
-                  }}
-                  style={{
-                    position: 'absolute',
-                    top: '40%',
-                    left: '50%',
-                    width: '150px',
-                    height: '150px',
-                    marginLeft: '-75px',
-                    marginTop: '-75px',
-                    borderRadius: '50%',
-                    border: '1px solid white',
-                    zIndex: 2
-                  }}
-                />
-
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)',
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)',
                   display: 'flex',
                   alignItems: 'flex-end',
                   padding: '2.5rem',
@@ -193,222 +116,13 @@ export default function ExpertiseClient({ slug }) {
                 }}>
                   <div style={{ color: 'white' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--primary-color)' }}></span>
-                      <h4 style={{ color: 'white', margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>Précision Centimétrique</h4>
+                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--accent-color, #10b981)', boxShadow: '0 0 10px var(--accent-color, #10b981)' }}></span>
+                      <h4 style={{ color: 'white', margin: 0, fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                        {slugImageMap[slug].badge}
+                      </h4>
                     </div>
-                    <p style={{ fontSize: '0.9rem', opacity: 0.9, maxWidth: '500px', margin: 0 }}>
-                      Nos stations totales robotisées et récepteurs GPS de pointe garantissent une fiabilité absolue de vos relevés de terrain.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {slug === 'urbanisme' && (
-              <div style={{ 
-                width: '100%', 
-                height: '450px', 
-                borderRadius: 'var(--border-radius-lg)', 
-                overflow: 'hidden', 
-                position: 'relative',
-                marginBottom: '3rem',
-                boxShadow: 'var(--shadow-md)',
-                backgroundColor: '#f8f8f8',
-                border: '1px solid var(--glass-border)'
-              }}>
-                <motion.img 
-                  initial={{ scale: 1.05 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
-                  src="/pictures/urbanisme-bureau.png" 
-                  alt="Bureau d'études Urbanisme URBATEAM" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-                
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: '2.5rem',
-                  zIndex: 3
-                }}>
-                  <div style={{ color: 'white' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--primary-color)' }}></span>
-                      <h4 style={{ color: 'white', margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>Expertise & Planification</h4>
-                    </div>
-                    <p style={{ fontSize: '0.9rem', opacity: 0.9, maxWidth: '500px', margin: 0 }}>
-                      Analyse rigoureuse et conception de projets d'aménagement ancrés dans la réalité de vos territoires.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {(slug === 'geometre' || slug === 'bornage') && (
-              <div style={{ 
-                width: '100%', 
-                height: '450px', 
-                borderRadius: 'var(--border-radius-lg)', 
-                overflow: 'hidden', 
-                position: 'relative',
-                marginBottom: '3rem',
-                boxShadow: 'var(--shadow-md)',
-                backgroundColor: '#f8f8f8',
-                border: '1px solid var(--glass-border)'
-              }}>
-                <img 
-                  src="/pictures/geometre-bornage.png" 
-                  alt="Bornage et Foncier URBATEAM" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-                
-                {/* Property line animation */}
-                <motion.div 
-                  initial={{ opacity: 0, scaleX: 0 }}
-                  animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                  style={{
-                    position: 'absolute',
-                    top: '65%',
-                    left: '10%',
-                    right: '10%',
-                    height: '2px',
-                    background: 'rgba(255, 255, 255, 0.6)',
-                    boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
-                    zIndex: 2,
-                    transformOrigin: 'left'
-                  }}
-                />
-
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: '2.5rem',
-                  zIndex: 3
-                }}>
-                  <div style={{ color: 'white' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffd700' }}></span>
-                      <h4 style={{ color: 'white', margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>Sécurité Juridique & Bornage</h4>
-                    </div>
-                    <p style={{ fontSize: '0.9rem', opacity: 0.9, maxWidth: '500px', margin: 0 }}>
-                      Seul professionnel habilité à définir vos limites de propriété avec une valeur juridique incontestable.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {slug === 'vrd' && (
-              <div style={{ 
-                width: '100%', 
-                height: '450px', 
-                borderRadius: 'var(--border-radius-lg)', 
-                overflow: 'hidden', 
-                position: 'relative',
-                marginBottom: '3rem',
-                boxShadow: 'var(--shadow-md)',
-                backgroundColor: '#f8f8f8',
-                border: '1px solid var(--glass-border)'
-              }}>
-                <img 
-                  src="/pictures/vrd-ingenierie.png" 
-                  alt="Ingénierie VRD URBATEAM" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-                
-                {/* Network flow effect */}
-                <motion.div 
-                  animate={{ left: ['-100%', '100%'] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                  style={{
-                    position: 'absolute',
-                    top: '60%',
-                    width: '100%',
-                    height: '1px',
-                    background: 'linear-gradient(to right, transparent, rgba(16, 185, 129, 0.4), transparent)',
-                    zIndex: 2
-                  }}
-                />
-
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: '2.5rem',
-                  zIndex: 3
-                }}>
-                  <div style={{ color: 'white' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4da3ff' }}></span>
-                      <h4 style={{ color: 'white', margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>Infrastructures & Réseaux</h4>
-                    </div>
-                    <p style={{ fontSize: '0.9rem', opacity: 0.9, maxWidth: '500px', margin: 0 }}>
-                      Conception technique et dimensionnement optimisé des réseaux et de la voirie pour vos projets d'aménagement.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {(slug === 'sport' || slug === 'lotissement') && (
-              <div style={{ 
-                width: '100%', 
-                height: '450px', 
-                borderRadius: 'var(--border-radius-lg)', 
-                overflow: 'hidden', 
-                position: 'relative',
-                marginBottom: '3rem',
-                boxShadow: 'var(--shadow-md)',
-                backgroundColor: '#f8f8f8',
-                border: '1px solid var(--glass-border)'
-              }}>
-                <img 
-                  src="/pictures/sport-ingenierie.png" 
-                  alt="Ingénierie Sportive URBATEAM" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-                
-                {/* Subtle line drawing effect */}
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: 0,
-                    height: '1px',
-                    background: 'rgba(255,255,255,0.4)',
-                    boxShadow: '0 0 10px rgba(255,255,255,0.2)',
-                    zIndex: 2
-                  }}
-                />
-
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  padding: '2.5rem',
-                  zIndex: 3
-                }}>
-                  <div style={{ color: 'white' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ff4d4d' }}></span>
-                      <h4 style={{ color: 'white', margin: 0, fontSize: '1.1rem', fontWeight: '600' }}>Homologation & Topométrie</h4>
-                    </div>
-                    <p style={{ fontSize: '0.9rem', opacity: 0.9, maxWidth: '500px', margin: 0 }}>
-                      Expertise pointue dans le traçage et le contrôle géométrique des infrastructures sportives de haut niveau.
+                    <p style={{ fontSize: '0.95rem', opacity: 0.9, maxWidth: '550px', margin: 0 }}>
+                      {slugImageMap[slug].desc}
                     </p>
                   </div>
                 </div>

@@ -59,7 +59,7 @@ export default async function ExpertisePage({ params }) {
         "@type": "ListItem",
         "position": 2,
         "name": "Expertises",
-        "item": "https://urbateam.fr/#expertises"
+        "item": "https://urbateam.fr/expertise"
       },
       {
         "@type": "ListItem",

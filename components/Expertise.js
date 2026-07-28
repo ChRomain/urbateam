@@ -13,7 +13,7 @@ const expertiseItems = [
   { key: 'bornage', index: '01', icon: <Ruler size={20} />, image: '/pictures/geometre-bornage.png' },
   { key: 'division', index: '02', icon: <Compass size={20} />, image: '/pictures/topographie-final.png' },
   { key: 'copropriete', index: '03', icon: <Layers size={20} />, image: '/pictures/bim-3d-scan.png' },
-  { key: 'lotissement', index: '04', icon: <Map size={20} />, image: '/pictures/sport-ingenierie.png' },
+  { key: 'lotissement', index: '04', icon: <Map size={20} />, image: '/pictures/lotissement-pro.png' },
   { key: 'urbanisme', index: '05', icon: <Map size={20} />, image: '/pictures/urbanisme-bureau.png' },
   { key: 'vrd', index: '06', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.png' }
 ];

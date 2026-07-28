@@ -92,7 +92,7 @@ export default function Header() {
 
   const navLinks = [
     { name: t('header.about'), href: '/apropos' },
-    { name: t('header.expertises'), href: '/#expertises' },
+    { name: t('header.expertises'), href: '/expertise' },
     { name: t('header.portfolio'), href: '/projets' },
     { name: t('header.contact'), href: '/contact', primary: true },
   ];

@@ -81,6 +81,17 @@ const CATEGORIES = [
       { key: 'expertise.items.copropriete.title', label: 'Pôle Copropriété & 3D : Titre', type: 'text' },
       { key: 'expertise.items.copropriete.desc', label: 'Pôle Copropriété & 3D : Courte description', type: 'textarea' },
       { key: 'expertise.items.copropriete.longDesc', label: 'Pôle Copropriété & 3D : Longue description', type: 'textarea' },
+
+      // Photos des 9 Domaines d'Expertise
+      { key: 'expertise.items.bornage.image', label: 'Bornage : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.division.image', label: 'Division : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.copropriete.image', label: 'Copropriété : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.lotissement.image', label: 'Lotissements : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.urbanisme.image', label: 'Urbanisme & Paysage : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.vrd.image', label: 'Maîtrise d\'œuvre & VRD : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.sport.image', label: 'Ingénierie Sportive : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.topographie.image', label: 'Topographie : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.geometre.image', label: 'Géomètre-Expert Foncier : Photo d\'illustration', type: 'image' },
       
       // CTA
       { key: 'expertise.cta_desc', label: 'Bannière d\'accroche : "Découvrez comment notre équipe peut vous aider."', type: 'text' },
@@ -722,6 +733,110 @@ export default function TextsManager() {
                 const valueDict = formState[field.key] || { fr: '', en: '', br: '' };
                 const currentVal = valueDict[activeLang] || '';
                 const fallbackVal = activeLang !== 'fr' ? (valueDict.fr || getDefaultText('fr', field.key)) : getDefaultText('fr', field.key);
+
+                if (field.type === 'image') {
+                  const displayUrl = currentVal || fallbackVal;
+                  return (
+                    <GlassCard key={field.key} style={{ padding: '1.5rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem', gap: '1rem' }}>
+                        <div>
+                          <label style={{ fontWeight: '700', fontSize: '1rem', color: 'var(--secondary-color)', display: 'block' }}>
+                            {field.label}
+                          </label>
+                          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Clé : {field.key}</span>
+                        </div>
+                        <button 
+                          onClick={() => saveKey(field.key)}
+                          disabled={savingKey === field.key}
+                          style={{
+                            padding: '0.4rem 0.8rem',
+                            borderRadius: '6px',
+                            border: 'none',
+                            backgroundColor: '#e0f2fe',
+                            color: '#0369a1',
+                            fontWeight: '600',
+                            fontSize: '0.8rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.3rem'
+                          }}
+                        >
+                          <Save size={14} /> {savingKey === field.key ? 'Sauvegarde...' : 'Enregistrer'}
+                        </button>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                        {displayUrl && (
+                          <div style={{ width: '160px', height: '100px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #cbd5e1', position: 'relative', backgroundColor: '#f8fafc' }}>
+                            <img src={displayUrl} alt={field.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          </div>
+                        )}
+
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.6rem', minWidth: '220px' }}>
+                          <input 
+                            type="text"
+                            value={currentVal}
+                            onChange={(e) => updateField(field.key, activeLang, e.target.value)}
+                            placeholder="URL de l'image (ex: /pictures/... ou URL Supabase)"
+                            style={{
+                              padding: '0.6rem',
+                              borderRadius: '6px',
+                              border: '1px solid #e2e8f0',
+                              fontSize: '0.85rem'
+                            }}
+                          />
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <label 
+                              style={{
+                                padding: '0.5rem 1rem',
+                                backgroundColor: '#f1f5f9',
+                                color: '#0f172a',
+                                borderRadius: '6px',
+                                border: '1px solid #cbd5e1',
+                                fontSize: '0.8rem',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.4rem'
+                              }}
+                            >
+                              📷 Uploader une photo
+                              <input 
+                                type="file"
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  const formData = new FormData();
+                                  formData.append('file', file);
+                                  try {
+                                    const res = await fetch('/api/admin/team/upload', {
+                                      method: 'POST',
+                                      body: formData,
+                                    });
+                                    const result = await res.json();
+                                    if (result.success && result.url) {
+                                      updateField(field.key, activeLang, result.url);
+                                      alert('Photo uploadée avec succès ! N\'oubliez pas de cliquer sur Enregistrer.');
+                                    } else {
+                                      alert('Erreur lors de l\'upload : ' + (result.message || 'Échec'));
+                                    }
+                                  } catch (err) {
+                                    alert('Erreur réseau lors de l\'upload');
+                                  }
+                                  e.target.value = '';
+                                }}
+                              />
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </GlassCard>
+                  );
+                }
 
                 if (field.type === 'list') {
                   // Lists of bullet points

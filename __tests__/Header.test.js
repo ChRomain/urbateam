@@ -23,8 +23,7 @@ const renderWithProvider = (ui) => {
 describe('Header Component', () => {
   it('renders the logo', () => {
     renderWithProvider(<Header />);
-    expect(screen.getByText('URBA')).toBeInTheDocument();
-    expect(screen.getByText('team')).toBeInTheDocument();
+    expect(screen.getByAltText('URBATEAM - Géomètre Expert')).toBeInTheDocument();
   });
 
   it('renders navigation links', () => {
