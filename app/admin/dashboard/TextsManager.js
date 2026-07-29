@@ -68,7 +68,7 @@ const CATEGORIES = [
   {
     id: 'expertises_list',
     name: 'Domaines d\'Expertise',
-    description: 'Titres, descriptions et photos d\'illustration des 9 activités.',
+    description: 'Titres, descriptions, photos d\'illustration et missions clés des 9 activités.',
     fields: [
       // Domaines intro
       { key: 'expertise.title', label: 'Titre de la section "Nos Domaines d\'Expertise"', type: 'text' },
@@ -77,56 +77,119 @@ const CATEGORIES = [
       // 1. Bornage
       { key: 'expertise.items.bornage.title', label: '1. Bornage : Titre', type: 'text' },
       { key: 'expertise.items.bornage.desc', label: '1. Bornage : Courte description', type: 'textarea' },
-      { key: 'expertise.items.bornage.longDesc', label: '1. Bornage : Longue description', type: 'textarea' },
+      { key: 'expertise.items.bornage.longDesc', label: '1. Bornage : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.bornage.image', label: '1. Bornage : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.bornage.badge_title', label: '1. Bornage : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.bornage.badge_desc', label: '1. Bornage : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.bornage.missions', label: '1. Bornage : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.bornage.why_title', label: '1. Bornage : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.bornage.why_desc', label: '1. Bornage : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.bornage.cta_page_title', label: '1. Bornage : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.bornage.cta_page_desc', label: '1. Bornage : Bannière bas de page (Description)', type: 'textarea' },
 
       // 2. Division
       { key: 'expertise.items.division.title', label: '2. Division : Titre', type: 'text' },
       { key: 'expertise.items.division.desc', label: '2. Division : Courte description', type: 'textarea' },
-      { key: 'expertise.items.division.longDesc', label: '2. Division : Longue description', type: 'textarea' },
+      { key: 'expertise.items.division.longDesc', label: '2. Division : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.division.image', label: '2. Division : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.division.badge_title', label: '2. Division : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.division.badge_desc', label: '2. Division : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.division.missions', label: '2. Division : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.division.why_title', label: '2. Division : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.division.why_desc', label: '2. Division : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.division.cta_page_title', label: '2. Division : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.division.cta_page_desc', label: '2. Division : Bannière bas de page (Description)', type: 'textarea' },
 
       // 3. Copropriété
       { key: 'expertise.items.copropriete.title', label: '3. Copropriété & 3D : Titre', type: 'text' },
       { key: 'expertise.items.copropriete.desc', label: '3. Copropriété & 3D : Courte description', type: 'textarea' },
-      { key: 'expertise.items.copropriete.longDesc', label: '3. Copropriété & 3D : Longue description', type: 'textarea' },
+      { key: 'expertise.items.copropriete.longDesc', label: '3. Copropriété & 3D : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.copropriete.image', label: '3. Copropriété & 3D : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.copropriete.badge_title', label: '3. Copropriété & 3D : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.copropriete.badge_desc', label: '3. Copropriété & 3D : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.copropriete.missions', label: '3. Copropriété & 3D : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.copropriete.why_title', label: '3. Copropriété & 3D : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.copropriete.why_desc', label: '3. Copropriété & 3D : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.copropriete.cta_page_title', label: '3. Copropriété & 3D : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.copropriete.cta_page_desc', label: '3. Copropriété & 3D : Bannière bas de page (Description)', type: 'textarea' },
 
       // 4. Lotissement
       { key: 'expertise.items.lotissement.title', label: '4. Lotissements : Titre', type: 'text' },
       { key: 'expertise.items.lotissement.desc', label: '4. Lotissements : Courte description', type: 'textarea' },
-      { key: 'expertise.items.lotissement.longDesc', label: '4. Lotissements : Longue description', type: 'textarea' },
+      { key: 'expertise.items.lotissement.longDesc', label: '4. Lotissements : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.lotissement.image', label: '4. Lotissements : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.lotissement.badge_title', label: '4. Lotissements : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.lotissement.badge_desc', label: '4. Lotissements : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.lotissement.missions', label: '4. Lotissements : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.lotissement.why_title', label: '4. Lotissements : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.lotissement.why_desc', label: '4. Lotissements : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.lotissement.cta_page_title', label: '4. Lotissements : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.lotissement.cta_page_desc', label: '4. Lotissements : Bannière bas de page (Description)', type: 'textarea' },
 
       // 5. Urbanisme
       { key: 'expertise.items.urbanisme.title', label: '5. Urbanisme & Paysage : Titre', type: 'text' },
       { key: 'expertise.items.urbanisme.desc', label: '5. Urbanisme & Paysage : Courte description', type: 'textarea' },
-      { key: 'expertise.items.urbanisme.longDesc', label: '5. Urbanisme & Paysage : Longue description', type: 'textarea' },
+      { key: 'expertise.items.urbanisme.longDesc', label: '5. Urbanisme & Paysage : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.urbanisme.image', label: '5. Urbanisme & Paysage : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.urbanisme.badge_title', label: '5. Urbanisme & Paysage : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.urbanisme.badge_desc', label: '5. Urbanisme & Paysage : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.urbanisme.missions', label: '5. Urbanisme & Paysage : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.urbanisme.why_title', label: '5. Urbanisme & Paysage : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.urbanisme.why_desc', label: '5. Urbanisme & Paysage : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.urbanisme.cta_page_title', label: '5. Urbanisme & Paysage : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.urbanisme.cta_page_desc', label: '5. Urbanisme & Paysage : Bannière bas de page (Description)', type: 'textarea' },
 
       // 6. VRD
       { key: 'expertise.items.vrd.title', label: '6. Maîtrise d\'œuvre & VRD : Titre', type: 'text' },
       { key: 'expertise.items.vrd.desc', label: '6. Maîtrise d\'œuvre & VRD : Courte description', type: 'textarea' },
-      { key: 'expertise.items.vrd.longDesc', label: '6. Maîtrise d\'œuvre & VRD : Longue description', type: 'textarea' },
+      { key: 'expertise.items.vrd.longDesc', label: '6. Maîtrise d\'œuvre & VRD : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.vrd.image', label: '6. Maîtrise d\'œuvre & VRD : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.vrd.badge_title', label: '6. Maîtrise d\'œuvre & VRD : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.vrd.badge_desc', label: '6. Maîtrise d\'œuvre & VRD : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.vrd.missions', label: '6. VRD : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.vrd.why_title', label: '6. VRD : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.vrd.why_desc', label: '6. VRD : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.vrd.cta_page_title', label: '6. VRD : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.vrd.cta_page_desc', label: '6. VRD : Bannière bas de page (Description)', type: 'textarea' },
 
       // 7. Sport
       { key: 'expertise.items.sport.title', label: '7. Ingénierie Sportive : Titre', type: 'text' },
       { key: 'expertise.items.sport.desc', label: '7. Ingénierie Sportive : Courte description', type: 'textarea' },
-      { key: 'expertise.items.sport.longDesc', label: '7. Ingénierie Sportive : Longue description', type: 'textarea' },
+      { key: 'expertise.items.sport.longDesc', label: '7. Ingénierie Sportive : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.sport.image', label: '7. Ingénierie Sportive : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.sport.badge_title', label: '7. Ingénierie Sportive : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.sport.badge_desc', label: '7. Ingénierie Sportive : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.sport.missions', label: '7. Ingénierie Sportive : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.sport.why_title', label: '7. Ingénierie Sportive : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.sport.why_desc', label: '7. Ingénierie Sportive : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.sport.cta_page_title', label: '7. Ingénierie Sportive : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.sport.cta_page_desc', label: '7. Ingénierie Sportive : Bannière bas de page (Description)', type: 'textarea' },
 
       // 8. Topographie
       { key: 'expertise.items.topographie.title', label: '8. Topographie : Titre', type: 'text' },
       { key: 'expertise.items.topographie.desc', label: '8. Topographie : Courte description', type: 'textarea' },
-      { key: 'expertise.items.topographie.longDesc', label: '8. Topographie : Longue description', type: 'textarea' },
+      { key: 'expertise.items.topographie.longDesc', label: '8. Topographie : Longue description (Page dédiée)', type: 'textarea' },
       { key: 'expertise.items.topographie.image', label: '8. Topographie : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.topographie.badge_title', label: '8. Topographie : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.topographie.badge_desc', label: '8. Topographie : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.topographie.missions', label: '8. Topographie : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.topographie.why_title', label: '8. Topographie : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.topographie.why_desc', label: '8. Topographie : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.topographie.cta_page_title', label: '8. Topographie : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.topographie.cta_page_desc', label: '8. Topographie : Bannière bas de page (Description)', type: 'textarea' },
 
-      // 9. Géomètre-Expert Foncier
-      { key: 'expertise.items.geometre.title', label: '9. Géomètre-Expert Foncier : Titre', type: 'text' },
-      { key: 'expertise.items.geometre.desc', label: '9. Géomètre-Expert Foncier : Courte description', type: 'textarea' },
-      { key: 'expertise.items.geometre.longDesc', label: '9. Géomètre-Expert Foncier : Longue description', type: 'textarea' },
-      { key: 'expertise.items.geometre.image', label: '9. Géomètre-Expert Foncier : Photo d\'illustration', type: 'image' },
+      // 9. Implantation
+      { key: 'expertise.items.geometre.title', label: '9. Implantation : Titre', type: 'text' },
+      { key: 'expertise.items.geometre.desc', label: '9. Implantation : Courte description', type: 'textarea' },
+      { key: 'expertise.items.geometre.longDesc', label: '9. Implantation : Longue description (Page dédiée)', type: 'textarea' },
+      { key: 'expertise.items.geometre.image', label: '9. Implantation : Photo d\'illustration', type: 'image' },
+      { key: 'expertise.items.geometre.badge_title', label: '9. Implantation : Badge sur photo (Titre)', type: 'text' },
+      { key: 'expertise.items.geometre.badge_desc', label: '9. Implantation : Badge sur photo (Description)', type: 'textarea' },
+      { key: 'expertise.items.geometre.missions', label: '9. Implantation : Missions Clés', type: 'missions_list' },
+      { key: 'expertise.items.geometre.why_title', label: '9. Implantation : Section "Pourquoi URBATEAM" (Titre)', type: 'text' },
+      { key: 'expertise.items.geometre.why_desc', label: '9. Implantation : Section "Pourquoi URBATEAM" (Description)', type: 'textarea' },
+      { key: 'expertise.items.geometre.cta_page_title', label: '9. Implantation : Bannière bas de page (Titre)', type: 'text' },
+      { key: 'expertise.items.geometre.cta_page_desc', label: '9. Implantation : Bannière bas de page (Description)', type: 'textarea' },
 
       // CTA
       { key: 'expertise.cta_title', label: 'Titre bannière CTA bas de page', type: 'text' },
@@ -290,11 +353,22 @@ export default function TextsManager() {
         // Initialize with default values from local files
         CATEGORIES.forEach(cat => {
           cat.fields.forEach(field => {
-            state[field.key] = {
-              fr: getDefaultText('fr', field.key),
-              en: getDefaultText('en', field.key),
-              br: getDefaultText('br', field.key)
-            };
+            if (field.type === 'missions_list') {
+              const defFr = getDefaultText('fr', field.key);
+              const defEn = getDefaultText('en', field.key);
+              const defBr = getDefaultText('br', field.key);
+              state[field.key] = {
+                fr: typeof defFr === 'object' ? JSON.stringify(defFr) : (defFr || '[]'),
+                en: typeof defEn === 'object' ? JSON.stringify(defEn) : (defEn || '[]'),
+                br: typeof defBr === 'object' ? JSON.stringify(defBr) : (defBr || '[]')
+              };
+            } else {
+              state[field.key] = {
+                fr: getDefaultText('fr', field.key),
+                en: getDefaultText('en', field.key),
+                br: getDefaultText('br', field.key)
+              };
+            }
           });
         });
 
@@ -420,6 +494,75 @@ export default function TextsManager() {
       [key]: {
         ...prev[key],
         [lang]: JSON.stringify(listArr)
+      }
+    }));
+  };
+
+  const updateMissionItem = (key, lang, index, subfield, value) => {
+    const currentListVal = formState[key]?.[lang] || '[]';
+    let listArr = [];
+    try {
+      listArr = typeof currentListVal === 'string' ? JSON.parse(currentListVal) : currentListVal;
+      if (!Array.isArray(listArr)) listArr = [];
+    } catch (e) {
+      const def = getDefaultText(lang, key);
+      listArr = Array.isArray(def) ? [...def] : [];
+    }
+
+    const newList = listArr.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [subfield]: value };
+      }
+      return item;
+    });
+
+    setFormState(prev => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        [lang]: JSON.stringify(newList)
+      }
+    }));
+  };
+
+  const addMissionItem = (key, lang) => {
+    const currentListVal = formState[key]?.[lang] || '[]';
+    let listArr = [];
+    try {
+      listArr = typeof currentListVal === 'string' ? JSON.parse(currentListVal) : currentListVal;
+      if (!Array.isArray(listArr)) listArr = [];
+    } catch (e) {
+      const def = getDefaultText(lang, key);
+      listArr = Array.isArray(def) ? [...def] : [];
+    }
+
+    listArr.push({ title: 'Nouvelle mission', desc: 'Description de la mission' });
+    setFormState(prev => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        [lang]: JSON.stringify(listArr)
+      }
+    }));
+  };
+
+  const deleteMissionItem = (key, lang, index) => {
+    const currentListVal = formState[key]?.[lang] || '[]';
+    let listArr = [];
+    try {
+      listArr = typeof currentListVal === 'string' ? JSON.parse(currentListVal) : currentListVal;
+      if (!Array.isArray(listArr)) listArr = [];
+    } catch (e) {
+      const def = getDefaultText(lang, key);
+      listArr = Array.isArray(def) ? [...def] : [];
+    }
+
+    const newList = listArr.filter((_, idx) => idx !== index);
+    setFormState(prev => ({
+      ...prev,
+      [key]: {
+        ...prev[key],
+        [lang]: JSON.stringify(newList)
       }
     }));
   };
@@ -956,6 +1099,147 @@ export default function TextsManager() {
                           }}
                         >
                           <Plus size={14} /> Ajouter un point
+                        </button>
+                      </div>
+                    </GlassCard>
+                  );
+                }
+
+                if (field.type === 'missions_list') {
+                  let missionItems = [];
+                  try {
+                    missionItems = typeof currentVal === 'string' ? JSON.parse(currentVal) : currentVal;
+                    if (!Array.isArray(missionItems)) missionItems = [];
+                  } catch (e) {
+                    const def = getDefaultText(activeLang, field.key);
+                    missionItems = Array.isArray(def) ? def : [];
+                  }
+
+                  return (
+                    <GlassCard key={field.key} style={{ padding: '1.5rem', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
+                        <div>
+                          <label style={{ fontWeight: '700', fontSize: '1.05rem', color: 'var(--secondary-color)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            🎯 {field.label} ({activeLang.toUpperCase()})
+                          </label>
+                          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Clé : {field.key}</span>
+                        </div>
+                        <button 
+                          onClick={() => saveKey(field.key)}
+                          disabled={savingKey === field.key}
+                          style={{
+                            padding: '0.4rem 0.8rem',
+                            borderRadius: '6px',
+                            border: 'none',
+                            backgroundColor: '#e0f2fe',
+                            color: '#0369a1',
+                            fontWeight: '600',
+                            fontSize: '0.8rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.3rem'
+                          }}
+                        >
+                          <Save size={14} /> {savingKey === field.key ? 'Enregistrement...' : 'Enregistrer'}
+                        </button>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        {missionItems.map((mission, idx) => (
+                          <div key={idx} style={{ 
+                            backgroundColor: 'white', 
+                            padding: '1rem', 
+                            borderRadius: '10px', 
+                            border: '1px solid #cbd5e1',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.6rem',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+                          }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <span style={{ fontWeight: 'bold', fontSize: '0.85rem', color: '#64748b' }}>
+                                Mission #{idx + 1}
+                              </span>
+                              <button 
+                                onClick={() => deleteMissionItem(field.key, activeLang, idx)}
+                                style={{
+                                  backgroundColor: '#fee2e2',
+                                  color: '#ef4444',
+                                  border: 'none',
+                                  padding: '0.3rem 0.6rem',
+                                  borderRadius: '6px',
+                                  cursor: 'pointer',
+                                  fontSize: '0.8rem',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '0.3rem'
+                                }}
+                                title="Supprimer cette mission"
+                              >
+                                <Trash2 size={14} /> Supprimer
+                              </button>
+                            </div>
+
+                            <div>
+                              <label style={{ fontSize: '0.8rem', fontWeight: '600', color: '#475569', display: 'block', marginBottom: '0.2rem' }}>
+                                Titre de la mission
+                              </label>
+                              <input 
+                                type="text"
+                                value={mission.title || ''}
+                                onChange={(e) => updateMissionItem(field.key, activeLang, idx, 'title', e.target.value)}
+                                placeholder="ex: Bornage contradictoire"
+                                style={{
+                                  width: '100%',
+                                  padding: '0.5.rem',
+                                  borderRadius: '6px',
+                                  border: '1px solid #cbd5e1',
+                                  fontSize: '0.9rem',
+                                  fontWeight: '600'
+                                }}
+                              />
+                            </div>
+
+                            <div>
+                              <label style={{ fontSize: '0.8rem', fontWeight: '600', color: '#475569', display: 'block', marginBottom: '0.2rem' }}>
+                                Description de la mission
+                              </label>
+                              <textarea 
+                                value={mission.desc || ''}
+                                onChange={(e) => updateMissionItem(field.key, activeLang, idx, 'desc', e.target.value)}
+                                placeholder="ex: Définition juridique et physique des limites..."
+                                rows={2}
+                                style={{
+                                  width: '100%',
+                                  padding: '0.5rem',
+                                  borderRadius: '6px',
+                                  border: '1px solid #cbd5e1',
+                                  fontSize: '0.85rem'
+                                }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+
+                        <button
+                          onClick={() => addMissionItem(field.key, activeLang)}
+                          style={{
+                            padding: '0.6rem 1rem',
+                            borderRadius: '8px',
+                            border: '1px dashed #0284c7',
+                            backgroundColor: '#f0f9ff',
+                            color: '#0284c7',
+                            cursor: 'pointer',
+                            fontWeight: '600',
+                            fontSize: '0.85rem',
+                            alignSelf: 'flex-start',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.4rem'
+                          }}
+                        >
+                          <Plus size={16} /> Ajouter une mission clé
                         </button>
                       </div>
                     </GlassCard>

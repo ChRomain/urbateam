@@ -257,7 +257,7 @@ export default function ContactClient() {
 
       <MotionSection style={{ marginTop: '4rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('division.title')}</h2>
-        <SimulateurDivisionClient hideHeader={true} />
+        <SimulateurDivisionClient hideHeader={true} hideFooter={true} />
       </MotionSection>
     </div>
   );

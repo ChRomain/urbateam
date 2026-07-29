@@ -290,19 +290,17 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
                       <p style={{ fontSize: '0.6rem', color: 'var(--text-light)', marginTop: '0.3rem' }}>Station Trimble</p>
                     </div>
                     <div style={{ textAlign: 'center' }}>
-                      <img src="/pictures/gps-trimble-final.png" alt="GPS Trimble" style={{ height: '62px', width: 'auto', objectFit: 'contain' }} />
-                      <p style={{ fontSize: '0.6rem', color: 'var(--text-light)', marginTop: '0.3rem' }}>GPS Trimble</p>
+                      <img src="/pictures/gps-teria-pyx-final.png" alt="GPS Teria PYX" style={{ height: '62px', width: 'auto', objectFit: 'contain' }} />
+                      <p style={{ fontSize: '0.6rem', color: 'var(--text-light)', marginTop: '0.3rem' }}>GPS Teria PYX</p>
                     </div>
                   </div>
                 )}
 
                 {item.showSoftwareImages && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', alignItems: 'center', justifyContent: 'center', padding: '0.75rem 0', marginTop: '1.25rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-                    <img src="/pictures/autocad.png" alt="AutoCAD" style={{ height: '24px', width: 'auto' }} title="AutoCAD" />
-                    <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '24px', width: 'auto' }} title="Covadis" />
-                    <img src="/pictures/sketchup.png" alt="SketchUp" style={{ height: '24px', width: 'auto' }} title="SketchUp" />
-                    <img src="/pictures/photoshop.png" alt="Photoshop" style={{ height: '24px', width: 'auto' }} title="Photoshop" />
-                    <img src="/pictures/illustrator.png" alt="Illustrator" style={{ height: '24px', width: 'auto' }} title="Illustrator" />
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.75rem', alignItems: 'center', justifyContent: 'center', padding: '0.75rem 0', marginTop: '1.25rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                    <img src="/pictures/GeoGexFR.jpg" alt="GeoGexFR" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} title="GeoGexFR" />
+                    <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} title="Covadis" />
+                    <img src="/pictures/autocad.webp" alt="AutoCAD" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} title="AutoCAD" />
                   </div>
                 )}
               </GlassCard>

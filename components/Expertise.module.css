@@ -130,7 +130,7 @@
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--secondary-color);
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .tabDesc {

@@ -80,25 +80,26 @@
 .partnersColumn {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  align-items: flex-start;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: -3.1rem;
 }
 
 .partnerLogo {
-  background: white;
-  padding: 6px;
-  border-radius: 4px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   width: fit-content;
 }
 
 .partnerLogo:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.2);
+  opacity: 0.85;
 }
 
 @media (max-width: 768px) {

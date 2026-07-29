@@ -20,9 +20,11 @@ export default function PartnersManager() {
 
   const fetchPartners = async () => {
     try {
-      const res = await fetch('/data/partners.json');
-      const data = await res.json();
-      setPartners(data);
+      const res = await fetch('/api/admin/partners');
+      if (res.ok) {
+        const data = await res.json();
+        setPartners(data);
+      }
     } catch (error) {
       console.error('Fetch error:', error);
     } finally {
@@ -36,7 +38,7 @@ export default function PartnersManager() {
     const formData = new FormData(e.target);
 
     try {
-      const res = await fetch('/data/partners.json', {
+      const res = await fetch('/api/admin/partners', {
         method: 'POST',
         body: formData,
       });
@@ -61,7 +63,7 @@ export default function PartnersManager() {
     if (!confirm('Voulez-vous vraiment supprimer ce partenaire ?')) return;
 
     try {
-      const res = await fetch('/data/partners.json', {
+      const res = await fetch('/api/admin/partners', {
         method: 'DELETE',
         body: JSON.stringify({ id }),
         headers: { 'Content-Type': 'application/json' },

@@ -109,19 +109,17 @@ export default function MoyensClient() {
                     <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>Station Trimble</p>
                   </div>
                   <div style={{ textAlign: 'center' }}>
-                    <img src="/pictures/gps-trimble-final.png" alt="GPS Trimble" style={{ height: '95px', width: 'auto', objectFit: 'contain' }} />
-                    <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>GPS Trimble</p>
+                    <img src="/pictures/gps-teria-pyx-final.png" alt="GPS Teria PYX" style={{ height: '95px', width: 'auto', objectFit: 'contain' }} />
+                    <p style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>GPS Teria PYX</p>
                   </div>
                 </div>
               )}
 
               {item.showSoftwareImages && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', justifyContent: 'center', padding: '1rem 0', marginTop: '1.5rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-                  <img src="/pictures/autocad.png" alt="AutoCAD" style={{ height: '30px', width: 'auto' }} title="AutoCAD" />
-                  <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '30px', width: 'auto' }} title="Covadis" />
-                  <img src="/pictures/sketchup.png" alt="SketchUp" style={{ height: '30px', width: 'auto' }} title="SketchUp" />
-                  <img src="/pictures/photoshop.png" alt="Photoshop" style={{ height: '30px', width: 'auto' }} title="Photoshop" />
-                  <img src="/pictures/illustrator.png" alt="Illustrator" style={{ height: '30px', width: 'auto' }} title="Illustrator" />
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'center', padding: '1rem 0', marginTop: '1.5rem', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                  <img src="/pictures/GeoGexFR.jpg" alt="GeoGexFR" style={{ height: '45px', width: 'auto', objectFit: 'contain' }} title="GeoGexFR" />
+                  <img src="/pictures/covadis.png" alt="Covadis" style={{ height: '45px', width: 'auto', objectFit: 'contain' }} title="Covadis" />
+                  <img src="/pictures/autocad.webp" alt="AutoCAD" style={{ height: '45px', width: 'auto', objectFit: 'contain' }} title="AutoCAD" />
                 </div>
               )}
             </GlassCard>

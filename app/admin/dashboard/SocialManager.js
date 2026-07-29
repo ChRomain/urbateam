@@ -28,11 +28,13 @@ export default function SocialManager() {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch('/data/social.json');
-      const data = await res.json();
-      setPosts(data);
+      const res = await fetch('/api/admin/social');
+      if (res.ok) {
+        const data = await res.json();
+        setPosts(data);
+      }
     } catch (err) {
-      console.error('Erreur posts');
+      console.error('Erreur posts', err);
     } finally {
       setLoading(false);
     }
@@ -49,18 +51,18 @@ export default function SocialManager() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    const file = fileInputRef.current.files[0];
-    if (!file) return;
+    const file = fileInputRef.current?.files[0];
+    if (!file && !editingId) return;
 
     setUploading(true);
     const formData = new FormData();
-    formData.append('file', file);
+    if (file) formData.append('file', file);
     formData.append('caption', caption);
     formData.append('category', category);
     if (editingId) formData.append('id', editingId);
 
     try {
-      const res = await fetch('/data/social.json', {
+      const res = await fetch('/api/admin/social', {
         method: 'POST',
         body: formData,
       });
@@ -74,6 +76,9 @@ export default function SocialManager() {
           showToast("Photo ajoutée avec succès !");
         }
         resetForm();
+        fetchPosts();
+      } else {
+        showToast(data.message || "Erreur lors de l'envoi de la photo", "error");
       }
     } catch (err) {
       showToast("Erreur lors de l'envoi de la photo", "error");
@@ -85,13 +90,15 @@ export default function SocialManager() {
   const handleDelete = async (id) => {
     if (!confirm('Supprimer cette photo ?')) return;
     try {
-      await fetch('/data/social.json', {
+      const res = await fetch('/api/admin/social', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
-      setPosts(posts.filter(p => p.id !== id));
-      showToast("Photo supprimée.", "success");
+      if (res.ok) {
+        setPosts(posts.filter(p => p.id !== id));
+        showToast("Photo supprimée.", "success");
+      }
     } catch (err) {
       showToast("Erreur lors de la suppression", "error");
     }

@@ -70,7 +70,7 @@ export const fr = {
         description: "Levés topographiques, implantations d'ouvrages et relevés d'architecture par scanner 3D et drone."
       },
       geometre: {
-        title: "Géomètre-Expert Foncier | Bornage & Division | URBATEAM",
+        title: "Implantation | Bornage & Division | URBATEAM",
         description: "Seul habilité à fixer les limites de propriété. Bornage contradictoire, division parcellaire et expertise juridique."
       },
       partners: {
@@ -243,7 +243,7 @@ export const fr = {
         ]
       },
       geometre: { 
-        title: "Géomètre-Expert Foncier", 
+        title: "Implantation", 
         image: "/pictures/geometre-foncier-v2.png",
         desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés.",
         longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Nous intervenons sur toutes les problématiques liées au droit du sol, du <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bornage</a> à la gestion des <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">servitudes</a>.",
@@ -266,9 +266,8 @@ export const fr = {
     categories: {
       collectivite: "Collectivités",
       amenageur: "Aménageurs & Promoteurs",
-      architecte: "Architectes",
-      particulier: "Particuliers",
-      entreprise: "Entreprises"
+      architecte: "Architectes, Constructeurs, Maîtres d'œuvre",
+      immobilier: "Professionnels de l'immobilier"
     },
     items: [
       "Écoquartier de PLOUEZEC (22) - Concours sur esquisse",
@@ -517,7 +516,7 @@ export const fr = {
         urban: "Projet d'aménagement urbain / Paysage",
         infra: "Ingénierie d'Infrastructures (VRD)",
         topo: "Étude Topographique",
-        surveyor: "Géomètre-Expert Foncier (Bornage, Division)",
+        surveyor: "Implantation (Bornage, Division)",
         sport: "Ingénierie Sportive",
         copro: "Copropriété (Mise en copropriété, Modificatifs)",
         bim: "Modélisation 3D / BIM (Scan laser)",
@@ -1072,7 +1071,7 @@ export const fr = {
     }
   },
   footer: {
-    brand_text: "Votre partenaire pour l'aménagement en Bretagne-Ouest. Nos équipes interviennent sur tout le Pays d'Iroise et la Cornouaille, notamment à Brest, Saint-Renan, Plouzané, Douarnenez et Quimper...",
+    brand_text: "Votre partenaire pour l'aménagement en Bretagne-Ouest. Nos équipes interviennent sur tout le Pays d'Iroise et la Cornouaille, notamment à Brest, Saint-Renan, Plouzané, Douarnenez...",
     agencies: "Les Cabinets",
     resources: "Ressources & Légal",
     projects: "Nos projets",

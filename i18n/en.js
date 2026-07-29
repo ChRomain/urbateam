@@ -257,9 +257,8 @@ export const en = {
     categories: {
       collectivite: "Local Authorities",
       amenageur: "Developers & Promoters",
-      architecte: "Architects",
-      particulier: "Individuals",
-      entreprise: "Companies"
+      architecte: "Architects, Builders & Project Managers",
+      immobilier: "Real Estate Professionals"
     },
     items: [
       "PLOUEZEC Eco-neighborhood (22) - Sketch competition",
@@ -1018,7 +1017,7 @@ export const en = {
     }
   },
   footer: {
-    brand_text: "Your planning partner in Western Brittany. Our teams operate across Pays d'Iroise and Cornouaille, specifically in Brest, Saint-Renan, Plouzané, Douarnenez, and Quimper...",
+    brand_text: "Your planning partner in Western Brittany. Our teams operate across Pays d'Iroise and Cornouaille, specifically in Brest, Saint-Renan, Plouzané, Douarnenez...",
     agencies: "Offices",
     resources: "Resources & Legal",
     projects: "Our Projects",

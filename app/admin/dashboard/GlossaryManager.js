@@ -18,11 +18,13 @@ export default function GlossaryManager() {
 
   const fetchGlossary = async () => {
     try {
-      const res = await fetch('/data/glossary.json');
-      const data = await res.json();
-      setItems(data);
+      const res = await fetch('/api/admin/glossary');
+      if (res.ok) {
+        const data = await res.json();
+        setItems(data);
+      }
     } catch (err) {
-      console.error('Erreur Lexique');
+      console.error('Erreur Lexique', err);
     } finally {
       setLoading(false);
     }
@@ -31,7 +33,7 @@ export default function GlossaryManager() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch('/data/glossary.json', {
+      const res = await fetch('/api/admin/glossary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items }),
@@ -39,6 +41,9 @@ export default function GlossaryManager() {
       const data = await res.json();
       if (data.success) {
         alert('Lexique mis à jour avec succès !');
+        await fetchGlossary();
+      } else {
+        alert('Erreur lors de la sauvegarde : ' + (data.error || 'Erreur inconnue'));
       }
     } catch (err) {
       alert('Erreur lors de la sauvegarde');

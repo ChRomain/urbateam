@@ -7,16 +7,14 @@ const CATEGORY_MAP = {
   collectivite: 'Collectivite',
   promoteur: 'Aménageur',
   architecte: 'Architecte',
-  particulier: 'Particulier',
-  entreprise: 'Entreprise'
+  immobilier: 'Immobilier'
 };
 
 const REVERSE_CATEGORY_MAP = {
   'Collectivite': 'collectivite',
   'Aménageur': 'promoteur',
   'Architecte': 'architecte',
-  'Particulier': 'particulier',
-  'Entreprise': 'entreprise'
+  'Immobilier': 'immobilier'
 };
 
 export async function GET(request) {

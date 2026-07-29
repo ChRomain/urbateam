@@ -31,7 +31,10 @@ export default function ProjetsClient({ projects = [] }) {
 
   const filteredProjects = filter === 'all' 
     ? projects 
-    : projects.filter(p => p.category === filter);
+    : projects.filter(p => {
+        if (filter === 'foncier') return p.category === 'foncier' || p.category === 'geometre';
+        return p.category === filter;
+      });
 
   return (
     <div className="container py-section">
@@ -117,7 +120,7 @@ export default function ProjetsClient({ projects = [] }) {
                       style={{ objectFit: 'cover' }}
                     />
                     <div style={{ position: 'absolute', top: '1rem', left: '1rem', backgroundColor: 'var(--primary-color)', color: 'white', padding: '0.4rem 1rem', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '700' }}>
-                      {categories.find(c => c.id === project.category)?.label || project.category}
+                      {categories.find(c => c.id === project.category || (c.id === 'foncier' && project.category === 'geometre'))?.label || project.category}
                     </div>
                   </div>
                   

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
-import { Compass, Ruler, Award } from 'lucide-react';
 import styles from './Stats.module.css';
 import { useLanguage } from '../context/LanguageContext';
 import Link from '@/components/Link';
@@ -134,10 +133,6 @@ export default function Stats() {
           <div className={styles.grid}>
             {/* Stat Item 1 */}
             <div className={styles.statItem}>
-              <div className={styles.metaRow}>
-                <Award size={16} className={styles.statIcon} style={{ color: 'var(--primary-color)' }} />
-                <span className={styles.techCoord}>[ LAT: 48.433 ]</span>
-              </div>
               <div className={styles.numberRow}>
                 <Counter value={getNumber('stats.creation.number', 1983)} />
               </div>
@@ -148,10 +143,6 @@ export default function Stats() {
 
             {/* Stat Item 2 */}
             <div className={styles.statItemMiddle}>
-              <div className={styles.metaRow}>
-                <Compass size={16} className={styles.statIcon} style={{ color: 'var(--accent-color)' }} />
-                <span className={styles.techCoord}>[ COMPASS: 270° ]</span>
-              </div>
               <div className={styles.numberRow}>
                 <Counter value={getNumber('stats.collaborators.number', 19)} />
               </div>
@@ -162,10 +153,6 @@ export default function Stats() {
 
             {/* Stat Item 3 */}
             <div className={styles.statItem}>
-              <div className={styles.metaRow}>
-                <Ruler size={16} className={styles.statIcon} style={{ color: 'var(--primary-color)' }} />
-                <span className={styles.techCoord}>[ ELEV: 142m ]</span>
-              </div>
               <div className={styles.numberRow}>
                 <Counter value={getNumber('stats.projects.number', 500)} suffix={getSuffix('stats.projects.suffix', "+")} />
               </div>

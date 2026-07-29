@@ -141,9 +141,8 @@ export default function ClientsManager() {
               >
                 <option value="collectivite">Collectivité</option>
                 <option value="promoteur">Aménageur & Promoteur</option>
-                <option value="architecte">Architecte</option>
-                <option value="particulier">Particulier</option>
-                <option value="entreprise">Entreprise</option>
+                <option value="architecte">Architecte, Constructeur & Maître d’œuvre</option>
+                <option value="immobilier">Professionnel de l’immobilier</option>
               </select>
             </div>
             <div>

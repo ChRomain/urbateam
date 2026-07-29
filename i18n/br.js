@@ -257,9 +257,8 @@ export const br = {
     "categories": {
       "collectivite": "Strollegezhioù",
       "amenageur": "Aozourien & Saverien",
-      "architecte": "Savourien",
-      "particulier": "Tud prevez",
-      "entreprise": "Embregerezhioù"
+      "architecte": "Savourien, Saverien & Mestronerien oberiant",
+      "immobilier": "Tud a vicher an douar hag ar glad"
     }
   },
   "about": {

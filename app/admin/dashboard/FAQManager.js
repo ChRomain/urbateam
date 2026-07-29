@@ -17,11 +17,13 @@ export default function FAQManager() {
 
   const fetchFaq = async () => {
     try {
-      const res = await fetch('/data/faq.json');
-      const data = await res.json();
-      setItems(data);
+      const res = await fetch('/api/admin/faq');
+      if (res.ok) {
+        const data = await res.json();
+        setItems(data);
+      }
     } catch (err) {
-      console.error('Erreur FAQ');
+      console.error('Erreur FAQ', err);
     } finally {
       setLoading(false);
     }
@@ -30,7 +32,7 @@ export default function FAQManager() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch('/data/faq.json', {
+      const res = await fetch('/api/admin/faq', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items }),
@@ -38,6 +40,9 @@ export default function FAQManager() {
       const data = await res.json();
       if (data.success) {
         alert('FAQ mise à jour avec succès !');
+        await fetchFaq();
+      } else {
+        alert('Erreur lors de la sauvegarde : ' + (data.error || 'Erreur inconnue'));
       }
     } catch (err) {
       alert('Erreur lors de la sauvegarde');

@@ -3,8 +3,9 @@
 import { useLanguage } from '../../../context/LanguageContext';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Map, Ruler, Droplets, Trophy, Compass, CheckCircle2, Layers } from 'lucide-react';
+import { Map, Ruler, Droplets, Trophy, Compass, CheckCircle2, Layers, ArrowRight } from 'lucide-react';
 import PageHeader from '../../../components/PageHeader';
+import Magnetic from '../../../components/Magnetic';
 
 const iconMap = {
   bornage: <Ruler size={48} />,
@@ -27,7 +28,7 @@ const slugImageMap = {
   vrd: { src: '/pictures/vrd-ingenierie.png', alt: 'Maîtrise d’œuvre et VRD URBATEAM', badge: 'Infrastructures & Réseaux VRD', desc: 'Conception technique et dimensionnement optimisé des réseaux et de la voirie pour vos projets.' },
   sport: { src: '/pictures/sport-ingenierie.png', alt: 'Ingénierie Sportive URBATEAM', badge: 'Homologation & Topométrie Sportive', desc: 'Expertise pointue dans le traçage et le contrôle géométrique des infrastructures sportives.' },
   topographie: { src: '/pictures/topographie-pro.png', alt: 'Relevé Topographique de Précision URBATEAM', badge: 'Précision Centimétrique & Levés', desc: 'Nos stations totales robotisées et récepteurs GPS de pointe garantissent une fiabilité absolue de vos relevés de terrain.' },
-  geometre: { src: '/pictures/geometre-foncier-v2.png', alt: 'Géomètre-Expert Foncier URBATEAM', badge: 'Expertise Foncière & Juridique', desc: 'Analyse foncière, étude des servitudes, droits de passage et délimitation de la propriété.' }
+  geometre: { src: '/pictures/geometre-foncier-v2.png', alt: 'Implantation URBATEAM', badge: 'Expertise Foncière & Juridique', desc: 'Analyse foncière, étude des servitudes, droits de passage et délimitation de la propriété.' }
 };
 
 export default function ExpertiseClient({ slug }) {
@@ -118,11 +119,17 @@ export default function ExpertiseClient({ slug }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
                       <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--accent-color, #10b981)', boxShadow: '0 0 10px var(--accent-color, #10b981)' }}></span>
                       <h4 style={{ color: 'white', margin: 0, fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                        {slugImageMap[slug].badge}
+                        {(() => {
+                          const val = t(`expertise.items.${slug}.badge_title`);
+                          return val && !val.startsWith('expertise.items.') ? val : slugImageMap[slug].badge;
+                        })()}
                       </h4>
                     </div>
                     <p style={{ fontSize: '0.95rem', opacity: 0.9, maxWidth: '550px', margin: 0 }}>
-                      {slugImageMap[slug].desc}
+                      {(() => {
+                        const val = t(`expertise.items.${slug}.badge_desc`);
+                        return val && !val.startsWith('expertise.items.') ? val : slugImageMap[slug].desc;
+                      })()}
                     </p>
                   </div>
                 </div>
@@ -149,9 +156,17 @@ export default function ExpertiseClient({ slug }) {
             </div>
 
             <div className="mt-4" style={{ marginTop: '4rem', padding: '3rem', backgroundColor: 'var(--secondary-color)', borderRadius: 'var(--border-radius-lg)', color: 'white' }}>
-              <h3 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>Pourquoi choisir URBATEAM ?</h3>
+              <h3 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>
+                {(() => {
+                  const val = t(`expertise.items.${slug}.why_title`);
+                  return val && !val.startsWith('expertise.items.') ? val : "Pourquoi choisir URBATEAM ?";
+                })()}
+              </h3>
               <p style={{ opacity: 0.9, marginBottom: '2rem' }}>
-                Notre approche pluridisciplinaire nous permet d'appréhender chaque projet dans sa globalité. En tant que Géomètres-Experts, nous garantissons la sécurité juridique de vos fonciers tout en apportant une vision d'urbaniste et une rigueur d'ingénieur VRD.
+                {(() => {
+                  const val = t(`expertise.items.${slug}.why_desc`);
+                  return val && !val.startsWith('expertise.items.') ? val : "Notre approche pluridisciplinaire nous permet d'appréhender chaque projet dans sa globalité. En tant que Géomètres-Experts, nous garantissons la sécurité juridique de vos fonciers tout en apportant une vision d'urbaniste et une rigueur d'ingénieur VRD.";
+                })()}
               </p>
               <Link href="/apropos" className="btn btn-outline" style={{ color: 'white', borderColor: 'white' }}>
                 Découvrir notre démarche qualité
@@ -161,13 +176,40 @@ export default function ExpertiseClient({ slug }) {
         </div>
       </section>
 
-      <section className="section-dark py-section">
+      <section style={{ backgroundColor: 'var(--primary-color)', padding: '5rem 0', color: 'white' }}>
         <div className="container text-center">
-          <h2 style={{ color: 'white', marginBottom: '2rem' }}>Un projet en {expertise.title} ?</h2>
-          <p style={{ color: 'var(--beige)', maxWidth: '700px', margin: '0 auto 3rem' }}>
-            Nos experts basés à Saint-Renan et Douarnenez interviennent sur toute la Bretagne-Ouest pour vous conseiller.
+          <h2 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2.2rem' }}>
+            {(() => {
+              const val = t(`expertise.items.${slug}.cta_page_title`);
+              return val && !val.startsWith('expertise.items.') ? val : `Un projet en ${expertise.title} ?`;
+            })()}
+          </h2>
+          <p style={{ color: 'rgba(255, 255, 255, 0.95)', maxWidth: '700px', margin: '0 auto 2.5rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
+            {(() => {
+              const val = t(`expertise.items.${slug}.cta_page_desc`);
+              return val && !val.startsWith('expertise.items.') ? val : "Nos experts basés à Saint-Renan et Douarnenez interviennent sur toute la Bretagne-Ouest pour vous conseiller.";
+            })()}
           </p>
-          <Link href="/contact" className="btn btn-primary">Nous contacter</Link>
+          <Magnetic strength={0.2}>
+            <Link href="/contact" style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '0.8rem',
+              backgroundColor: 'white',
+              color: 'var(--primary-color)',
+              padding: '1rem 2.5rem',
+              borderRadius: '50px',
+              fontWeight: '800',
+              textDecoration: 'none',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+              textTransform: 'uppercase',
+              fontSize: '0.85rem',
+              letterSpacing: '0.5px'
+            }}>
+              Nous contacter
+              <ArrowRight size={18} />
+            </Link>
+          </Magnetic>
         </div>
       </section>
     </main>

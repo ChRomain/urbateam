@@ -205,7 +205,7 @@ function computeSplitAreas(geometry, totalArea, splitAngle, splitOffset, centroi
 }
 
 
-export default function SimulateurDivisionClient({ hideHeader = false }) {
+export default function SimulateurDivisionClient({ hideHeader = false, hideFooter = false }) {
   const { t } = useLanguage();
   
   // États de recherche
@@ -914,25 +914,27 @@ export default function SimulateurDivisionClient({ hideHeader = false }) {
       </div>
 
       {/* Guide RSE et Division en footer de page */}
-      <div className={styles.footerGrid}>
-        <GlassCard>
-          <h4 className={styles.footerCardTitle}>
-            {t("division.steps_title")}
-          </h4>
-          <p className={styles.footerCardText}>
-            {t("division.steps_desc")}
-          </p>
-        </GlassCard>
+      {!hideFooter && (
+        <div className={styles.footerGrid}>
+          <GlassCard>
+            <h4 className={styles.footerCardTitle}>
+              {t("division.steps_title")}
+            </h4>
+            <p className={styles.footerCardText}>
+              {t("division.steps_desc")}
+            </p>
+          </GlassCard>
 
-        <GlassCard>
-          <h4 className={styles.footerCardTitle}>
-            {t("division.viability_title")}
-          </h4>
-          <p className={styles.footerCardText}>
-            {t("division.viability_desc")}
-          </p>
-        </GlassCard>
-      </div>
+          <GlassCard>
+            <h4 className={styles.footerCardTitle}>
+              {t("division.viability_title")}
+            </h4>
+            <p className={styles.footerCardText}>
+              {t("division.viability_desc")}
+            </p>
+          </GlassCard>
+        </div>
+      )}
     </div>
   );
 }

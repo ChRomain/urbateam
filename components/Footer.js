@@ -95,12 +95,22 @@ export default function Footer() {
             <div className={styles.partnersColumn}>
               <Magnetic strength={0.15}>
                 <a href="https://www.geometre-expert.fr/" target="_blank" rel="noopener noreferrer" className={styles.partnerLogo}>
-                  <Image src="/pictures/ordre_geometre.png" alt="Ordre des Géomètres-Experts" width={80} height={28} style={{ objectFit: 'contain' }} />
+                  <Image src="/pictures/ordre_geometre.png" alt="Ordre des Géomètres-Experts" width={115} height={40} style={{ objectFit: 'contain', height: 'auto', maxHeight: '42px', width: 'auto', maxWidth: '120px' }} />
                 </a>
               </Magnetic>
               <Magnetic strength={0.15}>
                 <a href="https://www.unge.net/" target="_blank" rel="noopener noreferrer" className={styles.partnerLogo}>
-                  <Image src="/pictures/ungee.png" alt="UNGE" width={80} height={28} style={{ objectFit: 'contain' }} />
+                  <Image src="/pictures/ungee.png" alt="UNGE" width={115} height={40} style={{ objectFit: 'contain', height: 'auto', maxHeight: '42px', width: 'auto', maxWidth: '120px' }} />
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.15}>
+                <a href="https://www.reseau-teria.com/" target="_blank" rel="noopener noreferrer" className={styles.partnerLogo}>
+                  <Image src="/pictures/teria.png" alt="Réseau TERIA" width={115} height={40} unoptimized style={{ objectFit: 'contain', height: 'auto', maxHeight: '42px', width: 'auto', maxWidth: '120px' }} />
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.15}>
+                <a href="https://www.geofoncier.fr/" target="_blank" rel="noopener noreferrer" className={styles.partnerLogo}>
+                  <Image src="/pictures/geofoncier.png" alt="GéoFoncier" width={115} height={40} unoptimized style={{ objectFit: 'contain', height: 'auto', maxHeight: '42px', width: 'auto', maxWidth: '120px' }} />
                 </a>
               </Magnetic>
             </div>
@@ -112,7 +122,7 @@ export default function Footer() {
       <div className={styles.seoZones}>
         <div className="container">
           <p style={{ fontSize: '0.75rem', color: 'rgba(60,60,60,0.75)', textAlign: 'center', marginTop: '2rem', borderTop: '1px solid rgba(60,60,60,0.15)', paddingTop: '1rem' }}>
-            <strong>Zones d'intervention :</strong> Brest, Daoulas, Douarnenez, Fouesnant, Gouesnou, Guilers, La foret Fouesnant, Landerneau, Landivisiau, Lesneven, Locmaria-Plouzané, Pencran, Plabennec, Plouarzel, Ploudaniel, Plouescat, Plougastel, Plouzané, Porspoder, Quimper, Saint Meen, Saint-Renan, Saint-Urbain, et sur toute la Bretagne-Ouest.
+            <strong>Zones d&apos;intervention :</strong> Brest, Daoulas, Douarnenez, Gouesnou, Guilers, Lampaul-Plouarzel, Landerneau, Landivisiau, Landunvez, Lanildut, Le Conquet, Lesneven, Locmaria-Plouzané, Milizac-Guipronvel, Pencran, Plabennec, Plouarzel, Ploudaniel, Plouescat, Plougastel, Plougonvelin, Ploumoguer, Plouvien, Plouzané, Porspoder, Saint Meen, Saint-Renan, Saint-Urbain, et sur toute la Bretagne-Ouest.
           </p>
         </div>
       </div>

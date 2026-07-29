@@ -15,7 +15,10 @@ const expertiseItems = [
   { key: 'copropriete', index: '03', icon: <Layers size={20} />, image: '/pictures/bim-3d-scan.png' },
   { key: 'lotissement', index: '04', icon: <Map size={20} />, image: '/pictures/lotissement-pro.png' },
   { key: 'urbanisme', index: '05', icon: <Map size={20} />, image: '/pictures/urbanisme-bureau.png' },
-  { key: 'vrd', index: '06', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.png' }
+  { key: 'vrd', index: '06', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.png' },
+  { key: 'sport', index: '07', icon: <Trophy size={20} />, image: '/pictures/sport-ingenierie.png' },
+  { key: 'topographie', index: '08', icon: <Compass size={20} />, image: '/pictures/topographie-pro.png' },
+  { key: 'geometre', index: '09', icon: <Ruler size={20} />, image: '/pictures/geometre-foncier-v2.png' }
 ];
 
 export default function Expertise() {
@@ -24,7 +27,8 @@ export default function Expertise() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const activeItem = expertiseItems.find(item => item.key === activeTab);
+  const activeItem = expertiseItems.find(item => item.key === activeTab) || expertiseItems[0];
+  const activeImage = t(`expertise.items.${activeTab}.image`) || activeItem.image;
 
   // Safely retrieve array of missions from translations
   const activeMissions = t(`expertise.items.${activeTab}.missions`) || [];
@@ -41,7 +45,6 @@ export default function Expertise() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <span className={styles.techLabel}>[ CATALOGUE SYSTÉMIQUE ]</span>
           <h2 className={styles.title}>{t('expertise.title')}</h2>
           <p className={styles.subtitle}>{t('expertise.subtitle')}</p>
         </motion.div>
@@ -65,9 +68,6 @@ export default function Expertise() {
                   <div className={styles.tabText}>
                     <span className={styles.tabTitle}>
                       {t(`expertise.items.${item.key}.title`)}
-                    </span>
-                    <span className={styles.tabDesc}>
-                      {t(`expertise.items.${item.key}.desc`).slice(0, 50)}...
                     </span>
                   </div>
                   
@@ -97,21 +97,12 @@ export default function Expertise() {
                 exit={{ opacity: 0, scale: 0.98, x: -10 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                {/* Tech Blueprint Frame details */}
-                <div className={styles.blueprintHeader}>
-                  <div className={styles.bulletGroup}>
-                    <span className={styles.bulletBlue} />
-                    <span className={styles.bulletText}>READER_MODE // ACTIVE: {activeItem.index}</span>
-                  </div>
-                  <span className={styles.coordLabel}>[ GPS: 48°26'N 4°37'W ]</span>
-                </div>
-
                 <div className={styles.blueprintBody}>
                   {/* Photo & Vector superposition */}
                   <div className={styles.visualCanvas}>
                     <div className={styles.blueprintImageWrapper}>
                       <Image 
-                        src={activeItem.image} 
+                        src={activeImage} 
                         alt={t(`expertise.items.${activeTab}.title`)}
                         fill
                         sizes="(max-width: 1024px) 100vw, 550px"
@@ -148,7 +139,7 @@ export default function Expertise() {
                       <div className={styles.missionsBox}>
                         <span className={styles.missionsTitle}>MISSIONS CLÉS :</span>
                         <div className={styles.missionsList}>
-                          {activeMissions.slice(0, 3).map((mission, index) => (
+                          {activeMissions.map((mission, index) => (
                             <div key={`mission-${index}`} className={styles.missionItem}>
                               <div className={styles.checkIcon}>
                                 <Check size={12} strokeWidth={3} />

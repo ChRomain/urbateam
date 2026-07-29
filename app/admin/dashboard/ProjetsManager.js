@@ -181,12 +181,12 @@ export default function ProjetsManager({ role }) {
                 <div className="form-group">
                   <label style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>Catégorie</label>
                   <select name="category" defaultValue={editingProject?.category || 'urbanisme'} style={{ width: '100%', padding: '0.8rem', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '0.9rem', backgroundColor: 'white' }}>
-                    <option value="urbanisme">Urbanisme & Paysage</option>
-                    <option value="geometre">Géomètre-Expert</option>
-                    <option value="vrd">Ingénierie VRD</option>
-                    <option value="sport">Ingénierie Sportive</option>
+                    <option value="foncier">Foncier (Bornage, Division...)</option>
                     <option value="topographie">Topographie</option>
+                    <option value="vrd">Ingénierie VRD</option>
                     <option value="copropriete">Copropriété & 3D</option>
+                    <option value="urbanisme">Urbanisme & Paysage</option>
+                    <option value="sport">Ingénierie Sportive</option>
                   </select>
                 </div>
                 <div className="form-group">
@@ -450,7 +450,7 @@ export default function ProjetsManager({ role }) {
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.7rem', padding: '0.2rem 0.5rem', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', color: 'var(--primary-color)', borderRadius: '4px', fontWeight: '700', textTransform: 'uppercase' }}>
-                      {p.category}
+                      {p.category === 'geometre' ? 'foncier' : p.category}
                     </span>
                     {p.status === 'draft' && (
                       <span style={{ fontSize: '0.65rem', backgroundColor: '#fee2e2', color: '#991b1b', padding: '0.1rem 0.5rem', borderRadius: '4px', fontWeight: '800', textTransform: 'uppercase' }}>Brouillon</span>
