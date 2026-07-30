@@ -10,15 +10,15 @@ import { useLanguage } from '../context/LanguageContext';
 import Magnetic from './Magnetic';
 
 const expertiseItems = [
-  { key: 'bornage', index: '01', icon: <Ruler size={20} />, image: '/pictures/geometre-bornage.png' },
-  { key: 'division', index: '02', icon: <Compass size={20} />, image: '/pictures/topographie-final.png' },
-  { key: 'copropriete', index: '03', icon: <Layers size={20} />, image: '/pictures/bim-3d-scan.png' },
-  { key: 'lotissement', index: '04', icon: <Map size={20} />, image: '/pictures/lotissement-pro.png' },
-  { key: 'urbanisme', index: '05', icon: <Map size={20} />, image: '/pictures/urbanisme-bureau.png' },
-  { key: 'vrd', index: '06', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.png' },
-  { key: 'sport', index: '07', icon: <Trophy size={20} />, image: '/pictures/sport-ingenierie.png' },
-  { key: 'topographie', index: '08', icon: <Compass size={20} />, image: '/pictures/topographie-pro.png' },
-  { key: 'geometre', index: '09', icon: <Ruler size={20} />, image: '/pictures/geometre-foncier-v2.png' }
+  { key: 'bornage', index: '01', icon: <Ruler size={20} />, image: '/pictures/geometre-bornage.webp' },
+  { key: 'division', index: '02', icon: <Compass size={20} />, image: '/pictures/topographie-final.webp' },
+  { key: 'copropriete', index: '03', icon: <Layers size={20} />, image: '/pictures/bim-3d-scan.webp' },
+  { key: 'lotissement', index: '04', icon: <Map size={20} />, image: '/pictures/lotissement-pro.webp' },
+  { key: 'urbanisme', index: '05', icon: <Map size={20} />, image: '/pictures/urbanisme-bureau.webp' },
+  { key: 'vrd', index: '06', icon: <Droplets size={20} />, image: '/pictures/vrd-ingenierie.webp' },
+  { key: 'sport', index: '07', icon: <Trophy size={20} />, image: '/pictures/sport-ingenierie.webp' },
+  { key: 'topographie', index: '08', icon: <Compass size={20} />, image: '/pictures/topographie-pro.webp' },
+  { key: 'geometre', index: '09', icon: <Ruler size={20} />, image: '/pictures/geometre-foncier-v2.webp' }
 ];
 
 export default function Expertise() {
@@ -28,16 +28,16 @@ export default function Expertise() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const activeItem = expertiseItems.find(item => item.key === activeTab) || expertiseItems[0];
-  const activeImage = t(`expertise.items.${activeTab}.image`) || activeItem.image;
+  let activeImage = t(`expertise.items.${activeTab}.image`) || activeItem.image;
+  if (activeImage && activeImage.endsWith('.png')) {
+    activeImage = activeImage.replace(/\.png$/, '.webp');
+  }
 
   // Safely retrieve array of missions from translations
   const activeMissions = t(`expertise.items.${activeTab}.missions`) || [];
 
   return (
     <section ref={sectionRef} id="expertises" className={styles.section}>
-      {/* Background blueprint grid overlay */}
-      <div className={styles.gridOverlay} aria-hidden="true" />
-
       <div className="container">
         <motion.div 
           className={styles.header}
@@ -105,22 +105,11 @@ export default function Expertise() {
                         src={activeImage} 
                         alt={t(`expertise.items.${activeTab}.title`)}
                         fill
+                        priority
                         sizes="(max-width: 1024px) 100vw, 550px"
                         style={{ objectFit: 'cover' }}
                         className={styles.blueprintImage}
                       />
-                    </div>
-                    {/* SVG Blueprint grids superposed */}
-                    <div className={styles.blueprintLinesOverlay}>
-                      <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="rgba(60,60,60,0.12)" strokeWidth="0.5">
-                        <line x1="0" y1="10" x2="100" y2="10" />
-                        <line x1="0" y1="50" x2="100" y2="50" />
-                        <line x1="0" y1="90" x2="100" y2="90" />
-                        <line x1="10" y1="0" x2="10" y2="100" />
-                        <line x1="50" y1="0" x2="50" y2="100" />
-                        <line x1="90" y1="0" x2="90" y2="100" />
-                        <circle cx="50" cy="50" r="40" strokeDasharray="2 2" />
-                      </svg>
                     </div>
                   </div>
 

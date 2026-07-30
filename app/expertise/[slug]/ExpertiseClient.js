@@ -20,15 +20,15 @@ const iconMap = {
 };
 
 const slugImageMap = {
-  bornage: { src: '/pictures/geometre-bornage.png', alt: 'Bornage et Limites de Propriété URBATEAM', badge: 'Sécurité Juridique & Bornage', desc: 'Seul professionnel habilité à définir vos limites de propriété avec une valeur juridique incontestable.' },
-  division: { src: '/pictures/topographie-final.png', alt: 'Division Parcellaire URBATEAM', badge: 'Division Parcellaire & Cadastre', desc: 'Création de terrains à bâtir et documents de modification du parcellaire cadastral (DMPC).' },
-  copropriete: { src: '/pictures/bim-3d-scan.png', alt: 'Copropriété et Division en Volumes URBATEAM', badge: 'Système Scan-to-BIM & Copropriété', desc: 'Nos relevés par scanner laser 3D permettent une modélisation millimétrée pour une gestion digitale de vos bâtiments.' },
-  lotissement: { src: '/pictures/lotissement-pro.png', alt: 'Aménagement de Lotissements URBATEAM', badge: 'Aménagement de Lotissements & Éco-quartiers', desc: 'Accompagnement global de la conception à la maîtrise d’œuvre des voiries et réseaux (VRD).' },
-  urbanisme: { src: '/pictures/urbanisme-bureau.png', alt: 'Urbanisme et Paysage URBATEAM', badge: 'Expertise & Planification Urbaine', desc: 'Analyse rigoureuse et conception de projets d\'aménagement ancrés dans la réalité de vos territoires.' },
-  vrd: { src: '/pictures/vrd-ingenierie.png', alt: 'Maîtrise d’œuvre et VRD URBATEAM', badge: 'Infrastructures & Réseaux VRD', desc: 'Conception technique et dimensionnement optimisé des réseaux et de la voirie pour vos projets.' },
-  sport: { src: '/pictures/sport-ingenierie.png', alt: 'Ingénierie Sportive URBATEAM', badge: 'Homologation & Topométrie Sportive', desc: 'Expertise pointue dans le traçage et le contrôle géométrique des infrastructures sportives.' },
-  topographie: { src: '/pictures/topographie-pro.png', alt: 'Relevé Topographique de Précision URBATEAM', badge: 'Précision Centimétrique & Levés', desc: 'Nos stations totales robotisées et récepteurs GPS de pointe garantissent une fiabilité absolue de vos relevés de terrain.' },
-  geometre: { src: '/pictures/geometre-foncier-v2.png', alt: 'Implantation URBATEAM', badge: 'Expertise Foncière & Juridique', desc: 'Analyse foncière, étude des servitudes, droits de passage et délimitation de la propriété.' }
+  bornage: { src: '/pictures/geometre-bornage.webp', alt: 'Bornage et Limites de Propriété URBATEAM', badge: 'Sécurité Juridique & Bornage', desc: 'Seul professionnel habilité à définir vos limites de propriété avec une valeur juridique incontestable.' },
+  division: { src: '/pictures/topographie-final.webp', alt: 'Division Parcellaire URBATEAM', badge: 'Division Parcellaire & Cadastre', desc: 'Création de terrains à bâtir et documents de modification du parcellaire cadastral (DMPC).' },
+  copropriete: { src: '/pictures/bim-3d-scan.webp', alt: 'Copropriété et Division en Volumes URBATEAM', badge: 'Système Scan-to-BIM & Copropriété', desc: 'Nos relevés par scanner laser 3D permettent une modélisation millimétrée pour une gestion digitale de vos bâtiments.' },
+  lotissement: { src: '/pictures/lotissement-pro.webp', alt: 'Aménagement de Lotissements URBATEAM', badge: 'Aménagement de Lotissements & Éco-quartiers', desc: 'Accompagnement global de la conception à la maîtrise d’œuvre des voiries et réseaux (VRD).' },
+  urbanisme: { src: '/pictures/urbanisme-bureau.webp', alt: 'Urbanisme et Paysage URBATEAM', badge: 'Expertise & Planification Urbaine', desc: 'Analyse rigoureuse et conception de projets d\'aménagement ancrés dans la réalité de vos territoires.' },
+  vrd: { src: '/pictures/vrd-ingenierie.webp', alt: 'Maîtrise d’œuvre et VRD URBATEAM', badge: 'Infrastructures & Réseaux VRD', desc: 'Conception technique et dimensionnement optimisé des réseaux et de la voirie pour vos projets.' },
+  sport: { src: '/pictures/sport-ingenierie.webp', alt: 'Ingénierie Sportive URBATEAM', badge: 'Homologation & Topométrie Sportive', desc: 'Expertise pointue dans le traçage et le contrôle géométrique des infrastructures sportives.' },
+  topographie: { src: '/pictures/topographie-pro.webp', alt: 'Relevé Topographique de Précision URBATEAM', badge: 'Précision Centimétrique & Levés', desc: 'Nos stations totales robotisées et récepteurs GPS de pointe garantissent une fiabilité absolue de vos relevés de terrain.' },
+  geometre: { src: '/pictures/geometre-foncier-v2.webp', alt: 'Implantation URBATEAM', badge: 'Expertise Foncière & Juridique', desc: 'Analyse foncière, étude des servitudes, droits de passage et délimitation de la propriété.' }
 };
 
 export default function ExpertiseClient({ slug }) {

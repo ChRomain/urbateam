@@ -96,7 +96,7 @@ export const br = {
             "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù douar."
           }
         ],
-        "image": "/pictures/geometre-bornage.png"
+        "image": "/pictures/geometre-bornage.webp"
       },
       "division": {
         "title": "Rannañ",
@@ -120,7 +120,7 @@ export const br = {
             "desc": "Muzuliañ resis al lodennoù nevez ha plantañ bonnoù."
           }
         ],
-        "image": "/pictures/topographie-final.png"
+        "image": "/pictures/topographie-final.webp"
       },
       "copropriete": {
         "title": "Kenperc'henniezh & Rannañ e volumoù",
@@ -144,7 +144,7 @@ export const br = {
             "desc": "Muzuliañ milimetrek ar frammoù kemplezh gant ur scanner 3D."
           }
         ],
-        "image": "/pictures/bim-3d-scan.png"
+        "image": "/pictures/bim-3d-scan.webp"
       },
       "lotissement": {
         "title": "Lodennaouegoù",
@@ -168,7 +168,7 @@ export const br = {
             "desc": "Lakaat ar bonnoù war pep lodenn krouet a-raok gwerzhañ."
           }
         ],
-        "image": "/pictures/lotissement-pro.png"
+        "image": "/pictures/lotissement-pro.webp"
       },
       "urbanisme": {
         "title": "Kêraozerezh & Gweledva",
@@ -192,7 +192,7 @@ export const br = {
             "desc": "Sikour evit sevel teuliadoù kêraozerezh ha permetoù aozañ."
           }
         ],
-        "image": "/pictures/urbanisme-bureau.png"
+        "image": "/pictures/urbanisme-bureau.webp"
       },
       "vrd": {
         "title": "Mestroniezh-ober & VRD",
@@ -216,7 +216,7 @@ export const br = {
             "desc": "Gwellaat an tremeniri hag aozañ ar parkingoù."
           }
         ],
-        "image": "/pictures/vrd-ingenierie.png"
+        "image": "/pictures/vrd-ingenierie.webp"
       },
       "sport": {
         "title": "Dornouriezh Sport",
@@ -240,7 +240,7 @@ export const br = {
             "desc": "Gwelet mat stad an tachennoù kozh ha lakaat anezho diouzh ar reolennoù."
           }
         ],
-        "image": "/pictures/sport-ingenierie.png"
+        "image": "/pictures/sport-ingenierie.webp"
       },
       "topographie": {
         "title": "Topografiezh",
@@ -264,7 +264,7 @@ export const br = {
             "desc": "Lakaat war an dachenn linennoù ar savadur gant ur resisted milimetrek."
           }
         ],
-        "image": "/pictures/topographie-pro.png"
+        "image": "/pictures/topographie-pro.webp"
       },
       "geometre": {
         "title": "Douaroner-Barnour",
@@ -288,7 +288,7 @@ export const br = {
             "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù kemplezh."
           }
         ],
-        "image": "/pictures/geometre-foncier-v2.png"
+        "image": "/pictures/geometre-foncier-v2.webp"
       }
     },
     "cta_title": "Ur raktres ispisial ?",

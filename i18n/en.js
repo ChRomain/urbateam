@@ -176,7 +176,7 @@ export const en = {
             "desc": "Advice on easements, boundaries and joint ownerships."
           }
         ],
-        "image": "/pictures/geometre-bornage.png"
+        "image": "/pictures/geometre-bornage.webp"
       },
       "division": {
         "title": "Land Division",
@@ -200,7 +200,7 @@ export const en = {
             "desc": "Precise measurement and placement of boundary stones."
           }
         ],
-        "image": "/pictures/topographie-final.png"
+        "image": "/pictures/topographie-final.webp"
       },
       "copropriete": {
         "title": "Co-ownership & volume division",
@@ -224,7 +224,7 @@ export const en = {
             "desc": "Millimeter laser capture and BIM modeling for building management."
           }
         ],
-        "image": "/pictures/bim-3d-scan.png"
+        "image": "/pictures/bim-3d-scan.webp"
       },
       "lotissement": {
         "title": "Subdivisions",
@@ -248,7 +248,7 @@ export const en = {
             "desc": "Final staking and marking of each created lot."
           }
         ],
-        "image": "/pictures/lotissement-pro.png"
+        "image": "/pictures/lotissement-pro.webp"
       },
       "urbanisme": {
         "title": "Urban Planning & Landscape",
@@ -272,7 +272,7 @@ export const en = {
             "desc": "Development permit files and master plans."
           }
         ],
-        "image": "/pictures/urbanisme-bureau.png"
+        "image": "/pictures/urbanisme-bureau.webp"
       },
       "vrd": {
         "title": "Project Management & VRD",
@@ -296,7 +296,7 @@ export const en = {
             "desc": "Traffic flow optimization and public area design."
           }
         ],
-        "image": "/pictures/vrd-ingenierie.png"
+        "image": "/pictures/vrd-ingenierie.webp"
       },
       "sport": {
         "title": "Sports Engineering",
@@ -320,7 +320,7 @@ export const en = {
             "desc": "Technical audits and regulatory standard updates."
           }
         ],
-        "image": "/pictures/sport-ingenierie.png"
+        "image": "/pictures/sport-ingenierie.webp"
       },
       "topographie": {
         "title": "Topography",
@@ -344,7 +344,7 @@ export const en = {
             "desc": "Field reporting of construction axes with high precision."
           }
         ],
-        "image": "/pictures/topographie-pro.png"
+        "image": "/pictures/topographie-pro.webp"
       },
       "geometre": {
         "title": "Chartered Land Surveyor",
@@ -368,7 +368,7 @@ export const en = {
             "desc": "Advice on easements, boundaries and joint ownerships."
           }
         ],
-        "image": "/pictures/geometre-foncier-v2.png"
+        "image": "/pictures/geometre-foncier-v2.webp"
       }
     },
     "cta_title": "A specific project?",

@@ -148,7 +148,7 @@ export const fr = {
     items: {
       bornage: {
         title: "Bornage",
-        image: "/pictures/geometre-bornage.png",
+        image: "/pictures/geometre-bornage.webp",
         desc: "Définition juridique et physique des limites séparatives de votre propriété.",
         longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Le bornage contradictoire définit physiquement et juridiquement les limites de propriété en accord avec les riverains.",
         missions: [
@@ -160,7 +160,7 @@ export const fr = {
       },
       division: {
         title: "Division",
-        image: "/pictures/topographie-final.png",
+        image: "/pictures/topographie-final.webp",
         desc: "Création de nouvelles parcelles foncières en vue de bâtir ou de vendre.",
         longDesc: "URBATEAM vous accompagne dans toutes les étapes de la division parcellaire. De l'étude de faisabilité à la déclaration préalable en mairie, jusqu'au document d'arpentage et au bornage des nouveaux lots.",
         missions: [
@@ -172,7 +172,7 @@ export const fr = {
       },
       copropriete: {
         title: "Copropriété et division en volumes",
-        image: "/pictures/bim-3d-scan.png",
+        image: "/pictures/bim-3d-scan.webp",
         desc: "Mise en copropriété d'immeubles, calcul de tantièmes, états descriptifs de division et division en volumes.",
         longDesc: "Nous réalisons les plans de copropriété, les états descriptifs de division (EDD) et le calcul des tantièmes de charges. Nous intervenons également pour les divisions en volumes complexes, en séparant la propriété en volumes tridimensionnels indépendants sans notion de parties communes.",
         missions: [
@@ -184,7 +184,7 @@ export const fr = {
       },
       lotissement: {
         title: "Lotissements",
-        image: "/pictures/lotissement-pro.png",
+        image: "/pictures/lotissement-pro.webp",
         desc: "Aménagement d'ensemble, création de terrains à bâtir et gestion des espaces communs.",
         longDesc: "De la conception à la réception des travaux, URBATEAM vous accompagne dans la réalisation de lotissements et d'éco-quartiers. Nous assurons la maîtrise d'œuvre complète des aménagements, des voiries et des réseaux divers (VRD).",
         missions: [
@@ -196,7 +196,7 @@ export const fr = {
       },
       urbanisme: { 
         title: "Urbanisme et Paysage", 
-        image: "/pictures/urbanisme-bureau.png",
+        image: "/pictures/urbanisme-bureau.webp",
         desc: "Bureau d'études en aménagement : ZAC, éco-quartiers, morceaux de ville, parcs d'activités, entrées de ville, et réaménagement urbain.",
         longDesc: "URBATEAM accompagne les collectivités et les aménageurs privés dans la conception de cadres de vie durables et harmonieux. Notre approche mêle vision stratégique urbaine et sensibilité paysagère pour créer des espaces qui font sens, en intégrant les enjeux du <a class=\"wiki-link\" href=\"/lexique?search=PLU\">PLU</a> et du développement durable.",
         missions: [
@@ -208,7 +208,7 @@ export const fr = {
       },
       vrd: { 
         title: "Maîtrise d’œuvre et VRD", 
-        image: "/pictures/vrd-ingenierie.png",
+        image: "/pictures/vrd-ingenierie.webp",
         desc: "Bureau d'études en infrastructures : voirie, réseaux divers, assainissement, traitement des eaux pluviales, parkings, giratoires.",
         longDesc: "Nos ingénieurs et techniciens conçoivent et dirigent les travaux d'infrastructures indispensables à la viabilisation de vos projets. Nous concevons la voirie, les réseaux d'eau potable, d'eaux usées, d'électricité, de télécoms et la gestion alternative des eaux pluviales.",
         missions: [
@@ -220,7 +220,7 @@ export const fr = {
       },
       sport: { 
         title: "Ingénierie Sportive", 
-        image: "/pictures/sport-ingenierie.png",
+        image: "/pictures/sport-ingenierie.webp",
         desc: "Aménagement de complexes sportifs : stades d'athlétisme, terrains de sports, installations de gazon synthétique.",
         longDesc: "Spécialiste des équipements sportifs, URBATEAM conçoit des installations performantes répondant aux normes des fédérations. Nous accompagnons les clubs et mairies dans la création de complexes modernes.",
         missions: [
@@ -232,7 +232,7 @@ export const fr = {
       },
       topographie: { 
         title: "Topographie", 
-        image: "/pictures/topographie-pro.png",
+        image: "/pictures/topographie-pro.webp",
         desc: "Bureau d'études topographiques : plans topographiques de précision, relevés de terrain et d'architecture, implantations.",
         longDesc: "La précision est au cœur de notre métier. Grâce à des outils de haute technologie (<a class=\"wiki-link\" href=\"/lexique?search=Scanner\">Scanner 3D</a>, <a class=\"wiki-link\" href=\"/lexique?search=Drone\">Drone</a>, GPS), nous capturons l'existant avec une fidélité absolue pour servir de base à vos projets.",
         missions: [
@@ -244,7 +244,7 @@ export const fr = {
       },
       geometre: { 
         title: "Implantation", 
-        image: "/pictures/geometre-foncier-v2.png",
+        image: "/pictures/geometre-foncier-v2.webp",
         desc: "Bureau d'études foncières : bornages, divisions parcellaires, copropriétés, délimitations amiables de propriétés.",
         longDesc: "Seul professionnel habilité à fixer les limites des biens fonciers, le Géomètre-Expert URBATEAM garantit la sécurité juridique de votre patrimoine. Nous intervenons sur toutes les problématiques liées au droit du sol, du <a class=\"wiki-link\" href=\"/lexique?search=Bornage\">bornage</a> à la gestion des <a class=\"wiki-link\" href=\"/lexique?search=Servitude\">servitudes</a>.",
         missions: [

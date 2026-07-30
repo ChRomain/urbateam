@@ -30,15 +30,15 @@ const iconMap = {
 };
 
 const expertiseItems = [
-  { key: 'bornage', index: '01', image: '/pictures/geometre-bornage.png' },
-  { key: 'division', index: '02', image: '/pictures/topographie-final.png' },
-  { key: 'copropriete', index: '03', image: '/pictures/bim-3d-scan.png' },
-  { key: 'lotissement', index: '04', image: '/pictures/lotissement-pro.png' },
-  { key: 'urbanisme', index: '05', image: '/pictures/urbanisme-bureau.png' },
-  { key: 'vrd', index: '06', image: '/pictures/vrd-ingenierie.png' },
-  { key: 'sport', index: '07', image: '/pictures/sport-ingenierie.png' },
-  { key: 'topographie', index: '08', image: '/pictures/topographie-pro.png' },
-  { key: 'geometre', index: '09', image: '/pictures/geometre-foncier-v2.png' }
+  { key: 'bornage', index: '01', image: '/pictures/geometre-bornage.webp' },
+  { key: 'division', index: '02', image: '/pictures/topographie-final.webp' },
+  { key: 'copropriete', index: '03', image: '/pictures/bim-3d-scan.webp' },
+  { key: 'lotissement', index: '04', image: '/pictures/lotissement-pro.webp' },
+  { key: 'urbanisme', index: '05', image: '/pictures/urbanisme-bureau.webp' },
+  { key: 'vrd', index: '06', image: '/pictures/vrd-ingenierie.webp' },
+  { key: 'sport', index: '07', image: '/pictures/sport-ingenierie.webp' },
+  { key: 'topographie', index: '08', image: '/pictures/topographie-pro.webp' },
+  { key: 'geometre', index: '09', image: '/pictures/geometre-foncier-v2.webp' }
 ];
 
 export default function ExpertiseMainClient() {
