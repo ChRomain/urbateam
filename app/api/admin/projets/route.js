@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getProjets, createItem, updateItem, deleteItem, uploadFile } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
+import fs from 'fs/promises';
+import path from 'path';
 
 export async function GET(request) {
   try {
@@ -26,6 +28,7 @@ export async function POST(request) {
     const status = formData.get('status') || 'published';
     const title = formData.get('title');
     const category = formData.get('category');
+    const subcategory = formData.get('subcategory') || '';
     const client = formData.get('client');
     const description = formData.get('description');
     const location = formData.get('location');
@@ -49,6 +52,7 @@ export async function POST(request) {
       title,
       slug,
       category,
+      subcategory,
       client,
       description,
       location,
@@ -85,13 +89,11 @@ export async function POST(request) {
     }
 
     const documentsList = [];
-    console.log(`[Project API] Received documentFiles: ${documentFiles.length} files. Details: ${JSON.stringify(documentFiles.map(f => ({ name: f.name, size: f.size })))}\n`);
     for (const file of documentFiles) {
       if (file && typeof file !== 'string' && file.size > 0) {
         const fileId = await uploadFile(file);
-        console.log(`[Project API] Upload file returned: ${fileId} for file ${file.name}\n`);
         if (!fileId) {
-          throw new Error(`Le téléversement du fichier PDF "${file.name}" a échoué. Veuillez vérifier que le stockage Supabase l'autorise.`);
+          throw new Error(`Le téléversement du fichier PDF "${file.name}" a échoué.`);
         }
         documentsList.push({
           name: file.name,
@@ -104,17 +106,57 @@ export async function POST(request) {
       itemData.documents = documentsList;
     }
 
-    console.log(`[Project API] Saving itemData: ${JSON.stringify(itemData)}\n`);
-
     let result;
-    if (id) {
-      delete itemData.date;
-      result = await updateItem('projets', id, itemData);
-    } else {
-      result = await createItem('projets', itemData);
+    try {
+      if (id) {
+        delete itemData.date;
+        result = await updateItem('projets', id, itemData);
+      } else {
+        result = await createItem('projets', itemData);
+      }
+    } catch (dbErr) {
+      console.warn('[Project API] Supabase write fallback:', dbErr.message);
+      // If column subcategory doesn't exist in Supabase SQL schema cache
+      if (dbErr.message.includes('subcategory') || dbErr.message.includes('schema cache')) {
+        const itemDataFallback = { ...itemData };
+        delete itemDataFallback.subcategory;
+        if (id) {
+          result = await updateItem('projets', id, itemDataFallback);
+        } else {
+          result = await createItem('projets', itemDataFallback);
+        }
+      } else {
+        throw dbErr;
+      }
     }
 
-    console.log(`[Project API] Save result: ${JSON.stringify(result)}\n`);
+    // Sync item to public/data/projets.json (preserving subcategory)
+    try {
+      const jsonPath = path.join(process.cwd(), 'public', 'data', 'projets.json');
+      let fileItems = [];
+      try {
+        const fileContent = await fs.readFile(jsonPath, 'utf8');
+        fileItems = JSON.parse(fileContent);
+      } catch {
+        fileItems = [];
+      }
+
+      const fullProjectItem = {
+        id: (result && result.id) ? result.id : (id || Date.now().toString()),
+        ...itemData
+      };
+
+      const existingIndex = fileItems.findIndex(p => p.id === fullProjectItem.id || p.slug === fullProjectItem.slug);
+      if (existingIndex >= 0) {
+        fileItems[existingIndex] = { ...fileItems[existingIndex], ...fullProjectItem };
+      } else {
+        fileItems.unshift(fullProjectItem);
+      }
+
+      await fs.writeFile(jsonPath, JSON.stringify(fileItems, null, 2), 'utf8');
+    } catch (fsErr) {
+      console.warn('[Project API] Local file sync skipped:', fsErr?.message);
+    }
 
     return NextResponse.json({ success: true, project: result });
   } catch (error) {
@@ -133,7 +175,19 @@ export async function DELETE(request) {
     if (!id) return NextResponse.json({ error: 'ID is required' }, { status: 400 });
 
     const success = await deleteItem('projets', id);
-    return NextResponse.json({ success });
+
+    // Also delete from public/data/projets.json fallback file if present
+    try {
+      const jsonPath = path.join(process.cwd(), 'public', 'data', 'projets.json');
+      const fileContent = await fs.readFile(jsonPath, 'utf8');
+      const fileItems = JSON.parse(fileContent);
+      const filtered = fileItems.filter(p => p.id !== id);
+      await fs.writeFile(jsonPath, JSON.stringify(filtered, null, 2), 'utf8');
+    } catch (fsErr) {
+      console.warn('[Project API DELETE File Sync Error]:', fsErr?.message);
+    }
+
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

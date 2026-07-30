@@ -87,7 +87,7 @@ export default function Footer() {
             <li style={{ marginTop: '1rem' }}>
               <Magnetic strength={0.1}>
                 <Link href="/contact#map-douarnenez" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  <strong>Douarnenez</strong><br />Za Ste Croix, 5 Rue Breizh Izel<br />29100 Douarnenez
+                  <strong>Douarnenez</strong><br />Za Ste Croix, 5 Rue Breiz Izel<br />29100 Douarnenez
                 </Link>
               </Magnetic>
             </li>
@@ -140,7 +140,7 @@ export default function Footer() {
       </div>
       <div className={styles.bottom}>
         <div className="container">
-          &copy; {new Date().getFullYear()} URBATEAM SARL. 
+          &copy; {new Date().getFullYear()} URBATEAM SELARL. 
           <Link href="/admin" rel="nofollow" style={{ color: 'inherit', textDecoration: 'none', cursor: 'default' }}>
             {t('footer.rights')}.
           </Link>

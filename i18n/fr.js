@@ -117,6 +117,7 @@ export const fr = {
     cta_more: "En savoir plus"
   },
   stats: {
+    title: "Une équipe à votre service",
     creation: { number: "1983", label: "Année de création", desc: "Une expertise ancrée et reconnue en Bretagne-Ouest." },
     collaborators: { label: "Collaborateurs dédiés", desc: "Géomètres, urbanistes et ingénieurs pluridisciplinaires." },
     projects: { label: "Projets d'envergure", desc: "De la maison individuelle à l'éco-quartier régional." }
@@ -532,7 +533,7 @@ export const fr = {
       label_rgpd_prefix: "J'accepte que les informations saisies soient exploitées dans le cadre de ma demande et de la relation commerciale qui peut en découler conformément à la ",
       label_rgpd_link: "politique de confidentialité",
       btn_send: "Envoyer la demande",
-      footer_note: "* Champs obligatoires. Vos données sont traitées par Urbateam SARL."
+      footer_note: "* Champs obligatoires. Vos données sont traitées par Urbateam SELARL."
     },
     map: {
       title: "Notre situation géographique",
@@ -1144,10 +1145,10 @@ export const fr = {
     privacy: {
       title: "Politique de Confidentialité",
       subtitle: "Vie Privée & RGPD",
-      intro: "La présente politique a pour but de vous informer sur la manière dont Urbateam SARL collecte, utilise et protège vos données personnelles.",
+      intro: "La présente politique a pour but de vous informer sur la manière dont Urbateam SELARL collecte, utilise et protège vos données personnelles.",
       identity: "Identité du responsable de traitement",
       collection: "Collecte et finalité des données",
-      collection_desc: "Les données personnelles que vous nous communiquez via notre formulaire de contact sont utilisées par Urbateam SARL aux seules fins de traiter et de répondre à votre demande commerciale ou technique.",
+      collection_desc: "Les données personnelles que vous nous communiquez via notre formulaire de contact sont utilisées par Urbateam SELARL aux seules fins de traiter et de répondre à votre demande commerciale ou technique.",
       rights: "Vos Droits et Bloctel",
       rights_desc: "Conformément à la réglementation applicable (RGPD), vous disposez d'un droit d'accès, de rectification, de portabilité et d'effacement de vos données."
     },

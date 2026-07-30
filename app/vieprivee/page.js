@@ -18,7 +18,7 @@ export default function ViePrivee() {
 
         <h2 style={{ fontSize: '1.2rem', marginTop: '2rem', marginBottom: '1rem', color: 'var(--secondary-color)' }}>{t('legal_pages.privacy.identity')}</h2>
         <p>
-          <strong>{t('legal_pages.common.reason')} :</strong> Urbateam SARL<br/>
+          <strong>{t('legal_pages.common.reason')} :</strong> Urbateam SELARL<br/>
           <strong>SIRET :</strong> 49890426700040<br/>
           <strong>{t('legal_pages.common.address')} :</strong> 5 r Breiz Izel Za Ste Croix 29100 Douarnenez<br/>
           <strong>{t('legal_pages.common.email')} :</strong> contact@urbateam.fr<br/>

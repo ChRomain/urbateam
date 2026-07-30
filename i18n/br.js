@@ -29,16 +29,17 @@ export const br = {
   },
   "hero": {
     "title_part1": "Kasit ho raktresoù d'ober",
-    "title_part2": "e Breizh-Izel",
+    "title_part2": "e Breiz-Izel",
     "description": "URBATEAM a ambroug ac'hanoc'h adalek ar meizad betek an ober. Burev Douaronerien-Varnourien, kêraourien ha gwazourien frammoù (VRD) e Lokournan (Brest) ha Douarnenez.",
     "cta_contact": "Deuit e darempred ganeomp",
     "cta_more": "Gouzout muioc'h"
   },
   "stats": {
+    "title": "Ur skipailh d'ho servij",
     "creation": {
       "number": "1983",
       "label": "Bloavezh krouiñ",
-      "desc": "Ur varregezh kreñv ha brud vat e Breizh-Izel."
+      "desc": "Ur varregezh kreñv ha brud vat e Breiz-Izel."
     },
     "collaborators": {
       "label": "Kenlabourerien",
@@ -321,11 +322,11 @@ export const br = {
   "about": {
     "header": {
       "title": "Diwar-benn URBATEAM",
-      "subtitle": "Ho kenoberour pennañ evit aozañ an diriadoù e Breizh-Izel."
+      "subtitle": "Ho kenoberour pennañ evit aozañ an diriadoù e Breiz-Izel."
     },
     "society": {
       "title": "Hor Sosiete",
-      "p1": "URBATEAM a ambroug ac'hanoc'h e-pad ho raktresoù aozañ e Breizh-Izel a-drugarez d'hon div ajañs e Lokournan (kostez Brest) ha Douarnenez.",
+      "p1": "URBATEAM a ambroug ac'hanoc'h e-pad ho raktresoù aozañ e Breiz-Izel a-drugarez d'hon div ajañs e Lokournan (kostez Brest) ha Douarnenez.",
       "p2": "Hor c'hefridioù a denn da dachennoù boas an Douaronerien-Varnourien (bonnañ, rannañ, sevel lodennoù da sevel tiez, kenperc'henniezh, topografiezh), met ivez da geriaozerezh, gweledva ha dornouriezh frammoù (VRD).",
       "p3": "Gouestlañ a reomp da vestroniañ ha da warantiñ kalite hor servijoù, en ur doujañ d'an ezhommoù ho peus.",
       "media_placeholder": "[Lec'h evit poltred ar skipailh]"
@@ -505,7 +506,7 @@ export const br = {
       },
       "territorial": {
         "title": "Gouestl an Tiriad",
-        "desc": "Labourat a reomp evit diorren an ekonomiezh e Breizh-Izel.",
+        "desc": "Labourat a reomp evit diorren an ekonomiezh e Breiz-Izel.",
         "items": [
           "Div ajañs tost deoc'h",
           "Sikour ar produerien lec'hel",
@@ -570,7 +571,7 @@ export const br = {
       "label_rgpd_prefix": "A-du emaon gant an doare da implijout ma zitouroù evit ma goulenn hervez ar ",
       "label_rgpd_link": "reolennoù prevezded",
       "btn_send": "Kas ar goulenn",
-      "footer_note": "* Maeziennoù ret. Ho titouroù a vez implijet gant Urbateam SARL."
+      "footer_note": "* Maeziennoù ret. Ho titouroù a vez implijet gant Urbateam SELARL."
     },
     "map": {
       "title": "Pelec'h emeur",
@@ -1180,7 +1181,7 @@ export const br = {
     }
   },
   "footer": {
-    "brand_text": "Ho kenoberour evit aozañ e Breizh-Izel. Douaronerien, kêraourien ha dornouriezh frammoù.",
+    "brand_text": "Ho kenoberour evit aozañ e Breiz-Izel. Douaronerien, kêraourien ha dornouriezh frammoù.",
     "agencies": "Ajañsoù",
     "resources": "Titouroù & Lezenn",
     "glossary": "Geriaoueg an Douar",
@@ -1251,10 +1252,10 @@ export const br = {
     "privacy": {
       "title": "Reolennoù Prevezded",
       "subtitle": "Buhez Prevez & RGPD",
-      "intro": "Ar reolennoù-mañ a zo graet evit brudañ penaos e vez implijet ha gwarezet ho titouroù gant Urbateam SARL.",
+      "intro": "Ar reolennoù-mañ a zo graet evit brudañ penaos e vez implijet ha gwarezet ho titouroù gant Urbateam SELARL.",
       "identity": "Den karget eus an titouroù",
       "collection": "Dastum titouroù",
-      "collection_desc": "An titouroù a vez kaset ganeoc'h dre ar furmskrid a vez implijet gant Urbateam SARL nemetken evit respont deoc'h.",
+      "collection_desc": "An titouroù a vez kaset ganeoc'h dre ar furmskrid a vez implijet gant Urbateam SELARL nemetken evit respont deoc'h.",
       "rights": "Ho Kwirioù",
       "rights_desc": "Hervez al lezenn (RGPD), ur gwir ho peus da welet, da gemmañ pe da ziverkañ ho titouroù."
     },
@@ -1284,7 +1285,7 @@ export const br = {
     },
     "about": {
       "title": "Diwar-benn URBATEAM | Hor Burev Douaronerien-Varnourien",
-      "description": "Dizoloit URBATEAM, hor skipailh liesplegek hag hor gouestl kalite evit ho raktresoù aozañ e Breizh-Izel."
+      "description": "Dizoloit URBATEAM, hor skipailh liesplegek hag hor gouestl kalite evit ho raktresoù aozañ e Breiz-Izel."
     },
     "rse": {
       "title": "Gouestloù RSE | Efed Mat & Padus | URBATEAM",
@@ -1405,7 +1406,7 @@ export const br = {
   },
   "projects": {
     "title": "Hor Raktresoù",
-    "subtitle": "Adalek an topografiezh resis betek an aozañ kêr, dizoloit penaos e labourer evit aozañ Breizh-Izel.",
+    "subtitle": "Adalek an topografiezh resis betek an aozañ kêr, dizoloit penaos e labourer evit aozañ Breiz-Izel.",
     "categories": {
       "all": "Holl",
       "foncier": "Douar",

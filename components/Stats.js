@@ -113,6 +113,14 @@ export default function Stats() {
       </div>
 
       <div className={`container ${styles.inner}`}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <h2 className={styles.sectionTitle}>{t('stats.title')}</h2>
+        </motion.div>
+
         <motion.div 
           className={styles.glassBar}
           initial={{ opacity: 0, y: 30 }}

@@ -115,6 +115,7 @@ export const en = {
     "cta_more": "Learn more"
   },
   "stats": {
+    "title": "A team at your service",
     "creation": {
       "number": "1983",
       "label": "Founded in",
@@ -650,7 +651,7 @@ export const en = {
       "label_rgpd_prefix": "I accept that the information entered will be used as part of my request and the commercial relationship that may result from it in accordance with the ",
       "label_rgpd_link": "privacy policy",
       "btn_send": "Send request",
-      "footer_note": "* Mandatory fields. Your data is processed by Urbateam SARL."
+      "footer_note": "* Mandatory fields. Your data is processed by Urbateam SELARL."
     },
     "map": {
       "title": "Our Location",
@@ -1331,10 +1332,10 @@ export const en = {
     "privacy": {
       "title": "Privacy Policy",
       "subtitle": "Privacy & GDPR",
-      "intro": "This policy aims to inform you about how Urbateam SARL collects, uses, and protects your personal data.",
+      "intro": "This policy aims to inform you about how Urbateam SELARL collects, uses, and protects your personal data.",
       "identity": "Data Controller Identity",
       "collection": "Data Collection and Purpose",
-      "collection_desc": "The personal data you provide via our contact form is used by Urbateam SARL solely for the purpose of processing and responding to your commercial or technical request.",
+      "collection_desc": "The personal data you provide via our contact form is used by Urbateam SELARL solely for the purpose of processing and responding to your commercial or technical request.",
       "rights": "Your Rights",
       "rights_desc": "In accordance with applicable regulations (GDPR), you have the right to access, rectify, portability, and erasure of your data."
     },

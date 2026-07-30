@@ -173,7 +173,7 @@ export default async function RootLayout({ children }) {
                   "image": "https://urbateam.fr/og-image.png",
                   "address": {
                     "@type": "PostalAddress",
-                    "streetAddress": "Za Ste Croix, 5 Rue Breizh Izel",
+                    "streetAddress": "Za Ste Croix, 5 Rue Breiz Izel",
                     "addressLocality": "Douarnenez",
                     "postalCode": "29100",
                     "addressCountry": "FR"

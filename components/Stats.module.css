@@ -80,6 +80,17 @@
   box-shadow: 0 0 6px rgba(121, 160, 129, 0.8);
 }
 
+.sectionTitle {
+  font-family: var(--font-righteous), cursive, sans-serif;
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+  font-weight: 400;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0 0 2.25rem 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* Grid columns */
 .grid {
   display: grid;
@@ -173,6 +184,11 @@
   .glassBar {
     padding: 3rem 1.5rem 2rem 1.5rem;
     border-radius: var(--border-radius-md);
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+    margin: 0 0 1.5rem 0;
   }
 
   .grid {

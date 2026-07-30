@@ -40,6 +40,7 @@ const CATEGORIES = [
       { key: 'hero.cta_more', label: 'Bouton En savoir plus', type: 'text' },
       
       // Stats numbers
+      { key: 'stats.title', label: 'Section Chiffres : Titre', type: 'text' },
       { key: 'stats.creation.number', label: 'Stat 1 : Valeur (ex: 2007)', type: 'text', isStatVal: true },
       { key: 'stats.creation.label', label: 'Stat 1 : Libellé', type: 'text' },
       { key: 'stats.creation.desc', label: 'Stat 1 : Description', type: 'textarea' },

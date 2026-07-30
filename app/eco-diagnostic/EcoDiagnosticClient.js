@@ -572,7 +572,7 @@ export default function EcoDiagnosticClient() {
     doc.setTextColor(150, 150, 150);
     doc.text("Synthèse indicative à partir des API publiques de l'État. Seule l'intervention physique", 15, 275);
     doc.text("d'un Géomètre-Expert d'Urbateam sur site permet de dresser des plans officiels et un bornage juridiquement garanti.", 15, 279);
-    doc.text(`Généré le ${new Date().toLocaleDateString()} - URBATEAM SARL`, 15, 283);
+    doc.text(`Généré le ${new Date().toLocaleDateString()} - URBATEAM SELARL`, 15, 283);
 
     const communeSlug = cadastreInfo.commune || 'parcelle';
     doc.save(`Eco_Diagnostic_Foncier_Urbateam_${communeSlug}.pdf`);

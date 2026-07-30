@@ -185,12 +185,16 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
         <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
           {teamMembers ? teamMembers.map((member) => (
             <Tilt key={`member-${member.id}`} strength={10}>
-              <GlassCard className="text-center" style={{ padding: '2rem 1rem', height: '100%' }}>
-                <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '3px solid var(--accent-color)', transform: 'translateZ(20px)', position: 'relative' }}>
+              <GlassCard className="text-center" style={{ padding: '2rem 1rem', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ color: 'var(--accent-color)', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '0.75rem', transform: 'translateZ(20px)' }}>
+                  {member[language]?.role}
+                </div>
+
+                <div style={{ width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '3px solid var(--accent-color)', transform: 'translateZ(20px)', position: 'relative', flexShrink: 0 }}>
                   {member.image ? (
                     <Image
                       src={member.image}
-                      alt={member[language]?.name || 'Membre équipe'}
+                      alt={member[language]?.name || member[language]?.role || 'Membre équipe'}
                       fill
                       sizes="80px"
                       style={{ objectFit: 'cover', borderRadius: '50%' }}
@@ -199,23 +203,24 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
                     <svg width="40" height="40" fill="#94a3b8" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                   )}
                 </div>
-                <h4 style={{ color: 'var(--primary-color)', marginBottom: '0.2rem', fontSize: '1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transform: 'translateZ(30px)' }}>
-                  {member.generic ? member[language]?.role : member[language]?.name}
-                  {!member.generic && member.linkedin && (
-                    <a 
-                      href={member.linkedin} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      title="LinkedIn"
-                      style={{ display: 'inline-flex', alignItems: 'center' }}
-                    >
-                      <svg width="18" height="18" fill="#0077b5" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
-                  )}
-                </h4>
-                <div style={{ color: 'var(--accent-color)', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '0.5rem', transform: 'translateZ(20px)' }}>
-                  {member.generic ? "" : member[language]?.role}
-                </div>
+
+                {!member.generic && member[language]?.name && (
+                  <h4 style={{ color: 'var(--primary-color)', marginBottom: '0.3rem', fontSize: '1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', transform: 'translateZ(30px)' }}>
+                    {member[language]?.name}
+                    {member.linkedin && (
+                      <a 
+                        href={member.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        title="LinkedIn"
+                        style={{ display: 'inline-flex', alignItems: 'center' }}
+                      >
+                        <svg width="18" height="18" fill="#0077b5" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                      </a>
+                    )}
+                  </h4>
+                )}
+
                 <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginBottom: member.generic ? '0' : '0.5rem', transform: 'translateZ(10px)' }}>
                   {member[language]?.desc}
                 </p>

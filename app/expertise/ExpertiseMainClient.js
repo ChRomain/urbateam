@@ -162,29 +162,19 @@ export default function ExpertiseMainClient() {
                       color: 'var(--primary-color)',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      flexShrink: 0
                     }}>
                       {iconMap[item.key] || <Ruler size={32} />}
                     </div>
-                    <div>
-                      <span style={{
-                        fontSize: '0.8rem',
-                        fontWeight: 700,
-                        letterSpacing: '1.5px',
-                        color: 'var(--accent-color, #10b981)',
-                        textTransform: 'uppercase'
-                      }}>
-                        EXPERT {item.index} // URBATEAM
-                      </span>
-                      <h2 style={{
-                        fontSize: 'clamp(1.5rem, 3vw, 2.1rem)',
-                        fontWeight: 700,
-                        color: 'var(--primary-color)',
-                        marginTop: '0.2rem'
-                      }}>
-                        {title}
-                      </h2>
-                    </div>
+                    <h2 style={{
+                      fontSize: 'clamp(1.5rem, 3vw, 2.1rem)',
+                      fontWeight: 700,
+                      color: 'var(--primary-color)',
+                      margin: 0
+                    }}>
+                      {title}
+                    </h2>
                   </div>
 
                   {/* Descriptions */}

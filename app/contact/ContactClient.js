@@ -106,7 +106,7 @@ export default function ContactClient() {
           <div style={{ marginBottom: '2rem' }}>
             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>📍 {t('contact.info.douarnenez')}</h3>
             <p style={{ color: 'var(--text-light)', paddingLeft: '1.5rem' }}>
-              Za Ste Croix, 5 Rue Breizh Izel<br />
+              Za Ste Croix, 5 Rue Breiz Izel<br />
               29100 Douarnenez, France<br />
               📞 <a href="tel:+33298920756" style={{ fontWeight: 'bold', color: '#d6b99f' }}>+33 2 98 92 07 56</a>
             </p>

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "Jean-Luc Charles",
+    "location": "Plouézec (22)",
+    "text": "Du début à la fin, notre dossier a été parfaitement géré par les professionnels d’Urbateam. Sur le terrain, le plan a été réalisé de manière très précise et efficace et la communication avec les voisins, lors de la réunion de bornage, a été excellente grâce à Urbateam. Quant au délai entre le début et la fin de notre projet, il a été scrupuleusement respecté. Merci encore pour la pertinence de vos conseils ainsi que pour le suivi de l’ensemble de notre dossier. Grâce à votre équipe, tout s’est très bien déroulé et nous pouvons ainsi finaliser ce projet qui nous tient tant à cœur.",
+    "rating": 5
+  },
+  {
+    "id": "2",
+    "name": "Patrick Cloatre",
+    "location": "Saint-Renan (29)",
+    "text": "Accueil agréable et à l'écoute du client. Intervention rapide et efficace pour faire rectifier une erreur du service du cadastre. Je recommande.",
+    "rating": 5
+  },
+  {
+    "id": "3",
+    "name": "Christelle Abiven",
+    "location": "Brest (29)",
+    "text": "Mon ami et moi avons fait appel à Urbateam et nous sommes ravis. Ils sont de bons conseils, sympas et surtout très professionnels. Merci aux géomètres encore.",
+    "rating": 5
+  }
+]

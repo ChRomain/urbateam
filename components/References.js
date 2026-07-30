@@ -27,6 +27,15 @@ export default function References({ clients = [] }) {
 
   return (
     <section className={`container ${styles.section}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className={styles.sectionTitle}>{t('references.list_title')}</h2>
+      </motion.div>
+
       <motion.div 
         className={`glass-card ${styles.refListCard}`}
         initial={{ opacity: 0, y: 30 }}
@@ -35,7 +44,6 @@ export default function References({ clients = [] }) {
         transition={{ duration: 0.6 }}
         style={{ marginBottom: '2.5rem' }}
       >
-        <h3 className={styles.refTitle}>{t('references.list_title')}</h3>
         <div className={styles.refListGrid}>
           {Array.isArray(referenceList) && referenceList.map((ref, idx) => (
             <Link key={`ref-${idx}`} href="/projets" className={styles.refItem}>
@@ -55,7 +63,7 @@ export default function References({ clients = [] }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <h2>{t('references.title')}</h2>
+        <h2 className={styles.sectionTitle}>{t('references.title')}</h2>
         <p className={styles.subtitle}>
           {t('references.subtitle')}
         </p>

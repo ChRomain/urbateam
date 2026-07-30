@@ -22,11 +22,11 @@ import {
   QrCode,
   Share2,
   Shield,
-  List
+  List,
+  MessageSquare
 } from 'lucide-react';
 
 import SocialManager from './SocialManager';
-import BlogManager from './BlogManager';
 import ProjetsManager from './ProjetsManager';
 import FAQManager from './FAQManager';
 import GlossaryManager from './GlossaryManager';
@@ -36,10 +36,9 @@ import ClientsManager from './ClientsManager';
 import PartnersManager from './PartnersManager';
 import SummaryManager from './SummaryManager';
 import QRCodeManager from './QRCodeManager';
-import SocialCardsManager from './SocialCardsManager';
-import UsersManager from './UsersManager';
 import TextsManager from './TextsManager';
 import ProjetsMarquantsManager from './ProjetsMarquantsManager';
+import AvisManager from './AvisManager';
 import { ToastProvider } from './ToastContext';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { Handshake } from 'lucide-react';
@@ -110,19 +109,16 @@ function DashboardContent() {
     { id: 'summary', name: 'Vue d\'ensemble', icon: <Home size={20} /> },
     { id: 'stats', name: 'Statistiques', icon: <BarChart2 size={20} /> },
     { id: 'social', name: 'Galerie Photos', icon: <ImageIcon size={20} /> },
-    { id: 'blog', name: 'Articles Blog', icon: <Book size={20} /> },
     { id: 'projets', name: 'Projets', icon: <Layout size={20} /> },
     { id: 'projets-marquants', name: 'Projets Marquants', icon: <List size={20} /> },
     { id: 'clients', name: 'Clients', icon: <Users size={20} /> },
     { id: 'partners', name: 'Partenaires', icon: <Handshake size={20} /> },
+    { id: 'avis', name: 'Avis Google', icon: <MessageSquare size={20} /> },
     { id: 'team', name: 'Équipe', icon: <Users size={20} /> },
     { id: 'faq', name: 'FAQ', icon: <HelpCircle size={20} /> },
     { id: 'glossary', name: 'Lexique', icon: <Book size={20} /> },
     { id: 'qrcode', name: 'QR Code', icon: <QrCode size={20} /> },
-    { id: 'socialcards', name: 'Social Cards', icon: <Share2 size={20} /> },
     { id: 'texts', name: 'Textes du Site', icon: <FileText size={20} /> },
-    // Seul l'admin voit la gestion des utilisateurs
-    ...(role === 'Administrator' ? [{ id: 'users', name: 'Utilisateurs', icon: <Users size={20} /> }] : []),
   ];
 
   return (
@@ -354,17 +350,15 @@ function DashboardContent() {
           {activeTab === 'social' && <SocialManager role={role} />}
           {activeTab === 'projets' && <ProjetsManager role={role} />}
           {activeTab === 'projets-marquants' && <ProjetsMarquantsManager role={role} />}
-          {activeTab === 'blog' && <BlogManager role={role} />}
           {activeTab === 'faq' && <FAQManager role={role} />}
           {activeTab === 'glossary' && <GlossaryManager role={role} />}
           {activeTab === 'team' && <TeamManager role={role} />}
           {activeTab === 'clients' && <ClientsManager role={role} />}
           {activeTab === 'partners' && <PartnersManager role={role} />}
+          {activeTab === 'avis' && <AvisManager role={role} />}
           {activeTab === 'stats' && <StatsManager role={role} />}
           {activeTab === 'qrcode' && <QRCodeManager role={role} />}
-          {activeTab === 'socialcards' && <SocialCardsManager role={role} />}
           {activeTab === 'texts' && <TextsManager role={role} />}
-          {activeTab === 'users' && role === 'Administrator' && <UsersManager role={role} />}
         </div>
       </main>
     </div>
