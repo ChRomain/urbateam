@@ -33,7 +33,7 @@
 
 .title {
   color: var(--primary-color);
-  margin-bottom: 2rem;
+  margin-bottom: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 1.1rem;
@@ -83,7 +83,7 @@
   gap: 16px;
   align-items: center;
   justify-content: center;
-  margin-top: -3.1rem;
+  margin-top: 0;
 }
 
 .partnerLogo {

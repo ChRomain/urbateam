@@ -31,6 +31,7 @@ export default function ContactClient() {
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [captchaNums, setCaptchaNums] = useState({ num1: 3, num2: 4 });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -39,11 +40,25 @@ export default function ContactClient() {
     } else if (params.get('error') === '1') {
       setError(t('contact.form.error_tech'));
     }
+    
+    // Génération aléatoire de deux chiffres entre 1 et 9
+    const n1 = Math.floor(Math.random() * 9) + 1;
+    const n2 = Math.floor(Math.random() * 9) + 1;
+    setCaptchaNums({ num1: n1, num2: n2 });
   }, [t]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 10) {
+      setError(t('contact.form.error_max_files'));
+      e.target.value = '';
+    } else {
+      setError('');
+    }
   };
 
   const handleClientValidation = (e) => {
@@ -54,7 +69,14 @@ export default function ContactClient() {
       return;
     }
 
-    if (formData.captcha !== '7') {
+    const fileInput = document.getElementById('attachment');
+    if (fileInput && fileInput.files && fileInput.files.length > 10) {
+      e.preventDefault();
+      setError(t('contact.form.error_max_files'));
+      return;
+    }
+
+    if (formData.captcha.trim() !== String(captchaNums.num1 + captchaNums.num2)) {
       e.preventDefault();
       setError(t('contact.form.error_captcha'));
     }
@@ -74,7 +96,7 @@ export default function ContactClient() {
           
           <div style={{ marginBottom: '1.5rem' }}>
             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>📍 {t('contact.info.renan')}</h3>
-            <p style={{ color: 'var(--text-light)' }}>
+            <p style={{ color: 'var(--text-light)', paddingLeft: '1.5rem' }}>
               10 Rue Joseph le Velly<br />
               29290 Saint-Renan, France<br />
               📞 <a href="tel:+33298842965" style={{ fontWeight: 'bold', color: '#d6b99f' }}>+33 2 98 84 29 65</a>
@@ -83,7 +105,7 @@ export default function ContactClient() {
 
           <div style={{ marginBottom: '2rem' }}>
             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>📍 {t('contact.info.douarnenez')}</h3>
-            <p style={{ color: 'var(--text-light)' }}>
+            <p style={{ color: 'var(--text-light)', paddingLeft: '1.5rem' }}>
               Za Ste Croix, 5 Rue Breizh Izel<br />
               29100 Douarnenez, France<br />
               📞 <a href="tel:+33298920756" style={{ fontWeight: 'bold', color: '#d6b99f' }}>+33 2 98 92 07 56</a>
@@ -92,20 +114,37 @@ export default function ContactClient() {
 
           <div style={{ marginBottom: '2rem' }}>
             <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>✉️ {t('contact.info.email_label')}</h3>
-            <p style={{ color: 'var(--text-light)' }}>
+            <p style={{ color: 'var(--text-light)', paddingLeft: '1.5rem' }}>
               <a href="mailto:contact@urbateam.fr" style={{ fontWeight: 'bold', color: '#d6b99f' }}>contact@urbateam.fr</a>
             </p>
           </div>
 
           <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🕒 {t('contact.info.hours_label')}</h3>
-            <ul style={{ color: 'var(--text-light)', listStyle: 'none', padding: 0 }}>
-              <li><strong>{t('contact.info.hours.mon')}</strong> 09:00 - 12:00, 14:00 - 18:00</li>
-              <li><strong>{t('contact.info.hours.tue')}</strong> 09:00 - 12:00, 14:00 - 18:00</li>
-              <li><strong>{t('contact.info.hours.wed')}</strong> {t('contact.info.hours.closed')}</li>
-              <li><strong>{t('contact.info.hours.thu')}</strong> 09:00 - 12:00, 14:00 - 18:00</li>
-              <li><strong>{t('contact.info.hours.fri')}</strong> 09:00 - 12:00, 14:00 - 18:00</li>
-              <li><strong>{t('contact.info.hours.sat_sun')}</strong> {t('contact.info.hours.closed')}</li>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem' }}>🕒 {t('contact.info.hours_label')}</h3>
+            <ul style={{ color: 'var(--text-light)', listStyle: 'none', padding: 0, paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              {[
+                { label: t('contact.info.hours.mon'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
+                { label: t('contact.info.hours.tue'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
+                { label: t('contact.info.hours.wed'), closed: true },
+                { label: t('contact.info.hours.thu'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
+                { label: t('contact.info.hours.fri'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
+                { label: t('contact.info.hours.sat'), closed: true },
+                { label: t('contact.info.hours.sun'), closed: true }
+              ].map((day, idx) => (
+                <li key={idx} style={{ display: 'grid', gridTemplateColumns: '120px 1fr', alignItems: 'start' }}>
+                  <strong>{day.label}</strong>
+                  <div>
+                    {day.closed ? (
+                      <span>{t('contact.info.hours.closed')}</span>
+                    ) : (
+                      <>
+                        <div>{day.morning}</div>
+                        <div>{day.afternoon}</div>
+                      </>
+                    )}
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </MotionSection>
@@ -161,7 +200,7 @@ export default function ContactClient() {
                 <label htmlFor="attachment" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--primary-color)' }}>
                   {t('contact.form.label_attachment')}
                 </label>
-                <input type="file" id="attachment" name="attachment[]" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style={{ width: '100%' }} />
+                <input type="file" id="attachment" name="attachment[]" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onChange={handleFileChange} style={{ width: '100%' }} />
                 <small style={{ color: 'var(--text-light)', display: 'block', marginTop: '0.5rem', lineHeight: '1.4' }}>
                   {t('contact.form.attachment_help')}
                 </small>
@@ -181,7 +220,13 @@ export default function ContactClient() {
 
               {/* Anti-Flood simple */}
               <div style={{ marginBottom: '1.5rem' }}>
-                <label htmlFor="captcha" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>{t('contact.form.label_captcha')}</label>
+                <label htmlFor="captcha" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>
+                  {t('contact.form.label_captcha')
+                    .replace('{num1}', captchaNums.num1)
+                    .replace('{num2}', captchaNums.num2)}
+                </label>
+                <input type="hidden" name="captcha_num1" value={captchaNums.num1} />
+                <input type="hidden" name="captcha_num2" value={captchaNums.num2} />
                 <input type="text" id="captcha" name="captcha" required value={formData.captcha} onChange={handleChange} placeholder={t('contact.form.captcha_placeholder')} />
               </div>
 
@@ -222,7 +267,7 @@ export default function ContactClient() {
       <MotionSection style={{ marginTop: '4rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('contact.map.title')}</h2>
         <div className="grid grid-cols-2" style={{ gap: '2rem' }}>
-          <GlassCard style={{ padding: 0, overflow: 'hidden' }}>
+          <GlassCard id="map-renan" style={{ padding: 0, overflow: 'hidden' }}>
             <h3 style={{ textAlign: 'center', margin: '1rem 0', color: 'var(--secondary-color)' }}>{t('contact.map.renan')}</h3>
             <div style={{ width: '100%', height: '350px' }}>
               <iframe 
@@ -237,7 +282,7 @@ export default function ContactClient() {
               </iframe>
             </div>
           </GlassCard>
-          <GlassCard style={{ padding: 0, overflow: 'hidden' }}>
+          <GlassCard id="map-douarnenez" style={{ padding: 0, overflow: 'hidden' }}>
             <h3 style={{ textAlign: 'center', margin: '1rem 0', color: 'var(--secondary-color)' }}>{t('contact.map.douarnenez')}</h3>
             <div style={{ width: '100%', height: '350px' }}>
               <iframe 

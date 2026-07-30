@@ -498,7 +498,8 @@ export const fr = {
         wed: "Mercredi :",
         thu: "Jeudi :",
         fri: "Vendredi :",
-        sat_sun: "Samedi - Dimanche :",
+        sat: "Samedi :",
+        sun: "Dimanche :",
         closed: "Fermé"
       }
     },
@@ -508,6 +509,7 @@ export const fr = {
       success_p: "Notre équipe a reçu l'intégralité de votre dossier et étudiera vos pièces jointes avec attention avant de vous recontacter très rapidement.",
       error_tech: "Désolé, une erreur technique est survenue lors de l'envoi de l'email via le serveur.",
       error_captcha: "Veuillez répondre correctement à la question anti-robot.",
+      error_max_files: "Vous ne pouvez pas sélectionner ou envoyer plus de 10 fichiers.",
       label_name: "Nom complet *",
       label_email: "Email *",
       label_phone: "Téléphone (optionnel)",
@@ -524,8 +526,8 @@ export const fr = {
       },
       label_message: "Votre message *",
       label_attachment: "📄 Dépôt de pièces (Plans, PLU, Photos, Titres...)",
-      attachment_help: "Vous pouvez glisser ou sélectionner plusieurs fichiers. Formats : PDF, JPG, PNG, Word. (Max total : 10 Mo).",
-      label_captcha: "Anti-robot : Combien font 3 + 4 ? *",
+      attachment_help: "Vous pouvez glisser ou sélectionner jusqu'à 10 fichiers maximum. Formats : PDF, JPG, PNG, Word. (Max total : 10 Mo).",
+      label_captcha: "Anti-robot : Combien font {num1} + {num2} ? *",
       captcha_placeholder: "Saisissez le chiffre...",
       label_rgpd_prefix: "J'accepte que les informations saisies soient exploitées dans le cadre de ma demande et de la relation commerciale qui peut en découler conformément à la ",
       label_rgpd_link: "politique de confidentialité",

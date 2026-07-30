@@ -616,7 +616,8 @@ export const en = {
         "wed": "Wednesday:",
         "thu": "Thursday:",
         "fri": "Friday:",
-        "sat_sun": "Saturday - Sunday:",
+        "sat": "Saturday:",
+        "sun": "Sunday:",
         "closed": "Closed"
       }
     },
@@ -626,6 +627,7 @@ export const en = {
       "success_p": "Our team has received your entire file and will study your attachments carefully before contacting you very quickly.",
       "error_tech": "Sorry, a technical error occurred while sending the email through the server.",
       "error_captcha": "Please answer the anti-robot question correctly.",
+      "error_max_files": "You cannot select or send more than 10 files.",
       "label_name": "Full Name *",
       "label_email": "Email *",
       "label_phone": "Phone (optional)",
@@ -642,8 +644,8 @@ export const en = {
       },
       "label_message": "Your message *",
       "label_attachment": "📄 Document upload (Plans, PLU, Photos, Titles...)",
-      "attachment_help": "You can drag or select several files. Formats: PDF, JPG, PNG, Word. (Total max: 10 MB).",
-      "label_captcha": "Anti-robot: How much is 3 + 4? *",
+      "attachment_help": "You can drag or select up to 10 files maximum. Formats: PDF, JPG, PNG, Word. (Total max: 10 MB).",
+      "label_captcha": "Anti-robot: How much is {num1} + {num2}? *",
       "captcha_placeholder": "Enter the number...",
       "label_rgpd_prefix": "I accept that the information entered will be used as part of my request and the commercial relationship that may result from it in accordance with the ",
       "label_rgpd_link": "privacy policy",

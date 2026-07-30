@@ -247,8 +247,8 @@ export default function AproposClient({ teamData = { header: {}, members: [] } }
             const cardClass = item.id === 'reprography' ? 'col-span-4' : 'col-span-2';
             const icon = iconMap[item.icon] || <HelpCircle size={20} />;
             
-            const themeColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--secondary-color)';
-            const borderTopColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--primary-color)';
+            const themeColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? 'var(--primary-color)' : 'var(--secondary-color)';
+            const borderTopColor = item.id === 'field' ? 'var(--accent-color)' : 'var(--primary-color)';
 
             const cardPadding = isFirstRow ? '1rem 1.25rem' : '1.25rem 1.5rem';
 

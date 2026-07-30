@@ -77,8 +77,20 @@ export default function Footer() {
         <div>
           <h3 className={styles.title}>{t('footer.agencies')}</h3>
           <ul className={`footer-links ${styles.linksList}`} style={{ fontSize: '0.9rem' }}>
-            <li><strong>Saint-Renan (Brest)</strong><br />10 Rue Joseph le Velly</li>
-            <li style={{ marginTop: '1rem' }}><strong>Douarnenez</strong><br />5 r Breiz Izel Za Ste Croix</li>
+            <li>
+              <Magnetic strength={0.1}>
+                <Link href="/contact#map-renan" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  <strong>Saint-Renan</strong><br />10 Rue Joseph le Velly<br />29290 Saint-Renan
+                </Link>
+              </Magnetic>
+            </li>
+            <li style={{ marginTop: '1rem' }}>
+              <Magnetic strength={0.1}>
+                <Link href="/contact#map-douarnenez" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  <strong>Douarnenez</strong><br />Za Ste Croix, 5 Rue Breizh Izel<br />29100 Douarnenez
+                </Link>
+              </Magnetic>
+            </li>
           </ul>
         </div>
         <div>

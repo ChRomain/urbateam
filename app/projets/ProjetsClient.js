@@ -111,8 +111,12 @@ export default function ProjetsClient({ projects = [] }) {
               style={{ width: '100%', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '2.5rem' }}
             >
               {filteredProjects.map((project) => (
-                <GlassCard key={project.id} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ position: 'relative', height: '240px', overflow: 'hidden', borderRadius: 'var(--border-radius-md) var(--border-radius-md) 0 0' }}>
+                <GlassCard 
+                  key={project.id} 
+                  style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  innerStyle={{ height: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}
+                >
+                  <div style={{ position: 'relative', height: '240px', flexShrink: 0, overflow: 'hidden', borderRadius: 'var(--border-radius-md) var(--border-radius-md) 0 0' }}>
                     <Image
                       src={project.image_after || project.images_gallery?.[0] || '/og-image.png'}
                       alt={project.title}
@@ -136,7 +140,7 @@ export default function ProjetsClient({ projects = [] }) {
                       </p>
                     </div>
 
-                    <div style={{ marginTop: 'auto' }}>
+                    <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
                         {project.missions.slice(0, 3).map((mission, idx) => (
                           <span key={idx} style={{ fontSize: '0.7rem', padding: '0.3rem 0.6rem', backgroundColor: '#f1f5f9', borderRadius: '4px', color: '#64748b' }}>
@@ -147,7 +151,7 @@ export default function ProjetsClient({ projects = [] }) {
                       <Link 
                         href={`/projets/${project.slug || project.id}`}
                         className="btn btn-outline" 
-                        style={{ width: '100%', textDecoration: 'none', display: 'block', textAlign: 'center' }}
+                        style={{ width: '100%', textDecoration: 'none', display: 'block', textAlign: 'center', marginTop: 'auto' }}
                       >
                         Voir les détails
                       </Link>

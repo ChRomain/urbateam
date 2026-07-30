@@ -12,7 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $captcha = trim($_POST["captcha"] ?? '');
 
     // 2. Vérification anti-robot
-    if ($captcha !== "7") {
+    $num1 = isset($_POST["captcha_num1"]) ? intval($_POST["captcha_num1"]) : 3;
+    $num2 = isset($_POST["captcha_num2"]) ? intval($_POST["captcha_num2"]) : 4;
+    $expectedCaptcha = $num1 + $num2;
+
+    if (empty($captcha) || intval($captcha) !== $expectedCaptcha) {
         header("Location: /contact.html?error=1");
         exit;
     }
@@ -44,10 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "MOTIF : $motif\n\n";
     $body .= "MESSAGE :\n$messageText\n\n";
 
-    // 5. Traitement des pièces jointes Uploadées
+    // 5. Traitement des pièces jointes Uploadées (Max 10 fichiers)
     if (isset($_FILES['attachment']) && count($_FILES['attachment']['name']) > 0) {
         $files = $_FILES['attachment'];
-        for ($i = 0; $i < count($files['name']); $i++) {
+        $maxFiles = min(count($files['name']), 10);
+        for ($i = 0; $i < $maxFiles; $i++) {
             if ($files['error'][$i] == UPLOAD_ERR_OK && is_uploaded_file($files['tmp_name'][$i])) {
                 $fileTmpName = $files['tmp_name'][$i];
                 $fileName = basename($files['name'][$i]);

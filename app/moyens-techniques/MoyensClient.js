@@ -68,8 +68,8 @@ export default function MoyensClient() {
           const cardStyle = isFullWidth ? { gridColumn: '1 / -1' } : {};
           const icon = iconMap[item.icon] || <HelpCircle size={28} />;
           
-          const themeColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--secondary-color)';
-          const borderTopColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? '#6366f1' : 'var(--primary-color)';
+          const themeColor = item.id === 'field' ? 'var(--accent-color)' : item.id === 'software' ? 'var(--primary-color)' : 'var(--secondary-color)';
+          const borderTopColor = item.id === 'field' ? 'var(--accent-color)' : 'var(--primary-color)';
 
           return (
             <GlassCard key={item.id} style={{ ...cardStyle, borderTop: `4px solid ${borderTopColor}` }}>

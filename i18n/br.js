@@ -536,7 +536,8 @@ export const br = {
         "wed": "Merc'her :",
         "thu": "Yaou :",
         "fri": "Gwener :",
-        "sat_sun": "Sadorn - Sul :",
+        "sat": "Sadorn :",
+        "sun": "Sul :",
         "closed": "Serr"
       }
     },
@@ -546,6 +547,7 @@ export const br = {
       "success_p": "Resevet eo bet ho teuliad gant hor skipailh. Sellout a raimp ouzh ho teuliadoù a-raok goulenn ganeoc'h en-dro.",
       "error_tech": "Ur gudenn deknikel a zo bet gant ar servijer posteloù.",
       "error_captcha": "Respontit mat d'ar goulenn anti-robot mar plij.",
+      "error_max_files": "N'haller ket dibab pe kas muioc'h eget 10 teuliad.",
       "label_name": "Anv klok *",
       "label_email": "Postel *",
       "label_phone": "Pellgomz (ma karit)",
@@ -562,8 +564,8 @@ export const br = {
       },
       "label_message": "Ho kemennadenn *",
       "label_attachment": "📄 Kas teuliadoù (Tresoù, PLU, Poltredoù...)",
-      "attachment_help": "Gallout a rit lakaat meur a deuliad (PDF, JPG, PNG, Word). (Max : 10 Mo).",
-      "label_captcha": "Anti-robot : Pegement a ra 3 + 4 ? *",
+      "attachment_help": "Gallout a rit lakaat betek 10 teuliad d'ar muiañ (PDF, JPG, PNG, Word). (Max : 10 Mo).",
+      "label_captcha": "Anti-robot : Pegement a ra {num1} + {num2} ? *",
       "captcha_placeholder": "Skrivit ar sifr...",
       "label_rgpd_prefix": "A-du emaon gant an doare da implijout ma zitouroù evit ma goulenn hervez ar ",
       "label_rgpd_link": "reolennoù prevezded",
