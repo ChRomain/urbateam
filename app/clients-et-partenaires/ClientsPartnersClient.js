@@ -131,12 +131,8 @@ export default function ClientsPartnersClient({ clients = [], partners = [] }) {
                       fill
                       sizes="180px"
                       style={{
-                        objectFit: 'contain',
-                        filter: 'grayscale(100%) opacity(0.7)',
-                        transition: 'filter 0.3s'
+                        objectFit: 'contain'
                       }}
-                      onMouseEnter={e => e.currentTarget.style.filter = 'none'}
-                      onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(0.7)'}
                     />
                   </div>
                 ) : (
