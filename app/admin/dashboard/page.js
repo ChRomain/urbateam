@@ -111,7 +111,7 @@ function DashboardContent() {
     { id: 'stats', name: 'Statistiques', icon: <BarChart2 size={20} /> },
     { id: 'social', name: 'Galerie Photos', icon: <ImageIcon size={20} /> },
     { id: 'blog', name: 'Articles Blog', icon: <Book size={20} /> },
-    { id: 'projets', name: 'Réalisations', icon: <Layout size={20} /> },
+    { id: 'projets', name: 'Projets', icon: <Layout size={20} /> },
     { id: 'projets-marquants', name: 'Projets Marquants', icon: <List size={20} /> },
     { id: 'clients', name: 'Clients', icon: <Users size={20} /> },
     { id: 'partners', name: 'Partenaires', icon: <Handshake size={20} /> },
