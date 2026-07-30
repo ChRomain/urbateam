@@ -1246,7 +1246,7 @@ export const br = {
       "editor": "Aozer al lec'hienn",
       "contact": "Darempred",
       "hosting": "Herberc'hiañ",
-      "hosting_desc": "Herberc'hiet eo al lec'hienn-mañ gant ar sosiete **Vercel Inc.** (440 N Barranca Ave #4133, Covina, CA 91723, Stadoù-Unanet — https://vercel.com). War un rouedad Cloud etrevroadel uhel he ferzhioù e harp an diazezadur evit gwareziñ an titouroù ha doujañ d'ar reolad RGPD."
+      "hosting_desc": "Herberc'hiet eo al lec'hienn-mañ gant ar sosiete **Vercel Inc.** War un rouedad Cloud etrevroadel uhel he ferzhioù e harp an diazezadur evit gwareziñ an titouroù ha doujañ d'ar reolad RGPD."
     },
     "privacy": {
       "title": "Reolennoù Prevezded",
