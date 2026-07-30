@@ -1430,6 +1430,7 @@ export const en = {
     "search_address": "Enter an address",
     "placeholder": "E.g., 12 Rue de Brest, Saint-Renan...",
     "search_info": "ℹ️ This service queries the French National Cadastre in real-time via the State's official open APIs.",
+    "error_title": "Cadastre Information",
     "error_no_parcel": "No cadastral parcel found precisely at this location.",
     "error_ign_down": "The National Cadastre server (IGN) is temporarily unavailable.",
     "error_connection": "Unable to contact the Cadastre service (check your internet connection).",

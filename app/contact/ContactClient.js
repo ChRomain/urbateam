@@ -32,6 +32,8 @@ export default function ContactClient() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [captchaNums, setCaptchaNums] = useState({ num1: 3, num2: 4 });
+  const [attachedNotice, setAttachedNotice] = useState(false);
+  const [simulationData, setSimulationData] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -40,12 +42,28 @@ export default function ContactClient() {
     } else if (params.get('error') === '1') {
       setError(t('contact.form.error_tech'));
     }
+
+    const msgParam = params.get('msg');
+    if (msgParam) {
+      setSimulationData(msgParam);
+      setAttachedNotice(true);
+    }
     
     // Génération aléatoire de deux chiffres entre 1 et 9
     const n1 = Math.floor(Math.random() * 9) + 1;
     const n2 = Math.floor(Math.random() * 9) + 1;
     setCaptchaNums({ num1: n1, num2: n2 });
   }, [t]);
+
+  const handleAttachSimulation = (payload) => {
+    setSimulationData(typeof payload === 'object' ? JSON.stringify(payload) : payload);
+    setAttachedNotice(true);
+    
+    const formSection = document.getElementById('contact-form-section');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -150,8 +168,13 @@ export default function ContactClient() {
         </MotionSection>
 
         {/* Contact Form */}
-        <GlassCard>
+        <GlassCard id="contact-form-section">
           <h2 style={{ color: 'var(--primary-color)', marginBottom: '1.5rem' }}>{t('contact.form.title')}</h2>
+          {attachedNotice && (
+            <div style={{ padding: '0.8rem 1rem', backgroundColor: '#dcfce7', color: '#15803d', borderRadius: '8px', marginBottom: '1.2rem', fontSize: '0.85rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span>✅</span> Les détails de votre dessin ont été insérés dans votre message ci-dessous !
+            </div>
+          )}
           {submitted ? (
             <div style={{ padding: '2rem', backgroundColor: '#dcfce7', color: '#166534', borderRadius: '8px', textAlign: 'center' }}>
               <h3>{t('contact.form.success_title')}</h3>
@@ -159,6 +182,8 @@ export default function ContactClient() {
             </div>
           ) : (
             <form action="/contact.php" method="POST" encType="multipart/form-data" onSubmit={handleClientValidation}>
+              {/* Champ masqué non-modifiable contenant les coordonnées géométriques du dessin */}
+              <input type="hidden" name="simulation_data" value={simulationData} />
               {error && <div style={{ color: '#dc2626', marginBottom: '1rem', fontWeight: 'bold' }}>{error}</div>}
               
               <div style={{ marginBottom: '1rem' }}>
@@ -264,6 +289,17 @@ export default function ContactClient() {
         </GlassCard>
       </div>
 
+      {/* Section 2: Dessinez-nous votre projet */}
+      <MotionSection style={{ marginTop: '4rem' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('division.title')}</h2>
+        <SimulateurDivisionClient 
+          hideHeader={true} 
+          hideFooter={true} 
+          onAttachToContact={handleAttachSimulation}
+        />
+      </MotionSection>
+
+      {/* Section 3: Notre situation géographique */}
       <MotionSection style={{ marginTop: '4rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('contact.map.title')}</h2>
         <div className="grid grid-cols-2" style={{ gap: '2rem' }}>
@@ -298,11 +334,6 @@ export default function ContactClient() {
             </div>
           </GlassCard>
         </div>
-      </MotionSection>
-
-      <MotionSection style={{ marginTop: '4rem' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('division.title')}</h2>
-        <SimulateurDivisionClient hideHeader={true} hideFooter={true} />
       </MotionSection>
     </div>
   );

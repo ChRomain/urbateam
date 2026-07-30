@@ -23,7 +23,8 @@ import {
   Share2,
   Shield,
   List,
-  MessageSquare
+  MessageSquare,
+  MapPin
 } from 'lucide-react';
 
 import SocialManager from './SocialManager';
@@ -39,6 +40,7 @@ import QRCodeManager from './QRCodeManager';
 import TextsManager from './TextsManager';
 import ProjetsMarquantsManager from './ProjetsMarquantsManager';
 import AvisManager from './AvisManager';
+import SimulationViewerManager from './SimulationViewerManager';
 import { ToastProvider } from './ToastContext';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { Handshake } from 'lucide-react';
@@ -99,7 +101,6 @@ function DashboardContent() {
       router.push('/admin');
     } catch (err) {
       console.error('Logout error:', err);
-      // Fallback au cas où l'API échoue
       document.cookie = "admin_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       router.push('/admin');
     }
@@ -107,6 +108,7 @@ function DashboardContent() {
 
   const tabs = [
     { id: 'summary', name: 'Vue d\'ensemble', icon: <Home size={20} /> },
+    { id: 'simulation-viewer', name: 'Dessins Clients', icon: <MapPin size={20} /> },
     { id: 'stats', name: 'Statistiques', icon: <BarChart2 size={20} /> },
     { id: 'social', name: 'Galerie Photos', icon: <ImageIcon size={20} /> },
     { id: 'projets', name: 'Projets', icon: <Layout size={20} /> },
@@ -347,6 +349,7 @@ function DashboardContent() {
 
         <div style={{ maxWidth: '1200px', color: colors.text }}>
           {activeTab === 'summary' && <SummaryManager user={user} role={role} />}
+          {activeTab === 'simulation-viewer' && <SimulationViewerManager darkMode={darkMode} />}
           {activeTab === 'social' && <SocialManager role={role} />}
           {activeTab === 'projets' && <ProjetsManager role={role} />}
           {activeTab === 'projets-marquants' && <ProjetsMarquantsManager role={role} />}

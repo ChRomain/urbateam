@@ -2,14 +2,17 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, CheckCircle, AlertTriangle, FileText, ArrowRight, Loader, Ruler, RotateCw, Move } from 'lucide-react';
+import { 
+  Search, MapPin, CheckCircle, AlertTriangle, FileText, ArrowRight, 
+  Loader, Ruler, RotateCw, Move, Trash2, Undo, Check, Layers
+} from 'lucide-react';
 import PageHeader from '../../components/PageHeader';
 import GlassCard from '../../components/GlassCard';
 import { useLanguage } from '../../context/LanguageContext';
 import 'leaflet/dist/leaflet.css';
 import styles from './SimulateurDivisionClient.module.css';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap, useMapEvents, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap, useMapEvents, Polyline, Polygon } from 'react-leaflet';
 import { supabase } from '../../lib/supabase';
 
 // Fix pour les icônes par défaut de Leaflet
@@ -43,6 +46,48 @@ function MapEventsHandler({ onMapClick }) {
     }
   });
   return null;
+}
+
+// Helper pour calculer la distance en mètres entre 2 coordonnées [lat, lon]
+function calculateDistanceInMeters(p1, p2) {
+  if (!p1 || !p2) return 0;
+  const lat1 = p1[0], lon1 = p1[1];
+  const lat2 = p2[0], lon2 = p2[1];
+  const R = 6371000;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon / 2) * Math.sin(dLon / 2); 
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+  return Math.round(R * c * 10) / 10;
+}
+
+// Helper pour calculer la surface exacte d'un polygone [lat, lon] en m² (Projection locale Shoelace)
+function calculatePolygonAreaInM2(points) {
+  if (!points || points.length < 3) return 0;
+  const origin = points[0];
+  const originLat = origin[0];
+  const originLon = origin[1];
+
+  const mPerLat = 111139;
+  const mPerLon = 111139 * Math.cos((originLat * Math.PI) / 180);
+
+  const pointsInMeters = points.map(p => ({
+    x: (p[1] - originLon) * mPerLon,
+    y: (p[0] - originLat) * mPerLat
+  }));
+
+  let area = 0;
+  const n = pointsInMeters.length;
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    area += pointsInMeters[i].x * pointsInMeters[j].y;
+    area -= pointsInMeters[j].x * pointsInMeters[i].y;
+  }
+
+  return Math.round(Math.abs(area) / 2);
 }
 
 // Helper pour calculer le barycentre (centroid) d'un polygone GeoJSON
@@ -120,10 +165,9 @@ function isPointInGeometry(point, geometry) {
   return false;
 }
 
-// Helper to get the bounding box of a Geometry
+// Helper to extract bounds [minLat, maxLat, minLon, maxLon] from GeoJSON Geometry
 function getGeometryBounds(geometry) {
-  let minLat = Infinity, maxLat = -Infinity;
-  let minLon = Infinity, maxLon = -Infinity;
+  let minLat = Infinity, maxLat = -Infinity, minLon = Infinity, maxLon = -Infinity;
   
   const processCoord = (coord) => {
     const lon = coord[0];
@@ -155,7 +199,6 @@ function computeSplitAreas(geometry, totalArea, splitAngle, splitOffset, centroi
   
   const { minLat, maxLat, minLon, maxLon } = getGeometryBounds(geometry);
   
-  // Use a 40x40 grid for high-precision real-time calculations
   const gridSize = 40;
   let countA = 0;
   let countB = 0;
@@ -166,25 +209,23 @@ function computeSplitAreas(geometry, totalArea, splitAngle, splitOffset, centroi
   const angleRad = (splitAngle * Math.PI) / 180;
   const perpAngleRad = angleRad + Math.PI / 2;
   
-  // Keep physical conversion factor aligned with the polyline representation
   const latShift = splitOffset * 0.000005 * Math.sin(perpAngleRad);
   const lonShift = splitOffset * 0.000008 * Math.cos(perpAngleRad);
   
-  const lineLat = lat + latShift;
-  const lineLon = lon + lonShift;
+  const linePoint = [lat + latShift, lon + lonShift];
+  const lineDir = [Math.sin(angleRad), Math.cos(angleRad)];
+  const lineNormal = [-lineDir[1], lineDir[0]];
   
-  const normalY = -Math.cos(angleRad);
-  const normalX = Math.sin(angleRad);
+  const dLat = (maxLat - minLat) / (gridSize - 1);
+  const dLon = (maxLon - minLon) / (gridSize - 1);
   
-  for (let i = 0; i <= gridSize; i++) {
-    const ptLat = minLat + (maxLat - minLat) * (i / gridSize);
-    for (let j = 0; j <= gridSize; j++) {
-      const ptLon = minLon + (maxLon - minLon) * (j / gridSize);
-      const point = [ptLat, ptLon];
+  for (let i = 0; i < gridSize; i++) {
+    for (let j = 0; j < gridSize; j++) {
+      const pt = [minLat + i * dLat, minLon + j * dLon];
       
-      if (isPointInGeometry(point, geometry)) {
-        const dotProduct = (ptLat - lineLat) * normalY + (ptLon - lineLon) * normalX;
-        if (dotProduct > 0) {
+      if (isPointInGeometry(pt, geometry)) {
+        const dot = (pt[0] - linePoint[0]) * lineNormal[0] + (pt[1] - linePoint[1]) * lineNormal[1];
+        if (dot >= 0) {
           countA++;
         } else {
           countB++;
@@ -194,9 +235,7 @@ function computeSplitAreas(geometry, totalArea, splitAngle, splitOffset, centroi
   }
   
   const totalPoints = countA + countB;
-  if (totalPoints === 0) {
-    return { areaA: Math.round(totalArea / 2), areaB: Math.round(totalArea / 2) };
-  }
+  if (totalPoints === 0) return { areaA: Math.round(totalArea / 2), areaB: Math.round(totalArea / 2) };
   
   const areaA = Math.round(totalArea * (countA / totalPoints));
   const areaB = Math.round(totalArea * (countB / totalPoints));
@@ -205,8 +244,9 @@ function computeSplitAreas(geometry, totalArea, splitAngle, splitOffset, centroi
 }
 
 
-export default function SimulateurDivisionClient({ hideHeader = false, hideFooter = false }) {
+export default function SimulateurDivisionClient({ hideHeader = false, hideFooter = false, onAttachToContact = null }) {
   const { t } = useLanguage();
+  const [attachedSuccess, setAttachedSuccess] = useState(false);
   
   // États de recherche
   const [searchQuery, setSearchQuery] = useState('');
@@ -215,6 +255,11 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [apiError, setApiError] = useState(false);
   
+  // Mode de tracé : 'auto' | 'two_points' | 'polygon'
+  const [drawMode, setDrawMode] = useState('auto');
+  const [twoPoints, setTwoPoints] = useState([]); // Array of 2 points [[lat1, lon1], [lat2, lon2]]
+  const [polygonPoints, setPolygonPoints] = useState([]); // Array of points [[lat, lon], ...]
+
   // États cartographiques & Cadastre
   const [mapCenter, setMapCenter] = useState([48.3903, -4.4861]);
   const [zoomLevel, setZoomLevel] = useState(9);
@@ -228,8 +273,8 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
 
   // Curseurs de simulation de division
   const [splitAngle, setSplitAngle] = useState(90); // Angle en degrés (90° = vertical)
-  const [splitOffset, setSplitOffset] = useState(0); // Déplacement latéral de la ligne (-50 à +50)
-  const [hasAccess, setHasAccess] = useState(true); // Est-ce que les deux lots ont un accès voirie ?
+  const [splitOffset, setSplitOffset] = useState(0); // Déplacement latéral (-50 à +50)
+  const [hasAccess, setHasAccess] = useState(true);
 
   // Formulaire de contact / capture de leads
   const [clientName, setClientName] = useState('');
@@ -242,8 +287,8 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
 
   const autocompleteRef = useRef(null);
 
+  // Fermeture du dropdown de suggestions lors d'un clic extérieur
   useEffect(() => {
-    // Fermer les suggestions au clic en dehors
     const handleClickOutside = (event) => {
       if (autocompleteRef.current && !autocompleteRef.current.contains(event.target)) {
         setShowSuggestions(false);
@@ -253,11 +298,10 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Recherche d'adresses (Proxy API locale)
+  // Recherche d'adresses en direct (API Adresse Etalab)
   useEffect(() => {
     if (searchQuery.trim().length < 3) {
       setSuggestions([]);
-      setApiError(false);
       return;
     }
 
@@ -265,7 +309,7 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
       setLoadingSuggestions(true);
       setApiError(false);
       try {
-        const response = await fetch(`/api/cadastre?action=search&q=${encodeURIComponent(searchQuery)}`);
+        const response = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(searchQuery)}&limit=5`);
         if (response.ok) {
           const data = await response.json();
           setSuggestions(data.features || []);
@@ -280,7 +324,7 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
       } finally {
         setLoadingSuggestions(false);
       }
-    }, 300); // Debounce de 300ms
+    }, 300);
 
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
@@ -302,12 +346,13 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     setCentroid(null);
     setSplitOffset(0);
     setSplitAngle(90);
+    setTwoPoints([]);
+    setPolygonPoints([]);
     setErrorMsg('');
     setLoadingCadastre(true);
     setLeadSuccess(false);
 
     try {
-      // Interroger l'API Cadastre locale (Proxy vers l'IGN)
       const cadastreRes = await fetch(`/api/cadastre?action=parcel&lat=${lat}&lon=${lon}`);
 
       if (cadastreRes.ok) {
@@ -323,10 +368,9 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
             section: props.section || 'Inconnue',
             code_commune: props.code_insee || 'Inconnu',
             commune: props.nom_com || feature.properties.city || 'Inconnue',
-            surface: props.contenance || 500, // Contenance fiscale en m²
+            surface: props.contenance || 500,
           });
 
-          // Calculer le barycentre de la parcelle pour ancrer la ligne
           const center = getPolygonCentroid(parcelFeature.geometry);
           setCentroid(center);
           setMapCenter(center);
@@ -344,8 +388,27 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     }
   };
 
-  // Clic direct sur la carte pour obtenir les infos de la parcelle
+  // Clic direct sur la carte selon le mode de dessin actif
   const handleMapClick = async (latlng) => {
+    const point = [latlng.lat, latlng.lng];
+
+    // Mode 2 Points : Placement de 2 points de coupe
+    if (drawMode === 'two_points') {
+      if (twoPoints.length >= 2) {
+        setTwoPoints([point]);
+      } else {
+        setTwoPoints(prev => [...prev, point]);
+      }
+      return;
+    }
+
+    // Mode Polygone Libre : Ajout de sommets
+    if (drawMode === 'polygon') {
+      setPolygonPoints(prev => [...prev, point]);
+      return;
+    }
+
+    // Mode Automatique / Sélection de parcelle
     const lat = latlng.lat;
     const lon = latlng.lng;
     
@@ -357,12 +420,13 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     setCentroid(null);
     setSplitOffset(0);
     setSplitAngle(90);
+    setTwoPoints([]);
+    setPolygonPoints([]);
     setErrorMsg('');
     setLoadingCadastre(true);
     setLeadSuccess(false);
 
     try {
-      // Récupérer la parcelle de l'IGN via le proxy local
       const cadastreRes = await fetch(`/api/cadastre?action=parcel&lat=${lat}&lon=${lon}`);
 
       if (cadastreRes.ok) {
@@ -373,22 +437,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
           setCadastreGeoJson(parcelFeature.geometry);
           
           const props = parcelFeature.properties;
-          
-          // Reverse Geocoding gratuit via le proxy local
-          let reverseLabel = `Parcelle ${props.section || ''} n°${props.numero || ''}`;
-          try {
-            const reverseRes = await fetch(`/api/cadastre?action=reverse&lat=${lat}&lon=${lon}`);
-            if (reverseRes.ok) {
-              const reverseData = await reverseRes.json();
-              if (reverseData.features && reverseData.features.length > 0) {
-                reverseLabel = reverseData.features[0].properties.label;
-              }
-            }
-          } catch (e) {
-            console.warn("Reverse geocoding failed, using parcel name.", e);
-          }
-          
-          setSelectedAddress(reverseLabel);
           setCadastreInfo({
             numero: props.numero || 'Inconnu',
             section: props.section || 'Inconnue',
@@ -397,7 +445,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
             surface: props.contenance || 500,
           });
 
-          // Calculer le barycentre de la parcelle pour ancrer la ligne
           const center = getPolygonCentroid(parcelFeature.geometry);
           setCentroid(center);
           setMapCenter(center);
@@ -415,39 +462,47 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     }
   };
 
-  // Soumission de la demande de simulation (Capture de leads)
-  const handleSubmitLead = async (e) => {
+  // Soumission du formulaire de demande d'étude
+  const handleLeadSubmit = async (e) => {
     e.preventDefault();
-    if (!clientName || !clientEmail) {
-      setLeadError('Veuillez renseigner au moins votre nom et votre adresse e-mail.');
-      return;
-    }
-
     setSubmittingLead(true);
     setLeadError('');
 
+    let drawingSpecs = '';
+    if (drawMode === 'two_points' && twoPoints.length === 2) {
+      const dist = calculateDistanceInMeters(twoPoints[0], twoPoints[1]);
+      drawingSpecs = ` [Tracé 2 Points: ${dist} m]`;
+    } else if (drawMode === 'polygon' && polygonPoints.length >= 3) {
+      const area = calculatePolygonAreaInM2(polygonPoints);
+      drawingSpecs = ` [Polygone dessiné: ${area} m² (${polygonPoints.length} points)]`;
+    }
+
     try {
-      const surfaceTotale = parseFloat(cadastreInfo.surface);
-      const lotASurface = surfaceLotA;
-      const lotBSurface = surfaceLotB;
+      const payload = {
+        name: clientName,
+        email: clientEmail,
+        phone: clientPhone,
+        message: clientMessage + drawingSpecs,
+        address: selectedAddress || searchQuery,
+        parcel_info: cadastreInfo ? `Section ${cadastreInfo.section} n°${cadastreInfo.numero} (${cadastreInfo.surface} m²)` : null,
+        simulation_data: {
+          drawMode,
+          twoPoints,
+          polygonPoints,
+          splitAngle,
+          splitOffset,
+          hasAccess,
+          surfaceTotale,
+          surfaceLotA,
+          surfaceLotB
+        }
+      };
 
-      const { error } = await supabase
-        .from('simulations')
-        .insert([{
-          address: selectedAddress,
-          parcel_ref: `Section ${cadastreInfo.section} n°${cadastreInfo.numero} (${cadastreInfo.commune})`,
-          total_surface: `${surfaceTotale} m²`,
-          lot_a_surface: `${lotASurface} m²`,
-          lot_b_surface: `${lotBSurface} m²`,
-          client_name: clientName,
-          client_email: clientEmail,
-          client_phone: clientPhone || null,
-          client_message: clientMessage || null
-        }]);
-
-      if (error) {
-        throw new Error(error.message);
-      }
+      const res = await fetch('/api/admin/projets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => null);
 
       setLeadSuccess(true);
       setClientName('');
@@ -462,26 +517,58 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     }
   };
 
+  // Formateur du résumé du dessin sous forme de JSON structuré non-modifiable
+  const buildSimulationSummary = () => {
+    const payload = {
+      type: 'URBATEAM_DRAWING_SIMULATION',
+      version: '1.0',
+      timestamp: new Date().toISOString(),
+      selectedAddress,
+      mapCenter,
+      zoomLevel,
+      cadastreInfo,
+      drawMode,
+      twoPoints,
+      polygonPoints,
+      splitAngle,
+      splitOffset,
+      hasAccess,
+      surfaceTotale,
+      surfaceLotA,
+      surfaceLotB,
+      twoPointsDistance,
+      polygonArea
+    };
+    return JSON.stringify(payload);
+  };
+
+  const handleAttachClick = () => {
+    const summary = buildSimulationSummary();
+    if (onAttachToContact) {
+      onAttachToContact(summary);
+      setAttachedSuccess(true);
+      setTimeout(() => setAttachedSuccess(false), 6000);
+    } else {
+      const encodedMsg = encodeURIComponent(summary);
+      window.location.href = `/contact?msg=${encodedMsg}#contact-form-section`;
+    }
+  };
+
   // Moteur géométrique de découpe visuelle en direct
-  // Calcule les coordonnées de la ligne de division en fonction de l'angle et de l'offset
   const getDivisionLinePoints = () => {
     if (!centroid) return null;
     const lat = centroid[0];
     const lon = centroid[1];
     
-    // Conversion de l'angle en radians
     const angleRad = (splitAngle * Math.PI) / 180;
-    // L'angle perpendiculaire sert à appliquer le déplacement (offset)
     const perpAngleRad = angleRad + Math.PI / 2;
     
-    // Multiplicateurs géographiques de conversion (approximation bretonne)
     const latShift = splitOffset * 0.000005 * Math.sin(perpAngleRad);
     const lonShift = splitOffset * 0.000008 * Math.cos(perpAngleRad);
     
     const lineLat = lat + latShift;
     const lineLon = lon + lonShift;
     
-    // Détermination de deux points éloignés pour tracer une longue ligne de coupe
     const p1 = [
       lineLat + 0.0025 * Math.sin(angleRad),
       lineLon + 0.0035 * Math.cos(angleRad)
@@ -496,18 +583,27 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
 
   const divisionLinePoints = getDivisionLinePoints();
 
-  // Variables calculées pour l'affichage de constructibilité
+  // Surface totale & découpe
   const surfaceTotale = cadastreInfo ? parseFloat(cadastreInfo.surface) : 0;
   
-  // Calcul géométrique en temps réel de la répartition des surfaces
-  const { areaA, areaB } = computeSplitAreas(cadastreGeoJson, surfaceTotale, splitAngle, splitOffset, centroid);
-  const surfaceLotA = areaA;
-  const surfaceLotB = areaB;
+  const { areaA: surfaceLotA, areaB: surfaceLotB } = useMemo(() => {
+    if (!cadastreGeoJson || surfaceTotale <= 0) return { areaA: 0, areaB: 0 };
+    return computeSplitAreas(cadastreGeoJson, surfaceTotale, splitAngle, splitOffset, centroid);
+  }, [cadastreGeoJson, surfaceTotale, splitAngle, splitOffset, centroid]);
 
   const splitRatioValA = surfaceTotale > 0 ? Math.round((surfaceLotA / surfaceTotale) * 100) : 50;
   const splitRatioValB = 100 - splitRatioValA;
 
-  // Calcul des limites (bounds) de la parcelle pour l'ajustement dynamique de la carte
+  const twoPointsDistance = useMemo(() => {
+    if (twoPoints.length < 2) return 0;
+    return calculateDistanceInMeters(twoPoints[0], twoPoints[1]);
+  }, [twoPoints]);
+
+  const polygonArea = useMemo(() => {
+    if (polygonPoints.length < 3) return 0;
+    return calculatePolygonAreaInM2(polygonPoints);
+  }, [polygonPoints]);
+
   const parcelBounds = useMemo(() => {
     if (!cadastreGeoJson) return null;
     const { minLat, maxLat, minLon, maxLon } = getGeometryBounds(cadastreGeoJson);
@@ -518,7 +614,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
     ];
   }, [cadastreGeoJson]);
 
-  // Réglementation (PLU) - Pastilles
   const isLotASurfaceValid = surfaceLotA >= 150;
   const isLotBSurfaceValid = surfaceLotB >= 150;
   const isFormValid = isLotASurfaceValid && isLotBSurfaceValid && hasAccess;
@@ -537,6 +632,7 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
         {/* Panel de contrôle et simulations (1/3) */}
         <div className={styles.sidebar}>
           
+          {/* Recherche d'adresse */}
           <GlassCard style={{ padding: '2rem' }}>
             <h3 className={styles.searchHeader}>
               <Search size={20} color="var(--accent-color)" />
@@ -558,7 +654,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
                 {loadingSuggestions ? <Loader size={18} className="spin" /> : <MapPin size={18} />}
               </span>
 
-              {/* Suggestions dropdown */}
               <AnimatePresence>
                 {showSuggestions && (suggestions.length > 0 || apiError) && (
                   <motion.ul 
@@ -592,6 +687,122 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
             <p className={styles.searchInfo}>
               {t("division.search_info")}
             </p>
+          </GlassCard>
+
+          {/* BARRE DE SÉLECTION DU MODE DE DESSIN */}
+          <GlassCard style={{ padding: '1.25rem', marginTop: '1.5rem' }}>
+            <h4 style={{ fontSize: '0.85rem', color: 'var(--text-main)', fontWeight: '700', marginBottom: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              🛠️ Mode de dessin du projet
+            </h4>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
+              <button
+                type="button"
+                onClick={() => setDrawMode('auto')}
+                style={{
+                  padding: '0.6rem 0.4rem',
+                  borderRadius: '8px',
+                  border: drawMode === 'auto' ? '2px solid var(--primary-color)' : '1px solid #e2e8f0',
+                  backgroundColor: drawMode === 'auto' ? 'var(--primary-color)' : 'white',
+                  color: drawMode === 'auto' ? 'white' : 'var(--text-main)',
+                  fontSize: '0.78rem',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  textAlign: 'center'
+                }}
+              >
+                📐 Glissières
+              </button>
+              <button
+                type="button"
+                onClick={() => setDrawMode('two_points')}
+                style={{
+                  padding: '0.6rem 0.4rem',
+                  borderRadius: '8px',
+                  border: drawMode === 'two_points' ? '2px solid var(--primary-color)' : '1px solid #e2e8f0',
+                  backgroundColor: drawMode === 'two_points' ? 'var(--primary-color)' : 'white',
+                  color: drawMode === 'two_points' ? 'white' : 'var(--text-main)',
+                  fontSize: '0.78rem',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  textAlign: 'center'
+                }}
+              >
+                📍 2 Points
+              </button>
+              <button
+                type="button"
+                onClick={() => setDrawMode('polygon')}
+                style={{
+                  padding: '0.6rem 0.4rem',
+                  borderRadius: '8px',
+                  border: drawMode === 'polygon' ? '2px solid var(--primary-color)' : '1px solid #e2e8f0',
+                  backgroundColor: drawMode === 'polygon' ? 'var(--primary-color)' : 'white',
+                  color: drawMode === 'polygon' ? 'white' : 'var(--text-main)',
+                  fontSize: '0.78rem',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  textAlign: 'center'
+                }}
+              >
+                ✏️ Polygone
+              </button>
+            </div>
+
+            {/* Consignes du mode actif */}
+            <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-light)', backgroundColor: 'rgba(241, 245, 249, 0.8)', padding: '0.75rem', borderRadius: '8px' }}>
+              {drawMode === 'auto' && (
+                <p style={{ margin: 0 }}>Réglez la ligne de séparation à l'aide des curseurs d'angle et de position.</p>
+              )}
+              {drawMode === 'two_points' && (
+                <div>
+                  <p style={{ margin: '0 0 0.5rem 0', fontWeight: '600', color: 'var(--primary-color)' }}>
+                    Cliquez 2 points sur la carte pour tracer une ligne de séparation sur-mesure.
+                  </p>
+                  {twoPoints.length > 0 && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>Points placés : {twoPoints.length}/2 {twoPointsDistance > 0 && `(${twoPointsDistance} m)`}</span>
+                      <button 
+                        onClick={() => setTwoPoints([])}
+                        style={{ padding: '0.2rem 0.5rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid #cbd5e1', background: 'white', cursor: 'pointer' }}
+                      >
+                        Réinitialiser
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+              {drawMode === 'polygon' && (
+                <div>
+                  <p style={{ margin: '0 0 0.5rem 0', fontWeight: '600', color: 'var(--primary-color)' }}>
+                    Cliquez plusieurs points sur la carte pour dessiner la forme d'un bâtiment ou d'un lot.
+                  </p>
+                  {polygonPoints.length > 0 && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                      <div style={{ fontWeight: '700', color: '#10b981' }}>
+                        {polygonPoints.length} points placés • Surface : {polygonArea} m²
+                      </div>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button 
+                          onClick={() => setPolygonPoints(prev => prev.slice(0, -1))}
+                          style={{ flex: 1, padding: '0.3rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid #cbd5e1', background: 'white', cursor: 'pointer' }}
+                        >
+                          Annuler dernier
+                        </button>
+                        <button 
+                          onClick={() => setPolygonPoints([])}
+                          style={{ flex: 1, padding: '0.3rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid #cbd5e1', background: 'white', cursor: 'pointer' }}
+                        >
+                          Effacer tout
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </GlassCard>
 
           {/* Panel d'informations et calculs de coupe */}
@@ -631,205 +842,159 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
                 exit={{ opacity: 0 }}
                 className={styles.sidebar}
               >
-                {/* Outils de division */}
-                <GlassCard className={styles.ficheCard}>
-                  <h4 className={styles.simTitle}>
-                    <Ruler size={18} color="var(--accent-color)" />
-                    {t("division.divider_tool")}
-                  </h4>
+                {/* Outils de division (Ligne auto) */}
+                {drawMode === 'auto' && (
+                  <GlassCard className={styles.ficheCard}>
+                    <h4 className={styles.simTitle}>
+                      <Ruler size={18} color="var(--accent-color)" />
+                      {t("division.divider_tool")}
+                    </h4>
 
-                  {/* Visualisation : Ratio de découpe réel */}
-                  <div className={styles.controlGroup}>
-                    <label className={styles.controlLabel}>
-                      <span>{t("division.calculated_share")}</span>
-                      <span className={styles.controlVal}>{splitRatioValA}% A / {splitRatioValB}% B</span>
-                    </label>
-                    <div className={styles.progressBarWrapper}>
-                      <div 
-                        className={styles.progressBarFillA} 
-                        style={{ width: `${splitRatioValA}%` }}
-                      />
-                      <div 
-                        className={styles.progressBarFillB} 
-                        style={{ width: `${splitRatioValB}%` }}
+                    <div className={styles.controlGroup}>
+                      <label className={styles.controlLabel}>
+                        <span>{t("division.calculated_share")}</span>
+                        <span className={styles.controlVal}>{splitRatioValA}% A / {splitRatioValB}% B</span>
+                      </label>
+                      <div className={styles.progressBarWrapper}>
+                        <div 
+                          className={styles.progressBarFillA} 
+                          style={{ width: `${splitRatioValA}%` }} 
+                        />
+                        <div 
+                          className={styles.progressBarFillB} 
+                          style={{ width: `${splitRatioValB}%` }} 
+                        />
+                      </div>
+                    </div>
+
+                    <div className={styles.controlGroup}>
+                      <label className={styles.controlLabel}>
+                        <span>{t("division.split_angle")}</span>
+                        <span className={styles.controlVal}>{splitAngle}°</span>
+                      </label>
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max="180" 
+                        value={splitAngle} 
+                        onChange={(e) => setSplitAngle(parseInt(e.target.value))}
+                        className={styles.rangeInput}
                       />
                     </div>
-                  </div>
 
-                  {/* Slider 2 : Angle de la ligne */}
-                  <div className={styles.controlGroup}>
-                    <label className={styles.controlLabel}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <RotateCw size={14} /> {t("division.split_angle")}
-                      </span>
-                      <span className={styles.controlVal}>{splitAngle}°</span>
-                    </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="180"
-                      value={splitAngle}
-                      onChange={(e) => setSplitAngle(parseInt(e.target.value))}
-                      className={styles.sliderInput}
-                    />
-                  </div>
-
-                  {/* Slider 3 : Déplacement de la ligne */}
-                  <div className={styles.controlGroup}>
-                    <label className={styles.controlLabel}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <Move size={14} /> {t("division.split_offset")}
-                      </span>
-                      <span className={styles.controlVal}>{splitOffset}m</span>
-                    </label>
-                    <input
-                      type="range"
-                      min="-60"
-                      max="60"
-                      value={splitOffset}
-                      onChange={(e) => setSplitOffset(parseInt(e.target.value))}
-                      className={styles.sliderInput}
-                    />
-                  </div>
-
-                  {/* Option : Accès voirie */}
-                  <div className={styles.controlGroup} style={{ marginTop: '1.2rem' }}>
-                    <label className={styles.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={hasAccess}
-                        onChange={(e) => setHasAccess(e.target.checked)}
-                        className={styles.checkboxInput}
+                    <div className={styles.controlGroup}>
+                      <label className={styles.controlLabel}>
+                        <span>{t("division.split_offset")}</span>
+                        <span className={styles.controlVal}>{splitOffset > 0 ? `+${splitOffset}` : splitOffset}</span>
+                      </label>
+                      <input 
+                        type="range" 
+                        min="-50" 
+                        max="50" 
+                        value={splitOffset} 
+                        onChange={(e) => setSplitOffset(parseInt(e.target.value))}
+                        className={styles.rangeInput}
                       />
-                      <span>{t("division.has_access")}</span>
-                    </label>
-                  </div>
-                </GlassCard>
+                    </div>
+                  </GlassCard>
+                )}
 
-                {/* Résultats des calculs */}
+                {/* Synthèse des Lots */}
                 <GlassCard className={styles.ficheCard}>
                   <h4 className={styles.simTitle}>
                     <FileText size={18} color="var(--primary-color)" />
                     {t("division.theoretical_est")}
                   </h4>
 
-                  <div className={styles.lotResults}>
-                    <div className={styles.lotCard}>
-                      <div className={`${styles.lotName} ${styles.lotNameA}`}>{t("division.lot_a")}</div>
-                      <div className={styles.lotArea}>{surfaceLotA} m²</div>
-                    </div>
-                    <div className={styles.lotCard}>
-                      <div className={`${styles.lotName} ${styles.lotNameB}`}>{t("division.lot_b")}</div>
-                      <div className={styles.lotArea}>{surfaceLotB} m²</div>
-                    </div>
-                  </div>
-
-                  <div className={styles.checklist}>
-                    <div className={`${styles.checkItem} ${isLotASurfaceValid ? styles.checkItemValid : styles.checkItemInvalid}`}>
-                      {isLotASurfaceValid ? <CheckCircle size={16} /> : <AlertTriangle size={16} />}
-                      <span>
-                        {isLotASurfaceValid 
-                          ? t("division.lot_a_constructible").replace("{surface}", surfaceLotA) 
-                          : t("division.lot_a_not_constructible").replace("{surface}", surfaceLotA)}
-                      </span>
-                    </div>
-                    <div className={`${styles.checkItem} ${isLotBSurfaceValid ? styles.checkItemValid : styles.checkItemInvalid}`}>
-                      {isLotBSurfaceValid ? <CheckCircle size={16} /> : <AlertTriangle size={16} />}
-                      <span>
-                        {isLotBSurfaceValid 
-                          ? t("division.lot_b_constructible").replace("{surface}", surfaceLotB) 
-                          : t("division.lot_b_not_constructible").replace("{surface}", surfaceLotB)}
-                      </span>
-                    </div>
-                    <div className={`${styles.checkItem} ${hasAccess ? styles.checkItemValid : styles.checkItemInvalid}`}>
-                      {hasAccess ? <CheckCircle size={16} /> : <AlertTriangle size={16} />}
-                      <span>
-                        {hasAccess ? t("division.access_networks") : t("division.access_networks_invalid")}
-                      </span>
-                    </div>
-                  </div>
-                </GlassCard>
-
-                {/* Formulaire de lead */}
-                <GlassCard className={styles.ficheCard}>
-                  {leadSuccess ? (
-                    <div className={styles.successCard}>
-                      <div className={styles.successTitle}>
-                        <CheckCircle size={22} /> {t("division.registered_sim")}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', marginTop: '1rem' }}>
+                    {/* Lot A */}
+                    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', borderRadius: '12px', padding: '0.9rem', border: '1px solid rgba(121, 160, 129, 0.25)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                        <span style={{ backgroundColor: 'var(--primary-color)', color: 'white', fontWeight: '800', fontSize: '0.72rem', padding: '0.2rem 0.55rem', borderRadius: '20px' }}>
+                          LOT A
+                        </span>
+                        <span style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--secondary-color)' }}>
+                          {surfaceLotA} m²
+                        </span>
                       </div>
-                      <p className={styles.successText}>
-                        {t("division.registered_sim_desc")}
-                      </p>
+                      <div style={{ fontSize: '0.75rem', color: isLotASurfaceValid ? '#15803d' : '#b45309', display: 'flex', alignItems: 'flex-start', gap: '0.3rem', lineHeight: '1.3', marginTop: '0.4rem' }}>
+                        <span>{isLotASurfaceValid ? '✅' : '⚠️'}</span>
+                        <span>{isLotASurfaceValid ? 'Surface favorable (> 150 m²)' : 'Surface réduite (à valider)'}</span>
+                      </div>
                     </div>
-                  ) : (
-                    <form onSubmit={handleSubmitLead}>
-                      <h4 className={styles.formTitle}>{t("division.free_study")}</h4>
-                      <input
-                        type="text"
-                        placeholder={t("division.full_name")}
-                        value={clientName}
-                        onChange={(e) => setClientName(e.target.value)}
-                        className={styles.formInput}
-                        required
-                      />
-                      <input
-                        type="email"
-                        placeholder={t("division.email_addr")}
-                        value={clientEmail}
-                        onChange={(e) => setClientEmail(e.target.value)}
-                        className={styles.formInput}
-                        required
-                      />
-                      <input
-                        type="tel"
-                        placeholder={t("division.phone_num")}
-                        value={clientPhone}
-                        onChange={(e) => setClientPhone(e.target.value)}
-                        className={styles.formInput}
-                      />
-                      <textarea
-                        placeholder={t("division.comments_placeholder")}
-                        value={clientMessage}
-                        onChange={(e) => setClientMessage(e.target.value)}
-                        className={styles.formTextarea}
-                      />
-                      
-                      {leadError && (
-                        <p style={{ color: '#ef4444', fontSize: '0.8rem', marginBottom: '0.8rem' }}>{leadError}</p>
-                      )}
 
-                      <button
-                        type="submit"
-                        disabled={submittingLead}
-                        className={styles.submitBtn}
-                      >
-                        {submittingLead ? <Loader size={16} className="spin" /> : <ArrowRight size={16} />}
-                        {t("division.send_sim")}
-                      </button>
-                    </form>
-                  )}
+                    {/* Lot B */}
+                    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', borderRadius: '12px', padding: '0.9rem', border: '1px solid rgba(37, 99, 235, 0.25)', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                        <span style={{ backgroundColor: '#2563eb', color: 'white', fontWeight: '800', fontSize: '0.72rem', padding: '0.2rem 0.55rem', borderRadius: '20px' }}>
+                          LOT B
+                        </span>
+                        <span style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--secondary-color)' }}>
+                          {surfaceLotB} m²
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: isLotBSurfaceValid ? '#15803d' : '#b45309', display: 'flex', alignItems: 'flex-start', gap: '0.3rem', lineHeight: '1.3', marginTop: '0.4rem' }}>
+                        <span>{isLotBSurfaceValid ? '✅' : '⚠️'}</span>
+                        <span>{isLotBSurfaceValid ? 'Surface favorable (> 150 m²)' : 'Surface réduite (à valider)'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.accessCheck} style={{ marginTop: '1rem' }}>
+                    <label className={styles.checkboxLabel}>
+                      <input 
+                        type="checkbox" 
+                        checked={hasAccess} 
+                        onChange={(e) => setHasAccess(e.target.checked)}
+                        className={styles.checkboxInput}
+                      />
+                      <span>{t("division.has_access")}</span>
+                    </label>
+                  </div>
+
+                  {/* Bouton d'envoi du dessin vers le formulaire de contact */}
+                  <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+                    <button
+                      type="button"
+                      onClick={handleAttachClick}
+                      style={{
+                        width: '100%',
+                        padding: '0.85rem 1rem',
+                        borderRadius: '10px',
+                        backgroundColor: attachedSuccess ? '#15803d' : 'var(--primary-color)',
+                        color: 'white',
+                        fontWeight: '700',
+                        fontSize: '0.85rem',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 14px rgba(121, 160, 129, 0.3)',
+                        border: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {attachedSuccess ? (
+                        <>✅ Dessin joint au message ci-dessus !</>
+                      ) : (
+                        <>📩 Transmettre ce dessin à mon message</>
+                      )}
+                    </button>
+                  </div>
                 </GlassCard>
 
               </motion.div>
             ) : (
-              <motion.div
-                key="empty-sim"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <GlassCard className={styles.emptyCard}>
-                  <div className={styles.emptyIconWrapper}>
-                    <Ruler size={24} color="#94a3b8" />
-                  </div>
-                  <h4 className={styles.emptyTitle}>{t("division.ready_to_cut")}</h4>
-                  <p className={styles.emptyText}>
-                    {t("division.ready_to_cut_desc")}
-                  </p>
-                </GlassCard>
-              </motion.div>
+              <GlassCard className={styles.emptyStateCard}>
+                <MapPin size={32} color="var(--primary-color)" style={{ marginBottom: '0.5rem' }} />
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', margin: 0 }}>
+                  {t("division.ready_to_cut_desc")}
+                </p>
+              </GlassCard>
             )}
           </AnimatePresence>
+
         </div>
 
         {/* Bloc Carte Leaflet (2/3) */}
@@ -923,7 +1088,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
             {/* 🎯 Mode Géoportail (Par défaut) : Satellite Orthophoto + Noms des rues IGN + Cadastre DGFiP */}
             {mapMode === 'geoportail' && (
               <>
-                {/* 1. Carte Satellite Orthophoto en fond avec transparence/opacité */}
                 <TileLayer
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
                   maxZoom={22}
@@ -932,7 +1096,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
                   attribution="Esri World Imagery / Orthophotos"
                 />
 
-                {/* 2. Couche Noms des Rues et axes de voirie IGN / CartoDB Overlay par-dessus */}
                 <TileLayer
                   url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png"
                   maxZoom={22}
@@ -941,7 +1104,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
                   zIndex={500}
                 />
 
-                {/* 3. Couche Officielle Cadastre DGFiP / Parcellaire Express IGN par-dessus */}
                 <TileLayer
                   url="https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png"
                   maxZoom={22}
@@ -950,7 +1112,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
                   zIndex={600}
                 />
 
-                {/* Couche transparente complémentaire OpenStreetMap Cadastre en superposition */}
                 <TileLayer
                   url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
                   tms={true}
@@ -1014,8 +1175,8 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
               />
             )}
 
-            {/* Ligne pointillée de division virtuelle interactive */}
-            {divisionLinePoints && (
+            {/* Mode 1: Ligne pointillée automatique */}
+            {drawMode === 'auto' && divisionLinePoints && (
               <Polyline
                 positions={divisionLinePoints}
                 pathOptions={{
@@ -1025,6 +1186,63 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
                   dashOffset: '0',
                 }}
               />
+            )}
+
+            {/* Mode 2: Tracé 2 Points */}
+            {drawMode === 'two_points' && (
+              <>
+                {twoPoints.map((pt, idx) => (
+                  <Marker key={`pt-${idx}`} position={pt}>
+                    <Popup>
+                      Point {idx + 1} de coupe sur-mesure
+                    </Popup>
+                  </Marker>
+                ))}
+                {twoPoints.length === 2 && (
+                  <Polyline
+                    positions={twoPoints}
+                    pathOptions={{
+                      color: '#ef4444',
+                      weight: 4,
+                      dashArray: '6, 6'
+                    }}
+                  />
+                )}
+              </>
+            )}
+
+            {/* Mode 3: Tracé Polygone Libre */}
+            {drawMode === 'polygon' && (
+              <>
+                {polygonPoints.map((pt, idx) => (
+                  <Marker key={`poly-pt-${idx}`} position={pt}>
+                    <Popup>
+                      Sommet n°{idx + 1} du polygone
+                    </Popup>
+                  </Marker>
+                ))}
+                {polygonPoints.length >= 2 && polygonPoints.length < 3 && (
+                  <Polyline
+                    positions={polygonPoints}
+                    pathOptions={{
+                      color: '#10b981',
+                      weight: 3,
+                      dashArray: '4, 4'
+                    }}
+                  />
+                )}
+                {polygonPoints.length >= 3 && (
+                  <Polygon
+                    positions={polygonPoints}
+                    pathOptions={{
+                      color: '#10b981',
+                      weight: 3,
+                      fillColor: '#10b981',
+                      fillOpacity: 0.3
+                    }}
+                  />
+                )}
+              </>
             )}
 
             {/* Marqueur de l'adresse recherchée */}
@@ -1048,34 +1266,6 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
 
       </div>
 
-      {/* Note simulateur */}
-      <div className={styles.simulatorNote}>
-        <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
-        <p>{t("division.simulator_note")}</p>
-      </div>
-
-      {/* Guide RSE et Division en footer de page */}
-      {!hideFooter && (
-        <div className={styles.footerGrid}>
-          <GlassCard>
-            <h4 className={styles.footerCardTitle}>
-              {t("division.steps_title")}
-            </h4>
-            <p className={styles.footerCardText}>
-              {t("division.steps_desc")}
-            </p>
-          </GlassCard>
-
-          <GlassCard>
-            <h4 className={styles.footerCardTitle}>
-              {t("division.viability_title")}
-            </h4>
-            <p className={styles.footerCardText}>
-              {t("division.viability_desc")}
-            </p>
-          </GlassCard>
-        </div>
-      )}
     </div>
   );
 }

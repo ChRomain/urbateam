@@ -1197,6 +1197,7 @@ export const fr = {
     search_address: "Saisir une adresse",
     placeholder: "Ex: 12 Rue de Brest, Saint-Renan...",
     search_info: "ℹ️ Ce service interroge en temps réel le Cadastre National français via les API officielles ouvertes de l'État.",
+    error_title: "Information Cadastre",
     error_no_parcel: "Aucune parcelle cadastrale trouvée précisément à cet endroit.",
     error_ign_down: "Le serveur du Cadastre National (IGN) est temporairement indisponible.",
     error_connection: "Impossible de contacter le service du Cadastre (vérifiez votre connexion internet).",

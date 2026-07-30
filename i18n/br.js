@@ -1430,6 +1430,7 @@ export const br = {
     "search_address": "Skrivañ un chomlec'h",
     "placeholder": "Da skouer : 12 Rue de Brest, Saint-Renan...",
     "search_info": "ℹ️ Ar servij-mañ a c'houlenn ouzh ar C'hadas broadel e real-time gant API ofisiel digor ar Stad.",
+    "error_title": "Titour Kadas",
     "error_no_parcel": "N'eus bet kavet barcell ebet resis en lec'h-mañ.",
     "error_ign_down": "Servijer ar C'hadas broadel (IGN) a zo aloubet evit ar mare.",
     "error_connection": "N'haller ket mont e darempred gant servij ar C'hadas (gwiriit ho kevreadenn internet).",
