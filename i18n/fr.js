@@ -1139,7 +1139,7 @@ export const fr = {
       editor: "Éditeur du site",
       contact: "Contact",
       hosting: "Hébergement",
-      hosting_desc: "Ce site est hébergé en France sur les serveurs de la société **OVHcloud**, garantissant la sécurité et la souveraineté de vos données."
+      hosting_desc: "Ce site est hébergé par la société **Vercel Inc.** (440 N Barranca Ave #4133, Covina, CA 91723, États-Unis — https://vercel.com). L'infrastructure repose sur un réseau Cloud global haute performance garantissant la sécurité des données, un chiffrement SSL continu et la conformité RGPD."
     },
     privacy: {
       title: "Politique de Confidentialité",

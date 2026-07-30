@@ -45,7 +45,7 @@ export default function MentionsLegales() {
             {t('legal_pages.mentions.hosting_desc')}
           </p>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-light)', marginTop: '0.5rem' }}>
-            RCS Lille Métropole 424 761 419 00045 | Siège social : 2 rue Kellermann - 59100 Roubaix - France
+            Vercel Inc. | Siège social : 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis | https://vercel.com
           </p>
         </div>
       </GlassCard>

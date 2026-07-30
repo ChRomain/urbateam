@@ -1326,7 +1326,7 @@ export const en = {
       "editor": "Site Editor",
       "contact": "Contact",
       "hosting": "Hosting",
-      "hosting_desc": "This site is hosted in France on the servers of the company **OVHcloud**, guaranteeing the security and sovereignty of your data."
+      "hosting_desc": "This site is hosted by **Vercel Inc.** (440 N Barranca Ave #4133, Covina, CA 91723, USA — https://vercel.com). The infrastructure relies on a high-performance global Cloud network ensuring data security, continuous SSL encryption, and GDPR compliance."
     },
     "privacy": {
       "title": "Privacy Policy",
