@@ -8,7 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 // Scales of Justice Icon (L'éthique professionnelle)
 function ScalesIcon({ color = "currentColor" }) {
   return (
-    <svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       {/* Central Pillar & Base */}
       <path d="M22 56h20M32 56V18" />
       <circle cx="32" cy="14" r="3" />
@@ -28,18 +28,17 @@ function ScalesIcon({ color = "currentColor" }) {
 // Advice / Speech Bubble Icon (Le conseil)
 function AdviceIcon({ color = "currentColor" }) {
   return (
-    <svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      {/* Person head & body */}
-      <circle cx="25" cy="21" r="8" />
-      <circle cx="22.5" cy="20" r="1" fill={color} />
-      <circle cx="27.5" cy="20" r="1" fill={color} />
-      <path d="M23.5 24.5c1.2.8 2 1 3 0" />
-      <path d="M11 50c0-7.5 6-12.5 14-12.5s14 5 14 12.5" />
-      {/* Speech bubble */}
-      <path d="M37 12h14c3.3 0 6 2.7 6 6v7c0 3.3-2.7 6-6 6h-3.5l-4.5 4.5v-4.5h-6c-3.3 0-6-2.7-6-6v-7c0-3.3 2.7-6 6-6z" />
-      <line x1="42" y1="18" x2="52" y2="18" />
-      <line x1="42" y1="22" x2="50" y2="22" />
-      <line x1="42" y1="26" x2="47" y2="26" />
+    <svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Person head & shoulders */}
+      <circle cx="19" cy="23" r="7" />
+      <circle cx="17" cy="22" r="1" fill={color} />
+      <circle cx="21" cy="22" r="1" fill={color} />
+      <path d="M17.8 25.8c.8.6 1.6.6 2.4 0" />
+      <path d="M7 49c0-6.5 5.4-11 12-11s12 4.5 12 11" />
+      {/* Speech bubble - detached with breathing room */}
+      <path d="M35 10h16c3 0 5.5 2.5 5.5 5.5v7c0 3-2.5 5.5-5.5 5.5h-4l-4.5 4.5v-4.5h-1.5c-3 0-5.5-2.5-5.5-5.5v-7c0-3 2.5-5.5 5.5-5.5z" />
+      <line x1="40" y1="16" x2="50" y2="16" />
+      <line x1="40" y1="20" x2="47" y2="20" />
     </svg>
   );
 }
@@ -47,7 +46,7 @@ function AdviceIcon({ color = "currentColor" }) {
 // Precision / Badge Icon (La précision)
 function PrecisionIcon({ color = "currentColor" }) {
   return (
-    <svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       {/* Scalloped badge seal */}
       <path d="M32 7l3.2 2.8 4.2-1.4 1.9 3.9 4.4 0.5 0.3 4.5 4 2-1.3 4.2 3 3.4-2.7 3.5 1.5 4.1-3.9 2-0.4 4.4-4.4 0.4-2 4-4.2-1.4L32 48.5l-3.2-2.8-4.2 1.4-2-4-4.4-0.4-0.4-4.4-3.9-2 1.5-4.1-2.7-3.5 3-3.4-1.3-4.2 4-2 0.3-4.5 4.4-0.5 1.9-3.9 4.2 1.4L32 7z" />
       {/* Checkmark inside */}
@@ -62,27 +61,29 @@ function PrecisionIcon({ color = "currentColor" }) {
 // Teamwork Icon (L'esprit d'équipe)
 function TeamIcon({ color = "currentColor" }) {
   return (
-    <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       {/* Center person */}
-      <circle cx="32" cy="19" r="6.5" />
-      <path d="M32 12.5c-2.3 0-4.2 1.3-4.8 3.2" />
-      <circle cx="30.2" cy="19" r="0.9" fill={color} />
-      <circle cx="33.8" cy="19" r="0.9" fill={color} fillOpacity="0.8" />
-      <path d="M30 22c1.2.8 2.8.8 4 0" />
-      <path d="M22 43c0-6 4.5-10 10-10s10 4 10 10" />
+      <circle cx="32" cy="19" r="8" />
+      <path d="M32 11c-2.8 0-5 1.5-5.8 3.8" />
+      <circle cx="29.2" cy="18.5" r="1.4" fill={color} />
+      <circle cx="34.8" cy="18.5" r="1.4" fill={color} />
+      <path d="M29.5 22.5c1.4 1.2 3.6 1.2 5 0" />
+      <path d="M20 44c0-7 5.4-11.5 12-11.5s12 4.5 12 11.5" />
 
       {/* Left person */}
-      <circle cx="17" cy="23" r="5.5" />
-      <circle cx="15.5" cy="23" r="0.8" fill={color} />
-      <circle cx="18.5" cy="23" r="0.8" fill={color} />
-      <path d="M9 45c0-4.8 3.8-8.5 8.5-8.5 2.2 0 4.2.8 5.7 2.2" />
+      <circle cx="15" cy="24" r="6.5" />
+      <circle cx="13.2" cy="23.5" r="1.2" fill={color} />
+      <circle cx="16.8" cy="23.5" r="1.2" fill={color} />
+      <path d="M13.2 27c1 .8 2.5 .8 3.5 0" />
+      <path d="M6 46c0-5.5 4-9.5 9-9.5 2.5 0 4.8 1 6.3 2.6" />
 
       {/* Right person with glasses */}
-      <circle cx="47" cy="23" r="5.5" />
-      <circle cx="44.5" cy="22.5" r="1.8" />
-      <circle cx="49.5" cy="22.5" r="1.8" />
-      <line x1="46.3" y1="22.5" x2="47.7" y2="22.5" />
-      <path d="M55 45c0-4.8-3.8-8.5-8.5-8.5-2.2 0-4.2.8-5.7 2.2" />
+      <circle cx="49" cy="24" r="6.5" />
+      <circle cx="46.3" cy="23.5" r="2.2" strokeWidth="2" />
+      <circle cx="51.7" cy="23.5" r="2.2" strokeWidth="2" />
+      <line x1="48.5" y1="23.5" x2="49.5" y2="23.5" />
+      <path d="M47.2 27c1 .8 2.5 .8 3.5 0" />
+      <path d="M58 46c0-5.5-4-9.5-9-9.5-2.5 0-4.8 1-6.3 2.6" />
     </svg>
   );
 }

@@ -5,8 +5,8 @@ export default function robots() {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
+      disallow: ['/admin/', '/api/', '/private/'],
     },
     sitemap: 'https://urbateam.fr/sitemap.xml',
-  }
+  };
 }

@@ -33,7 +33,7 @@ export default function References({ clients = [] }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        style={{ marginBottom: '6rem' }}
+        style={{ marginBottom: '2.5rem' }}
       >
         <h3 className={styles.refTitle}>{t('references.list_title')}</h3>
         <div className={styles.refListGrid}>

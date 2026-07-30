@@ -6,6 +6,7 @@ import Link from 'next/link';
 import PageHeader from '../../components/PageHeader';
 import MotionSection from '../../components/MotionSection';
 import GlassCard from '../../components/GlassCard';
+import Magnetic from '../../components/Magnetic';
 import { useLanguage } from '../../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -160,14 +161,31 @@ export default function ProjetsClient({ projects = [] }) {
       </MotionSection>
 
       <div style={{ marginTop: '6rem', textAlign: 'center' }}>
-        <GlassCard style={{ padding: '3rem', backgroundColor: 'var(--secondary-color)', color: 'white' }}>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>{t('expertise.cta_title')}</h2>
-          <p style={{ marginBottom: '2rem', opacity: 0.9 }}>
+        <GlassCard style={{ padding: '3.5rem 2rem', backgroundColor: 'var(--primary-color)', color: 'white', borderRadius: 'var(--border-radius-lg)', boxShadow: '0 15px 35px rgba(121, 160, 129, 0.25)' }}>
+          <h2 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', marginBottom: '1rem' }}>{t('expertise.cta_title')}</h2>
+          <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 2rem auto', lineHeight: '1.6' }}>
             {t('expertise.cta_desc')}
           </p>
-          <Link href="/contact" className="btn btn-primary" aria-label="Nous contacter pour un projet">
-            {t('expertise.cta_btn')}
-          </Link>
+          <Magnetic strength={0.35}>
+            <Link 
+              href="/contact" 
+              className="btn" 
+              style={{ 
+                backgroundColor: 'white', 
+                color: 'var(--secondary-color)', 
+                fontWeight: '700', 
+                padding: '0.9rem 2.2rem', 
+                borderRadius: '50px',
+                textDecoration: 'none',
+                display: 'inline-block',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+                fontSize: '1rem'
+              }} 
+              aria-label="Nous contacter pour un projet"
+            >
+              {t('expertise.cta_btn')}
+            </Link>
+          </Magnetic>
         </GlassCard>
       </div>
     </div>

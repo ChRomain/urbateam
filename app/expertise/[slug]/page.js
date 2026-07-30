@@ -70,11 +70,37 @@ export default async function ExpertisePage({ params }) {
     ]
   };
 
+  // JSON-LD: Service
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": meta?.title || "Expertise URBATEAM",
+    "description": meta?.description || "Expertise foncière et aménagement du territoire en Finistère.",
+    "provider": {
+      "@type": "ProfessionalService",
+      "name": "URBATEAM",
+      "url": "https://urbateam.fr",
+      "telephone": "+33298842965"
+    },
+    "areaServed": [
+      { "@type": "AdministrativeArea", "name": "Finistère" },
+      { "@type": "City", "name": "Brest" },
+      { "@type": "City", "name": "Saint-Renan" },
+      { "@type": "City", "name": "Douarnenez" },
+      { "@type": "City", "name": "Quimper" },
+      { "@type": "City", "name": "Landerneau" }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       <ExpertiseClient slug={slug} />
     </>

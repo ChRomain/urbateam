@@ -116,6 +116,14 @@ export default async function RootLayout({ children }) {
               "@context": "https://schema.org",
               "@graph": [
                 {
+                  "@type": "WebSite",
+                  "@id": "https://urbateam.fr/#website",
+                  "url": "https://urbateam.fr",
+                  "name": "URBATEAM",
+                  "description": "Cabinet de Géomètres-Experts et urbanistes à Brest, Saint-Renan et Douarnenez.",
+                  "inLanguage": "fr-FR"
+                },
+                {
                   "@type": "ProfessionalService",
                   "@id": "https://urbateam.fr/#organization",
                   "name": "URBATEAM",

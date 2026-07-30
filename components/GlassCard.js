@@ -34,8 +34,8 @@ export default function GlassCard({ children, variants, className = "", style = 
           zIndex: 0,
           background: useMotionTemplate`
             radial-gradient(
-              300px circle at ${mouseX}px ${mouseY}px,
-              rgba(16, 185, 129, 0.1),
+              350px circle at ${mouseX}px ${mouseY}px,
+              rgba(255, 255, 255, 0.22),
               transparent 80%
             )
           `,

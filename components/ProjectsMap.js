@@ -97,8 +97,8 @@ export default function ProjectsMap({ projects = [] }) {
   // Filtrer les projets qui ont des coordonnées
   const mapProjects = projects.filter(p => p.latitude && p.longitude);
 
-  // Centre par défaut (Brest)
-  const center = [48.3903, -4.4861];
+  // Centre par défaut (recentré encore plus vers l'Est pour éliminer la dominance de l'océan)
+  const center = [48.15, -3.10];
 
   const createRedPinIcon = (index) => {
     const delay = (index % 12) * 0.07;

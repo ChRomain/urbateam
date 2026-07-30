@@ -155,20 +155,33 @@ export default function ExpertiseClient({ slug }) {
               ))}
             </div>
 
-            <div className="mt-4" style={{ marginTop: '4rem', padding: '3rem', backgroundColor: 'var(--secondary-color)', borderRadius: 'var(--border-radius-lg)', color: 'white' }}>
-              <h3 style={{ color: 'var(--primary-color)', marginBottom: '1rem' }}>
+            <div className="mt-4" style={{ marginTop: '4rem', padding: '3.5rem 3rem', backgroundColor: 'var(--beige)', borderRadius: 'var(--border-radius-lg)', color: 'var(--secondary-color)', boxShadow: 'var(--shadow-sm)' }}>
+              <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.8rem', fontWeight: '700', marginBottom: '1.2rem' }}>
                 {(() => {
                   const val = t(`expertise.items.${slug}.why_title`);
                   return val && !val.startsWith('expertise.items.') ? val : "Pourquoi choisir URBATEAM ?";
                 })()}
               </h3>
-              <p style={{ opacity: 0.9, marginBottom: '2rem' }}>
+              <p style={{ color: 'var(--secondary-color)', fontSize: '1.05rem', lineHeight: '1.65', opacity: 0.95, marginBottom: '2rem' }}>
                 {(() => {
                   const val = t(`expertise.items.${slug}.why_desc`);
                   return val && !val.startsWith('expertise.items.') ? val : "Notre approche pluridisciplinaire nous permet d'appréhender chaque projet dans sa globalité. En tant que Géomètres-Experts, nous garantissons la sécurité juridique de vos fonciers tout en apportant une vision d'urbaniste et une rigueur d'ingénieur VRD.";
                 })()}
               </p>
-              <Link href="/apropos" className="btn btn-outline" style={{ color: 'white', borderColor: 'white' }}>
+              <Link 
+                href="/apropos" 
+                className="btn btn-primary" 
+                style={{ 
+                  backgroundColor: 'var(--primary-color)', 
+                  color: 'white', 
+                  fontWeight: '700', 
+                  padding: '0.9rem 2.2rem', 
+                  borderRadius: '50px', 
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  boxShadow: '0 4px 15px rgba(121, 160, 129, 0.3)'
+                }}
+              >
                 Découvrir notre démarche qualité
               </Link>
             </div>

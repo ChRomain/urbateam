@@ -79,44 +79,96 @@ export const br = {
         "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh.",
         "longDesc": "An Douaroner-Barnour eo an den nemetañ a c'hell lakaat harzoù ofisiel d'ho touar, gwarantiñ a ra URBATEAM surentez ho madoù. Labourat a reomp war holl gudennoù gwir an douar gant teuliadoù bonnañ resis.",
         "missions": [
-          { "title": "Bonnañ ofisiel", "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh." },
-          { "title": "Klask paperioù kozh", "desc": "Klask e-barzh an dielloù ha lenn an teuliadoù douar." },
-          { "title": "Lakaat bonnoù", "desc": "Plantañ bonnoù pe repère-metek war an dachenn." },
-          { "title": "Sklentoù ha gwir", "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù douar." }
-        ]
+          {
+            "title": "Bonnañ ofisiel",
+            "desc": "Lakaat ofisiel ha war an dachenn harzoù ho perc'henniezh."
+          },
+          {
+            "title": "Klask paperioù kozh",
+            "desc": "Klask e-barzh an dielloù ha lenn an teuliadoù douar."
+          },
+          {
+            "title": "Lakaat bonnoù",
+            "desc": "Plantañ bonnoù pe repère-metek war an dachenn."
+          },
+          {
+            "title": "Sklentoù ha gwir",
+            "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù douar."
+          }
+        ],
+        "image": "/pictures/geometre-bornage.png"
       },
       "division": {
         "title": "Rannañ",
         "desc": "Krouiñ lodennoù douar nevez evit sevel tiez pe gwerzhañ.",
         "longDesc": "URBATEAM a ambroug ac'hanoc'h evit rannañ ho touaroù. Eus ar studi gentañ d'an teuliadoù evit an ti-kêr, hag an tresoù arpentage.",
         "missions": [
-          { "title": "Rannañ douar", "desc": "Sikour klok evit rannañ douaroù ha kemmañ ar c'hadastr gant un teuliad DMPC." },
-          { "title": "Studi dachenn", "desc": "Anavezout ar PLU evit gwelet ma c'heller sevel un ti." },
-          { "title": "Disklêriadur ti-kêr", "desc": "Sevel ha kas an teuliad disklêriañ da di-kêr." },
-          { "title": "Muzuliañ ha bonnañ lodennoù", "desc": "Muzuliañ resis al lodennoù nevez ha plantañ bonnoù." }
-        ]
+          {
+            "title": "Rannañ douar",
+            "desc": "Sikour klok evit rannañ douaroù ha kemmañ ar c'hadastr gant un teuliad DMPC."
+          },
+          {
+            "title": "Studi dachenn",
+            "desc": "Anavezout ar PLU evit gwelet ma c'heller sevel un ti."
+          },
+          {
+            "title": "Disklêriadur ti-kêr",
+            "desc": "Sevel ha kas an teuliad disklêriañ da di-kêr."
+          },
+          {
+            "title": "Muzuliañ ha bonnañ lodennoù",
+            "desc": "Muzuliañ resis al lodennoù nevez ha plantañ bonnoù."
+          }
+        ],
+        "image": "/pictures/topographie-final.png"
       },
       "copropriete": {
         "title": "Kenperc'henniezh & Rannañ e volumoù",
         "desc": "Tresañ rannoù ar savadur, jediñ al lodennoù ha rannañ e volumoù.",
         "longDesc": "Sevel a reomp tresoù ar genperc'henniezh ha jediñ al lodennoù. Labourat a reomp ivez war ensembles savadurioù kemplezh evit rannañ anezho e volumoù 3D hep rannoù boutin.",
         "missions": [
-          { "title": "Lakaat e kenperc'henniezh & Volumoù", "desc": "Jediñ al lodennoù, tresañ ar rannoù ha sevel reolennoù ar genperc'henniezh." },
-          { "title": "Rannañ e volumoù", "desc": "Mestroniañ teuliadoù rannañ e volumoù 3D gant an notered." },
-          { "title": "Kemmañ kenperc'henniezh", "desc": "Kemmañ tresoù ha tantièmes goude labourioù pe gwerzhioù." },
-          { "title": "Muzuliañ 3D & BIM", "desc": "Muzuliañ milimetrek ar frammoù kemplezh gant ur scanner 3D." }
-        ]
+          {
+            "title": "Lakaat e kenperc'henniezh & Volumoù",
+            "desc": "Jediñ al lodennoù, tresañ ar rannoù ha sevel reolennoù ar genperc'henniezh."
+          },
+          {
+            "title": "Rannañ e volumoù",
+            "desc": "Mestroniañ teuliadoù rannañ e volumoù 3D gant an notered."
+          },
+          {
+            "title": "Kemmañ kenperc'henniezh",
+            "desc": "Kemmañ tresoù ha tantièmes goude labourioù pe gwerzhioù."
+          },
+          {
+            "title": "Muzuliañ 3D & BIM",
+            "desc": "Muzuliañ milimetrek ar frammoù kemplezh gant ur scanner 3D."
+          }
+        ],
+        "image": "/pictures/bim-3d-scan.png"
       },
       "lotissement": {
         "title": "Lodennaouegoù",
         "desc": "Meizañ lodennaouegoù, krouiñ douaroù da sevel tiez ha mestroniañ al labourioù.",
         "longDesc": "Eus an tres kentañ da fin al labourioù, URBATEAM a ambroug ac'hanoc'h evit sevel lodennaouegoù ha karterioù ekologel. Prientet e vez ganeomp al labourioù hentoù ha rouedadoù (VRD).",
         "missions": [
-          { "title": "Permet aozañ", "desc": "Sevel an teuliad melestradurel evit krouiñ ul lodennaoueg." },
-          { "title": "Meizañ al lodennaoueg", "desc": "Tresad-kempenn ha lakaat brav e-barzh ar gweledva." },
-          { "title": "Mestroniezh-ober VRD", "desc": "Heuliañ al labourioù viabiliser ha staliañ ar rouedadoù." },
-          { "title": "Bonnañ al lodennoù", "desc": "Lakaat ar bonnoù war pep lodenn krouet a-raok gwerzhañ." }
-        ]
+          {
+            "title": "Permet aozañ",
+            "desc": "Sevel an teuliad melestradurel evit krouiñ ul lodennaoueg."
+          },
+          {
+            "title": "Meizañ al lodennaoueg",
+            "desc": "Tresad-kempenn ha lakaat brav e-barzh ar gweledva."
+          },
+          {
+            "title": "Mestroniezh-ober VRD",
+            "desc": "Heuliañ al labourioù viabiliser ha staliañ ar rouedadoù."
+          },
+          {
+            "title": "Bonnañ al lodennoù",
+            "desc": "Lakaat ar bonnoù war pep lodenn krouet a-raok gwerzhañ."
+          }
+        ],
+        "image": "/pictures/lotissement-pro.png"
       },
       "urbanisme": {
         "title": "Kêraozerezh & Gweledva",
@@ -139,7 +191,8 @@ export const br = {
             "title": "Reolennoù kêraozerezh",
             "desc": "Sikour evit sevel teuliadoù kêraozerezh ha permetoù aozañ."
           }
-        ]
+        ],
+        "image": "/pictures/urbanisme-bureau.png"
       },
       "vrd": {
         "title": "Mestroniezh-ober & VRD",
@@ -162,7 +215,8 @@ export const br = {
             "title": "Kroashentoù & Parkingoù",
             "desc": "Gwellaat an tremeniri hag aozañ ar parkingoù."
           }
-        ]
+        ],
+        "image": "/pictures/vrd-ingenierie.png"
       },
       "sport": {
         "title": "Dornouriezh Sport",
@@ -185,7 +239,8 @@ export const br = {
             "title": "Surentez ha Reolennoù",
             "desc": "Gwelet mat stad an tachennoù kozh ha lakaat anezho diouzh ar reolennoù."
           }
-        ]
+        ],
+        "image": "/pictures/sport-ingenierie.png"
       },
       "topographie": {
         "title": "Topografiezh",
@@ -208,7 +263,8 @@ export const br = {
             "title": "Lakaat savadurioù",
             "desc": "Lakaat war an dachenn linennoù ar savadur gant ur resisted milimetrek."
           }
-        ]
+        ],
+        "image": "/pictures/topographie-pro.png"
       },
       "geometre": {
         "title": "Douaroner-Barnour",
@@ -231,7 +287,8 @@ export const br = {
             "title": "Gwir an douar",
             "desc": "Ali war ar sklentoù, ar vogerioù boutin hag ar reolennoù kemplezh."
           }
-        ]
+        ],
+        "image": "/pictures/geometre-foncier-v2.png"
       }
     },
     "cta_title": "Ur raktres ispisial ?",
@@ -1157,19 +1214,19 @@ export const br = {
     "cta": "Gwelet an holl aliou war Google",
     "items": [
       {
-         "name": "Jean-Luc Charles",
-         "location": "Plouezeg (22)",
-         "text": "A-raok ha goude, hor c'haier a zo et meret mat-kenañ gant renerien Urbateam. War an dachenn, an dresadenn a zo bet graet en un doare resis-tre ha plijus-tre, hag an darempred gant an amezeien a zo bet eus ar c'hentañ e-kerzh ar bonnañ. Doujet eo bet da gement termen zo a-raok echuiñ ar raktres. Trugarez d'ar skipailh evit o alioù ha pep tra zo bet graet mat. Ganto e c'hellomp echuiñ ar raktres-mañ a zo ken pouezus evidomp."
+        "name": "Jean-Luc Charles",
+        "location": "Plouezeg (22)",
+        "text": "A-raok ha goude, hor c'haier a zo et meret mat-kenañ gant renerien Urbateam. War an dachenn, an dresadenn a zo bet graet en un doare resis-tre ha plijus-tre, hag an darempred gant an amezeien a zo bet eus ar c'hentañ e-kerzh ar bonnañ. Doujet eo bet da gement termen zo a-raok echuiñ ar raktres. Trugarez d'ar skipailh evit o alioù ha pep tra zo bet graet mat. Ganto e c'hellomp echuiñ ar raktres-mañ a zo ken pouezus evidomp."
       },
       {
-         "name": "Patrick Cloatre",
-         "location": "Lokournan (29)",
-         "text": "Degemer mat ha skipailh a-feson ouzh an dud. Intervention prim ha prim evit cheñch ur fazi graet gant ar c'hadastr publik. Ali a ran deoc'h mont ganto."
+        "name": "Patrick Cloatre",
+        "location": "Lokournan (29)",
+        "text": "Degemer mat ha skipailh a-feson ouzh an dud. Intervention prim ha prim evit cheñch ur fazi graet gant ar c'hadastr publik. Ali a ran deoc'h mont ganto."
       },
       {
-         "name": "Christelle Abiven",
-         "location": "Brest (29)",
-         "text": "Ma mignon ha me hon eus graet darempred gant Urbateam ha laouen omp. Roet o deus alioù mat, plijus int ha dreist-holl mailh int war o labour. Trugarez d'ar skipailh."
+        "name": "Christelle Abiven",
+        "location": "Brest (29)",
+        "text": "Ma mignon ha me hon eus graet darempred gant Urbateam ha laouen omp. Roet o deus alioù mat, plijus int ha dreist-holl mailh int war o labour. Trugarez d'ar skipailh."
       }
     ]
   },
@@ -1291,6 +1348,10 @@ export const br = {
       "partners": {
         "title": "Kenoberourien | URBATEAM",
         "description": "Dizoloit hor rouedad kenoberourien : notered, alvokaded ha savourien evit gwareziñ ho raktresoù."
+      },
+      "main": {
+        "title": "Hor Tachennoù Ampartiz | Géomètres-Experts & Kêraourien | URBATEAM",
+        "description": "Dizoloit holl servijoù URBATEAM: bonnañ, rannañ douaroù, kenberc’henniezh, VRD ha topografiezh."
       }
     }
   },
@@ -1499,7 +1560,8 @@ export const br = {
       "desc": "Studiadenn war riskloù an dour-beuz.",
       "flood": "Lec'h dour-beuz (PPRI)",
       "wet_zone": "Lec'h gleb",
-      "runoff": "Risk dour o redek"
+      "runoff": "Risk dour o redek",
+      "groundwater": "Dour dindan douar (Géorisques)"
     },
     "climate": {
       "title": "Heol & Hin",
@@ -1521,10 +1583,22 @@ export const br = {
       "access": "Hent foran",
       "networks": "Roueadoù tredan ha dour",
       "sewer": "Kariañ an dour"
-    }
+    },
+    "loaded_desc": "Titouroù ar servijoù publik o deus respontet pizh.",
+    "api_unreachable": "Servij n’haller ket tizhout evit ar mare.",
+    "api_unavailable_banner": "Servijoù publik disgwelgar d’ar mare-mañ:",
+    "no_data_at_point": "Roadoù ebet kavet war ar poent-mañ.",
+    "no_data_zone": "Roadoù ebet e-kichen ar barcell (~50m).",
+    "source_nearby": "Road deuet eus ur poent stok ouzh ar barcell.",
+    "source_buffer": "Road deuet eus ar zonenn tro-dro (~50m).",
+    "no_monument_1km": "Monumant istorel ebet dindan 1 km.",
+    "plu_no_zone": "Zonenn PLU ebet kavet war ar barcell-mañ.",
+    "natura_none": "Sit Natura 2000 ebet amezek.",
+    "overall_desc_partial": "Calculé a-hed ar roadoù deuet eus an API publik.",
+    "radar_insufficient": "Grafik disgwelgar: roadoù re vihan.",
+    "radar_empty": "Diuzit ur barcell evit gwelout ar grafik."
   },
   "profil_long": {
     "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ evit titouroù hepken. Evit titouroù resis ha gwarezet el lezenn war ho tachenn, kit e darempred gant URBATEAM."
   }
 };
-

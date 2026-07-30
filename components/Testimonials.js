@@ -44,7 +44,6 @@ export default function Testimonials() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <span className={styles.techTag}>[ RÈGLEMENTS DE CONFIANCE ]</span>
             <h2 className={styles.title}>
               <svg width="28" height="28" viewBox="0 0 48 48" className={styles.googleIcon}>
                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.7 17.74 9.5 24 9.5z"/>
@@ -96,7 +95,6 @@ export default function Testimonials() {
                   <Star key={`star-large-${i}`} size={16} fill="var(--primary-color)" stroke="none" />
                 ))}
               </div>
-              <span className={styles.techMarker}>[ GPS: 22.M ]</span>
             </div>
 
             <p className={styles.reviewText}>
@@ -131,7 +129,6 @@ export default function Testimonials() {
                   <Star key={`star-med-${i}`} size={16} fill="var(--accent-color)" stroke="none" />
                 ))}
               </div>
-              <span className={styles.techMarker}>[ GPS: 29.SR ]</span>
             </div>
 
             <p className={styles.reviewText}>
@@ -166,7 +163,6 @@ export default function Testimonials() {
                   <Star key={`star-small-${i}`} size={16} fill="var(--primary-color)" stroke="none" />
                 ))}
               </div>
-              <span className={styles.techMarker}>[ GPS: 29.B ]</span>
             </div>
 
             <p className={styles.reviewText}>
