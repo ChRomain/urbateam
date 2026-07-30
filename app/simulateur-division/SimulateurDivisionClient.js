@@ -218,6 +218,7 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
   // États cartographiques & Cadastre
   const [mapCenter, setMapCenter] = useState([48.3903, -4.4861]);
   const [zoomLevel, setZoomLevel] = useState(9);
+  const [mapMode, setMapMode] = useState('geoportail'); // 'geoportail' | 'plan' | 'satellite'
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [cadastreGeoJson, setCadastreGeoJson] = useState(null);
   const [cadastreInfo, setCadastreInfo] = useState(null);
@@ -832,7 +833,82 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
         </div>
 
         {/* Bloc Carte Leaflet (2/3) */}
-        <div className={`${styles.mapWrapper} ${hideHeader ? styles.embeddedMap : ''}`}>
+        <div className={`${styles.mapWrapper} ${hideHeader ? styles.embeddedMap : ''}`} style={{ position: 'relative' }}>
+          
+          {/* Sélecteur de couches de carte (Style Géoportail / IGN / DGFiP) */}
+          <div style={{
+            position: 'absolute',
+            top: '0.8rem',
+            right: '0.8rem',
+            zIndex: 1000,
+            display: 'flex',
+            gap: '0.35rem',
+            backgroundColor: 'rgba(255, 255, 255, 0.92)',
+            backdropFilter: 'blur(8px)',
+            padding: '0.35rem',
+            borderRadius: '12px',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
+            border: '1px solid rgba(0,0,0,0.1)'
+          }}>
+            <button
+              type="button"
+              onClick={() => setMapMode('geoportail')}
+              style={{
+                padding: '0.4rem 0.75rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: mapMode === 'geoportail' ? 'var(--primary-color)' : 'transparent',
+                color: mapMode === 'geoportail' ? 'white' : '#334155',
+                fontSize: '0.78rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.3rem'
+              }}
+              title="Vue Géoportail (Satellite + Rues IGN + Cadastre DGFiP)"
+            >
+              🛰️ Géoportail
+            </button>
+            <button
+              type="button"
+              onClick={() => setMapMode('plan')}
+              style={{
+                padding: '0.4rem 0.75rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: mapMode === 'plan' ? 'var(--primary-color)' : 'transparent',
+                color: mapMode === 'plan' ? 'white' : '#334155',
+                fontSize: '0.78rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              title="Vue Plan Cadastral"
+            >
+              🗺️ Plan
+            </button>
+            <button
+              type="button"
+              onClick={() => setMapMode('satellite')}
+              style={{
+                padding: '0.4rem 0.75rem',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: mapMode === 'satellite' ? 'var(--primary-color)' : 'transparent',
+                color: mapMode === 'satellite' ? 'white' : '#334155',
+                fontSize: '0.78rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              title="Vue Satellite Pur"
+            >
+              🌍 Satellite
+            </button>
+          </div>
+
           <MapContainer 
             center={mapCenter} 
             zoom={zoomLevel} 
@@ -843,20 +919,85 @@ export default function SimulateurDivisionClient({ hideHeader = false, hideFoote
           >
             <ChangeView center={mapCenter} zoom={zoomLevel} bounds={parcelBounds} />
             <MapEventsHandler onMapClick={handleMapClick} />
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
-              maxZoom={22}
-              maxNativeZoom={20}
-            />
             
-            {/* Couche transparente officielle du cadastre (OpenStreetMap France) */}
-            <TileLayer
-              url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
-              tms={true}
-              opacity={0.6}
-              maxZoom={22}
-              maxNativeZoom={20}
-            />
+            {/* 🎯 Mode Géoportail (Par défaut) : Satellite Orthophoto + Noms des rues IGN + Cadastre DGFiP */}
+            {mapMode === 'geoportail' && (
+              <>
+                {/* 1. Carte Satellite Orthophoto en fond avec transparence/opacité */}
+                <TileLayer
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                  maxZoom={22}
+                  maxNativeZoom={19}
+                  opacity={0.88}
+                  attribution="Esri World Imagery / Orthophotos"
+                />
+
+                {/* 2. Couche Noms des Rues et axes de voirie IGN / CartoDB Overlay par-dessus */}
+                <TileLayer
+                  url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png"
+                  maxZoom={22}
+                  maxNativeZoom={20}
+                  subdomains="abcd"
+                  zIndex={500}
+                />
+
+                {/* 3. Couche Officielle Cadastre DGFiP / Parcellaire Express IGN par-dessus */}
+                <TileLayer
+                  url="https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=CADASTRALPARCELS.PARCELLAIRE_EXPRESS&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png"
+                  maxZoom={22}
+                  maxNativeZoom={20}
+                  opacity={0.85}
+                  zIndex={600}
+                />
+
+                {/* Couche transparente complémentaire OpenStreetMap Cadastre en superposition */}
+                <TileLayer
+                  url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
+                  tms={true}
+                  opacity={0.7}
+                  maxZoom={22}
+                  maxNativeZoom={20}
+                  zIndex={610}
+                />
+              </>
+            )}
+
+            {/* Mode Plan Standard Cadastral */}
+            {mapMode === 'plan' && (
+              <>
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
+                  maxZoom={22}
+                  maxNativeZoom={20}
+                />
+                <TileLayer
+                  url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
+                  tms={true}
+                  opacity={0.65}
+                  maxZoom={22}
+                  maxNativeZoom={20}
+                />
+              </>
+            )}
+
+            {/* Mode Satellite Pur */}
+            {mapMode === 'satellite' && (
+              <>
+                <TileLayer
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                  maxZoom={22}
+                  maxNativeZoom={19}
+                  opacity={1.0}
+                />
+                <TileLayer
+                  url="https://tms.cadastral.openstreetmap.fr/tms/1.0.0/parcel/{z}/{x}/{y}.png"
+                  tms={true}
+                  opacity={0.8}
+                  maxZoom={22}
+                  maxNativeZoom={20}
+                />
+              </>
+            )}
 
             {/* Rendu dynamique du GeoJSON de la parcelle sélectionnée */}
             {cadastreGeoJson && (

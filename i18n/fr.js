@@ -1227,7 +1227,7 @@ export const fr = {
     simulator_note: "⚠️ Cet outil est un simulateur fourni à titre indicatif uniquement. Pour des informations précises et juridiquement garanties sur votre parcelle, contactez URBATEAM."
   },
   division: {
-    title: "Simulateur de Division Foncière",
+    title: "Dessinez-nous votre projet",
     subtitle: "Divisez virtuellement votre terrain en direct : ajustez la ligne de coupe, vérifiez les contraintes géométriques et étudiez le potentiel constructible de vos parcelles.",
     search_address: "Saisir une adresse",
     search_info: "ℹ️ Saisissez votre terrain ou cliquez directement sur n'importe quelle parcelle de la carte interactive pour charger les contours.",

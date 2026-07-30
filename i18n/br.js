@@ -1460,7 +1460,7 @@ export const br = {
     "simulator_note": "⚠️ Ur simulatour eo an ostil-mañ roet evit titouroù hepken. Evit titouroù resis ha gwarezet el lezenn war ho tachenn, kit e darempred gant URBATEAM."
   },
   "division": {
-    "title": "Simulatour Rannañ Douar",
+    "title": "Tresit deomp ho raktres",
     "subtitle": "Rannit ho touar mod virjiel war-eeun : kempennit al linenn droc'hañ, gwiriit ar reolennoù topografek ha studiit ar barregezh sevel tiez.",
     "search_address": "Skrivañ un chomlec'h",
     "search_info": "ℹ️ Skrivit ho tachenn pe klikit war ur barcell war ar gartenn evit lakaat ar riblennoù da zont.",

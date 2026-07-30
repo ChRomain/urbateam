@@ -1460,7 +1460,7 @@ export const en = {
     "simulator_note": "⚠️ This tool is a simulator provided for informational purposes only. For precise and legally guaranteed information about your parcel, please contact URBATEAM."
   },
   "division": {
-    "title": "Land Division Simulator",
+    "title": "Draw us your project",
     "subtitle": "Virtually divide your land in real time: adjust the cut line, check geometric constraints, and study the building potential of your parcels.",
     "search_address": "Enter an address",
     "search_info": "ℹ️ Enter your land or click directly on any parcel of the interactive map to load boundaries.",
