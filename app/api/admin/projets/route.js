@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { getProjets, createItem, updateItem, deleteItem, uploadFile } from '../../../../lib/supabase';
+import { optimizeImageIfNeeded } from '../../../../lib/image-optimizer';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
 import fs from 'fs/promises';
 import path from 'path';
@@ -89,14 +90,16 @@ export async function POST(request) {
       date: new Date().toISOString()
     };
 
-    // Upload images if provided
+    // Upload images if provided (with automatic Sharp compression)
     if (beforeImage && typeof beforeImage !== 'string' && beforeImage.size > 0) {
-      const fileId = await uploadFile(beforeImage);
+      const optFile = await optimizeImageIfNeeded(beforeImage);
+      const fileId = await uploadFile(optFile);
       if (!fileId) throw new Error("Le téléversement de l'image 'Avant' a échoué.");
       itemData.image_before = fileId;
     }
     if (afterImage && typeof afterImage !== 'string' && afterImage.size > 0) {
-      const fileId = await uploadFile(afterImage);
+      const optFile = await optimizeImageIfNeeded(afterImage);
+      const fileId = await uploadFile(optFile);
       if (!fileId) throw new Error("Le téléversement de l'image 'Après' a échoué.");
       itemData.image_after = fileId;
     }
@@ -104,7 +107,8 @@ export async function POST(request) {
     const newGalleryIds = [];
     for (const file of galleryFiles) {
       if (file && typeof file !== 'string' && file.size > 0) {
-        const fileId = await uploadFile(file);
+        const optFile = await optimizeImageIfNeeded(file);
+        const fileId = await uploadFile(optFile);
         if (!fileId) throw new Error(`Le téléversement de l'image "${file.name}" de la galerie a échoué.`);
         newGalleryIds.push(fileId);
       }
