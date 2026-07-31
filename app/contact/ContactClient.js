@@ -143,7 +143,7 @@ export default function ContactClient() {
               {[
                 { label: t('contact.info.hours.mon'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
                 { label: t('contact.info.hours.tue'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
-                { label: t('contact.info.hours.wed'), closed: true },
+                { label: t('contact.info.hours.wed'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
                 { label: t('contact.info.hours.thu'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
                 { label: t('contact.info.hours.fri'), morning: '09:00 - 12:00', afternoon: '14:00 - 18:00' },
                 { label: t('contact.info.hours.sat'), closed: true },
