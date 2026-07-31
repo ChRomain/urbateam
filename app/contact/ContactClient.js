@@ -165,6 +165,66 @@ export default function ContactClient() {
               ))}
             </ul>
           </div>
+
+          {/* Banner / Encart pour "Dessinez-nous votre projet" */}
+          <div 
+            onClick={() => {
+              const el = document.getElementById('dessinez-projet-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            style={{
+              marginTop: '2.5rem',
+              padding: '1.4rem',
+              borderRadius: '16px',
+              backgroundColor: 'rgba(214, 185, 159, 0.14)',
+              border: '1.5px dashed rgba(214, 185, 159, 0.6)',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
+            }}
+            className="dessinez-banner"
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.6rem' }}>
+              <div style={{
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--primary-color)',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.1rem',
+                flexShrink: 0,
+                boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
+              }}>
+                ✏️
+              </div>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--secondary-color)', margin: 0 }}>
+                Dessinez-nous votre projet
+              </h3>
+            </div>
+            
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-light)', margin: '0 0 1rem 0', lineHeight: '1.5' }}>
+              Utilisez notre carte interactive pour simuler votre terrain et joindre votre dessin directement à votre message.
+            </p>
+
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '0.5rem', 
+              fontSize: '0.85rem', 
+              fontWeight: '700', 
+              color: 'var(--primary-color)',
+              padding: '0.4rem 0.9rem',
+              backgroundColor: 'white',
+              borderRadius: '20px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+            }}>
+              <span>Accéder à l'outil de dessin</span>
+              <span style={{ fontSize: '1.1rem', transition: 'transform 0.2s ease' }} className="arrow-down">↓</span>
+            </div>
+          </div>
         </MotionSection>
 
         {/* Contact Form */}
@@ -290,7 +350,7 @@ export default function ContactClient() {
       </div>
 
       {/* Section 2: Dessinez-nous votre projet */}
-      <MotionSection style={{ marginTop: '4rem' }}>
+      <MotionSection id="dessinez-projet-section" style={{ marginTop: '4rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('division.title')}</h2>
         <SimulateurDivisionClient 
           hideHeader={true} 
