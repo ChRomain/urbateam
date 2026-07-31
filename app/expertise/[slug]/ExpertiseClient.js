@@ -119,17 +119,11 @@ export default function ExpertiseClient({ slug }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
                       <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--accent-color, #10b981)', boxShadow: '0 0 10px var(--accent-color, #10b981)' }}></span>
                       <h4 style={{ color: 'white', margin: 0, fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                        {(() => {
-                          const val = t(`expertise.items.${slug}.badge_title`);
-                          return val && !val.startsWith('expertise.items.') ? val : slugImageMap[slug].badge;
-                        })()}
+                        {expertise.badge_title || slugImageMap[slug]?.badge}
                       </h4>
                     </div>
                     <p style={{ fontSize: '0.95rem', opacity: 0.9, maxWidth: '550px', margin: 0 }}>
-                      {(() => {
-                        const val = t(`expertise.items.${slug}.badge_desc`);
-                        return val && !val.startsWith('expertise.items.') ? val : slugImageMap[slug].desc;
-                      })()}
+                      {expertise.badge_desc || slugImageMap[slug]?.desc}
                     </p>
                   </div>
                 </div>
@@ -157,16 +151,10 @@ export default function ExpertiseClient({ slug }) {
 
             <div className="mt-4" style={{ marginTop: '4rem', padding: '3.5rem 3rem', backgroundColor: 'var(--beige)', borderRadius: 'var(--border-radius-lg)', color: 'var(--secondary-color)', boxShadow: 'var(--shadow-sm)' }}>
               <h3 style={{ color: 'var(--secondary-color)', fontSize: '1.8rem', fontWeight: '700', marginBottom: '1.2rem' }}>
-                {(() => {
-                  const val = t(`expertise.items.${slug}.why_title`);
-                  return val && !val.startsWith('expertise.items.') ? val : "Pourquoi choisir URBATEAM ?";
-                })()}
+                {expertise.why_title || "Pourquoi choisir URBATEAM ?"}
               </h3>
               <p style={{ color: 'var(--secondary-color)', fontSize: '1.05rem', lineHeight: '1.65', opacity: 0.95, marginBottom: '2rem' }}>
-                {(() => {
-                  const val = t(`expertise.items.${slug}.why_desc`);
-                  return val && !val.startsWith('expertise.items.') ? val : "Notre approche pluridisciplinaire nous permet d'appréhender chaque projet dans sa globalité. En tant que Géomètres-Experts, nous garantissons la sécurité juridique de vos fonciers tout en apportant une vision d'urbaniste et une rigueur d'ingénieur VRD.";
-                })()}
+                {expertise.why_desc || "Notre approche pluridisciplinaire nous permet d'appréhender chaque projet dans sa globalité. En tant que Géomètres-Experts, nous garantissons la sécurité juridique de vos fonciers tout en apportant une vision d'urbaniste et une rigueur d'ingénieur VRD."}
               </p>
               <Link 
                 href="/apropos" 
@@ -192,16 +180,10 @@ export default function ExpertiseClient({ slug }) {
       <section style={{ backgroundColor: 'var(--primary-color)', padding: '5rem 0', color: 'white' }}>
         <div className="container text-center">
           <h2 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2.2rem' }}>
-            {(() => {
-              const val = t(`expertise.items.${slug}.cta_page_title`);
-              return val && !val.startsWith('expertise.items.') ? val : `Un projet en ${expertise.title} ?`;
-            })()}
+            {expertise.cta_page_title || `Un projet en ${expertise.title} ?`}
           </h2>
           <p style={{ color: 'rgba(255, 255, 255, 0.95)', maxWidth: '700px', margin: '0 auto 2.5rem', fontSize: '1.1rem', lineHeight: '1.6' }}>
-            {(() => {
-              const val = t(`expertise.items.${slug}.cta_page_desc`);
-              return val && !val.startsWith('expertise.items.') ? val : "Nos experts basés à Saint-Renan et Douarnenez interviennent sur toute la Bretagne-Ouest pour vous conseiller.";
-            })()}
+            {expertise.cta_page_desc || "Nos experts basés à Saint-Renan et Douarnenez interviennent sur toute la Bretagne-Ouest pour vous conseiller."}
           </p>
           <Magnetic strength={0.2}>
             <Link href="/contact" style={{ 

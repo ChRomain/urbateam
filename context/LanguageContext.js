@@ -42,68 +42,94 @@ export function LanguageProvider({ children, defaultLanguage = 'fr', initialText
     window.location.href = targetPath + search;
   };
 
-  const t = (keypath) => {
-    // 1. Check custom overrides for the current language
-    if (customTexts[language] && customTexts[language][keypath] !== undefined && customTexts[language][keypath] !== null) {
-      const val = customTexts[language][keypath];
-      if (typeof val === 'string' && (val.trim().startsWith('[') || val.trim().startsWith('{'))) {
-        try {
-          return JSON.parse(val);
-        } catch (e) {
-          return val;
-        }
-      }
-      return val;
-    }
-
-    // 2. Fallback to French custom override if other language is missing
-    if (language !== 'fr') {
-      if (customTexts['fr'] && customTexts['fr'][keypath] !== undefined && customTexts['fr'][keypath] !== null) {
-        const val = customTexts['fr'][keypath];
-        if (typeof val === 'string' && (val.trim().startsWith('[') || val.trim().startsWith('{'))) {
-          try {
-            return JSON.parse(val);
-          } catch (e) {
-            return val;
-          }
-        }
+  const parseVal = (val) => {
+    if (typeof val === 'string' && (val.trim().startsWith('[') || val.trim().startsWith('{'))) {
+      try {
+        return JSON.parse(val);
+      } catch (e) {
         return val;
       }
     }
+    return val;
+  };
 
-    // 3. Fallback to static translation file
+  const getStaticTranslation = (lang, keypath) => {
     const keys = keypath.split('.');
-    let value = translations[language];
-    let found = true;
-    
+    let value = translations[lang];
     for (const key of keys) {
       if (value && value[key] !== undefined) {
         value = value[key];
       } else {
-        found = false;
-        break;
+        return undefined;
       }
     }
+    return value;
+  };
 
-    if (found) {
-      return value;
+  const setNestedProp = (obj, pathString, val) => {
+    const parts = pathString.split('.');
+    let curr = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+      const key = parts[i];
+      if (!curr[key] || typeof curr[key] !== 'object') {
+        curr[key] = {};
+      } else {
+        curr[key] = Array.isArray(curr[key]) ? [...curr[key]] : { ...curr[key] };
+      }
+      curr = curr[key];
+    }
+    const lastKey = parts[parts.length - 1];
+    curr[lastKey] = parseVal(val);
+  };
+
+  const t = (keypath) => {
+    // 1. Direct match in current language customTexts
+    if (customTexts[language] && customTexts[language][keypath] !== undefined && customTexts[language][keypath] !== null) {
+      return parseVal(customTexts[language][keypath]);
     }
 
-    // 4. Fallback to static French translation
-    if (language !== 'fr') {
-      let frValue = translations['fr'];
-      let frFound = true;
-      for (const key of keys) {
-        if (frValue && frValue[key] !== undefined) {
-          frValue = frValue[key];
-        } else {
-          frFound = false;
-          break;
+    // 2. Direct match in French customTexts fallback
+    if (language !== 'fr' && customTexts['fr'] && customTexts['fr'][keypath] !== undefined && customTexts['fr'][keypath] !== null) {
+      return parseVal(customTexts['fr'][keypath]);
+    }
+
+    // 3. Get static translation if available
+    let staticVal = getStaticTranslation(language, keypath);
+    if (staticVal === undefined && language !== 'fr') {
+      staticVal = getStaticTranslation('fr', keypath);
+    }
+
+    // 4. Check for subkey overrides in customTexts starting with keypath + '.'
+    const prefix = keypath + '.';
+    const langCustom = customTexts[language] || {};
+    const frCustom = customTexts['fr'] || {};
+
+    const matchingKeys = new Set([
+      ...Object.keys(langCustom).filter(k => k.startsWith(prefix)),
+      ...Object.keys(frCustom).filter(k => k.startsWith(prefix))
+    ]);
+
+    if (matchingKeys.size > 0) {
+      let result = staticVal !== undefined && typeof staticVal === 'object' && staticVal !== null
+        ? (Array.isArray(staticVal) ? [...staticVal] : { ...staticVal })
+        : {};
+
+      matchingKeys.forEach(fullKey => {
+        const subPath = fullKey.slice(prefix.length);
+        const val = langCustom[fullKey] !== undefined && langCustom[fullKey] !== null
+          ? langCustom[fullKey]
+          : frCustom[fullKey];
+
+        if (val !== undefined && val !== null) {
+          setNestedProp(result, subPath, val);
         }
-      }
-      if (frFound) {
-        return frValue;
-      }
+      });
+
+      return result;
+    }
+
+    if (staticVal !== undefined) {
+      return staticVal;
     }
 
     return keypath; // Fallback to key name

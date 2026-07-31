@@ -49,4 +49,31 @@ describe('LanguageContext', () => {
     );
     expect(screen.getByTestId('trans')).toHaveTextContent('non.existent.key');
   });
+
+  it('should merge subkeys from initialTexts when requesting object translation like expertise.items.bornage', () => {
+    const initialTexts = [
+      { key: 'expertise.items.bornage.title', fr: 'Titre Modifié Bornage', en: 'Custom Bornage Title', br: '' },
+      { key: 'expertise.items.bornage.desc', fr: 'Description Modifiée', en: 'Custom Desc', br: '' }
+    ];
+
+    const ObjectTestComponent = () => {
+      const { t } = useLanguage();
+      const obj = t('expertise.items.bornage');
+      return (
+        <div>
+          <span data-testid="obj-title">{obj.title}</span>
+          <span data-testid="obj-desc">{obj.desc}</span>
+        </div>
+      );
+    };
+
+    render(
+      <LanguageProvider initialTexts={initialTexts}>
+        <ObjectTestComponent />
+      </LanguageProvider>
+    );
+
+    expect(screen.getByTestId('obj-title')).toHaveTextContent('Titre Modifié Bornage');
+    expect(screen.getByTestId('obj-desc')).toHaveTextContent('Description Modifiée');
+  });
 });

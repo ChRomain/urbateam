@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { supabaseAdmin } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
 
@@ -50,6 +51,12 @@ export async function POST(request) {
 
     if (error) throw error;
 
+    try {
+      revalidatePath('/', 'layout');
+    } catch (e) {
+      console.warn('Revalidation warning:', e.message);
+    }
+
     return NextResponse.json({ success: true, text: data?.[0] });
   } catch (error) {
     console.error('Failed to update site text:', error);
@@ -75,6 +82,12 @@ export async function DELETE(request) {
       .eq('key', key);
 
     if (error) throw error;
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (e) {
+      console.warn('Revalidation warning:', e.message);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
