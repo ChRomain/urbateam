@@ -201,11 +201,11 @@ export default function ProjetDetailClient({ project }) {
               </div>
             )}
 
-            {/* Google Photos Style Masonry Gallery */}
+            {/* Google Photos Style Compact Gallery */}
             {galleryImages.length > 0 && (
               <div style={{ marginBottom: '4rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--secondary-color)', margin: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <h3 style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--secondary-color)', margin: 0 }}>
                     Galerie Photos ({galleryImages.length})
                   </h3>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontWeight: '500' }}>
@@ -215,29 +215,31 @@ export default function ProjetDetailClient({ project }) {
 
                 <div 
                   style={{ 
-                    columnCount: galleryImages.length === 1 ? 1 : galleryImages.length === 2 ? 2 : 3,
-                    columnGap: '1.25rem'
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
+                    gap: '1rem'
                   }}
                   className="google-photos-grid"
                 >
                   {galleryImages.map((img, idx) => (
                     <motion.div 
                       key={idx} 
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.03 }}
                       transition={{ duration: 0.2 }}
                       onClick={() => setLightboxIndex(idx)}
                       style={{ 
-                        breakInside: 'avoid',
-                        marginBottom: '1.25rem',
-                        borderRadius: '16px', 
+                        height: '160px',
+                        borderRadius: '14px', 
                         overflow: 'hidden', 
                         position: 'relative',
                         cursor: 'pointer',
-                        backgroundColor: '#f8fafc',
+                        backgroundColor: '#f1f5f9',
                         border: '1px solid rgba(0, 0, 0, 0.08)',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                        display: 'inline-block',
-                        width: '100%'
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.04)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '6px'
                       }}
                       className="photo-card"
                     >
@@ -245,10 +247,10 @@ export default function ProjetDetailClient({ project }) {
                         src={img} 
                         alt={`Photo ${idx + 1} - ${project.title}`} 
                         style={{ 
-                          width: '100%', 
-                          height: 'auto', 
-                          display: 'block', 
-                          borderRadius: '16px' 
+                          maxWidth: '100%', 
+                          maxHeight: '100%', 
+                          objectFit: 'contain',
+                          borderRadius: '8px'
                         }} 
                       />
                       <div 
@@ -256,29 +258,29 @@ export default function ProjetDetailClient({ project }) {
                         style={{
                           position: 'absolute',
                           inset: 0,
-                          background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)',
+                          background: 'rgba(0, 0, 0, 0.35)',
                           opacity: 0,
-                          transition: 'opacity 0.25s ease',
+                          transition: 'opacity 0.2s ease',
                           display: 'flex',
-                          alignItems: 'flex-end',
-                          justifyContent: 'flex-end',
-                          padding: '1rem'
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '0.5rem',
+                          borderRadius: '14px'
                         }}
                       >
                         <div style={{
                           backgroundColor: 'rgba(255, 255, 255, 0.95)',
                           color: 'var(--secondary-color)',
-                          padding: '0.4rem 0.8rem',
+                          padding: '0.35rem 0.75rem',
                           borderRadius: '20px',
-                          fontSize: '0.8rem',
+                          fontSize: '0.75rem',
                           fontWeight: '700',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '0.4rem',
-                          backdropFilter: 'blur(4px)',
+                          gap: '0.35rem',
                           boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                         }}>
-                          <Maximize2 size={14} /> Plein format
+                          <Maximize2 size={13} /> Agrandir
                         </div>
                       </div>
                     </motion.div>
