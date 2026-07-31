@@ -9,20 +9,39 @@ const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapCo
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
-const Tooltip = dynamic(() => import('react-leaflet').then(mod => mod.Tooltip), { ssr: false });
 const MarkerClusterGroup = dynamic(() => import('react-leaflet-cluster'), { ssr: false });
 
-function ProjectMarker({ project, index, createRedPinIcon }) {
+function ProjectMarker({ project, index, createRedPinIcon, leafletMap }) {
   const markerRef = useRef(null);
   const timerRef = useRef(null);
+  const [popupOffset, setPopupOffset] = useState([0, -20]);
+  const [isTopPin, setIsTopPin] = useState(false);
 
   const handleMouseEnter = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    if (markerRef.current && !markerRef.current.isPopupOpen()) {
-      markerRef.current.openPopup();
+
+    if (markerRef.current) {
+      if (leafletMap) {
+        try {
+          const latLng = markerRef.current.getLatLng();
+          const point = leafletMap.latLngToContainerPoint(latLng);
+          // Si le pin est proche du bord supérieur (< 140px de la limite haute)
+          if (point && point.y < 140) {
+            setPopupOffset([0, 45]); // Affiche l'infobulle SOUS le pin
+            setIsTopPin(true);
+          } else {
+            setPopupOffset([0, -20]); // Affiche l'infobulle AU-DESSUS du pin
+            setIsTopPin(false);
+          }
+        } catch (e) {}
+      }
+
+      if (!markerRef.current.isPopupOpen()) {
+        markerRef.current.openPopup();
+      }
     }
   };
 
@@ -48,7 +67,13 @@ function ProjectMarker({ project, index, createRedPinIcon }) {
         }
       }}
     >
-      <Popup closeButton={false} autoPan={false} offset={[0, -20]}>
+      <Popup 
+        closeButton={false} 
+        autoPan={true}
+        autoPanPadding={[40, 40]}
+        offset={popupOffset}
+        className={isTopPin ? 'top-pin-popup' : 'normal-pin-popup'}
+      >
         <div 
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -77,11 +102,11 @@ function ProjectMarker({ project, index, createRedPinIcon }) {
 
 export default function ProjectsMap({ projects = [] }) {
   const [L, setL] = useState(null);
+  const [leafletMap, setLeafletMap] = useState(null);
 
   useEffect(() => {
     // Charger Leaflet côté client
     import('leaflet').then(leaf => {
-      // Fix pour les icônes par défaut qui ne s'affichent pas dans Next.js
       delete leaf.Icon.Default.prototype._getIconUrl;
       leaf.Icon.Default.mergeOptions({
         iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
@@ -94,10 +119,7 @@ export default function ProjectsMap({ projects = [] }) {
 
   if (!L) return <div style={{ height: '400px', backgroundColor: '#f1f5f9', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Chargement de la carte...</div>;
 
-  // Filtrer les projets qui ont des coordonnées
   const mapProjects = projects.filter(p => p.latitude && p.longitude);
-
-  // Centre par défaut (recentré encore plus vers l'Est pour éliminer la dominance de l'océan)
   const center = [48.15, -3.10];
 
   const createRedPinIcon = (index) => {
@@ -153,6 +175,15 @@ export default function ProjectsMap({ projects = [] }) {
           padding: 4px !important;
           position: relative !important;
         }
+        .top-pin-popup .leaflet-popup-tip-container {
+          top: -20px !important;
+          bottom: auto !important;
+          transform: rotate(180deg) !important;
+        }
+        .top-pin-popup .leaflet-popup-content-wrapper::after {
+          top: -20px !important;
+          bottom: auto !important;
+        }
         .leaflet-popup-content-wrapper::after {
           content: '';
           position: absolute;
@@ -187,7 +218,14 @@ export default function ProjectsMap({ projects = [] }) {
           }
         }
       `}</style>
-      <MapContainer center={center} zoom={8} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false} attributionControl={false}>
+      <MapContainer 
+        ref={setLeafletMap} 
+        center={center} 
+        zoom={8} 
+        style={{ height: '100%', width: '100%' }} 
+        scrollWheelZoom={false} 
+        attributionControl={false}
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
@@ -198,6 +236,7 @@ export default function ProjectsMap({ projects = [] }) {
               project={project} 
               index={index} 
               createRedPinIcon={createRedPinIcon} 
+              leafletMap={leafletMap}
             />
           ))}
         </MarkerClusterGroup>
