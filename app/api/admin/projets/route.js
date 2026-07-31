@@ -207,7 +207,7 @@ export async function DELETE(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     const { id } = await request.json();
-    if (!id) return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    if (!id && id !== 0) return NextResponse.json({ error: 'ID is required' }, { status: 400 });
 
     const success = await deleteItem('projets', id);
 
@@ -216,14 +216,22 @@ export async function DELETE(request) {
       const jsonPath = path.join(process.cwd(), 'public', 'data', 'projets.json');
       const fileContent = await fs.readFile(jsonPath, 'utf8');
       const fileItems = JSON.parse(fileContent);
-      const filtered = fileItems.filter(p => p.id !== id);
+      const filtered = fileItems.filter(p => String(p.id) !== String(id) && p.slug !== String(id));
       await fs.writeFile(jsonPath, JSON.stringify(filtered, null, 2), 'utf8');
     } catch (fsErr) {
       console.warn('[Project API DELETE File Sync Error]:', fsErr?.message);
     }
 
-    return NextResponse.json({ success: true });
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/projets');
+    } catch (e) {
+      console.warn('[Project API DELETE Revalidation warning]:', e?.message);
+    }
+
+    return NextResponse.json({ success: true, deleted: success });
   } catch (error) {
+    console.error('[Project API DELETE Error]:', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
