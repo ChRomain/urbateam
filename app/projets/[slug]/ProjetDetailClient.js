@@ -201,45 +201,45 @@ export default function ProjetDetailClient({ project }) {
               </div>
             )}
 
-            {/* Google Photos Style Compact Gallery */}
+            {/* Google Photos Style Gallery (Large Cards) */}
             {galleryImages.length > 0 && (
               <div style={{ marginBottom: '4rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--secondary-color)', margin: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--secondary-color)', margin: 0 }}>
                     Galerie Photos ({galleryImages.length})
                   </h3>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontWeight: '500' }}>
-                    Cliquez sur une photo pour l'afficher en grand
+                    Cliquez sur une photo pour l'afficher en plein écran
                   </span>
                 </div>
 
                 <div 
                   style={{ 
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
-                    gap: '1rem'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                    gap: '1.25rem'
                   }}
                   className="google-photos-grid"
                 >
                   {galleryImages.map((img, idx) => (
                     <motion.div 
                       key={idx} 
-                      whileHover={{ scale: 1.03 }}
+                      whileHover={{ scale: 1.025 }}
                       transition={{ duration: 0.2 }}
                       onClick={() => setLightboxIndex(idx)}
                       style={{ 
-                        height: '160px',
-                        borderRadius: '14px', 
+                        height: '240px',
+                        borderRadius: '16px', 
                         overflow: 'hidden', 
                         position: 'relative',
                         cursor: 'pointer',
-                        backgroundColor: '#f1f5f9',
+                        backgroundColor: '#f8fafc',
                         border: '1px solid rgba(0, 0, 0, 0.08)',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.04)',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '6px'
+                        padding: '8px'
                       }}
                       className="photo-card"
                     >
@@ -250,7 +250,7 @@ export default function ProjetDetailClient({ project }) {
                           maxWidth: '100%', 
                           maxHeight: '100%', 
                           objectFit: 'contain',
-                          borderRadius: '8px'
+                          borderRadius: '10px'
                         }} 
                       />
                       <div 
@@ -265,22 +265,22 @@ export default function ProjetDetailClient({ project }) {
                           alignItems: 'center',
                           justifyContent: 'center',
                           padding: '0.5rem',
-                          borderRadius: '14px'
+                          borderRadius: '16px'
                         }}
                       >
                         <div style={{
                           backgroundColor: 'rgba(255, 255, 255, 0.95)',
                           color: 'var(--secondary-color)',
-                          padding: '0.35rem 0.75rem',
+                          padding: '0.4rem 0.9rem',
                           borderRadius: '20px',
-                          fontSize: '0.75rem',
+                          fontSize: '0.8rem',
                           fontWeight: '700',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '0.35rem',
+                          gap: '0.4rem',
                           boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                         }}>
-                          <Maximize2 size={13} /> Agrandir
+                          <Maximize2 size={14} /> Agrandir
                         </div>
                       </div>
                     </motion.div>
