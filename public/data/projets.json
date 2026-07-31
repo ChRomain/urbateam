@@ -1,55 +1,5 @@
 [
   {
-    "id": 4,
-    "status": "published",
-    "title": "",
-    "slug": "",
-    "category": "Test",
-    "subcategory": "Test",
-    "client": "",
-    "description": "",
-    "location": "",
-    "technical_details": "",
-    "latitude": null,
-    "longitude": null,
-    "missions": [],
-    "date": "2026-07-30T21:07:22.039Z"
-  },
-  {
-    "id": 3,
-    "status": "published",
-    "title": "Romain",
-    "slug": "romain",
-    "category": "Test",
-    "subcategory": "RomainSousCat",
-    "client": "",
-    "description": "aaaaaa",
-    "location": "Saint-Renan (29)",
-    "technical_details": "",
-    "latitude": null,
-    "longitude": null,
-    "missions": [],
-    "date": "2026-07-30T21:04:38.519Z"
-  },
-  {
-    "id": 2,
-    "status": "published",
-    "title": "Test",
-    "slug": "test",
-    "category": "Test",
-    "subcategory": "TesTest",
-    "client": "Test",
-    "description": "Test",
-    "location": "Saint-Renan (29)",
-    "technical_details": "",
-    "latitude": null,
-    "longitude": null,
-    "missions": [
-      "Test"
-    ],
-    "date": "2026-07-30T21:01:30.944Z"
-  },
-  {
     "id": "1714526000000",
     "slug": "eco-quartier-de-la-vallee",
     "title": "Éco-quartier de la Vallée",

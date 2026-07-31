@@ -324,6 +324,9 @@ export default function ProjetsManager({ role }) {
   const handleDelete = async (id) => {
     if (!confirm('Voulez-vous vraiment supprimer cette réalisation ?')) return;
 
+    // Mise à jour optimiste immédiate de l'interface
+    setProjets(prev => prev.filter(p => String(p.id) !== String(id) && p.slug !== String(id)));
+
     try {
       const res = await fetch('/api/admin/projets', {
         method: 'DELETE',
@@ -331,12 +334,18 @@ export default function ProjetsManager({ role }) {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      if (res.ok) {
+      const result = await res.json();
+      if (res.ok && result.success) {
         showToast('Réalisation supprimée', 'info');
+        fetchProjets();
+      } else {
+        showToast(result.error || 'Erreur lors de la suppression', 'error');
         fetchProjets();
       }
     } catch (error) {
       console.error('Delete error:', error);
+      showToast('Erreur de connexion lors de la suppression', 'error');
+      fetchProjets();
     }
   };
 
