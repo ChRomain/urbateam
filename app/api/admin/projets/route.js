@@ -1,8 +1,21 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getProjets, createItem, updateItem, deleteItem, uploadFile } from '../../../../lib/supabase';
 import { verifyAdminSession } from '../../../../lib/auth-helper';
 import fs from 'fs/promises';
 import path from 'path';
+
+function extractAssetId(str) {
+  if (!str) return '';
+  if (typeof str !== 'string') return str;
+  if (str.includes('/storage/v1/object/public/urbateam-media/')) {
+    return str.split('/storage/v1/object/public/urbateam-media/')[1];
+  }
+  if (str.includes('/storage/v1/render/image/public/urbateam-media/')) {
+    return str.split('/storage/v1/render/image/public/urbateam-media/')[1].split('?')[0];
+  }
+  return str;
+}
 
 export async function GET(request) {
   try {
@@ -41,6 +54,19 @@ export async function POST(request) {
     const afterImage = formData.get('afterImage');
     const galleryFiles = formData.getAll('gallery');
     const documentFiles = formData.getAll('documents');
+    const existingGalleryRaw = formData.get('existingGallery');
+
+    let existingGallery = [];
+    if (existingGalleryRaw) {
+      try {
+        const parsed = JSON.parse(existingGalleryRaw);
+        if (Array.isArray(parsed)) {
+          existingGallery = parsed.map(extractAssetId).filter(Boolean);
+        }
+      } catch (e) {
+        existingGallery = [];
+      }
+    }
 
     const slug = title.toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -75,17 +101,19 @@ export async function POST(request) {
       itemData.image_after = fileId;
     }
 
-    const galleryIds = [];
+    const newGalleryIds = [];
     for (const file of galleryFiles) {
       if (file && typeof file !== 'string' && file.size > 0) {
         const fileId = await uploadFile(file);
         if (!fileId) throw new Error(`Le téléversement de l'image "${file.name}" de la galerie a échoué.`);
-        galleryIds.push(fileId);
+        newGalleryIds.push(fileId);
       }
     }
-    
-    if (galleryIds.length > 0) {
-      itemData.images_gallery = galleryIds;
+
+    if (id) {
+      itemData.images_gallery = [...existingGallery, ...newGalleryIds];
+    } else if (newGalleryIds.length > 0) {
+      itemData.images_gallery = newGalleryIds;
     }
 
     const documentsList = [];
@@ -156,6 +184,13 @@ export async function POST(request) {
       await fs.writeFile(jsonPath, JSON.stringify(fileItems, null, 2), 'utf8');
     } catch (fsErr) {
       console.warn('[Project API] Local file sync skipped:', fsErr?.message);
+    }
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/projets');
+    } catch (e) {
+      console.warn('[Project API] Revalidation warning:', e?.message);
     }
 
     return NextResponse.json({ success: true, project: result });

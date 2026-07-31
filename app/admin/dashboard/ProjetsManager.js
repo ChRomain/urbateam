@@ -110,6 +110,12 @@ export default function ProjetsManager({ role }) {
     missions: ''
   });
 
+  const [existingGallery, setExistingGallery] = useState([]);
+
+  const handleRemoveExistingPhoto = (index) => {
+    setExistingGallery(prev => prev.filter((_, i) => i !== index));
+  };
+
   useEffect(() => {
     fetchProjets();
   }, []);
@@ -301,6 +307,7 @@ export default function ProjetsManager({ role }) {
           setCustomSubcategory('');
         }
         setEditingProject(null);
+        setExistingGallery([]);
         fetchProjets();
       } else {
         setMessage({ type: 'error', text: result.message || 'Une erreur est survenue' });
@@ -335,11 +342,21 @@ export default function ProjetsManager({ role }) {
 
   const handleEdit = (project) => {
     setEditingProject(project);
+    setExistingGallery(project.images_gallery || []);
+    setFormState({
+      title: project.title || '',
+      location: project.location || '',
+      description: project.description || '',
+      missions: Array.isArray(project.missions) ? project.missions.join(', ') : (project.missions || '')
+    });
+    setSelectedCategory(project.category || 'Urbanisme & Paysage');
+    setSelectedSubcategory(project.subcategory || '');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCancel = () => {
     setEditingProject(null);
+    setExistingGallery([]);
     setMessage({ type: '', text: '' });
     setFormState({ title: '', location: '', description: '', missions: '' });
     setSelectedCategory('Urbanisme & Paysage');
@@ -613,7 +630,51 @@ export default function ProjetsManager({ role }) {
               </div>
 
               <div className="form-group">
-                <label style={{ fontSize: '0.9rem', color: colors.textMuted, fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>Galerie Photos (Plusieurs fichiers possibles)</label>
+                <label style={{ fontSize: '0.9rem', color: colors.textMuted, fontWeight: '600', marginBottom: '0.5rem', display: 'block' }}>
+                  Galerie Photos (Sélectionnez de nouvelles images à ajouter)
+                </label>
+                
+                {existingGallery.length > 0 && (
+                  <div style={{ marginBottom: '0.8rem', backgroundColor: darkMode ? 'rgba(0,0,0,0.2)' : '#f8fafc', padding: '0.8rem', borderRadius: '10px', border: `1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : '#e2e8f0'}` }}>
+                    <span style={{ fontSize: '0.8rem', fontWeight: '700', color: colors.text, display: 'block', marginBottom: '0.5rem' }}>
+                      Photos déjà présentes ({existingGallery.length}) :
+                    </span>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+                      {existingGallery.map((img, idx) => (
+                        <div key={idx} style={{ position: 'relative', width: '65px', height: '65px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #cbd5e1' }}>
+                          <img src={img} alt={`Photo ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveExistingPhoto(idx)}
+                            title="Supprimer cette photo"
+                            style={{
+                              position: 'absolute',
+                              top: '2px',
+                              right: '2px',
+                              backgroundColor: '#ef4444',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '50%',
+                              width: '20px',
+                              height: '20px',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '12px',
+                              fontWeight: 'bold',
+                              lineHeight: '1'
+                            }}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <input type="hidden" name="existingGallery" value={JSON.stringify(existingGallery)} />
                 <input name="gallery" type="file" accept="image/*" multiple style={{ fontSize: '0.8rem', width: '100%', color: colors.text }} />
               </div>
               
