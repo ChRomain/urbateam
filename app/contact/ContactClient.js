@@ -350,7 +350,7 @@ export default function ContactClient() {
       </div>
 
       {/* Section 2: Dessinez-nous votre projet */}
-      <MotionSection id="dessinez-projet-section" style={{ marginTop: '4rem' }}>
+      <MotionSection id="dessinez-projet-section" style={{ marginTop: '4rem', scrollMarginTop: '100px' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>{t('division.title')}</h2>
         <SimulateurDivisionClient 
           hideHeader={true} 

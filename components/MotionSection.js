@@ -2,15 +2,17 @@
 
 import { motion } from 'framer-motion';
 
-export default function MotionSection({ children, delay = 0, className = "", style = {} }) {
+export default function MotionSection({ children, delay = 0, className = "", style = {}, id, ...props }) {
   return (
     <motion.section
+      id={id}
       className={className}
       style={style}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay }}
+      {...props}
     >
       {children}
     </motion.section>
