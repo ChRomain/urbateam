@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import PageHeader from '../../../components/PageHeader';
 import MotionSection from '../../../components/MotionSection';
 import GlassCard from '../../../components/GlassCard';
 import { useLanguage } from '../../../context/LanguageContext';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { FileText, Download } from 'lucide-react';
+import { FileText, Download, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
 function renderMarkdown(text) {
   if (!text) return '';
@@ -86,9 +86,32 @@ function renderMarkdown(text) {
 export default function ProjetDetailClient({ project }) {
   const { t } = useLanguage();
   const [sliderPos, setSliderPos] = useState(50);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const galleryImages = project?.images_gallery || [];
+
+  const handlePrev = useCallback(() => {
+    if (lightboxIndex === null || galleryImages.length === 0) return;
+    setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  }, [lightboxIndex, galleryImages.length]);
+
+  const handleNext = useCallback(() => {
+    if (lightboxIndex === null || galleryImages.length === 0) return;
+    setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+  }, [lightboxIndex, galleryImages.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'Escape') setLightboxIndex(null);
+      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'ArrowRight') handleNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, handlePrev, handleNext]);
 
   if (!project) return <div className="container py-section text-center"><h2>Projet non trouvé</h2></div>;
-
 
   return (
     <div className="container py-section">
@@ -101,7 +124,7 @@ export default function ProjetDetailClient({ project }) {
 
       <PageHeader 
         title={project.title} 
-        subtitle={project.category.charAt(0).toUpperCase() + project.category.slice(1)}
+        subtitle={project.category ? (project.category.charAt(0).toUpperCase() + project.category.slice(1)) : ''}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3" style={{ gap: '3rem', marginTop: '4rem' }}>
@@ -178,18 +201,86 @@ export default function ProjetDetailClient({ project }) {
               </div>
             )}
 
-            {/* Gallery */}
-            {project.images_gallery && project.images_gallery.length > 0 && (
-              <div>
-                <h3 style={{ marginBottom: '1.5rem' }}>Galerie Photos</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: '1rem' }}>
-                  {project.images_gallery.map((img, idx) => (
+            {/* Google Photos Style Masonry Gallery */}
+            {galleryImages.length > 0 && (
+              <div style={{ marginBottom: '4rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--secondary-color)', margin: 0 }}>
+                    Galerie Photos ({galleryImages.length})
+                  </h3>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-light)', fontWeight: '500' }}>
+                    Cliquez sur une photo pour l'afficher en grand
+                  </span>
+                </div>
+
+                <div 
+                  style={{ 
+                    columnCount: galleryImages.length === 1 ? 1 : galleryImages.length === 2 ? 2 : 3,
+                    columnGap: '1.25rem'
+                  }}
+                  className="google-photos-grid"
+                >
+                  {galleryImages.map((img, idx) => (
                     <motion.div 
                       key={idx} 
                       whileHover={{ scale: 1.02 }}
-                      style={{ borderRadius: '12px', overflow: 'hidden', height: '200px' }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => setLightboxIndex(idx)}
+                      style={{ 
+                        breakInside: 'avoid',
+                        marginBottom: '1.25rem',
+                        borderRadius: '16px', 
+                        overflow: 'hidden', 
+                        position: 'relative',
+                        cursor: 'pointer',
+                        backgroundColor: '#f8fafc',
+                        border: '1px solid rgba(0, 0, 0, 0.08)',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                        display: 'inline-block',
+                        width: '100%'
+                      }}
+                      className="photo-card"
                     >
-                      <img src={img} alt={`Gallery ${idx}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img 
+                        src={img} 
+                        alt={`Photo ${idx + 1} - ${project.title}`} 
+                        style={{ 
+                          width: '100%', 
+                          height: 'auto', 
+                          display: 'block', 
+                          borderRadius: '16px' 
+                        }} 
+                      />
+                      <div 
+                        className="photo-overlay" 
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)',
+                          opacity: 0,
+                          transition: 'opacity 0.25s ease',
+                          display: 'flex',
+                          alignItems: 'flex-end',
+                          justifyContent: 'flex-end',
+                          padding: '1rem'
+                        }}
+                      >
+                        <div style={{
+                          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                          color: 'var(--secondary-color)',
+                          padding: '0.4rem 0.8rem',
+                          borderRadius: '20px',
+                          fontSize: '0.8rem',
+                          fontWeight: '700',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.4rem',
+                          backdropFilter: 'blur(4px)',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                        }}>
+                          <Maximize2 size={14} /> Plein format
+                        </div>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -221,16 +312,18 @@ export default function ProjetDetailClient({ project }) {
                 </div>
               )}
 
-              <div>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', fontWeight: '700', display: 'block', marginBottom: '0.5rem' }}>Missions réalisées</span>
-                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {project.missions.map((mission, idx) => (
-                    <li key={idx} style={{ fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ color: 'var(--primary-color)' }}>✓</span> {mission}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {project.missions && project.missions.length > 0 && (
+                <div>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-light)', textTransform: 'uppercase', fontWeight: '700', display: 'block', marginBottom: '0.5rem' }}>Missions réalisées</span>
+                  <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    {project.missions.map((mission, idx) => (
+                      <li key={idx} style={{ fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ color: 'var(--primary-color)' }}>✓</span> {mission}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {project.documents && project.documents.length > 0 && (
                 <div>
@@ -287,6 +380,186 @@ export default function ProjetDetailClient({ project }) {
           </GlassCard>
         </div>
       </div>
+
+      {/* Full-screen Lightbox Modal (Google Photos Mode) */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 99999,
+              backgroundColor: 'rgba(0, 0, 0, 0.94)',
+              backdropFilter: 'blur(16px)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              padding: '1.5rem',
+              userSelect: 'none'
+            }}
+            onClick={() => setLightboxIndex(null)}
+          >
+            {/* Lightbox Header */}
+            <div 
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'white', zIndex: 10 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span style={{ fontSize: '0.95rem', fontWeight: '600', opacity: 0.8, letterSpacing: '0.5px' }}>
+                {project.title} &bull; Photo {lightboxIndex + 1} / {galleryImages.length}
+              </span>
+              <button
+                onClick={() => setLightboxIndex(null)}
+                aria-label="Fermer"
+                style={{
+                  border: 'none',
+                  background: 'rgba(255, 255, 255, 0.15)',
+                  color: 'white',
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)'}
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* Main Image Viewer */}
+            <div 
+              style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', margin: '1rem 0' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Previous Button */}
+              {galleryImages.length > 1 && (
+                <button
+                  onClick={handlePrev}
+                  aria-label="Photo précédente"
+                  style={{
+                    position: 'absolute',
+                    left: '1rem',
+                    border: 'none',
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    color: 'white',
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 20,
+                    transition: 'all 0.2s ease',
+                    backdropFilter: 'blur(8px)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.35)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)'}
+                >
+                  <ChevronLeft size={28} />
+                </button>
+              )}
+
+              {/* Active Full-Frame Image */}
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={lightboxIndex}
+                  src={galleryImages[lightboxIndex]}
+                  alt={`Photo ${lightboxIndex + 1}`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    maxHeight: '75vh',
+                    maxWidth: '85vw',
+                    objectFit: 'contain',
+                    borderRadius: '12px',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
+                  }}
+                />
+              </AnimatePresence>
+
+              {/* Next Button */}
+              {galleryImages.length > 1 && (
+                <button
+                  onClick={handleNext}
+                  aria-label="Photo suivante"
+                  style={{
+                    position: 'absolute',
+                    right: '1rem',
+                    border: 'none',
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    color: 'white',
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 20,
+                    transition: 'all 0.2s ease',
+                    backdropFilter: 'blur(8px)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.35)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)'}
+                >
+                  <ChevronRight size={28} />
+                </button>
+              )}
+            </div>
+
+            {/* Bottom Thumbnail Bar */}
+            {galleryImages.length > 1 && (
+              <div 
+                style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', overflowX: 'auto', padding: '0.5rem 0' }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {galleryImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setLightboxIndex(idx)}
+                    style={{
+                      border: idx === lightboxIndex ? '2px solid white' : '2px solid transparent',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      width: '60px',
+                      height: '42px',
+                      padding: 0,
+                      background: 'none',
+                      cursor: 'pointer',
+                      opacity: idx === lightboxIndex ? 1 : 0.5,
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <img src={img} alt={`Vignette ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        .photo-card:hover .photo-overlay {
+          opacity: 1 !important;
+        }
+        @media (max-width: 768px) {
+          .google-photos-grid {
+            column-count: 1 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
