@@ -79,6 +79,7 @@ export default async function RootLayout({ children }) {
   const headersList = await headers();
   const lang = headersList.get('x-locale') || 'fr';
   const pathname = headersList.get('x-pathname') || '/';
+  const isMinimalLayout = pathname.startsWith('/en-construction') || pathname.startsWith('/admin');
 
   const siteTexts = await getSiteTexts();
 
@@ -102,8 +103,6 @@ export default async function RootLayout({ children }) {
         <link rel="alternate" hrefLang="x-default" href={frUrl} />
 
         {/* DNS & Connection Optimization */}
-        {/* Note : Google Fonts n'est plus utilisé ici — next/font auto-héberge les polices */}
-        {/* On préconnecte uniquement aux domaines tiers réellement utilisés à l'écran */}
         <link rel="preconnect" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://www.google.com" />
 
@@ -227,17 +226,17 @@ export default async function RootLayout({ children }) {
       </head>
       <body className={`${montserrat.variable} ${righteous.variable}`}>
         <LanguageProvider defaultLanguage={lang} initialTexts={siteTexts}>
-          <ScrollProgress key="scroll-progress" />
-          <BackToTop key="back-to-top" />
-          <CookieBanner key="cookie-banner" />
-          <StatsTracker key="stats-tracker" />
-          <Header key="header" />
-          <GlossaryTooltip key="glossary-tooltip" />
+          {!isMinimalLayout && <ScrollProgress key="scroll-progress" />}
+          {!isMinimalLayout && <BackToTop key="back-to-top" />}
+          {!isMinimalLayout && <CookieBanner key="cookie-banner" />}
+          {!isMinimalLayout && <StatsTracker key="stats-tracker" />}
+          {!isMinimalLayout && <Header key="header" />}
+          {!isMinimalLayout && <GlossaryTooltip key="glossary-tooltip" />}
 
           <main id="main-content" key="main-content">
             {children}
           </main>
-          <Footer key="footer" />
+          {!isMinimalLayout && <Footer key="footer" />}
         </LanguageProvider>
       </body>
     </html>
