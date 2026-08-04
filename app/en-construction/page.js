@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 export const metadata = {
   title: 'URBATEAM | Site en construction',
@@ -58,9 +57,6 @@ export default function EnConstructionPage() {
           <a href="mailto:contact@urbateam.fr" style={styles.primaryBtn}>
             ✉️ Nous contacter par email
           </a>
-          <Link href="/admin" style={styles.secondaryBtn}>
-            🔐 Espace Administration
-          </Link>
         </div>
 
         <footer style={styles.footer}>
